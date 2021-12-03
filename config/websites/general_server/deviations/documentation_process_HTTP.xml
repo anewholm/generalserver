@@ -1,0 +1,101 @@
+<interface:HTMLContainer xmlns="http://www.w3.org/1999/xhtml" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" title="HTTP Process">
+  <xml:hardlink target="/object:Server/repository:websites/object:Website[3]/repository:deviations/*[4]" />
+  <xml:hardlink target="/object:Server/repository:websites/object:Website[3]/repository:deviations/*[2]" />
+  <xml:hardlink target="/object:Server/repository:websites/object:Website[3]/repository:deviations/*[1]" />
+  
+  <style><![CDATA[
+    /* ------------------------------------------- ProcessStages positioning */
+    #Request {left:6px; top:168px; }
+    
+    #MI_GetRequest {left:206px; top:133px; }
+    
+    #ResponseTypeResponse {left:456px; top:133px; }
+    #ResponseTypeXSLStylesheet {left:456px; top:212px; }
+    #ResponseTypeWrappedObject {left:456px; top:303px; }
+    
+    #ResponseTypeResponse,
+    #ResponseTypeXSLStylesheet,
+    #ResponseTypeWrappedObject
+      {width:500px; }
+    #MI_GetRequest {height:240px;width:200px;}
+    
+    /* ------------------------------------------- ProcessStages icons */
+    #Request .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/anchor.png);} 
+  ]]></style>
+
+  <div id="architecture-diagram" class="resizable">
+    <div id="Request" class="Item ProcessStage"><div class="inner">
+      <div class="title">Request (HTTP/1.0 + URI)</div>
+      <p class="description">text =&gt; RegularX =&gt; &lt;object:Request/&gt;</p>
+    </div></div>
+
+    <div id="MI_GetRequest" class="Item ProcessStage MI"><div class="inner">
+      <div class="title">Get Request (default GET no extension)</div>
+      <p class="description">
+        Data response portion. Always wants an xsl:stylesheet to define the data.
+        Includes that &lt;?xml-stylesheet ... /&gt; in the response for the subsequent associated .xsl request
+      </p>
+    </div></div>
+
+    <div id="ResponseTypeResponse" class="Item ProcessStage ResponseObjectType"><div class="inner">
+      <div class="title">object:Response target</div>
+      <p class="description">
+        $gs_request_target = object:Response
+        will use a standard xsl:stylesheet with an interface:dynamic to serve this $gs_request_target
+        using deviations to these standard object:Request templates
+      </p>
+    </div></div>
+
+    <div id="ResponseTypeXSLStylesheet" class="Item ProcessStage ResponseObjectType"><div class="inner">
+      <div class="title">xsl:stylesheet target</div>
+      <p class="description">
+        $gs_request_target = xsl:stylesheet
+        XSL Stylesheet consists of
+        1) data statements = all non-xsl namespace top-level elements, usually an interface:dynamic
+        2) the xsl:stylesheet = all the xsl:template, xsl:include (DXSL,multiple + @xpath), xsl:etc.
+      </p>
+    </div></div>
+
+    <div id="ResponseTypeWrappedObject" class="Item ProcessStage ResponseObjectType"><div class="inner">
+      <div class="title">object:* target failover</div>
+      <p class="description">
+        $gs_request_target = object:*
+        object will be wrapped in a standard object:Response and then
+        use a standard xsl:stylesheet with an interface:dynamic to serve this object:Response + $gs_request_target
+      </p>
+    </div></div>
+  </div>
+
+  <h1>HTTP process documentation <input id="edit" style="float:right;" type="button" value="edit"/></h1>
+  <h2>text only</h2>
+  <p>
+      Textual Response only:
+        HTML
+        text
+        XML
+        JSON
+        JS
+        CSS
+  </p>
+  
+  <h2>always xsl stylesheet based</h2>
+  <p>
+    all responses use an xsl:stylesheet to build the response somehow
+    xsl:stylesheets have
+        1) data statements = all non-xsl namespace top-level elements, usually an interface:dynamic
+        2) the xsl:stylesheet = all the xsl:template, xsl:include (DXSL,multiple + @xpath), xsl:etc.
+    xsl:stylesheets can always be executed server-side and return HTML
+  </p>
+
+  <h2>&gt;interface:dynamic&lt;</h2>
+  <p>
+    interface:dynamic is always needed to request non-interface-data into the interface 
+    always through a transform to stamp a interface and include / change any extra interface parts
+  </p>
+  
+  <h2>data-queries and interface_render</h2>
+  <p>
+    these are cheap and cheerful ways of setting up interfaces through the standard::interface_render
+    rather than implementing a full interface_render transform
+  </p>
+</interface:HTMLContainer>

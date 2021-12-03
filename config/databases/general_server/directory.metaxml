@@ -1,0 +1,1 @@
+<object:Database xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" resource-match="^.*general_server.+" name="general_server"/>

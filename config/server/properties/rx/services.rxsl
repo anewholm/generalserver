@@ -1,0 +1,3 @@
+<rx:scope xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="services-rx" rx:singleline="true" rx:regex="(.*)">
+  <rx:multi rx:name="service" rx:regex="^\s*([^ ]+) +(.+)$" rx:allow-namespace="false"/>
+</rx:scope>

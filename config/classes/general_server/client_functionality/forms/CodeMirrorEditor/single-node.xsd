@@ -1,0 +1,26 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="single-node">
+  <!-- basic single node / xml editing form -->
+  <xsd:annotation meta:type="form-display">
+    <!-- form display overrides -->
+    <xsd:app-info meta:type="title">edit node</xsd:app-info>
+    <xsd:app-info meta:type="submit-caption">save node</xsd:app-info>
+    <xsd:app-info meta:type="saving-interaction">ctrl-save</xsd:app-info>
+  </xsd:annotation>
+
+  <xsd:annotation meta:type="data-processing">
+    <!-- XSchema processor will look for this app-info using the xs:schema @xml:id when processing the POST inputs -->
+    <xsd:app-info meta:type="processing" meta:dom-method="merge-node" meta:description="editing a node"/>
+    <xsd:app-info meta:type="required-documentation">
+      <!-- required context xsd:elements for this type of add / edit form submission -->
+      <xsd:sequence>
+        <xsd:element name="destination" type="xsd:ID" minOccurs="1" maxOccurs="1"/>
+      </xsd:sequence>
+    </xsd:app-info>
+  </xsd:annotation>
+
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:attribute name="gs:xpath-to-node" type="xsd:string" gs:interface-mode="xpathajax" meta:editor-class="class:CodeMirrorEditor" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

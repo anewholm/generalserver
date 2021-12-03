@@ -1,0 +1,58 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <css:clause>
+    <path><interface>default</interface></path>
+    <position>relative</position>
+  </css:clause>
+
+  <css:section name="control">
+    <path><interface>default</interface></path>
+    <path><class relation="child-only">CSS__Menu</class></path>
+
+    <css:clause>
+      <path/>
+      <position>relative</position>
+      <bottom metric="pixel">20</bottom>
+      <right metric="pixel">10</right>
+      <float>right</float>
+
+      <display>block</display>
+      <border>1px solid #aaaaaa</border>
+      <background-color type="hash">ffffff</background-color>
+      <z-index>10000</z-index>
+    </css:clause>
+
+    <css:clause>
+      <path><element>li</element></path>
+      <opacity>0.7</opacity>
+    </css:clause>
+
+    <css:clause>
+      <path><class>selected</class></path>
+      <opacity>1.0</opacity>
+      <icon>control_play</icon>
+    </css:clause>
+  </css:section>
+
+  <css:clause>
+    <path><interface>default</interface></path>
+    <path><class relation="child-only">gs-view-container</class></path>
+    <width metric="percent">100</width>
+  </css:clause>
+
+  <css:section name="full-max">
+    <path>
+      <interface>default</interface>
+      <class relation="self">full-max</class>
+    </path>
+
+    <css:clause>
+      <path/> <!-- include the actual class container as well -->
+      <path><class relation="child-only">gs-view-container</class></path>
+
+      <position>absolute</position>
+      <width metric="percent">100</width>
+      <bottom metric="pixel">0</bottom>
+      <top metric="pixel">0</top>
+    </css:clause>
+  </css:section>
+</css:stylesheet>

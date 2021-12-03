@@ -1,0 +1,10 @@
+<object:Response stage="{$gs_stage}" xml:id-policy-area="ignore" xmlns:meta="http://general_server.org/xmlnamespaces/meta/2006" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="bare-response-envelope">
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:system_management/class:Response/repository:interfaces/*[1]/*[1]" />
+  <gs:data>
+    <!-- $gs_request_target = an interface:AJAXHTMLLoader
+      wrap it in a standard Response
+      XSL conditional transformation
+    -->
+    <database:query source="bare-response-envelope" data="$gs_request_target" database-query-output="demand" node-mask="false()"/>
+  </gs:data>
+</object:Response>

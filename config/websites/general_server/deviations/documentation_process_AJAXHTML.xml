@@ -1,0 +1,110 @@
+<interface:HTMLContainer xmlns="http://www.w3.org/1999/xhtml" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" title="AJAX Process">
+  <xml:hardlink target="/object:Server/repository:websites/object:Website[3]/repository:deviations/*[4]" />
+  <xml:hardlink target="/object:Server/repository:websites/object:Website[3]/repository:deviations/*[2]" />
+  <xml:hardlink target="/object:Server/repository:websites/object:Website[3]/repository:deviations/*[1]" />
+  
+  <style><![CDATA[
+    /* ------------------------------------------- ProcessStages positioning */
+    #Request {left:6px; top:168px; }
+    
+    #MI_GetRequest {left:206px; top:133px; }
+    
+    #ResponseTypeResponse {left:456px; top:133px; }
+    #ResponseTypeXSLStylesheet {left:456px; top:212px; }
+    #ResponseTypeWrappedObject {left:456px; top:303px; }
+    
+    #ResponseTypeResponse,
+    #ResponseTypeXSLStylesheet,
+    #ResponseTypeWrappedObject
+      {width:500px; }
+    #MI_GetRequest {height:240px;width:200px;}
+    
+    /* ------------------------------------------- ProcessStages icons */
+    #Request .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/anchor.png);} 
+  ]]></style>
+
+  <div id="architecture-diagram" class="resizable">
+    <div id="Request" class="Item ProcessStage"><div class="inner">
+      <div class="title">Request (HTTP/1.0 + URI)</div>
+      <p class="description">text =&gt; RegularX =&gt; &lt;object:Request/&gt;</p>
+    </div></div>
+
+    <div id="MI_GetRequest" class="Item ProcessStage MI"><div class="inner">
+      <div class="title">Get Request (default GET no extension)</div>
+      <p class="description">
+        Data response portion. Always wants an xsl:stylesheet to define the data.
+        Includes that &lt;?xml-stylesheet ... /&gt; in the response for the subsequent associated .xsl request
+      </p>
+    </div></div>
+
+    <div id="ResponseTypeResponse" class="Item ProcessStage ResponseObjectType"><div class="inner">
+      <div class="title">object:Response target</div>
+      <p class="description">
+        $gs_request_target = object:Response
+        will use a standard xsl:stylesheet with an interface:dynamic to serve this $gs_request_target
+        using deviations to these standard object:Request templates
+      </p>
+    </div></div>
+
+    <div id="ResponseTypeXSLStylesheet" class="Item ProcessStage ResponseObjectType"><div class="inner">
+      <div class="title">xsl:stylesheet target</div>
+      <p class="description">
+        $gs_request_target = xsl:stylesheet
+        XSL Stylesheet consists of
+        1) data statements = all non-xsl namespace top-level elements, usually an interface:dynamic
+        2) the xsl:stylesheet = all the xsl:template, xsl:include (DXSL,multiple + @xpath), xsl:etc.
+      </p>
+    </div></div>
+
+    <div id="ResponseTypeWrappedObject" class="Item ProcessStage ResponseObjectType"><div class="inner">
+      <div class="title">object:* target failover</div>
+      <p class="description">
+        $gs_request_target = object:*
+        object will be wrapped in a standard object:Response and then
+        use a standard xsl:stylesheet with an interface:dynamic to serve this object:Response + $gs_request_target
+      </p>
+    </div></div>
+  </div>
+
+  <h1>AJAXHTML process documentation <input id="edit" style="float:right;" type="button" value="edit"/></h1>
+  
+  <p>&lt;interface:AJAXHTMLLoader @data @interface-mode @... /&gt;</p>
+  
+  <h2>fixed properties on the Object</h2>
+  <p>The interface:AJAXHTMLLoader is discovered by the @xml:id and its fixed properties accessed at demand load time.</p>
+  <ul>
+    <li>@data in relation to the variable data-context</li>
+    <li>@interface-mode</li>
+    <li>@interface-* fixed interface specific parameters</li>
+    <li>@node-mask</li>
+    <li>@optional</li>
+    <li>@interface-render-output</li>
+    <li>@xml:id required and used to locate the original interface:AJAXHTMLLoader and its properties</li>
+  </ul>
+  
+  <h2>variable properties on the <i>DisplayObject</i></h2>
+  <p>These are read all the way in to the client display object and then returned on the query-string.</p>
+  <p class="todo">TODO: send all the properties on the query-string?</p>
+  <ul>
+    <li>@gs:data-context database:query parameter</li>
+    <li>@gs:interface-* interface specific parameters</li>
+  </ul>
+  
+  <h2>custom HTTP processing and loader.xsl</h2>
+  <p>Only because we want to send through a "demand" stylesheet loader.
+    We could achieve the same thing by making the client send through a demand
+    AJAXHTMLLoader has its own HTTP handler and XSL loader stylesheet:
+  </p>
+  &lt;database:query data="$gs_request_target" database-query-output="demand" node-mask="false()"/&gt;
+  <ul>
+    <li>$gs_request_target = the interface:AJAXHTMLLoader</li>
+    <li>@database-query-output=demand causes the @data to be interface render, not the interface:AJAXHTMLLoader</li>
+    <li>@node-mask=false() because we don't know where the @data is pointing</li>
+  </ul>
+
+  <h2>custom interface render</h2>
+  <p>normally interface:AJAXHTMLLoader will be returned.
+    However, if @database-query-output=demand, the @data request will be evaluated.
+    All database:query parameters will be processed including @transform and @interface-mode
+  </p>
+</interface:HTMLContainer>

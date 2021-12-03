@@ -1,0 +1,13 @@
+#!/bin/sh
+# valgrind run prog
+# http://valgrind.org/docs/manual/manual-core.html#manual-core.suppress
+#
+# interesting options (passed through):
+# --leak-check=full
+# --show-reachable=yes
+# --gen-suppressions=yes
+# --track-origins=yes (explicit default below)
+#
+# running in default interactive mode, use demon to run as server
+# passing through first 2 bash script arguments
+/usr/bin/valgrind $1 $2 $3 $4 --track-origins=yes --suppressions=valgrind.suppressions.supp ../src/generalserver single

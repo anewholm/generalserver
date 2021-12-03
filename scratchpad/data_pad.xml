@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<object:Response xmlns:str="http://exslt.org/strings" xmlns:server="http://general_server.org/xmlnamespaces/server/2006" xmlns:user="http://general_server.org/xmlnamespaces/user/2006" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:gs="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:exsl="http://exslt.org/common" xmlns:interface="http://general_server.org/xmlnamespaces/interface/2006" xmlns:object="http://general_server.org/xmlnamespaces/object/2006" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:response="http://general_server.org/xmlnamespaces/response/2006" xmlns:session="http://general_server.org/xmlnamespaces/session/2006" xmlns:conversation="http://general_server.org/xmlnamespaces/conversation/2006" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:service="http://general_server.org/xmlnamespaces/service/2006" xmlns:request="http://general_server.org/xmlnamespaces/request/2006" xmlns:rx="http://general_server.org/xmlnamespaces/rx/2006" xmlns:javascript="http://general_server.org/xmlnamespaces/javascript/2006" xmlns:class="http://general_server.org/xmlnamespaces/class/2006" xmlns:css="http://general_server.org/xmlnamespaces/css/2006" xmlns:xmlsecurity="http://general_server.org/xmlnamespaces/xmlsecurity/2006" xmlns:xmltransaction="http://general_server.org/xmlnamespaces/xmltransaction/2006" xmlns:regexp="http://exslt.org/regular-expressions" xmlns:meta="http://general_server.org/xmlnamespaces/meta/2006" xmlns="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:database="http://general_server.org/xmlnamespaces/database/2006" response:include-all="on" xsl:is-literal="1">
+<!--see /api/help for the API form-->
+<meta:environment meta:child-count="3" meta:fully-qualified-prefix="meta" meta:is-hard-linked="true" meta:xpath-to-node="/config/classes/general_server/system_management/Response/interfaces/webpage_response/meta:environment[1]" meta:parent-route="">
+<object:Server gs:interface-mode="environment" name="config" meta:child-count="13" meta:is-registered="true" meta:fully-qualified-prefix="object" meta:xpath-to-node="/config" meta:parent-route=""/>
+<object:LinkedServer gs:interface-mode="environment" name="general resources server" uri="http://general-resources-server.localhost" meta:child-count="0" meta:fully-qualified-prefix="object" meta:xpath-to-node="/config/linked_servers/general_resources_server" meta:parent-route=""/>
+<xsl:stylesheet gs:interface-mode="environment" response:server-side-only="true" name="controller" controller="true" version="1.0" extension-element-prefixes="dyn debug conversation flow session database" meta:child-count="10" meta:fully-qualified-prefix="xsl" meta:xpath-to-node="/config/classes/general_server/system_management/HTTP/controllers/GET_request_api/controller" meta:parent-route=""/>
+<object:HTTP gs:interface-mode="environment" port="8776" name="HTTP" meta:child-count="2" meta:is-registered="true" meta:fully-qualified-prefix="object" meta:xpath-to-node="/config/services/HTTP" meta:parent-route=""/>
+<object:Database gs:interface-mode="environment" name="dynamics" resource-match="^.*dynamics.+" meta:child-count="2" meta:fully-qualified-prefix="object" meta:xpath-to-node="/config/databases/dynamics" meta:parent-route=""/>
+<object:Website gs:interface-mode="environment" resource-match="^.*dynamics.+" name="dynamics" resource-server="general resources server" jquery-version="1.10.2" jquery-ui-version="1.10.3" meta:child-count="5" meta:fully-qualified-prefix="object" meta:xpath-to-node="/config/websites/dynamics" meta:parent-route=""/>
+<object:Session gs:interface-mode="environment" guid="132e975c-3274-4994-9ee9-7ff8853d76b5" client-can-XSLT="yes" meta:child-count="0" meta:is-registered="true" meta:fully-qualified-prefix="object" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+<object:Request gs:interface-mode="environment" url="/config" id="7" meta:child-count="9" meta:is-registered="true" meta:fully-qualified-prefix="object" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route="">
+<HTTP type="GET" major="1" minor="1" meta:child-count="0" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route="">
+http</HTTP>
+<host port="8776" meta:child-count="0" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route="">
+dynamics.localhost</host>
+<query-string xpath-to-node="/object:Server" interface-mode="listen-server-events-start" meta:child-count="2" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+<cookies meta:child-count="1" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+<url meta:child-count="0" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route="">
+/config</url>
+<url_parts meta:child-count="1" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+<database:query xpath-to-node="/object:Server" interface-mode="listen-server-events-start" data="/config" source="API" meta:child-count="0" meta:fully-qualified-prefix="database" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+<message_type meta:child-count="0" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route="">
+GET request_api_90</message_type>
+<all-headers meta:child-count="11" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+</object:Request>
+</meta:environment>
+<gs:data source="API" data="/config" controller="" xsl:is-literal="1">
+<gs:server-event xsl:is-literal="1">
+<gs:node-changed xsl:is-literal="1">
+<gs:primary-path xsl:is-literal="1">
+<object:Manager name="newname" test="2" meta:child-count="4" meta:fully-qualified-prefix="object" meta:xpath-to-node="/config/databases/dynamics/people_xml/newname" meta:parent-route=""/>
+<people meta:child-count="4" meta:fully-qualified-prefix="gs" meta:xpath-to-node="/config/databases/dynamics/people_xml" meta:parent-route=""/>
+<object:Database name="dynamics" resource-match="^.*dynamics.+" meta:child-count="2" meta:fully-qualified-prefix="object" meta:xpath-to-node="/config/databases/dynamics" meta:parent-route=""/>
+<repository:databases meta:xpath-to-node-client="/config/databases" meta:classes-context-menu-news="Database" name="databases" meta:child-count="2" meta:fully-qualified-prefix="repository" meta:is-hard-linked="true" meta:xpath-to-node="/config/databases" meta:parent-route=""/>
+<object:Server name="config" meta:child-count="13" meta:is-registered="true" meta:fully-qualified-prefix="object" meta:xpath-to-node="/config" meta:parent-route=""/>
+</gs:primary-path>
+</gs:node-changed>
+</gs:server-event>
+</gs:data>
+</object:Response>

@@ -1,0 +1,35 @@
+<object:Request xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:gs="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:rx="http://general_server.org/xmlnamespaces/rx/2006" method="=POST" url="$2">
+  <HTTP type="$1" major="$4" minor="$5" X-Requested-With="^X-Requested-With:\s*([^\r\n]+)">=http</HTTP>
+  <rx:scope rx:regex="^Host:\s*([^\n\r]+)\s*$">
+    <host port=":([^\n\r]+)">^([^:]+)</host>
+  </rx:scope>
+  <query-string full="$3">
+    <rx:scope rx:regex="$3">
+      <rx:multi rx:name="query" rx:type="attribute" rx:regex="([^=&amp;]+)=([^=&amp;]*)" rx:decode="URL"/>
+      <rx:multi rx:name="$1" rx:regex="([^=&amp;]+)=([^=&amp;]*)" rx:decode="URL"/>
+    </rx:scope>
+  </query-string>
+  <cookies>
+    <rx:scope rx:regex="^Cookie:\s*([^\\r\\n]*)$">
+      <rx:multi rx:name="cookie" rx:regex="([^=; \r\n&amp;]+)=([^=; \r\n&amp;]*)"/>
+    </rx:scope>
+  </cookies>
+  <form>
+    <rx:scope rx:regex="\r\n\r\n(.*)">
+      <rx:multi rx:name="form" rx:type="attribute" rx:regex="(meta%3A[^=&amp;]+)=([^=&amp;]*)" rx:decode="URL"/>
+      <rx:multi rx:name="$1" rx:regex="([^=&amp;]+)=([^=&amp;]*)" rx:regex-not="^meta%3A.*" rx:decode="URL"/>
+      <rx:multi rx:name="$1" rx:regex="(meta%3Axpath[^=&amp;]+)=()" rx:decode="URL"/>
+      <rx:multi rx:name="$1" rx:regex="(meta%3Aclass[^=&amp;]*)=()" rx:decode="URL"/>
+    </rx:scope>
+  </form>
+  <url rx:decode="URL">$2</url>
+  <url_parts>
+    <rx:scope rx:regex="$2">
+      <rx:multi rx:name="part" rx:regex="([^/]+)" rx:decode="URL"/>
+    </rx:scope>
+  </url_parts>
+  <message_type>=POST update request_140</message_type>
+  <all-headers>
+    <rx:multi rx:name="all_headers" rx:regex="^(?!GET )([^:\n]+):\s*([^\n\r]*)\s*$"/>
+  </all-headers>
+</object:Request>

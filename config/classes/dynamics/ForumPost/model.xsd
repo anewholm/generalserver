@@ -1,0 +1,9 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element name="title" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="body" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="interface:ForumPost" gs:interface-modes="default" type="class:ForumPost" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+<xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:forms/class:XSchema/xsd:schema[2]/*[2]" /></xsd:schema>

@@ -1,0 +1,9 @@
+#!/bin/sh
+# doxygen documentation system => documentation
+# note associated Doxyfile configuration file
+#   WARN_IF_UNDOCUMENTED = NO
+#   RECURSIVE            = ON
+#   EXCLUDE and EXCLUDE_PATTERNS doesn't seem to work...
+#   EXCLUDE_SYMBOLS      = regex detail
+#   OUTPUT_DIRECTORY     = ../../general_resources_server/documentation
+/usr/bin/doxygen

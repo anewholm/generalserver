@@ -1,0 +1,22 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <section name="list">
+    <path><interface>list</interface></path>
+
+    <clause name="styles">
+      <path>
+        <class relation="child-only">details</class>
+      </path>
+      <padding>0 0 0 18px</padding>
+      <icon>text_letterspacing</icon>
+      <font-weight>bold</font-weight>
+      <color>#222255</color>
+    </clause>
+
+    <clause name="hide namespace_prefix">
+      <path>
+        <class>namespace_prefix</class>
+      </path>
+      <display>none</display>
+    </clause>
+  </section>
+</css:stylesheet>

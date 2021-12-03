@@ -1,0 +1,106 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause name="hide namespace_prefix">
+    <path>
+      <class>namespace_prefix</class>
+    </path>
+    <display>none</display>
+  </clause>
+
+  <clause>
+    <path>
+      <class relation="self">gs-interface-mode-list</class>
+      <class relation="child-only">details</class>
+    </path>
+    <icon>page_lightning</icon>
+  </clause>
+
+  <css:section name="editor general">
+    <path><class relation="self">gs-interface-mode-editor</class></path>
+    <css:clause>
+      <path><class>name</class></path>
+      <font-weight>bold</font-weight>
+    </css:clause>
+
+    <css:clause>
+      <path><class>mode</class></path>
+      <font-weight>normal</font-weight>
+      <font-size metric="pixel">12</font-size>
+      <font-style>italic</font-style>
+      <color type="hash">444444</color>
+    </css:clause>
+
+    <css:clause>
+      <path><id>gs_settings</id></path>
+      <margin-bottom metric="pixel">10</margin-bottom>
+      <padding-left metric="pixel">20</padding-left>
+      <border>1px solid #d7d7d7</border>
+      <padding metric="pixel">4</padding>
+    </css:clause>
+
+    <css:clause>
+      <path><id>gs_queries</id></path>
+      <list-style>none</list-style>
+      <margin-bottom metric="pixel">10</margin-bottom>
+      <padding-left metric="pixel">20</padding-left>
+      <border-top>1px solid #d7d7d7</border-top>
+      <border-left>1px solid #d7d7d7</border-left>
+      <border-right>1px solid #d7d7d7</border-right>
+      <padding metric="pixel">4</padding>
+      <background-color type="hash">ffffff</background-color>
+      <icon group="gradients">gray_white_32</icon>
+      <background-repeat>repeat-x</background-repeat>
+      <background-position>bottom left</background-position>
+    </css:clause>
+  </css:section>
+
+  <css:section name="editor sub-xsl templates">
+    <path><class>xsl_stylesheet_editor_xsl_template</class></path>
+
+    <css:clause>
+      <path/>
+      <margin-bottom metric="pixel">5</margin-bottom>
+
+      <border-top>1px solid #d7d7d7</border-top>
+      <border-left>1px solid #d7d7d7</border-left>
+      <border-right>1px solid #d7d7d7</border-right>
+      <padding metric="pixel">4</padding>
+      <background-color type="hash">ffffff</background-color>
+      <icon group="gradients">grayblue_white_32</icon>
+      <background-repeat>repeat-x</background-repeat>
+      <background-position>bottom left</background-position>
+    </css:clause>
+
+    <css:clause>
+      <path><class>xsl_stylesheet_editor_xsl_include</class></path>
+      <padding-left metric="pixel">20</padding-left>
+      <icon>page_lightning</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>xsl_stylesheet_editor_xsl_variable</class></path>
+      <padding-left metric="pixel">20</padding-left>
+      <icon>page_lightning</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>xsl_stylesheet_editor_xsl_template_title</class></path>
+      <padding-left metric="pixel">20</padding-left>
+      <icon>page_lightning</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class relation="self">gs-server-side-only</class></path>
+      <border>1px dotted #880000</border>
+      <background-image>none</background-image>
+    </css:clause>
+  </css:section>
+
+  <css:section name="view/controller">
+    <clause>
+      <path><class relation="self">gs-interface-mode-view</class></path>
+      <path><class relation="self">gs-interface-mode-controller</class></path>
+      <padding>0</padding>
+      <margin>0</margin>
+    </clause>
+  </css:section>
+</css:stylesheet>

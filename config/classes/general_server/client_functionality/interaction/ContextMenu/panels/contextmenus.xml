@@ -1,0 +1,6 @@
+<interface:ContextMenu xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml">
+  <!-- standard sections -->
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:interaction/class:ContextMenu/repository:panels/gs:context-menu-pieces/*[1]" /> <!-- interaction: select, developer, administrator -->
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:interaction/class:ContextMenu/repository:panels/gs:context-menu-pieces/*[2]" /> <!-- structural changes: cut, copy -->
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:interaction/class:ContextMenu/repository:panels/gs:context-menu-pieces/*[3]" /> <!-- element changes: rename, delete -->
+</interface:ContextMenu>

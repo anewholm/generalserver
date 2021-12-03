@@ -1,0 +1,4 @@
+<rx:scope xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/general_server/2006" name="cron-rx" rx:singleline="true" rx:regex="(.*)">
+  <rx:multi rx:name="cron-comment" rx:regex="^\s*#\s*(.+\n)"/>
+  <rx:multi rx:name="cron-line" rx:regex="^\s*(?!#)(.+\n)"/>
+</rx:scope>

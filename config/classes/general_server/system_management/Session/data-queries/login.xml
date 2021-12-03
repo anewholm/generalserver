@@ -1,0 +1,1 @@
+<xsd:render xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" class="~Session" xschema-name="login" interface-mode-condition="controls" condition="not($gs_user)"/>

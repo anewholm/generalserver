@@ -1,0 +1,1 @@
+<database:query xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" data-container-name="class" interface-mode-condition="editor" data="$gs_current/parent::class:*" node-mask="." optional="true" source="Extra Data Render Query"/>

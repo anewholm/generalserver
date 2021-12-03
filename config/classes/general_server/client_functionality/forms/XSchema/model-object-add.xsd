@@ -1,0 +1,21 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:annotation meta:type="form-display">
+    <!-- form display overrides -->
+    <xsd:app-info meta:type="title">add a {local-name(ancestor::class:*[1])}</xsd:app-info>
+    <xsd:app-info meta:type="submit-caption">add a {local-name(ancestor::class:*[1])}</xsd:app-info>
+  </xsd:annotation>
+
+  <xsd:annotation meta:type="data-processing">
+    <!-- generic data-processing for the generic xschema form generation
+      XSchema processor will look for this app-info using the xs:schema @xml:id when processing the POST inputs
+    -->
+    <xsd:app-info meta:type="processing" meta:select="." meta:dom-method="copy-child" meta:interface-mode="gs_form_to_object"/>
+    <xsd:app-info meta:type="required-documentation">
+      <!-- required context xsd:elements for this type of add / edit form submission -->
+      <xsd:sequence>
+        <xsd:element name="class" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        <xsd:element name="xpath-to-destination" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      </xsd:sequence>
+    </xsd:app-info>
+  </xsd:annotation>
+</xsd:schema>

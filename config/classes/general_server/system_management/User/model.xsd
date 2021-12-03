@@ -1,0 +1,21 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:forms/class:XSchema/xsd:schema[2]/*[2]" />
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:forms/class:XSchema/xsd:schema[2]/*[1]" />
+
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:attribute name="name" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[a-zA-Z][-a-zA-Z0-9_.]{3,10}"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+      <xsd:element name="gs:username" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="gs:password" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="gs:email" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+      <xsd:element name="gs:date-joined" type="xsd:date" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="gs:strap-line" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,12 @@
+<object:Response stage="{$gs_stage}" xml:id-policy-area="ignore" xmlns:meta="http://general_server.org/xmlnamespaces/meta/2006" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="bare-response-envelope">
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:system_management/class:Response/repository:interfaces/*[1]/*[1]" />
+  <gs:data>
+    <!-- here we are wrapping a specifc non-Response item in a standard Response
+      it is usually a smaller AJAX data request that still wants the XSL conditional transformation
+      as the API can only return data, not HTML
+      so lets gs_interface_render the $gs_request_target with any $gs_query_string settings sent through
+      TODO: replace the @*={} with @options-source=$gs_query_string
+    -->
+    <interface:dynamic data="$gs_request_target" evaluate="{$gs_query_string/@evaluate}" database="{$gs_query_string/@database}" optional="{$gs_query_string/@optional}" xmlid="{$gs_query_string/@xmlid}" interface-mode="{$gs_query_string/@interface-mode}" trace="{$gs_query_string/@trace}" debug="{$gs_query_string/@debug}"/>
+  </gs:data>
+</object:Response>

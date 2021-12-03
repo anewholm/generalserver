@@ -1,0 +1,12 @@
+<response:remove xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="MultipleResourceFound">
+HTTP/1.0 404 File Not Found
+
+  <html>
+    <head>
+    </head>
+
+    <body>
+      HTTP/1.0 404 Multiple Resource Found
+    </body>
+  </html>
+</response:remove>

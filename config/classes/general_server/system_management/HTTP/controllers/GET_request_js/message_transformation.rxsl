@@ -1,0 +1,28 @@
+<object:Request xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:gs="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:rx="http://general_server.org/xmlnamespaces/rx/2006" url="$2">
+  <HTTP type="$1" major="$4" minor="$5">=http</HTTP>
+  <rx:scope rx:regex="^Host:\s*([^\n\r]+)\s*$">
+    <host port=":([^\n\r]+)">^([^:]+)</host>
+  </rx:scope>
+  <query-string>
+    <rx:scope rx:regex="$3">
+      <rx:multi rx:name="query" rx:type="attribute" rx:regex="([^=&amp;]+)=([^=&amp;]*)" rx:decode="URL"/>
+      <rx:multi rx:name="$1" rx:regex="([^=&amp;]+)=([^=&amp;]*)" rx:decode="URL"/>
+    </rx:scope>
+  </query-string>
+  <cookies>
+    <rx:scope rx:regex="^Cookie:\s*([^\\r\\n]*)$">
+      <rx:multi rx:name="cookie" rx:regex="([^=; \r\n&amp;]+)=([^=; \r\n&amp;]*)"/>
+    </rx:scope>
+  </cookies>
+  <url rx:decode="URL">$2</url>
+  <url_parts>
+    <rx:scope rx:regex="$2">
+      <rx:multi rx:name="part" rx:regex="([^/]+)" rx:decode="URL"/>
+    </rx:scope>
+  </url_parts>
+  <url_extension>=js</url_extension>
+  <message_type>=GET request_js_111</message_type>
+  <all-headers>
+    <rx:multi rx:name="all_headers" rx:regex="^(?!GET )([^:\n]+):\s*([^\n\r]*)\s*$"/>
+  </all-headers>
+</object:Request>

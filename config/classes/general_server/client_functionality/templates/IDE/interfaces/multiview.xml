@@ -1,0 +1,54 @@
+<interface:MultiView xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:gs="http://general_server.org/xmlnamespaces/general_server/2006" title="{gs:view[@id='editor']/*[1]/@title}" gs:display-class="full-max" name="multiview">
+  <interface:QualifiedName>
+    <!-- TODO: component Class name, e.g. in example of Class/view.xsl -->
+    <database:query source="qualified name/class" optional="yes" node-mask="." data="!($gs_query_string/@xpath-to-target-node-db)/ancestor::class:*[1]"/>
+    &nbsp;
+    <!-- target listname -->
+    <database:query source="qualified name" interface-render-output="placeholder" data="!($gs_query_string/@xpath-to-target-node-db)" node-mask="."/>
+  </interface:QualifiedName>
+
+  <interface:SubMenu html:draggable="true"/>
+
+  <gs:view id="xml-editor" title="XML editor">
+    <gs:sub-control id="formatXML" title="format"/>
+    <gs:sub-control id="saveXML" title="save"/>
+    <gs:sub-control id="show_xmlid" title="show xml:id"/>
+    <gs:sub-control id="show_ns" title="show xmlns"/>
+
+    <!-- using a <xsd:edit causes XSchema to create this entire form for us
+      single-node schema uses an xsd:element gs:interface-mode=xpathajax for the CodeMirrorEditor element
+      which then instructs CodeMirrorEditor to get its data from the query-string xpath-to-node value
+
+      a more difficult option would be
+        <form ...
+          <interface:CodeMirrorEditor data="$ga_query_string/..." />
+          <input @type=submit />
+        </form>
+    -->
+    <xsd:edit interface-render-output="placeholder" data="!($gs_query_string/@xpath-to-target-node-db)" node-mask="." copy-query-attributes="off" create-meta-context-attributes="all" xschema-name="single-node" class="~CodeMirrorEditor"/>
+  </gs:view>
+
+  <gs:view id="editor" title="editor view">
+    <!-- @interface-mode="editor" tells the object to create an easy editing form for itself -->
+    <interface:dynamic source="editor mode contents" interface-mode="editor" data="!($gs_query_string/@xpath-to-target-node-db)"/>
+  </gs:view>
+
+  <gs:view id="security" title="security">
+    <!-- owning entities -->
+    <interface:dynamic source="security/owner" interface-mode="securityowner" data="id(!($gs_query_string/@xpath-to-target-node-db)/@xmlsecurity:ownername)" node-mask=".|*" optional="yes"/>
+    <interface:dynamic source="security/group" interface-mode="securityowner" data="id(!($gs_query_string/@xpath-to-target-node-db)/@xmlsecurity:ownergroupname)" node-mask=".|*" optional="yes"/>
+    <!-- node seucrity info -->
+    <interface:dynamic source="security/permissions" interface-mode="securitypermissions" data="!($gs_query_string/@xpath-to-target-node-db)" node-mask="."/>
+  </gs:view>
+
+  <gs:view id="properties" title="properties">
+    <!-- this is an attribute multi-form set in the XSchema/properties XSD -->
+    <xsd:edit data="!($gs_query_string/@xpath-to-target-node-db)" node-mask="." class="~XSchema" xschema-name="model-properties"/>
+    <!-- add attribute form -->
+    <!-- xcshema:add class="XSchema" xschema-name="model-properties"/ -->
+  </gs:view>
+
+  <!-- TODO: history and usage -->
+  <gs:view id="history" title="history" disabled="true"/>
+  <gs:view id="usage" title="usage" disabled="true"/>
+</interface:MultiView>

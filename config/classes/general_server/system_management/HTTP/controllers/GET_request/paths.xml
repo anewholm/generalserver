@@ -1,0 +1,18 @@
+<repository:paths xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <!-- Request initiated verified paths and variables
+    in-built: $request, $user, $session, $server
+    these paths will be resolved, global variables created
+    AND they will be hardlinked under the $request
+
+    NOTE: paths.xml IS GOOD for cacheing things like classes at C++ level
+  -->
+  <!--
+  <gs_website_root>/object:Server/repository:websites/object:Website[request:resource-match()]</gs_website_root>
+  <gs_context_database>/object:Server/repository:databases/object:Database[request:resource-match()]</gs_context_database>
+  <gs_request_target>repository:filesystempath-to-nodes(gs:url, /object:Server/repository:websites/object:Website[request:resource-match()])</gs_request_target>
+
+  <gs_website_classes>$gs_website_root/repository:classes/top::class:*<gs_website_classes>
+  <gs_all_class_stylesheets>$gs_website_classes/xsl:stylesheet|$gs_website_classes/repository:*/xsl:stylesheet|$gs_website_classes/repository:*/repository:*/xsl:stylesheet|$gs_website_classes/repository:*/repository:*/repository:*/xsl:stylesheet<gs_all_class_stylesheets>
+  <gs_client_side_class_stylesheets>$gs_all_class_stylesheets[str:not(@response:server-side-only)]<gs_client_side_class_stylesheets>
+  -->
+</repository:paths>

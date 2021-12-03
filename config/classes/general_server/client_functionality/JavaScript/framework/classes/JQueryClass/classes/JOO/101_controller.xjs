@@ -1,0 +1,247 @@
+<javascript:code xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="controller" controller="true">
+  <javascript:object inherits-javascript-primitive="OO.IntrospectionMethod" requires="JQueryClass">
+    <javascript:static-property name="fMasqueradeClass" delay="false">JQueryClass</javascript:static-property>
+
+    <javascript:init parameters="uP0, uP1, uP2, uP3, uP4, uP5, uP6, uP7, uP8, uP9" parameter-checks="off"><![CDATA[
+      //static => new
+      //like jQuery can be called statically JOO(...) or new JOO(...)
+      if (!(this instanceof JOO)) return new JOO(uP0, uP1, uP2, uP3, uP4, uP5, uP6, uP7, uP8, uP9);
+
+      //start the masqerade
+      JOO.fMasqueradeClass.apply(this, arguments);
+    ]]></javascript:init>
+
+    <javascript:method name="factory" parameters="uP0, uP1, uP2, uP3, uP4, uP5, uP6, uP7, uP8, uP9" parameter-checks="off"><![CDATA[
+      return new JOO(uP0, uP1, uP2, uP3, uP4, uP5, uP6, uP7, uP8, uP9);
+    ]]></javascript:method>
+      
+    <!-- ######################################## type ######################################## -->
+    <javascript:static-method name="isTypeHungarianNotation" parameters="s1Name" parameter-checks="off"><![CDATA[
+      //jqName = native jQuery library type, used in library extensions
+      //jName  = JOO
+      return (s1Name[0] == "j" && !jQuery.isTypeHungarianNotation(s1Name));
+    ]]></javascript:static-method>
+
+    <javascript:static-method name="isTypeNaturalNotation" parameters="s1NameCamel" parameter-checks="off"><![CDATA[
+      //no s1NameCamel.isSingular() here because actually we inherit from Array as well
+      //we want @dom-targets
+      return s1NameCamel.match(/^j[A-Z0-9]|^dom[A-Z0-9]/) instanceof Array;
+    ]]></javascript:static-method>
+
+    <javascript:static-method name="istype" parameters="uValue" parameter-checks="off"><![CDATA[
+      return (uValue instanceof JOO);
+    ]]></javascript:static-method>
+
+    <!-- ######################################## JOO override methods ########################################
+      loops: the parameters sent from the loop cannot be controlled by JOO
+      as the fFunc will be called internally to the jQuery, 
+      sending the internal result of eq(), not the JOO result
+    -->
+    <javascript:method name="eachEq" parameters="..."><![CDATA[
+      JOO.fMasqueradeClass.prototype.eachEq.apply(this, arguments);
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method name="each" parameters="..."><![CDATA[
+      JOO.fMasqueradeClass.prototype.each.apply(this, arguments);
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method name="eachEx" parameters="..."><![CDATA[
+      JOO.fMasqueradeClass.prototype.eachEx.apply(this, arguments);
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method name="eachBackwards" parameters="..."><![CDATA[
+      JOO.fMasqueradeClass.prototype.eachBackwards.apply(this, arguments);
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method name="eachResults" parameters="..."><![CDATA[
+      JOO.fMasqueradeClass.prototype.eachResults.apply(this, arguments);
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method name="untilEx" parameters="..."><![CDATA[
+      JOO.fMasqueradeClass.prototype.untilEx.apply(this, arguments);
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method name="untilCondition" parameters="..."><![CDATA[
+      JOO.fMasqueradeClass.prototype.untilCondition.apply(this, arguments);
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method name="trigger" parameters="..."><![CDATA[
+      //if an Object wants to control its reaction to trigger then implement a listener
+      //Objects do implement trigger, which is called from ServerNodeChangedEvent()
+      //and runs on all displays. NOT what we want to do here...
+      JOO.fMasqueradeClass.prototype.trigger.apply(this, arguments);
+      return this;
+    ]]></javascript:method>
+
+    <!-- ######################################## conversion ######################################## 
+      need to do conversions manually so that invoked() does not convert everything to JOO
+      javascript:conversions are not inherited anyway because they are in IntrospectionConversion()
+    -->
+    <javascript:conversion to-type="String"><![CDATA[
+      //allow object override on toString
+      return this.invoked("toString", arguments);
+    ]]></javascript:conversion>
+  
+    <javascript:conversion to-type="XHTMLString"><![CDATA[
+      //allow object override on toXHTMLString
+      //this will usually gather all the elements together and run, as normal outerHTML()
+      return this.invoked("toXHTMLString", arguments);
+    ]]></javascript:conversion>
+  
+    <javascript:conversion to-type="JQuery"><![CDATA[
+      return JOO.fMasqueradeClass.prototype.toJQuery.apply(this);
+    ]]></javascript:conversion>
+  
+    <javascript:conversion to-type="JQueryNativeValue"><![CDATA[
+      return JOO.fMasqueradeClass.prototype.toJQueryNativeValue.apply(this);
+    ]]></javascript:conversion>
+
+    <javascript:conversion to-type="XPathString"><![CDATA[
+      var xXPathString, sXPath = "";
+      
+      this.objects().eachEx(function(){
+        if (this.toXPathString instanceof Function) {
+          if (xXPathString = this.toXPathString()) sXPath = sXPath.pipeAdd(xXPathString);
+        }
+      });
+      
+      return new XPathString(sXPath);
+    ]]></javascript:conversion>
+
+    <!-- ######################################## method redirection OO ######################################## -->
+    <javascript:method name="invoked" is-protected="true" parameters="sFuncName, oArguments" parameter-checks="off"><![CDATA[
+      //gather elements and then run either:
+      //  the oObject override
+      //  the JOO masquerade function
+      //JQueryClass inherits JInherit which will run the native jQuery functions
+      var oObject, sUniqueObjectID, oObjects = new Object();
+      var aNonObjects, jNonObjects;
+      var jRet, oRet, fObjectFunc, fMasqueradeFunc = JOO.fMasqueradeClass.prototype[sFuncName];
+      var aThisArgs = Array.prototype.slice.apply(oArguments);
+      
+      ]]><javascript:stage-dev><![CDATA[
+      if (fMasqueradeFunc && fMasqueradeFunc.isRecommendAdditionalCallback) {
+        bHasCallback = (aThisArgs.last() instanceof Function);
+        if (!bHasCallback) Debug.warn(this, "[jQuery." + fMasqueradeFunc.functionName() + "] recommended to use an additional callback");
+      }
+      ]]></javascript:stage-dev><![CDATA[
+      
+      //---------------------------------- collect elements
+      this.elements.each(function() {
+        if ( (oObject     = new jQuery(this).object()) 
+          && (fObjectFunc = oObject[sFuncName])
+          && fObjectFunc instanceof Function
+          && (oObject.oRunningMethods === undefined || oObject.oRunningMethods[sFuncName] === undefined)
+        ) {
+          //collect object elements by object
+          if (oObject.aRedirectCollection) oObject.aRedirectCollection.push(this);
+          else oObject.aRedirectCollection = [this];
+          oObjects[oObject.iUniqueObjectID] = oObject;
+        } else if (fMasqueradeFunc) {
+          //collect non-object DOM elements
+          if (!aNonObjects) aNonObjects = new Array(this);
+          else aNonObjects.push(this);
+        }
+      });
+      
+      //---------------------------------- each object (if any) with its multiple elements
+      //object overrides accept the jElements as their first parameter
+      aThisArgs.unshift(null); 
+      for (sUniqueObjectID in oObjects) {
+        oObject      = oObjects[sUniqueObjectID];
+        
+        //the jQuery argument for the single call to this object
+        aThisArgs[0] = new JOO(oObject.aRedirectCollection);
+        oObject.aRedirectCollection.length = 0; //just in case this func also invokes on the SAME object ;)
+        
+        //prevent cyclic calls to the same func on the same object
+        //this allows Object.func(jJOO) to call jJOO.func() and not run the Object.func again
+        fObjectFunc  = oObject[sFuncName];  //required above
+        if (oObject.oRunningMethods === undefined) oObject.oRunningMethods = new Object();
+        oObject.oRunningMethods[sFuncName] = fObjectFunc;
+        oRet         = oObject[sFuncName].apply(oObject, aThisArgs);
+        delete oObject.oRunningMethods[sFuncName];
+      }
+      
+      //---------------------------------- JQueryClass on non-object DOM elements
+      //run this even on zero elements, e.g. $().add(document)
+      //on our JQueryClass => JInherit => jQuery class
+      if (fMasqueradeFunc) {
+        //JQueryClass may not accept flexible arguments,         show(oOptions, fCallback)
+        //BUT often Object overrides will accept MORE arguments, show(oOptions, fCallback, oParams)
+        if (fMasqueradeFunc.toString().match(/Function.cp\(.+,false\)/)) Debug.warn(this, "[jQuery." + fMasqueradeFunc.functionName() + "] needs flexible arguments so that objects can override with extra parameters safely"); //STAGE-DEV
+        jNonObjects = new JOO.fMasqueradeClass(aNonObjects);
+        oRet        = fMasqueradeFunc.apply(jNonObjects, oArguments);
+      }
+        
+      //---------------------------------- return analysis
+      if      (oRet instanceof JOO)                  jRet = oRet;
+      else if (oRet instanceof JOO.fMasqueradeClass) jRet = new JOO(oRet);
+      else if (oRet instanceof jQuery)               jRet = new JOO(oRet);
+      else                                           jRet = oRet;
+      
+      return jRet;
+    ]]></javascript:method>
+  
+    <!-- ######################################## inherit jQuery ######################################## -->
+    <javascript:static-method name="extend" parameters="..." parameter-checks="off"/>
+    <javascript:static-method name="createElement" parameters="..." parameter-checks="off"><![CDATA[
+      return new JOO(jQuery.createElement.apply(jQuery, arguments));
+    ]]></javascript:static-method>
+
+    <javascript:global-init name="annotateJQueryFunctions" delay="true" requires="jQuery"><![CDATA[
+      var jp = JOO.fMasqueradeClass.prototype;
+      
+      //------------------------------ recommended for asynchronous navigation override
+      //these allow for AJAX calls when navigating the DOM
+      //these functions DO NOT normally have a callback
+      //objects can override the function and respond to a callback
+      //but only if the developer has sent one!
+      //thus they are recommended to do so:
+      //TODO: isRecommendAdditionalCallback
+      //jp.children.isRecommendAdditionalCallback = true;
+    ]]></javascript:global-init>
+
+    <javascript:global-init name="inheritStaticMasqueradeFunctions"><![CDATA[
+      //we inherit on to JOO for conveinience: $.createElement(...)
+      //using the jQuery returns unless overridden above
+      var sFuncName, fAccessor;
+      var aNames = new Array(), i = 0;
+      
+      for (sFuncName in jQuery) {
+        fAccessor = jQuery[sFuncName];
+        if ( jQuery.hasOwnProperty(sFuncName)
+          && fAccessor instanceof Function 
+          && !JOO[sFuncName]
+          && !sFuncName.startsWith("_")
+          && i++ < 20
+        ) {
+          aNames.push(sFuncName);
+          fAccessor.functionNameHint = sFuncName;       //picked up by functionName()
+          fAccessor.functionType     = "staticMethod";  //OO.IntrospectionStaticMethod
+          JOO[sFuncName]             = fAccessor;
+        }
+      }
+      
+      console.log(aNames);
+      return "JOO (inherits) => jQuery static";
+    ]]></javascript:global-init>
+
+    <javascript:stage-dev>
+      <javascript:global-init name="checkSetup"><![CDATA[
+        if (window.console) {
+          if (!JOO(document.body).closest) window.console.warn("closest() jQuery func not available on JOO");
+        }
+      ]]></javascript:global-init>
+    </javascript:stage-dev>
+  
+    <javascript:global-variable name="$">JOO</javascript:global-variable>
+  </javascript:object>
+</javascript:code>

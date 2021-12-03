@@ -1,0 +1,219 @@
+<interface:HTMLContainer xmlns="http://www.w3.org/1999/xhtml" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" title="Server Architecture">
+  <xml:hardlink target="/object:Server/repository:websites/object:Website[3]/repository:deviations/*[4]" />
+  <xml:hardlink target="/object:Server/repository:websites/object:Website[3]/repository:deviations/*[2]" />
+  <xml:hardlink target="/object:Server/repository:websites/object:Website[3]/repository:deviations/*[1]" />
+  
+  <style><![CDATA[
+    /* ------------------------------------------- ProcessStages specific */
+    .title .DatabaseNodeServerObject {
+      color:#555;
+      font-style:italic;
+    }
+    .Thread .inner {
+      border:1px solid #d7d7d7;
+      margin:2px -6px -6px 2px;
+    }
+
+    /* ------------------------------------------- ProcessStages positioning */
+    #Main {left:6px; top:168px; }
+    #Server {left:287px; top:168px; }
+    #Service {left:424px; top:132px; }
+    #Conversation {left:613px; top:168px; }
+    #User {left:645px; top:281px; }
+    #Session {left:636px; top:240px; }
+    #Request {left:1015px; top:224px; }
+    #Response {left:1023px; top:278px; }
+    #ReadRepository {left:115px; top:223px; }
+    #MessageInterpretation {left:634px; top:54px; }
+    #Database {left:274px; top:6px; }
+    #architecture-diagram {width:1409px; height:500px; }
+    #Main {width:255px; height:182px; }
+    #Server {width:107px; height:58px; }
+    #Service {width:176px; height:142px; }
+    #Conversation {width:381px; height:165px; }
+    #User {width:67px; height:41px; }
+    #Session {width:193px; height:89px; }
+    #Request {width:104px; height:108px; }
+    #Response {width:82px; height:43px; }
+    #ReadRepository {width:134px; height:96px; }
+    #MessageInterpretation {width:747px; height:293px; }
+    #Database {width:1118px; height:481px; }
+    #Main {z-index:10; }
+    #Server {z-index:10; }
+    #Service {z-index:10; }
+    #Conversation {z-index:20; }
+    #User {z-index:40; }
+    #Session {z-index:30; }
+    #Request {z-index:30; }
+    #Response {z-index:40; }
+    #ReadRepository {z-index:20; }
+    #MessageInterpretation {z-index:10; }
+    #Database {z-index:5; }
+
+    /* ------------------------------------------- ProcessStages icons */
+    #Main .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/anchor.png);}
+    #Database .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/database.png);}
+    #ReadRepository .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/folder_brick.png);}
+    #Conversation .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/control_repeat_blue.png);}
+    #Service .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/connect.png);}
+    #Server .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/server.png);}
+    #User .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/user_go.png);}
+    #Request .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/comment.png);}
+    #Response .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/comment_add.png);}
+    #Session .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/database_refresh.png);}
+    #MessageInterpretation .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/plugin.png);}
+  ]]></style>
+
+  <div id="architecture-diagram" class="resizable">
+    <div id="Main" class="Item ProcessStage"><div class="inner">
+      <div class="title">Main</div>
+      <p class="description">loads the Database from _CONFIGFILE</p>
+    </div></div>
+
+    <div id="Server" class="Item ProcessStage DatabaseNodeServerObject XslModule Thread"><div class="inner">
+      <div class="title">Server <span class="DatabaseNodeServerObject">node</span></div>
+    </div></div>
+
+    <div id="Service" class="Item ProcessStage DatabaseNodeServerObject XslModule Thread"><div class="inner">
+      <div class="title">Service <span class="DatabaseNodeServerObject">node</span></div>
+      <p class="description">listens on SOCKET immediately passing threaded control to Conversation for each connection</p>
+    </div></div>
+
+    <div id="Conversation" class="Item ProcessStage DatabaseNodeServerObject XslModule Thread"><div class="inner">
+      <div class="title">Conversation <span class="DatabaseNodeServerObject">node</span></div>
+      <p class="description">synchronously processes text-stream(s) on SOCKET creating a Request for each and responding with XML</p>
+    </div></div>
+
+    <div id="User" class="Item ProcessStage DatabaseNodeServerObject XslModule"><div class="inner">
+      <div class="title">User <span class="DatabaseNodeServerObject">node</span></div>
+    </div></div>
+
+    <div id="Session" class="Item ProcessStage DatabaseNodeServerObject XslModule"><div class="inner">
+      <div class="title">Session <span class="DatabaseNodeServerObject">node</span></div>
+    </div></div>
+
+    <div id="Request" class="Item ProcessStage DatabaseNodeServerObject XslModule"><div class="inner">
+      <div class="title">Request <span class="DatabaseNodeServerObject">node</span></div>
+      <p class="description">main transform</p>
+    </div></div>
+
+    <div id="Response" class="Item ProcessStage XslModule"><div class="inner">
+      <div class="title">Response</div>
+    </div></div>
+
+    <div id="ReadRepository" class="Item ProcessStage XslModule"><div class="inner">
+      <div class="title">Read<br/>Repository</div>
+      <p class="description">stream xml interpreted from the filesystem</p>
+    </div></div>
+
+    <div id="MessageInterpretation" class="Item ProcessStage DatabaseNodeServerObject XslModule"><div class="inner">
+      <div class="title">Message<br/>Interpretation <span class="DatabaseNodeServerObject">node</span></div>
+      <div class="description">
+        <ul style="float:right">
+          <li>AcceptedFormats</li>
+          <li>SentenceEnd</li>
+          <li>After</li>
+          <li>REST_session</li>
+          <li>CloseConnection</li>
+          <li>PrimaryOutputTransformation</li>
+          <li>MessageTransformation</li>
+          <li>MessageValidityTest</li>
+          <li>DefaultErrorHandlers</li>
+        </ul>
+        <p>
+          MI contains code for interpreting the text-stream, identifying session, transforming the request
+          and the conversation style. Once the appropriate MI is identified it carries through as a
+          <a target="_blank" href="http://en.wikipedia.org/wiki/Strategy_pattern">Strategy</a> for the rest of the process.
+        </p>
+      </div>
+    </div></div>
+
+    <div id="Database" class="Item ProcessStage XslModule"><div class="inner">
+      <div class="title">Database</div>
+      <p class="description">triggers, security, transactions</p>
+    </div></div>
+  </div>
+
+  <h1>server documentation<input id="edit" style="float:right;" type="button" value="edit"/></h1>
+  <div><pre id="css"/></div>
+
+  <h2>architecture</h2>
+  <p>
+    General Server is platform agnostic. general_server.cpp is the main() start-point.
+    The UNIX dev machine has an alternate file for all the platform independent files.
+    main() simply creates a Singleton Server instance which continues in a platform agnostic way from there on.
+  </p>
+
+  <h2>classes and cross-technology inheritance</h2>
+  <p>
+    General Server introduces the cross-technology inheritance container, <b>Class</b>.
+    Its job is to provide seamless client-server inheritance hierarchies for all the contained, supported technologies.
+    Currently these are:
+  </p>
+
+  <ul>
+    <li>
+      <b>XSchema</b>: does inheritance with &lt;xsd:extension&gt;.
+      Inheritance syntax is created only through the <i>database:class-xschema()</i> call.
+      which creates the &lt;xsd:extension&gt; syntax and the &lt;xsd:complexType name="user"&gt; syntax.
+      allowing &lt;xsd:element type="User"&gt;
+      a stand-alone &lt;xsd:schema&gt; is also available from <i>database:class-xschema(true)</i>
+      which contains all xsd:complexType
+    </li>
+    <li>
+      <b>XSL</b>: can't do inheritance because of the different @match elements on &lt;xsl:template&gt;s.
+      &lt;xsl:template match="object:User"&gt; does not work for &lt;xsl:template match="object:Person"&gt;
+      Inheritance syntax is created only through the <i>database:xstylesheet()</i> call
+      which replaces @match attributes on the templates with database:class-derived-elements().
+      e.g. &lt;xsl:template match="object:User|object:Person"&gt;
+      a stand-alone &lt;xsl:stylesheet&gt; is also available from <i>database:class-xstylesheet(true)</i>
+    </li>
+    <li>
+      <b>JavaScript</b>: does single prototype based inheritance natively.
+      multiple inheritace is implemented via the javascript-framework tools.
+      prototype linkage is implemented by the &lt;javascript:object&gt; processor.
+    </li>
+    <li>
+      <b>CSS</b>: doesn't do inheritance. all objects have all associated stylesheet derived classes
+      explicitly stamped on them so that they will exhibit the CSS of their derived classes.
+    </li>
+  </ul>
+  <p>
+    The Class container contains non-inheritance syntax for it's technologies and then dynamically creates
+    the native or fake inheritance syntax via Database functions. each technology has an associated
+    database: call and an associated system_template for altering the output to allow inheritance.
+    Its strategy is to dynamically implant inheritance on Request, rather than update anything at the point of inheritance Hardlink action.
+    So: database:class-xschema('Person') will insert an &lt;xsd:extension base="User"&gt;
+    At the point that the inheritance is setup, bu hardlinking the User class under Person, nothing else happens.
+  </p>
+
+  <h2>coding conventions</h2>
+  <p>
+    gs-- and gs__ indicate a namespace that should be converted to meta:... when changed.
+  </p>
+  <ul>
+    <li>xsl:variables prefix with gs_ and use underscores, e.g. gs_clicent_can_xslt</li>
+    <li>css classes prefix with gs- and use dashes, e.g. gs-xsd-type</li>
+    <li>
+      query string variables prefix with gs-- and use dashes, e.g. gs--client-can-xslt.
+      they LOOSE their gs-- prefix when converted to XML, e.g. meta:client-can-xslt.
+    </li>
+    <li>javascript events all lowercase like "clipboardpopulated".</li>
+    <li>xsl:template modes are prefixed with gs_ and use underscores, e.g. @mode="gs_remove_stuff".</li>
+    <li>
+      global javascript functions are prefixed with gs_ and Class__ definitions with GS_.
+      JavaScript uses camel case for function names after the gs_ prefix.
+      variables DO USE a 1/2 letter type specifier and camel case, e.g. sStringName.
+    </li>
+  </ul>
+
+  <h2>installing on windows (Vista)</h2>
+  <p>
+    Do not use Windows as a server. Use UNIX.
+  </p>
+  <ul>
+      <li>Build all <u>as Administrator</u> so that the post-compilation step copies the dll to System32.</li>
+      <li>Run "general_server -register" <u>as Administrator</u>.</li>
+    <li>Ensure that no other services are controlling port 80 on host machine, e.g. Skype</li>
+  </ul>
+</interface:HTMLContainer>

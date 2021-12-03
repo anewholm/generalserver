@@ -1,0 +1,8 @@
+<interface:SubMenu xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" on-event="click">
+  <interface:Collection>
+    <interface:dynamic interface-mode="selectoroption" data-context-id="xsl_types" data="*" node-mask="."/>
+  </interface:Collection>
+  <interface:Collection>
+    <interface:dynamic interface-mode="selectoroption" data="$gs_website_classes" node-mask="."/>
+  </interface:Collection>
+</interface:SubMenu>

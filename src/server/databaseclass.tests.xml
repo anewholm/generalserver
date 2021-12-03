@@ -1,0 +1,15 @@
+<repository:databaseclass-tests>
+  <transform name="database inheritance" result-xml="Manager">
+    <xsl:stylesheet xmlns:debug="http://general_server.org/xmlnamespaces/debug/2006" xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="database debug">
+      <xsl:template match="/"><xsl:apply-templates select="object:Server/repository:tests/gs:data"/></xsl:template>
+      <xsl:template match="gs:data">
+        <xsl:apply-templates select="object:Manager" mode="gs_inheritance_test"/>
+      </xsl:template>
+      
+      <xsl:template match="object:Person" mode="gs_inheritance_test">
+        <xsl:value-of select="local-name()"/>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>
+</repository:databaseclass-tests>      
+ 

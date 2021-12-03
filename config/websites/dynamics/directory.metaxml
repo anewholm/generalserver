@@ -1,0 +1,1 @@
+<object:Website xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" resource-match="^.*dynamics.+" name="dynamics" resource-server="general resources server" jquery-version="1.10.2" jquery-ui-version="1.10.3"/>

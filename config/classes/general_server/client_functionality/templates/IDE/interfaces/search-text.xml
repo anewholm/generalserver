@@ -1,0 +1,12 @@
+<interface:Collection xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="search-text">
+  <interface:QualifiedName>{$gs_query_string/@phrase}</interface:QualifiedName>
+  
+  <interface:dynamic optional="yes" data-container-name="results-text" interface-mode="list" data="//*[text()[contains(.,$gs_query_string/@phrase)]]" node-mask="."/>
+  <interface:dynamic optional="yes" data-container-name="results-attribute-text" interface-mode="list" data="//*[@*[contains(.,$gs_query_string/@phrase)]]" node-mask="."/>
+  <interface:dynamic optional="yes" data-container-name="results-local-name" interface-mode="list" data="//*[contains(local-name(),$gs_query_string/@phrase)]" node-mask="."/>
+  <interface:dynamic optional="yes" data-container-name="results-attribute-local-name" interface-mode="list" data="//*[@*[contains(local-name(),$gs_query_string/@phrase)]]" node-mask="."/>
+
+    <!-- TODO: xsl:if test="not(gs:data/*/*)">
+      <div class="gs-central-screen">no results</div>
+    </xsl:if -->
+</interface:Collection>

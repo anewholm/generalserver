@@ -1,0 +1,1 @@
+<class:Database xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" is-singleton="yes" namespace-prefix="object" elements="Database" xml:id="Class__Database" name="Database"/>

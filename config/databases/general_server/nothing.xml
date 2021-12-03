@@ -1,0 +1,8 @@
+<nothing_root xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <test1 id="9"/>
+  <test2 id="9">
+    <and><now test="e">this</now></and>
+  </test2>
+  <test3 id="9"/>
+  <test4 id="9"/>
+<now xmlns="http://general_server.org/xmlnamespaces/general_server/2006" test="e">this</now></nothing_root>

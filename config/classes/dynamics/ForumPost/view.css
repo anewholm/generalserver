@@ -1,0 +1,17 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <css:clause>
+    <path>
+      <interface>summary</interface>
+      <class>details</class>
+    </path>
+    <border>1px dotted #555555</border>
+  </css:clause>
+
+  <clause>
+    <path>
+      <interface>list</interface>
+      <class relation="child-only">details</class>
+    </path>
+    <icon>text_indent</icon>
+  </clause>
+</css:stylesheet>

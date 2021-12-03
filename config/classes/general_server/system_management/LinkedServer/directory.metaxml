@@ -1,0 +1,1 @@
+<class:LinkedServer xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" is-singleton="yes" namespace-prefix="object" elements="LinkedServer" xml:id="Class__LinkedServer" name="LinkedServer"/>

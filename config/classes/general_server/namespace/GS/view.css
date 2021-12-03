@@ -1,0 +1,17 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause>
+    <path>
+      <class relation="self">gs-interface-mode-list</class>
+      <class relation="child-only">details</class>
+    </path>
+    <color type="hash">00aa00</color>
+  </clause>
+
+  <clause>
+    <path>
+      <class relation="self">gs-interface-mode-list</class>
+      <class relation="child-only">details</class>
+    </path>
+    <padding-left metric="pixel" important="yes">0</padding-left>
+  </clause>
+</css:stylesheet>

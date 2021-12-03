@@ -1,0 +1,1 @@
+<repository:controllers xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" response:server-side-only="true" name="controllers"/>

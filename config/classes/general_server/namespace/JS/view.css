@@ -1,0 +1,16 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause>
+    <path>
+      <class relation="child-only">details</class>
+    </path>
+    <icon>joystick</icon>
+  </clause>
+
+  <css:clause>
+    <path>
+      <class relation="child-only">details</class>
+      <class relation="child-only">namespace_prefix</class>
+    </path>
+    <display>none</display>
+  </css:clause>
+</css:stylesheet>

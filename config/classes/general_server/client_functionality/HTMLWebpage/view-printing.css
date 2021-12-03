@@ -1,0 +1,111 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:css="http://general_server.org/xmlnamespaces/css/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <css:raw><![CDATA[
+    /* make the screen look like the page: note advice for printing is 10mm page margins, screen shows 15mmm margins */
+    .A4, .A5, .A4landscape, .A5landscape {
+      position:relative;           /* co-ordinate reset only */
+      display:block;
+      overflow:hidden;
+      margin:0;
+      padding:0;
+      background-color:#ffffff;
+      page-break-inside:avoid;
+    }
+    .A4, .A5, .A4landscape {       /* downward flow is everything but A5landscape */
+      clear:both;
+    }
+    .A4landscape {
+      height:180mm;                /* 210mm - 30mm (15mm left and right margins, applied by the @media screen or the printer) */
+      min-height:180mm;
+      width:267mm;                 /* 297mm - 30mm (15mm estimated gutter and header, applied by the @media screen or the printer) */
+      min-width:267mm;
+    }
+    .A4 {
+      width:180mm;                 /* 210mm - 30mm (15mm left and right margins, applied by the @media screen or the printer) */
+      min-width:180mm;
+      height:267mm;                /* 297mm - 30mm (15mm estimated gutter and header, applied by the @media screen or the printer) */
+      min-height:267mm;
+      page-break-after:avoid;
+    }
+    .A4 .inner {                   /* container within padded area to allow absolute positioning and sizeing within padding */
+      height:100%;
+      position:relative;
+    }
+    .A4 .A5 {                      /* contained within A4 always */
+      height:123mm;                /* (297mm - 30mm margins - 20mm separator) div 2 */
+      min-height:123mm;
+    }
+    .A4landscape .A5landscape {    /* split horizontally */
+      float:left;
+      height:100%;
+      width:123mm;                 /* (297mm - 30mm margins - 20mm separator) div 2 */
+      min-width:123mm;
+    }
+    body .last    {page-break-after:avoid;}
+    .pagebreak    {page-break-after:always;}
+    .no_pagebreak {page-break-inside:avoid;} /* block level elements only: not supported in FF 3 */
+    .A4 .A5seperator {
+      border-bottom:1px dashed #e0e0e0;
+      margin:10mm 0 10mm 0;
+    }
+    .A4landscape .A5seperator {
+      float:left;
+      height:100%;
+      border-left:1px dashed #e0e0e0;
+      margin:0 10mm 0 10mm;
+    }
+    @media screen {
+      body .print_only, #body .print_only {display:none;}
+      .pagebreak {
+          clear:both;
+          display:block;
+      }
+      #body .A4, #body .A4landscape {
+        margin:5mm auto 5mm auto;             /* centreing of the A4 page on screen */
+        padding:15mm;                         /* screen show page margins: the printer will apply these in @media print mode */
+        border:1px solid #666666;             /* page edge */
+      }
+    }
+
+    /* ---------------------------- printing ---------------------------- */
+    @media print {
+      body .screen_only, #body .screen_only {display:none!important;}
+
+      body #body,                          /* reset: remove all centering and margins for all print modes */
+      body #body #center_plate {
+        margin:0!important;                   /* need to override here cause specificity is equal */
+        padding:0!important;
+        width:100%!important;
+      }
+      body {                                  /* HTML printing (.server and .client modes): let the user apply printer margins */
+        margin:0!important;                   /* override body settings in the header.xsl */
+        padding:0!important;
+      }
+      #body .A4,                           /* HTML printing with A4 (.server and .client modes): let the user apply printer margins */
+      #body .A4landscape,                  /* requires 100% scaling: most browsers seem to shrink to fit it */
+      #body .A5 {
+        padding:0;
+        margin:0;
+      }
+      .pdfmode_normal {                       /* PDF printing without A4 pages: apply the margins at body level (wkhtmltopdf cannot do margins) */
+        margin:15mm!important;
+        padding:0!important;
+      }
+      .pdfmode_A4 #body .A4,               /* PDF printing with A4 pages: apply margins at A4 level (wkhtmltopdf cannot do margins) */
+      .pdfmode_A4 #body .A4landscape {
+        margin:15mm;
+        padding:0;
+      }
+      .pdfmode_A4 #body .A4.last,          /* PDF writer ignores page-breaks and collapses A4 top and bottom margins :( */
+      .pdfmode_A4 #body .A4.middle,
+      .pdfmode_A4 #body .A4landscape.last,
+      .pdfmode_A4 #body .A4landscape.middle
+      {
+        margin-top:30mm;
+      }
+    }
+    /* tabs */
+    @media print {
+      .ui-tabs-hide {display:none;}
+    }
+  ]]></css:raw>
+</css:stylesheet>

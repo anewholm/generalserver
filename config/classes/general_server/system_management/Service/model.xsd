@@ -1,0 +1,31 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:forms/class:XSchema/xsd:schema[2]/*[2]" />
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:forms/class:XSchema/xsd:schema[2]/*[1]" />
+
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:attribute name="name" type="xsd:string">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[a-zA-Z][-a-zA-Z0-9_.]{3,10}"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+      <xsd:attribute name="port" type="xsd:number"/>
+
+      <!-- required setup stuff,
+        hidden fields
+        not in the form
+      -->
+      <xsd:element name="conversation" type="class:Repository" minOccurs="1" maxOccurs="1" meta:auto-create="yes">
+        <xsd:element name="object:MessageInterpretation" maxOccurs="unbounded"/>
+      </xsd:element>
+      <xsd:element name="requests" type="class:Repository" minOccurs="1" maxOccurs="1" meta:auto-create="yes">
+        <xsd:element name="object:Request" maxOccurs="unbounded"/>
+      </xsd:element>
+      <xsd:element name="sessions" type="class:Repository" minOccurs="0" maxOccurs="1" meta:auto-create="ask">
+        <xsd:element name="object:Session" maxOccurs="unbounded"/>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

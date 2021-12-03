@@ -1,0 +1,21 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:css="http://general_server.org/xmlnamespaces/css/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <!-- #################################### copy right #################################### -->
+  <css:section name="copy right">
+    <css:clause>
+      <path><id>gs-copyright</id></path>
+
+      <position>fixed</position>
+      <right metric="pixel">0</right>
+      <bottom metric="pixel">0</bottom>
+      <border-left>1px solid #aaa</border-left>
+      <padding>1px 10px 1px 10px</padding>
+      <font-size metric="pixel">10</font-size>
+
+      <border-top>1px solid #aaa</border-top>
+      <background-color type="hash">fff</background-color>
+      <icon group="">back_twotone_gray</icon>
+      <background-position>center left</background-position>
+      <background-repeat>repeat-x</background-repeat>
+    </css:clause>
+  </css:section>
+</css:stylesheet>

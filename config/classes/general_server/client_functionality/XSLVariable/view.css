@@ -1,0 +1,8 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause>
+    <path>
+      <class relation="child-only">details</class>
+    </path>
+    <icon>vcard_edit</icon>
+  </clause>
+</css:stylesheet>

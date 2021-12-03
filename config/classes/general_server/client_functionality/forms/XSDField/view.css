@@ -1,0 +1,72 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <css:clause>
+    <path><class>gs-xsd-type</class></path>
+    <display>none</display>
+  </css:clause>
+
+  <clause>
+    <path>
+      <class>gs-xsd-help</class>
+    </path>
+    <font-size metric="pixel">11</font-size>
+    <color type="hash">335577</color>
+  </clause>
+
+  <css:section name="types">
+    <clause>
+      <path>
+        <class>gs-xsd-type-xsd-boolean</class>
+        <class>gs-colon</class>
+      </path>
+      <display>none</display>
+    </clause>
+
+    <clause>
+      <path>
+        <class>gs-xsd-type-xsd-boolean</class>
+        <class>gs-xsd-name</class>
+      </path>
+      <float>right</float>
+    </clause>
+
+    <clause>
+      <path>
+        <class>gs-xsd-type-xsd-boolean</class>
+        <class>gs-colon</class>
+      </path>
+      <display>none</display>
+    </clause>
+  </css:section>
+
+  <css:section name="editor">
+    <path>
+      <class relation="self">gs-interface-mode-editor</class>
+    </path>
+
+    <clause>
+      <path>
+        <class>gs-xsd-editor-list</class>
+        <class>gs-inherited-true</class>
+      </path>
+      <background-color type="hash">f4f4ff</background-color>
+      <opacity>0.5</opacity>
+    </clause>
+  </css:section>
+
+  <css:section name="news">
+    <path>
+      <class relation="self">gs-interface-mode-list-new</class>
+    </path>
+
+    <clause>
+      <path><class>gs-type</class></path>
+      <opacity>0.5</opacity>
+    </clause>
+
+    <clause>
+      <path><class>gs-namespace</class></path>
+      <color type="hash">aaaaff</color>
+      <font-style>italic</font-style>
+    </clause>
+  </css:section>
+</css:stylesheet>

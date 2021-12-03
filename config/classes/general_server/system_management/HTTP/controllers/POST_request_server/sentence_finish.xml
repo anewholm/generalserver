@@ -1,0 +1,1 @@
+<end xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" rest-session="^Cookie:[^\r\n]*GSSESSID=([^\r\n;, ]+)" resources-area-identifier="^[Hh]ost:\s*([^\s:]+)" normalise="yes" type="stream-regex" format="length" after-normalise="\r\n" headers-end-normalise="\r\n" close-connection="yes">\r\nContent-Length:\s+(\d+)</end>

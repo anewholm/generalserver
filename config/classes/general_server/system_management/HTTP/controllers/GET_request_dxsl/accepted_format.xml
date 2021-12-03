@@ -1,0 +1,3 @@
+<accepted-format xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" summary="*.dxsl dynamic stylesheet"><![CDATA[^(GET) /([^? \.]+\.dxsl) HTTP/(\d+)\.(\d+)\s+
+[Hh]ost:\s*([^\s]+)\s+
+(.*)\s+]]></accepted-format>

@@ -1,0 +1,53 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause>
+    <path>
+      <interface>list</interface>
+      <class relation="child-only">details</class>
+    </path>
+    <padding-left metric="pixel">18</padding-left>
+    <icon>css</icon>
+  </clause>
+
+  <section name="editor">
+    <path><interface>editor</interface></path>
+
+    <clause>
+      <path/>
+      <padding-top metric="pixel">14</padding-top>
+    </clause>
+
+    <clause>
+      <path><element>input</element></path>
+      <path><element>select</element></path>
+      <font-size metric="pixel">13</font-size>
+    </clause>
+
+    <clause>
+      <path><class>gs_css_clause</class></path>
+      <margin-bottom metric="pixel">18</margin-bottom>
+    </clause>
+
+    <clause>
+      <path><class>gs_css_path_editor</class></path>
+      <font-weight>bold</font-weight>
+    </clause>
+
+    <clause>
+      <path><class>gs_css_properties</class></path>
+      <margin-left metric="pixel">18</margin-left>
+    </clause>
+
+    <clause>
+      <path>
+        <class>gs_css_curlies</class>
+        <class relation="self">after</class>
+      </path>
+      <margin-top metric="pixel">-12</margin-top>
+    </clause>
+
+    <clause>
+      <path><class>gs_css_properties_label</class></path>
+      <width metric="pixel">150</width>
+    </clause>
+  </section>
+</css:stylesheet>

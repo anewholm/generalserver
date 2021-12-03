@@ -1,0 +1,1 @@
+<repository:transactions xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" meta:classes-context-menu-news="Transaction" gs:transient-area="yes" xml:id-policy-area="ignore" xmlsecurity:ownername="root" xmlsecurity:ownergroupname="admin" xmlsecurity:permissions="740" name="transactions"/>

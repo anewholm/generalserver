@@ -1,0 +1,10 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause>
+    <path>
+      <class relation="child-only">details</class>
+    </path>
+    <icon>package</icon>
+    <font-weight>bold</font-weight>
+    <color type="hash">225522</color>
+  </clause>
+</css:stylesheet>

@@ -1,0 +1,1 @@
+<object:LinkedServer xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="main backup server" network-address="main_backup_server"/>

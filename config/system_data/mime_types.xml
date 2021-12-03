@@ -1,0 +1,20 @@
+<mime_types xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <!-- by extension -->
+  <html>text/html</html>
+  <xml>application/xml</xml> <!-- FireFox likes an application/xml, not text/xml -->
+  <xhtml>application/xhtml+xml</xhtml>
+  <txt>text/plain</txt>
+  <xsl>text/xsl</xsl>
+  <dxsl>text/xsl</dxsl>
+  <pdf>application/pdf</pdf>
+  <rss>application/xhtml+xml</rss>
+  <json>application/json</json>
+  <js>application/x-javascript</js>
+  <!-- images by extension -->
+  <jpg>image/jpeg</jpg>
+  <png>image/png</png>
+
+  <!-- namespace mime_types -->
+  <javascript>application/x-javascript</javascript>
+  <css>text/css</css>
+</mime_types>

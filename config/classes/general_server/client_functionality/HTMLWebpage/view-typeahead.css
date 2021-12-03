@@ -1,0 +1,27 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:css="http://general_server.org/xmlnamespaces/css/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <css:raw><![CDATA[
+    .typeahead
+    {
+        display:inline;
+    }
+    .typeahead ul
+    {
+        position:absolute;
+        z-index:100;
+    }
+    .typeahead ul ul
+    {
+      position:relative;
+    }
+    .typeahead .nooptions
+    {
+        font-style:italic;
+        color:#555555;
+    }
+    .typeahead .typeahead_heading
+    {
+        font-style:italic;
+        border-bottom:1px solid #aaaaaa;
+    }
+  ]]></css:raw>
+</css:stylesheet>

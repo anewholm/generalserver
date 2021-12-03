@@ -1,0 +1,1 @@
+<class:Selector xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" namespace-prefix="xsl" elements="attribute" predicate="@meta:editor-class = 'class:Selector'" xml:id="Class__Selector" name="Selector"/>

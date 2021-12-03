@@ -1,0 +1,1284 @@
+<gs:TODO xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <interface:MultiView xmlns="http://general_server.org/xmlnamespaces/general_server/2006">
+    <gs:view title="recent"><html:pre><![CDATA[
+      node-set = node-set refuses normal nodes now
+      moved parent_route to xmlXPathContext, from xmlXPathParserContext. ctxt-&gt;context is NULL sometimes {dynamic}
+      AXIS_CHILD now has parent_route recursive hardlink checking
+      self:: has been removed off the complex xpath matching classes like repository:*
+      CANT USE gs_view_render with parameters!
+      moved $gs_website_classes to virtualhosts.xsl
+      admin is now in the IDE class
+      using .on(), not .bind() now
+      moved gs-ajax =&gt; f_click_ajaxSubmit
+      $gs_node_mask_default to class-xschema-node-mask
+      xmlXPathNext*() @seq now "hits"
+      ATTRIBUTE_UNUSED
+      prevent implicit string rendering of nodes with children xmlNodeBufGetContent (y)
+      prevent gs_render without node-mask max 500 nodes...
+      moved to
+        database:query                       => dyn:evaluate()
+        database:wait-for-single-write-event => database:wait-for-single-write-event()
+        database:class-definition            => class:*/xsd:schema
+      gs_HTTP_render => gs_interface_render + gs_inheritance_render => gs_view_render
+      TURNED OFF EACT REPEAT SUPPRESSION CONTROL!!!!
+      XSLT (xsl:variable?) xpath statements need to be treated differently
+      from xsl:template select="..." xpath traversal statements
+        for suppress exact repeat
+        XSLT xpath statements need to er. suppress new er. stuff
+      => xpathToNodeDB
+      {} in URLs :)
+      turned on #define XSLT_REFACTORED... (RECOMPILED libxml AND libxslt)
+      OP_RESET & OP_ROOT now reset the parent_route also
+      REMOVE ALL @xml:id stuffs
+        xmlID() now replaced with xpathToNode()
+      @enable-ids turned OFF by default now
+      TXml now rejects @xml:ids
+      xmlReadableChildren() changed to return first child, not first element child
+    ]]></html:pre></gs:view>
+    <gs:view title="policy"><html:pre><![CDATA[
+    data is king:
+      hardlinks + deviations = flexible templating
+    ]]></html:pre></gs:view>
+    <gs:view title="now"><html:pre><![CDATA[
+    MOVE to single threaded mode to prevent lock clashing
+      until LibXML node locking completed
+    bug fix run:
+      long polling refresh crashes
+        inherited templates are not working
+        resetname only works on object:Person (inheritance broken)
+      long polling refresh: interference from triggers
+        need a numbering system:
+				?since-event=<xpath>
+      triggers: cron and server services race condition
+      edit XML is HTML. needs to be XHTML
+
+    SOFTLINKING TXML => pDestinationNode->isTransient()
+      *TXML*
+      because conversations are volatile, this fails (often?)
+      when xpath_attribute_to_hardlink (=> conversation/request/query-string/*)
+      we can ignore this and do it directly?
+
+    we probably need to prevent external document usage
+      softlink / copying between doc and TXml doc...
+      TXml can use the createTmpNode() like everyone else!
+
+    writes during other threads XSLTs (instanciated at application level but then without locking)
+      at least lock and unlock in teh xmlXPathNext*() functions
+      node-level-locking in LibXml2 is the only solution for this
+      write-mutexlock
+      xpath next()s already ignore marked_for_destruction
+      we want all reads to stop if a node is locked for writing
+        but we don't want reads to block each other
+      xmlWriteLock(node)
+        //prevent / wait new read attempts or other write attempts starting
+        pthread_lock(node.m_tWrite); //old node.marked_for_destruction
+        //wait for all existing read usage to finish
+        pthread_wait(node.read_semaphore == 0)
+        //make changes
+      xmlWriteUnLock(node)
+        //allow new reads and writes to start
+        pthread_unlock(node.m_tWrite)
+      XSLT read systems, e.g. xpathCtxt->node
+      xmlReadLock(node)
+        //require no active intentions to write, in order to read
+        pthread_lock(node.m_tWrite)
+        //read threads simply register themselves, they do not block each other
+        node.read_semaphore++
+        //write lock attempts can now happen until we release our semaphore
+        pthread_unlock(node.m_tWrite)
+      use node extensively...
+      xmlReadUnLock(node)
+        //finished reading the node, now writes can happen
+        assert(node.read_semaphore);
+        node.read_semaphore--;
+
+    re-evaluate @xml:id=Class__Thing (!)
+      because it should be path sensitive for variations!
+      should it evaluate to $gs_website_classes/self::class:Thing ?
+
+    included stylesheets are not copied.
+      the xsl:stylesheet has a parent in to the main document
+      * e.g. xsl:stylesheet => (doc change!) class:DatabaseElement
+      * this is to allow xsl:include/@xpath to work
+      they are marked up directly in the main doc
+      so no point copying the main one
+      ->psvi is completed
+      but we need to have an ->inst_parent_route during XSLT
+        originating from the pStylesheetNode with its $gs_website_root/... parent_route
+
+    mergeNode
+      no database triggers should fire if it is the same...
+      @repository:* and @xmlsecurity:* complicate matters
+        should we not be using XML_NODE_ELEMENT
+        _xmlNode.security   (safer)
+        _xmlNode.repository (simpler)
+        LESS configurable
+
+    make install
+      should install the general-resources-server
+      --with-last=/var/www/general-resources-server/last = last server XSLT copy for PHP
+
+    other non-working triggers are disabled at the moment
+      directory hangs when recursing big directories like /var/www/
+
+    move Google Tasks in Google Mail interface
+      also in to here
+
+    remove $gs_server_side_xslt and false()
+      and start response:set-post-transform=http://...
+      response:set-post-transform can be chained in the target post-transform
+      we already do a server-side transform in the C++ now
+
+    redo DICT_REQUIRED(str)
+      xmlIsSharedDoc() will not have a dict and will not own its own contents
+      it should not be making changes to its contents anyway (xmlFreeNode() -> DICT_FREE)
+      should the shared doc inherit the dict from its copy node?
+      DICT_FREE(cur->content) will always xmlFree() because content is not xmlDictLookup()?
+        expose doc->dict generically to C++?
+
+    moveAllPrefixedNamespaceDefinitionsToAppropriateRoots()
+        on the main doc in order to speed up copies and moves (no namespace resolution)
+        findAndSetNamespaceRoots()
+        setNamespaceRoot()
+      namespacePrefix() returns a prefix
+        even when the element is in the default space without prefix
+
+      xmlDOMWrapAdoptNode() does this also, but in a new way using
+        xmlDOMWrapNSNormGatherInScopeNs()
+      xmlDOMWrapReconcileNamespaces() also uses a new way using
+        xmlDOMWrapNSNormGatherInScopeNs()
+
+      xmlReconciliateNs(...) reconciles the namespaces in a new environment
+      xmlSearchNs()
+      xmlSearchNsWithPrefixByHref()
+      xmlSearchNsByNamespaceStrict()
+
+    TXml is now not copying the XML parse document in to itself?
+      it cannot find it's @select gs:root_namespace_holder/...
+      it IS copying the document BUT the uniqueXPathToNode() is pointing to the document, not the child doc
+    xmlDOMWrapCloneNode()
+      reconciles namespaces
+      only on XML_ELEMENT_NODE
+      but actually we need to do that with the attributes also
+      for example: when copying RXSL attributes from one area of the document to the other
+      which, of course, is not necessary when all namespaces are at the top
+
+    priority: start editing with the XML editor again
+      deviations don't show because only the names of the  parent_route is sent through in the query_string
+      can't save /repository:groups, but CAN save /repository:linked_serverings
+      grp_1 is hardlinked so replaceNodeCopy() will not free the grp_1 hardlink IDs
+        and thus will throw duplicate xml:id error
+      ALSO: the destination is left unlinked in the case that the copy error happens...
+        xmlReplaceNode(...)?
+
+    WE are using TXml into volatile multi-areas:
+      object:Request
+      we need to maintain a pointer, rather than serialising to xpath
+      TXml is allowing destination xpath to transient nodes
+      we have changed this: it should throw a trappable exception
+      TXml should directly do it instead?
+
+    attach C++ classes to associated database classes
+      Class::addElement()
+
+    PAGING:
+      a Strategy needs to be included to control paging and strange limits
+        that is, it would always append a pagesize to ALL
+      (<xpath statement>)[position()>pagenum*pagesize and position()<pagenum*pagesize+pagesize ]
+          is different to:
+      <xpath statement>[position()>pagenum*pagesize and position()<pagenum*pagesize+pagesize ]
+        because the () causes the position() to apply to the result, not the last part of the xpath statement
+      BUT: we need to check LibXml range checking in this case
+      to make sure it doesn't traverse EVERYTHING and then limit
+
+    ./configure copy the configure from somewhere else!
+      automake !
+      http://www.gnu.org/savannah-checkouts/gnu/automake/manual/html_node/Complete.html#Complete
+
+    Error Class
+      needs to represent server messages, XSL warnings
+      and server-events?
+      NOOOOOOOOOOOOOOOO: view.xsl rendering of messages:
+      controller.xsl should check the object data, not view.xsl
+        then it can produce object:Messages in the data
+      class:Message       @elements="object:Message" @elements-html=div[class='gs-warning']
+      class:DatabaseQuery @elements-html=database:query
+        actually does that not mean that all classes should examine the HTML for their @elements?
+        well, only if they are likely to be there...
+        so maybe @elements-in-html=yes
+
+    Collection = Repository = Frame? Repository does nothing view.xsl at the moment
+      move the list sorting to ?
+      feeling like we need a generic list container
+
+    drag dropping and XSD
+
+    the POST update function needs some Options loving
+
+    xmlXPathNextAncestors produces repeats at the moment
+      reporting disabled in the LIBXML_DEBUG_ENABLED xpath.c
+
+    => website setup routine! //ph567b1c5171295
+      hardlink LinkedServer into the website
+      hardlink standard classes
+
+    .doc MI that documents the code :D
+
+    AXIS_XPATH finish
+      .../@xpath-to-node/xpath::class:*
+      lazy cached
+
+    FORM submission sends through the ancestor DOs also?
+      YES + xpath-* form field translation...
+      What about a FORM in the ContextMenu that wants access to the correct ancestor?
+      Things have their limits...
+
+    when moveNode() if it goes in to an xml:id-policy zone then release the xml:ids
+      NO hardlinking in to transient or xml:id-policy zones...
+
+    contentchanged fireing but not fireing on HTMLWebpage
+      is event bubble being cancelled somewhere?
+
+    GS: auto update all ancestor::*/@meta:last-modified-tree && self::*/@meta:last-modified IF present
+      could use an object:Server @database:on-after-update
+      BUT could also build low down in to LibXML
+      probably C++ Server class should do this...s
+
+    last used in session collection: AND move to server level
+
+    deviations on an original are output in the XML but not processed / re-created
+      the hardlink-id is output
+    deviations on a  hardlink are output in the XML and should be re-calculated...
+    xml:hardlinks cannot be saved by the XML editor: they are not rendered in to the XML with deviations etc.
+
+    ALL class templates must *start* with the @elements
+      management of mass xsl:templates
+      WE WILL have to change database:derived-template-match() to process interface:HTMLWebpage/@* => properly
+
+    progressive deviation can allow EASY progressive informed template building and re-use
+      just choose which one you want and hardlink it
+      the website becomes only object:Response and repository:*
+        javascript library additions? => addition TXml deviation of templates
+
+    createChildElement(... name, namespace, ...)
+
+    http://general_server.localhost:8776/ID/Class__Response_response_loader causes infinite recursion
+      because requesting a target that actually has database:query in it
+
+    object:Response mime-type="auto" response-code="314"
+      interface:HTMLWebpage title="blah" jQuery="1.4"
+
+    rethink how the html:head stuff is all added, and where
+    put the xsl:template stack in the context-menu?
+      dynamic load it from the xml:id on the html:*
+      then we can look up the tree to the xsl:template and compile decent info
+        <xsl:template match="html:*" mode="debug-call-stack">
+
+    Debugger (@debug:template-id) is NOT GREAT
+      move to an AJAX loaded analysis of nearest xml:id / .gs_xml_id_...
+
+    pissing memory everywhere fast... => 75%
+      http://general_server.localhost:8776/api/~Class/name::view?node-mask=.|*
+      puts 6% on the memory everytime
+
+    AND: view.* should be under class:*/views/html/view.*
+
+    link ctrl+F => IDE search
+
+    get the javascript objects to re-create their XML?
+      view changes will be super quick!
+
+    EEEEEEEEEEEEEEEEEEEK!:
+      move to a single standard stylesheet system! it just contains the Class XSL
+      just the "default one" which is directly rendered from the included classes
+      that is: no XSL stylesheets, just elements with @name's
+      inherit from interface:HTMLWebpage to make more XSL templates?
+      AND: JS glue between interface:Frames? well, that's in the interface:Frameset!
+    SO:
+      move all the XSL stylesheets to be like the index, like the default
+      so we can understand what is needed
+      then go for completely object based
+      everything is an application like the IDE... :|
+      interface:HTMLWebpage > interface:Frameset + javascript > interface:Frame > object:*
+    Class__WebPage can then handle all the [currently injected] meta stuff
+      and the inheritance can override that
+      maybe we can move the other injected templates in to some sort of system class also?
+    inherit stuff from HTMLWebpage with a meta:root that outputs the main stuff
+      move components in to the HTMLWebpage
+      Class__XSLStylesheet and Class__IDE inherit Class__HTMLWebpage? (to be considered a webpagable thing)
+    move the xsl:stylesheet @mode=gs_HTTP_render to the Class__XSLStylesheet HTTP.xsl
+      and we can check for a class controller for handing out other types directly
+      what about website specific XSL stylesheet for handing out objects?
+      JS and CSS are, in fact, just server-side only transforms. so we don't need an actual handler, just a class setting
+      XSL IS a completely different system for response and we need a server side controller for HTTP response
+        Class__XSLStylesheet/HTTP.xsl
+      generic (overrideable) use of xml_output_normal without
+    Is client_stylesheet_transform actual a view of the XSLStylesheet?
+      should we remove the xml_output_normal?
+      in favour of the general gs_client_stylesheet_transform mode?
+      will we continue to transform when the Class__WebPage is handling the HTML header injections?
+      Can it?
+
+    client-side meta:* namespace for non-gs_view_render items?
+      so that we can allow natural default processing of the whole meta:root|gs:ajax thing
+      how is meta:environment done anyways?
+      client_commands:
+      <xsl:apply-templates select="$gs_environment" mode="gs_process_environment"/>
+      accessed in html:head with
+      <xsl:copy-of select="$gs_stylesheet_components/gs:client-commands/xsl:*"/>
+      BOLLOCKS
+    interface:HTMLWebpage (optional html:html)
+      <gs:environment> => Class__HTMLEnvironment => html:head
+        <gs:inputs ...>
+      </gs:environment>
+
+    explicit interfaces on the e.g. interface:MultiView, are causing interface list to be overridden
+      and, besides we wouldnt be able to see or change the explicit @interface-mode
+
+    do not like gs:display-class="dynamic-reloader"
+
+    GS (deviations): parent moves? deviant node => original node.parent
+      add node: extra functions in LibXML deviationEntry = xmlDeviantCheck( nextnode )
+
+
+    xmlXPathPushIfDeviantTraversal(node)
+      the current hardlink ancestor list allows access to the deviation tables
+        may need to think about order of appearance
+      thus each node traversal would require checking of all hardlink deviation tables up the chain
+        AND all hardlinks of each hardlink for progressive deviation
+        BUT chain depth and deviation length is expected to be small
+    ok, ok. so do we push the routes when we deviate? for xpath querying back up
+      same concept: we navigate to (any) node and instead serve another node
+        probably from a generalised deviations area?
+        or does the new node deviant not have a parent?
+        re-use of deviations
+      how do we serialise the deviations?
+      meta:hardlink target-id="idx_456"
+        meta:deviation from-node-id="idx_234" to-node-id="idx_23434"
+        meta:deviation from-node="id('idx_234')/@colour"
+          @color "red"
+        meta:deviation from-node-id="idx_234"
+          (child doc deviation)
+
+    DRI, DRI, DRI!
+      in SQL databases, 2 objects can reference the same group, information, etc.
+      they, in turn can reference independent "configuration"s of objects
+      configuration = ***creator designed and limited*** variation of objects, either function or data
+      WE WANT total control: deviation of any part WITHOUT changing the original
+      but with DRI and thus DB level ideas about changes and effects
+      SQL suffers also from the descendant information variation issue
+      it uses sibling variation (configuration) instead of link variations tables
+
+    collect xml:hardlink during initial parse
+      => xmlParserCtxt
+
+    NO: this data thing symbolises information re-use and deviation
+      deviations allow complete variation, not just hook level variation
+      panels, documents (without complete copying), code variations without hooks
+      design the render array directly from an inheritance of interface:HTMLWebpage
+      aim: to get everything to gs_view_render without actual template overrides
+      aim: XSL should do transform to HTML, not tree structure
+      SOFTLINKING is bad. no DRI!!!
+      which is the basis of sharing and configuring
+      and we want it to maintain DRI
+      would be good to have this in the LibXML2 level
+        xmlAddDeviation(hardlink_deviant, from_node, to_node)
+      direct creation of render arrays
+        using hard and softlionks with descendent-deviations
+      so: database:query @data=a-node @transform=~XSchema/name::attributes-to-form
+      VERY templatey
+      deviations *in* a Panel descendent?
+        softlink database:query to sibling nodes of hardlink panel?
+        NO, because no DRI
+      re-use is a problem
+        because hardlink hardlinks the whole sub-tree
+        the XSL can do the deviation as well
+        but we want to do it with data as much as we can
+        match=interface:Frame[...]
+
+      softlinking could allow dynamic deviations (of course)
+      database:query
+        meta:deviation @path @replacement
+      database:query
+      CRAP
+
+      hardlinking cannot [currently] allow descendent deviations
+      meta:hardlink
+        meta:deviation @path @replacement
+      meta:hardlink
+      unless LibXML2 supports it:
+        xmlAddDeviation(hardlink_deviant, from_node, to_node)
+          hardlink deviation table = nearest ancestor::hardlink of deviation-node (not self)
+          hardlink->hardlink_infoDeviationsTable->entry++
+        during xpath operations like child::*
+          we could then check the ancestor hardlinks deviations table(s) and act accordingly
+          it would need the traversal understanding to select the correct ancestor::hardlink
+          and thus the correct deviationsTable
+          YES: or a complied on-going deviations table during xpath operations in *the* xmlXPathContext
+          the push and pop traversal operations are acting intelligently in this area also
+          does the xpath actually use CollectAndTest as well? and, thus, xmlXPathNext*
+          it would need to re-traverse UP the correct deviations also
+          xml_output_normal WOULD naturally do this
+            uses child::* steps
+            thus the deviations need to be stored on the TransformContext level
+        hardlink_info
+          hardlink_info->next
+          hardlink_prev
+          hardlink_descendent_deviations_table (attributes, text, elements, etc.)
+            node => node
+            node => node
+      how would, for example, a child::* operation from the tree understand which hardlink it was under?
+        it could select the path down instead of direct from the node: /.../*
+        id('idx_345')/* would not work with deviations
+
+      interface:HTMLWebpage @name=index @last-updated @title
+        meta:meta-data (can be a hardlink)
+          owner "whatever"
+        interface:Explorer (hardlink)
+          object:Panel
+            database:query @context-node=$gs_data_query @data=ancestor::interface:Explorer/following-sibling::repository:explorer-panels/*[2] @child-doc-meaning=empty-data-result
+              div "{$gs_data_query/@data} not found"
+        repository:explorer-panels @name=explorer-panels @webpage-direct-render=no
+          interface:HTMLObject
+
+      database:query @data=an interface:Explorer panel
+        interface:HTMLObject (frame 1)
+          ...
+        interface:HTMLObject (frame 2)
+          ...
+      database:query
+        AND
+      interface:Explorer
+        object:Panel
+          database:query @context-node=$gs_outer_data_query data=*[1]
+
+    interface:Frame  => object:Panel
+      we can show the results of the actual database:query in the tree / detail panel, rather than the actual soflink
+
+    maybe the node-mask is traversing the hardlinks and therefore taking a long time
+
+    xsl:variable => xsl:cache / xsl:alias? additionally but with advice?
+
+    make _xmlListLink static again!!!!
+
+    place TODO in to the second tab next to welcome
+
+    limited additional_attributes only to the first node
+
+    ALL elements need to handle multiple jElements because they will also appear in the tree
+      list and full modes at the same time...
+      that means NO this properties!!
+      "interfaceAddElement_default" should be the normal non-list initialiser
+
+    gs:tab = interface:Frame? = bjct;Panl?
+
+    https://en.wikipedia.org/wiki/List_of_ECMAScript_engines
+      Google Chrome V8
+      git clone https://chromium.googlesource.com/v8/v8
+
+    context menu needs to check offsetparent better for non position:relative situations
+      conflicts between gs-context-menu and multi-view controller
+
+    existing xml:id in the incoming xml breaks the load
+      no notification if there is an error
+
+    .tree =&gt; .gs-interface-mode-list
+
+    all triggers are firing on IDE load
+      too many xschema-node-masks are firing
+
+    Dependencies... unavoidable
+      OR multiple inheritance?
+      hardlink them under the dependencies directory
+
+    need to work out multi-template processing...
+      e.g. &lt;xsl:apply-templates select="." mode="gs_head_javascript" meta:multi-template="yes" /&gt;
+      running both:
+        &lt;xsl:template match="*" mode="gs_head_javascript" ref=""&gt;
+        &lt;xsl:template match="*" mode="gs_head_javascript" IDREF="...."&gt;
+      a Class template:
+        @match="Class__IDE_..."
+      an override template
+        @match="Class__&lt;base class&gt;_..." (automatically does it cause same name!)
+      this matches the Class__IDE javascript object
+      and the CSS__IDE css thing
+      OR: we could do like JavaScript and have a new template type:
+        &lt;xsl:x-template view="full" meta:view="yes" meta:direct-client-function="yes"&gt;
+          &lt;xsl:...
+        &lt;/xsl:x-template&gt;
+
+    XPath server that reads directly off the HDD.
+      HDD is faster than memory now?
+      we have many decsions made already.
+      file cacheing would be easy and avoidable in directory traverse operations.
+      RegularX and FD file descriptors could be used to read from other sources like PostGRESQL and network locations
+
+    deletion in LibXML2
+      xmlUnlink is not a problem, xmlFree is
+      xmlFree pointer counts
+        would be from node-sets only?
+        so a free should only happen via int deleted lists
+        so node = node->parent?
+      int deleted
+      DICT_FREE pointer counts: pointers in to ->name
+
+    template modes need to be unique. namespaced
+      with className?
+      server-side AND client-side
+      hide them? NO: too complex
+      encourage them? URGH! bad architecture
+      require them at Database level? BETTER
+      XSD for class:*
+        &lt;xsd:element name="xsl:template"&gt;
+          &lt;xsd:attribute name="match"&gt;
+            &lt;xsd:complexType&gt;
+              &lt;xsd:regex regex="Class__{parent::xsl:stylesheet/parent::class:*/local-name()}-.+" /&gt;
+                &lt;xsd:annotation type="validation-help"&gt;
+                  you *must* prefix all xsl:template match's with the class name
+                  and add the *required* template action / view name on the end after a dash
+                  e.g. @match="Class__Person-full"
+                &lt;/xsd:annotation&gt;
+
+    LOTS of things are not working because the hardlink suppression is causing data to not return
+      e.g. the CSS__Manager classes are not descending to CSS__User and the person icon is not showing
+      suppress-recursive: suppresses exact nodes that have been seen before, but not in the same context:
+      http://general_server.localhost:8776/api/repository:databases/name::general_server/repository:classes/repository:*/class:*?node-mask=descendants-or-self::class:*&amp;database=config&amp;create-meta-context-attributes=none&amp;copy-query-attributes=no&amp;hardlink-policy=suppress-recursive
+      class:X
+        class:DatabaseObject
+          class:DatabaseElement
+      is equal to:
+      class:Y
+        class:DatabaseObject
+          class:DatabaseElement
+      parent_route pushing and popping should be able to handle this...
+    API not working:
+      MAYBE the ::class:* namespace only match has NOT been implemented in LibXML?
+      hmmmmm... changing to ::* doesn't change anything
+      the node-mask calcs are not working properly i think...
+      XP_REWRITE_DOS_CHILD_ELEM is changing hardlink aware AXIS_CHILD to xmlXPathNextDescendantOrSelfElemParent
+      xmlXPathNextDescendant IS ignoring hardlinks
+      xmlXPathNextDescendantOrSelf =&gt; xmlXPathNextDescendant
+      xmlXPathNextDescendantOrSelfElemParent IS NOT ignoring hardlinks
+    should default be: upwards searches ignore hardlinks and downward searches include them
+      ancestors
+      descendant &amp; descendant-ignore-hardlinks
+      that way AXIS_CHILD makes sense again
+      or maybe use the suppress-all hardlink-policy option instead?
+
+    GET the XML editor working!!!!!!
+      get the CodeMirror parser to create a DOMDocument and then parse from that =&gt; HTML
+      improve XSLStylesheet editor
+
+    we are stepping through the source via the security at the moment:
+      SO: xslHandleDebugger(xmlNodePtr cur, xmlNodePtr node, xsltTemplatePtr templ, xsltTransformContextPtr ctxt)
+      security triggers on all source node reads, not on the compiled XSL nodes
+        it is also good to step through the source because we see ALL the steps as xpath resolves and searches etc.
+        stepping options: xpath, xsl, security, source
+      could be restricted to xsl:template level or xsl:&lt;command&gt; level
+      STEPPING:
+        1) the XSL command traversal - *LibXSL* additions: debug, security, triggers? on the compiled stylesheet?
+          the compiled stylesheet is generated *from* a LibXML read of the &lt;xsl:stylesheet&gt; tree and therefore has security applied to the XSL contents
+        2) OR the data traversal?    - LibXML::isAccessibleNode() -&gt; SecurityContent -&gt; DebugContext
+        3) OR the (compiled) xpath data traversal? - LibXML::isAccessibleNode() -&gt; SecurityContent -&gt; DebugContext
+        compiled XSL:command e.g. &lt;xsl:copy lineNo =&gt; then reads the XML with the QE
+        errors report ok from LibXSL so they know the line number and therefore xml:id
+        debug step processing:
+          -&gt; IDE::show(sXPath) -&gt; until another show(sXPath) comes through
+          -&gt; place &lt;input&gt; at top of tree to allow direct xpath entry to then show. including ids
+      does the set breakpoint code cause the stepping to start?
+        NO: because (no) breakpoints will be cached on the thread
+        however, the User refresh (new Thread) might cause a breakpoint hit
+        so some sort of ?no-debug=on is necessary
+        ]]></html:pre></gs:view>
+    <gs:view title="GUI"><html:pre><![CDATA[
+        WordPress siteBuilder style editor
+        with "if" settings TURN on/off to edit / view
+    ]]></html:pre></gs:view>
+    <gs:view title="advices"><html:pre><![CDATA[
+    SEGFAULT on freed:
+        pQE->securityContext()->user()
+        pQE->debugContext()
+
+    if 2 LibXmlBaseNodes do xmlFreeNode() what happens?
+      can xmlUnLockNode() do the xmlFreeNode() instead of a polling queue?
+      LXN1: xmlFreeNode() ->freeze
+      LXN2: xmlFreeNode() ->freeze When they call xmlUnLockNode()
+
+    rewrite traversal_state with xmlXPathNextAncestors to maintain a correct parent_route
+      during traversal
+
+    converting tree fragments => node-sets
+    <div> after <form>
+    XSLT_TREE_FRAGMENT advice:
+      xsl:variable/*[not(xsl)]
+    extension-element-prefixes
+    namespaces
+    default namespace
+    server side extensions in client side XSL
+    xsl:value-of
+    clause without a path
+    clause without a <interface>
+    exclude-result-prefixes
+    ]]></html:pre></gs:view>
+    <gs:view title="short-term"><html:pre><![CDATA[
+    we need an intelligent class provision system
+      analyse data-output and send relevant classes to the stylesheet request.
+      try to catch a client cached one by comparing recent calls on the session conversation
+
+    do not like the xsl:stylesheet @response:server-side-only
+        would like a different element?
+        <xsl:server-stylesheet/>
+
+    transform.c
+    <xsl:template with-all-params="yes">
+      <xsl:param name="gs_override_param" select="special default value" />
+    <xsl:apply-templates with-all-params="yes">
+      <xsl:with-param name="gs_additional_param" select="new thing" />
+      <xsl:with-param name="gs_override_param" select="different_value" />
+
+    https://www.w3.org/TR/xslt20/#element-next-match
+    <xsl:next-match> (multiple template rules on one source node)
+      https://www.w3.org/TR/xslt20/#element-next-match
+      runs all xsl:templates in order of precedence
+    <xsl:param tunnel="true">
+      https://www.w3.org/TR/xslt20/#tunnel-params
+      passes a <xsl:with-param> all the way through undeclared xsl:param templates to the template that declares it
+      sorta like a global parameter scope
+
+    convert the ancestorPath query to an
+      <interface:AJAXHTMLLoader gs:display-class="CSS__SubMenu" func-class-start-notify="SubMenu" data="!($gs_query_string/@xpath-to-ancestor-node-dbs)[2]" interface-mode="gs_interface_render_contextmenu_controllers" transform="~Class/name::interface_render"/>
+
+    books, advices
+      "be a programmer" => books tech you need, create a website => etc.
+      advices can be left in any xpath location and voted up and down
+
+    Things =>
+      general_server
+        website
+        classes
+        database
+        ...
+      can do both (website setup) with name deviation
+
+    put the search buttons ABOVE the search box
+      maybe absolute, so they dont move the tree
+
+    move translateStructure() in to LibXML2
+    move xml:hardlink => xml:hardlink
+
+    server:client-can-xslt()
+      parse the resultant <? decleration
+      maybe will need to insist on server-side-includes?
+
+    IE: https://msdn.microsoft.com/en-us/library/ms754576(v=vs.85).aspx
+      document.XMLDocument
+      document.XSLDocument => immediately cache
+      other browsers SHOULD hit the cache for the 2nd XSL request
+      MAKE SURE it is the same as the first call
+
+    Move Database JS funcs to members, not static
+      Javascript: Database => g_current_database
+
+    GS: concealment license attached to security nodes
+
+    generate javascript class functions from the xslFunctions map for a class
+      and replace the current list of calls
+
+    cache xml xpath context creation on the LibXMLDoc
+      but clear the parent_route each time?
+
+    TRACE reporting is all very good
+      for single user debug server
+      but we need a context if we are to relate it to a single request / session
+      still need to finish WITH_XSLT_DEBUG_VARIABLES and xmlDumpObject calls
+      XSLT_TRACE within a transform context, e.g. XSLT_TRACE_APPLY_TEMPLATES
+      XSLT_TRACE_DEFAULT no transform context, e.g. XSLT_TRACE_PARSING (stylesheet)
+      XML_TRACE_GENERIC e.g.
+        XML_DEBUG_XPATH_EXPR
+        XML_DEBUG_PARENT_ROUTE
+        XML_DEBUG_XPATH_STEP
+        XML_DEBUG_XPATH_EVAL_COUNTS
+      WITH_DEBUG_* and WITH_XSLT_DEBUG_*, e.g. WITH_XSLT_DEBUG_PROCESS
+      xslHandleDebugger()
+      xsltDebugStatusCodes XSLT_DEBUG_STEPOUT
+      xsltDebugTraceCodes XSLT_TRACE_FOR_EACH
+      WITH_XSLT_DEBUG_BREAKPOINTS
+
+    XSLT_REFACTORED??
+
+    isTransient() xpath transient check needs performance attention!
+      a direct LibXML override that walks directly
+
+    namespace node-mask
+
+    return current output DOM up to the error point
+      when an Exception ocurrs
+
+    companion Apache PHP should provide binary services
+      picture re-sizing
+      binary resource-server download + upload
+        GS triggers, hardlinks and push notifications should restrict deletion of binary resources
+      text library resource-server
+      directories + files as-an-XML-database with permissions (usual XML reader) /api/ ?
+
+    global xsl:variable causes error when a system transform is used twice with the same QE
+      because it passes the global variables through
+
+    actually we can do multiple node xsl:includes...
+
+    do a global search for xsl:copy-of, xsl:value-of
+
+    for custom XSLModule funcs, JavaScript
+      introduced="0.9"
+      depreceated="2.3"
+
+    XSchema::gs_node_to_object inheritance are not being taken in to account by the XSchma::controller.xsl
+      needs a formal doc added:
+      namespace__name =&gt; namespace:name
+
+    InPlaceEditing using a template to present the object values
+
+    the gs_interface_mode templates doesn't work because
+      same templates but with different xsl:para causes params not to pass through
+      maybe we make one for EACH class?
+      so we don't need distinct anymore?
+      or we remove the concept of gs_view_render?
+
+    CodeMirror "change" event =&gt; save button enable
+
+    network inter-linking General Server style!
+      we need a central repository, based on a database:class-all() call
+        /object:Server/repsoitory:classes/ trigger...?
+        so classes can be searched for
+      push changes?
+      database:read-valid-xml(url)
+      database:listen-server-events(url, xpath) =&gt; another general-server only!
+
+    paths.xml IS GOOD for cacheing things like classes at C++ level
+
+    javascript:*/xsl:* doesn't work because the javascript:* gets processed by stylesheet_transform
+      unless we do a javascript:code/xsl:* template which just copies
+
+    formalise the idea of understood database:tech()s
+      = JavaScript, CSS, XSL and XSchema
+      maybe move the system transform class_x*.xsl =&gt; the Class__*
+      database:classes_tech() =&gt; all classes with an @mode="tech"?
+        JavaScriptCode
+        CSSStylesheet
+        XSchema
+        XSLStylesheet
+      database:classes_input_handler() =&gt; all classes with an @mode="input-handler"?
+        JavaScriptCode
+        CSSStylesheet
+        [XSLStylesheet] =&gt; the stylesheet class to control the output?
+      [database:classes_with_view(viewname)]
+
+    object:User =&gt; user:anewholm?
+
+    hardlink saving!!!!
+      the subsequenent transaction does not work...
+      now login seems to take a lot of resources
+
+    move context-menus to HTML class pools on client
+
+    param passing in the @mode = javascript function is done at global level even with a @mode
+      so need 2 param declerations currently
+      see Person::template @mode=test
+
+    xmlXPathComp() contains
+      if (CUR == '*') axis = AXIS_CHILD;
+      ...
+      search for '.' and AXIS_ANCESTOR
+
+    rationalise XmlNodeList usage: remove templates? do the same thing we did with const doc for IXmlBasNode?
+
+    rationalise gs-ajax-loading notification
+
+    clever dynamic name() =&gt; meta:classes xsl:templates are not included in the stylesheet transform
+      so javascript:dependency does not get meta:classes and then Class__* stamped on it when in html:head part of sylesheet
+      database:query =&gt; xml_output_normal + @meta:classes &lt;= database:classes(.) =&gt; fragment xslt
+      xsl stylesheet =&gt; stylesheet transform (with plugins javascript + css) =&gt; stylesheet
+
+    http://stackoverflow.com/questions/244882/what-is-the-best-way-to-implement-remember-me-for-a-website
+
+    xsl:template order = inheritance in order to allow template overriding
+      OR: can we stamp something on the @elements to control specificity?
+      inheritance ordering for javascript registerDerived()...
+      otherwise prototypes do not get setup properly
+      and gsQuery(Person) fails
+
+    dynamic template detailing classes and base-classes for each class
+      so that we don't need to stamp it on the XML data (do anyway...)
+
+    get rid of all this-&gt;
+
+    clearing up of Database::tmpNodes now the callers responsibility
+
+    make all system-transform XSL stylesheets = database:element commands
+      &lt;database:xml-output-normal meta-attributes="yes" /&gt; =&gt; system_transforms/xml_output_normal.xsl
+      &lt;database:xschema class="'User'" /&gt;                  =&gt; system_transforms/xschema.xsl
+      use the top level only xsd:annotation/gs:element-ordering/&lt;hardlinks?&gt;
+
+    request class xsl:templates, css and javascript in separate, cacheable calls
+      not injected in to the main stylesheet
+
+    HIJAX
+      &lt;a href="/admin/index?xpath-to-node=id('idx_3243')"&gt;+&lt;/a&gt;
+      &lt;a href="/admin/detail?xpath-to-node=id('idx_3243')"&gt;name&lt;/a&gt;
+
+    include all W3C entities DTDs -&gt; main DTD (probably copy them)
+
+    alternative loading scenario:
+      XML + all class XSL =&gt; objectLoader =&gt; GEOContainer-&gt;renderAll(without more ajax calls) =&gt; HTML
+
+    =&gt; incoming request =&gt; some sorta Class GetRequest @inherits="Request" etc.
+      CPP object Service can search through the derived Request classes looking for a match
+      running the gimme() template on the raw text (node)
+
+    &lt;class:ExtraThing @meta:component-of="HTMLWebpage"
+
+    class:*/gs:dependency @on="HTMLWebpage.BodyInformation"
+
+    prefix CSS classes with gs-? before we use them!
+
+    we can change Database:set-attribute() to do multiple nodes at the same time...
+      the TXML serialisation is only storing the last one...
+      moving TXML and general IXml::change functions to act on node-set is a big job!
+      actually no: general IXml::change acts off IXmlBaseNode so won't change
+      it's only Database::TXml_functions that need to work on node-set
+
+    the children load node-mask includes repository:system because it *is* a valid child
+      but then includes the repository:system under website because it is there as well
+      can node-mask reference a specific hardlinked-node-parent?
+
+    form_add is actually a generic thing =&gt; form_render
+      we need to either provide a form_id that is to be used to get the server side settings
+        gs--form-xpath = id('idx_23434')
+        which holds any static data like meta:transform, meta:with-mode
+        form processing must pick up sent vars + gs--form-xpath vars
+        only send it through to the client if it is dynamic: contains $ or current()?
+
+    move Class HTML stuff in to a html sub-folder within the class
+      classes are suppossed to be View in-specific
+
+    &lt;xsl:if&gt;
+      ...
+      &lt;xsl:else&gt;
+        ...
+      &lt;/xsl:else&gt;
+    &lt;/xsl:if&gt;
+
+    Classes need to be included in order of inheritance for javascript
+      unless prototyping is done at first use of new Object()
+      unless setTimeout() or $(document).ready() is used?
+      cyclic inheritance? -&gt; not a good idea
+
+    if (!canTransform()) {oOptions.can-xslt = 0; oOptions.dataType = 'html';}
+      OR assume: if it can ajax then it can XSLT?
+
+    put an id on each server event so the client can store last spotted
+      listen-server-events?last_event_id=idx_32543
+
+    prefix all query strings with gs__
+      strip them off when generating &lt;request&gt; with RegularX?
+      gs__server_side_includes =&gt; meta:server_side_includes
+      namespaced query strings
+
+    process xml output and input through an indentation manager
+      probably write it ourselves with DOM manipulation
+      use concept of elements that do not need to be on new line
+      have optional "indent" button on editor
+      remove initial whitespace from each line equal to that of the first line
+
+    move User stepping and debugging in to a concrete DebugContext class
+
+    CodeMirror plugins:
+      hint/show-hint.js
+      hint/xml-hint.js
+      hint/css-hint.js
+
+    maybe no need to pass through and register the server() anymore because registration cascades?
+      server not needed for anything besides XslModule
+
+    rationalise virtual const char *name() const and Thread name()
+
+    is main tree request requesting everything?
+
+    hardlink conversations under session?
+
+    implement introspection of XSLModule functions so that the Javascript versions can be created automatically
+      Database::createElement(...) -&gt; XslModule::modules() &amp; XslModule::xsl_functions() -&gt; javascript function createElement(...)
+      Javascript software!!! / framework
+
+    warn against
+      xsl:value-of
+      xsl:templates with many node unless @meta:override="prevent" or @meta:suppress-warnings="big-templates"
+
+    introduce sanity checks for XML page size
+
+    xml:id on new incoming XML, e.g. ForumPosts
+
+    load.xsl: ajax loaders for specific interfaces
+      add your own in specific situations
+      TODO: er. can we automate this??
+      OR: at least verify it in the XSLStylesheet warnings
+      &lt;gs:server-side-include xpath=""&gt;
+        &lt;gs:with-param name="gs_mode" select="summary" /&gt;
+      &lt;/gs:server-side-include&gt;
+
+    &lt;xsl:include-once xpath /&gt;
+
+    linked server discovery (IP scan)
+      linked server software discovery (port scan)
+        apache
+        mysql
+        postgres
+        GS web / ftp
+      linked GS server services and type discovery:
+        dev/stage/live
+        services
+        websites
+        databases
+      Database:trigger(...) browsing of linked servers, e.g. Apache binary resources
+
+    Should XSLStylesheet editing be in-place?
+      3 modes: xml, summary with properties, in-place editing
+      side-bar placeholder in wysiwyg editor
+        with classes forms to drop on the webpage
+      Classes need to be able to specify the tabs in the editor IDE
+        e.g. XSLStylesheet needs a preview tab
+        User needs a nodes-owned tab
+
+    list_data_selector display mode?
+      is 'full' or 'list' the default mode? mode=""
+      the classes get included, they should display automatically
+        pass the display mode through from the requestor
+        &lt;gs:data&gt;&lt;gs:tree intended_interface="list"&gt;&lt;...&gt;
+        &lt;database:query intended_interface="list"&gt;
+      maybe use root auto includes &lt;xsl:stylesheet name="area_stylesheet_includes.xsl"
+        to include the load.xsl
+        /shared/area_stylesheet_includes.xsl
+      we want AJAX data hardwires to work automatically
+
+    classes have -, @mode have _
+
+    copy versioned boot sequence in to website root?
+      upon website creation
+      code release? -&gt; different server? bug fixes?
+      better specification of functions (they are quite simple already!)
+      XSL function versioning?
+        Database2:do_x()
+        Database:do_x2()
+        Database:do_x(..., bSomethingslightlyDifferent)
+      boot strap XSL is more important
+      service definition is tricky
+        ]]></html:pre></gs:view>
+    <gs:view title="bugs"><html:pre><![CDATA[
+  saving a hardlinked node looses the hardlink
+
+  server-side ajax fails: because it expects XML + XSLT
+
+  &lt;gs:with-param&gt; doesn't work with &lt;database:query @system-transform
+
+  AJAX DatabaseObject.changed() reload is *either* reloading the IDX or the DatabaseObject
+  SO: in the case that there are 2 jElements, and one does not have a IDX present it fails
+
+  text in the HTML pages isn't really displaying properly...
+  default templates ok?
+
+  @xpath xsl:include on server-side-xslt="yes" works?
+
+  create new xml:ids when transforming during move-child
+  e.g. logging in transforms the xsl:template user transform node -&gt; session with the same xml:id
+  it does not throw an error because it is a non-xml:id resistration area
+  memory is being released on dynamic content. use valgrind to spot it
+  the response statements are not coming out in the API calls again
+  saving converts response:remove -&gt; response:remove
+    ]]></html:pre></gs:view>
+    <gs:view title="later"><html:pre><![CDATA[
+  move document hardlink setup in to LibXML (ofc!)
+
+  assemble all server-side xsl:templates dynamically (HTTP, inheritance, etc.)
+  assemble all client-side xsl:templates dynamically
+
+  RepositoryType was infered by the name so therefore @type is redundant...
+    use gimme() to play it back
+    but we need to store the correct "part", i.e. "a_directory/" or "a_file.xml" in name
+    and it needs to work on the name, rather than the whole path
+
+  the database understands classes
+  xschema, and should validate additions (referential integrity...)
+
+  &lt;xsl:copy-of select="object:User[@name='root']-&gt;full()" /&gt;
+  &lt;xsl:value-of select="'1,2,34'-&gt;split(',')" /&gt;
+  show xsl:templates as functions:
+  template interface_full(html:html) {
+  if (@class == 'thing') {
+    print('&lt;div /&gt;');
+  } else {
+    switch () ...
+  }
+  }
+  and link up the Javascript editor template
+
+  ?can-xslt =&gt; ?gs_can-xslt
+
+  warn about blur and focus do not bubble:
+  use focusin and focusout
+
+  copy whitespace text nodes in RXsl
+
+  Modular:
+  MVC +
+  install.xsl    =&gt; database:commands + readout + diagnostics
+  uninstall.xsl
+
+  use the memory manager also to cascade delete objects at the end of parents life
+  the ~TmpNode() could destroy the node
+
+  Triggers: combine thinking with the need for current() for the read triggers so that parse-xml() output can be appeneded to .
+  triggers should fire in the creators NodeSecurityContext only
+    parent node-masks disabled
+    Database:trigger-creators="543-0-0-0"
+
+  Namespace policies!
+  object:* are meta:things that are fixed and have Class__
+  xsl:stylesheet also does of course
+    and has xsl:template and html:things
+  still need an has-class()
+  object:thing has meta:parts?
+  object / meta:stuff has also repository:folders?
+    but repository is also the permanent store saving attributes
+
+  policy for area that is affected: TXml::AffectedNodeDetails-&gt;serialise()
+  but: LibXml should decide the nature of the change?
+  or:  application layer should decide the nature of the change?
+  we would like the full last QE-&gt;TXml object passed through anyway?
+  rationalise IXmlArea and TXml::AffectedNodeDetails
+
+  move to using XmlBaseNodeVector and persistentUniqueMemoryLocationID() (xmlNodePtr) for persistent server uptime non-serialised node identification
+  instead of uniqueXPathToNode()
+
+  Database knowledge of classes
+  WE WILL: have to write our own xmlCopyNodeWithXSchema(node, xschema_definition)
+    creates document fragment based on xschema_definition from node.
+    must be xschema valid XML obviously
+    probably can use the code in LibXML::schemas.c
+    int xmlSchemaValidateDoc(xmlSchemaValidCtxtPtr ctxt, xmlDocPtr instance)
+      xmlSchemaValidCtxt:
+        xmlNodePtr node;
+        xmlNodePtr cur;
+        xmlNodePtr validationRoot;
+        ...
+    int xmlSchemaCopyNodeArea(xmlSchemaValidCtxtPtr ctxt, xmlNodePtr instance)
+    int xmlSchemaValidateDoc(xmlSchemaValidCtxtPtr ctxt, xmlDocPtr instance, xmlNodePtr copy_output)
+        ...
+  &lt;db:copy
+    select="."                                                             //default! to copy this to a document fragment
+    use-schema="yes"                                                       //default! to use the IXmlArea xschema definition to pluck the relevant nodes out
+    include-sub-objects="db:descendant-objects(.)" /&gt;              //apply object IXmlNodeMask *pSchema and insert document fragmentDatabaseObject
+  default DatabaseObject behaviour on the CLIENT is to reload the DatabaseElement, however, it can reload itself instead, CSSStylesheet
+  DatabaseObject.changed(sXmlId [,DatabaseElement]) -&gt; DatabaseElement.changed()
+
+  prevent chained TXml in sub-transforms using xslCommand properties like (SUB-TRANSFORM_OK)
+
+  date stamp, UUID and IP Address on TXml
+
+  masquerading complete
+  userId(iType = masqueraded) / supervisor
+  should pStore recieve a pQE and then check masquerade for the sUserId?
+  or should TXml do it?
+    the system is in charge of security, not the Database
+    but we want to minimise what TXml does
+    we want TXml to deal in strings, not objects
+    thus: masquerading?
+    and: why would the store trust the TXml?
+    we pass through authorisation QE.
+    so, when it runs, we pass through an authorisation QE and that does the masquerade
+
+  split Repository in to:
+  read (non-NodeServerObject) also= XslModule sub-class
+  and write NodeServerObject to allow NodeServerObject to instanciate properly!
+  note that path and node ancestor calcs require a root Repository with a DatabaseNode AND a m_sFullPath
+
+  what if a hard link took you in to a new area?
+
+  does the duplicates check in uniqueXPathToNode() need to be security aware? -&gt; getMultipleNodes(sameName)
+  will the xpath restrict sibling reading so that the [readable duplicates] works?
+
+  Scope of change necessary?:
+  send TXml all the way through with the QE?
+  unless we refresh whole sub-tree every time?
+  ONE CHANGE: can only be at a top level node and down
+  TWO CHANGES: are required for 2 different areas of the tree
+  Is a door a separate object? of a car?
+  BUT: what if a high level change happens, e.g. to the city: then ALL objects will need a refresh
+  css:stylesheet total refresh ok?, sometimes they are super big!
+  css:stylesheet refresh only necessary in DEV modes
+    &lt;style class="DatabaseObject CSSStylesheet gs-xml-id-idx_4325"&gt;body {clause, clause, clause}&lt;/style&gt;
+    &lt;style class="DatabaseObject CSSStylesheet gs-xml-id-idx_43"&gt;  .exmaple {clause, clause, clause}&lt;/style&gt;
+    ...
+  &lt;link rel="css" href="..." /&gt; &lt;= pure css linked in (no IDs) we cannot change any of this dynamically
+
+  make an /api/index.xsl that just uses a &lt;database:query with a &lt;xsl:stylesheet @content-type="text/xml"
+
+  rx:multi -&gt; recursive
+  services : crontab 2 0 0 0\n -&gt; &lt;crontab id="2" mem="0" /&gt;
+
+  change RegularX to RegXML for legal reasons
+
+  login in-built users need re-think / RE-FACTOR
+  SecurityContext::factory() and SecurityContext::serialise() to re-create actual object
+  InBuiltFixedSecurityContext needs to encapsulate the in-built functions
+    static isInBuiltUser(iUserId)
+    static inBuiltUserUUID(iUserId)
+
+  in-built periodic execution of xsl (own cron)
+  allows server ps -A watching
+  data gathering (graphs)
+  email server
+  load balance statistics
+  database cleaning and commits &lt;Database:commit type="incremental" /&gt;
+  maybe #IDREF or hardlinked stylesheets would be good for this specification
+
+  maybe move translateStructure() in to LibXML?
+  xmlHardLink() is already part of LibXML
+  decode file system ln symlinks
+  and, of course, save file system symlinks
+  either way it would use the XmlAdministrationQueryEnvironment
+
+  trigger scope
+  @Database:on-before-read="repository:rx(file, rx, output, cache-timeout, IF_MODIFIED | INCREMENTAL | ...)"
+  @Database:on-before-read-tree="..."
+
+  handle SIGTERM better?
+
+  complete ?can-xslt=0 xslCommand_setPostTransform() to allow use of a transformed stylesheet
+  can it already with
+    $ss = Database:transform(., ...)
+    &lt;Database:transform with="$ss" /&gt;
+  also need to write recursive &lt;xsl:include morphing of @href -&gt; @xpath
+    permanently add the xpath attribute?
+    so that the loading procedure then works off the xpath autonomously?
+
+  check issuer on security contexts...
+
+  turn on xpath stream compilation again
+  in xmlXPathTryStreamCompile()
+
+  replace xpathCtxt-&gt;externalContext with xsltXPathGetTransformContext()
+  which uses xpathCtxt-&gt;extra
+
+  use the LibXML threads library to control access
+  http://www.xmlsoft.org/html/libxml-threads.html#xmlInitThreads
+
+  setNamespaceRoot() on main document after xmlReadIO()?
+  cannot do this currently until xmlNodePtr-&gt;other_parents are available to sync nsDef pointers
+
+  xpath masks implemented in xml_output_normal
+  use them, and allow xshema masks also
+
+  Allow: general_server.org/my_website.org/...
+  so that people don't have to buy domain names anymore
+
+  HardLinking "pauses" when evaluating root descendant axis xpath
+  e.g. http://localhost:8776/api///repository:feeds -&gt;
+    pauses at "Testing: meta:xml_decl" and does a "Basis: computing new set" operation
+    and returns to the top &lt;request&gt; node and begins testing all children (HTTP, cookies, url, url_parts, query, multi, message_type) again
+    check that the debug output is not causing the problem.. NO
+    xmlPatternMaxDepth is returning -2
+
+  cookie store expanded nodes and re-expand on re-load
+
+  Failed To Compile Stylesheet errors do not report xml:id
+  make line = xml:id?
+
+  investigate CodeMirror.js modes:
+  markup @xmlns and xml:id
+  indenting
+  debug stepping
+
+  TODO: resource:
+  get the FileSystem::Directory XML reader to spot pure Javascript *.js files with (^[^&lt;].*) and place &lt;javascript:raw&gt;&lt;![CDATA[ around them
+    same with css &lt;css:style&gt;&lt;css:raw&gt;&lt;![CDATA[
+    use js_filetype gimme(...) handlers
+  linked-server @name="general resources": localhost:8778 -&gt; xsl:variable
+  CodeMirror: loads of JS files. FileSystem::if !start with &lt;...
+    regional RegularX?
+  allow loading of text nodes? and for directories with CDATA?
+    would require splitting out of images and JS
+  BUT: how would it be uploaded anyway?
+
+  TODO: change all &lt;script&gt; includes to xsl:apply-templates calls to allow overriding
+
+  TODO: xmlMemDisplay -&gt; dynamic rx
+
+  TODO: &lt;server:throw error="" param="" /&gt;
+
+  unix LibXml (search there only): replace free with xmlFree so that LibXML2 MEM_WATCH works
+  finally, attach the LibXML memory management reporting into the C++ level
+  complete MemoryLifetimeOwner
+
+  FileSystem::reOrganiseSubRepositioryIntoSubUnits(MAX_FILE_SIZE)
+  to make top elements of a file into Directory + metaxml.xml with multiple sub-File
+  periodically: on the saving thread, if a unit is found to be too big
+  because we want the IXmlDoc + Repository on one server and -&gt;saveXML(FILE *directOutput) stream to file
+  to minimise memory usage to just the IXmlDoc even during save periods
+  MAYBE?: when writing the XML -&gt; file(s) we re-create the repository decisions,
+  i.e. repository:*, xsl:stylesheet, everything else a file, split up big ones
+  saves of, for example big moves, would need to re-write ALL the repository attributes
+  BACKUP: transaction files. -&gt; these represent batch processing
+
+  TODO: need to update the from="" in main_idx to the highest last one
+  otherwise deletes and then new nodes will take on the id of the previous delete
+  TODO: attempting to replaceNodeCopy on main_idx invalidates the pointer to it
+
+  TODO: Access to TXmlAcceptor::document(); 2 types of TXmlAcceptor? - thus maintaining compile time checking
+    commit() only available on the super-class Database style TXmlAcceptor which has also a private inMemoryDocument()
+    transactionSucceeded() using isTransient() only available also on the super-class with inMemoryDocument()
+  Request should destroy its tmp nodes on exit...
+
+  configure.ac:
+  change -l* linker options to m4/custom.m4 for configure.ac
+  can libtoolize detect required libs? currently they are hardcoded in to the Makefile.am...
+
+  TODO: Security general:
+  If we are moving a node that we can write to, with descendants that we cant, what happens?
+  Not writeable in XML context means that it can't be moved?
+  If we are updating XML content and removing / changing nodes we cannot write to then it can't happen.
+    you must have write access to *everything* you delete / update
+  So, when editing nodes with assorted security settings, but all writeable:
+    How can we maintain @xmlsecurity entries with the xml editor system without manual changes to them?
+    does write access automatically mean SEC_OP_security-control access?
+  Parent Directory not writeable means that it can't be moved
+
+  TODO: re-check all throws for resource releasing
+  UNWIND_EXCEPTION_* :)
+
+  TODO: memory management
+  //WE DO the new here, allowing us to manage the results of factory functions etc.
+  Type *example = mm-&gt;gs_manage&lt;class Type&gt;(Type *pBlah, const char *reason, enum lifetime, MMParent *parent = 0)
+                  mm-&gt;gs_free&lt;  class Type&gt;(Type *pBlah)
+  //malloc(...) -&gt; char* specific function which DOES the malloc:
+  char *example = mm-&gt;gs_manage(size_t iAmount, const char *reason, enum lifetime, MMParent *parent = 0)
+
+  Turn O2 optimisation back on again for libxml2, libxslt, libexslt
+  CFLAGS = -g -O2 -pedantic -W -Wformat -Wunused -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs -Wformat -Wchar-subscripts -Wuninitialized -Wparentheses -Wshadow -Wpointer-arith -Wcast-align -Wwrite-strings -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs -Winline -Wredundant-decls
+  Turn off -ggdb for libxml2, libxslt, libexslt
+    ]]></html:pre></gs:view>
+    <gs:view title="notes"><html:pre><![CDATA[
+  xsltApplyTemplates()
+  -&gt; xmlXPathCompiledEval() when there is a select
+    -&gt; xmlXPathCompiledEvalInternal()
+      -&gt; xmlXPathRunEval()
+        -&gt; xmlXPathRunStreamEval() ? seems to skip this: is this done during compile spreadsheet? do we care?
+        -&gt; xmlXPathCompOpEval() COMPiled OPeration EVALuation
+          switch (op-&gt;op) {
+            -&gt; ...
+            -&gt; xmlXPathNodeCollectAndTest() runs the Axis traversal functions WHICH SHOULD be running the node-mask test...
+            -&gt; ...
+          }
+  xsltApplySequenceConstructor(...) =&gt; continues to apply the child XSL instructions, e.g. called from xsl:if
+  ]]></html:pre></gs:view>
+  </interface:MultiView>
+</gs:TODO>

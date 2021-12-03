@@ -1,0 +1,26 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause>
+    <path>
+      <class relation="child-only">details</class>
+    </path>
+    <icon>script_code</icon>
+  </clause>
+
+  <css:section name="state">
+    <!-- combined with startup javascript to act on these elements
+      i.e. to show the js_show etc.
+    -->
+    <clause>
+      <path><class>js_remove</class></path>
+    </clause>
+
+    <clause>
+      <path><class>js_hide</class></path>
+    </clause>
+
+    <clause>
+      <path><class>js_show</class></path>
+      <display>none</display>
+    </clause>
+  </css:section>
+</css:stylesheet>

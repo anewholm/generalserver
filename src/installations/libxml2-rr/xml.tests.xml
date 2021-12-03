@@ -1,0 +1,75 @@
+<repository:xml-tests>
+  <!-- document structure tests -->
+  <xpath name="predicate [x]" result-count="1">/object:Server/repository:tests/gs:data/*[3]</xpath>
+  <xpath name="hardlink parent_route" result-xml=" name=&quot;data&quot;">/object:Server/repository:tests/gs:data/gs:under/gs:thing/parent::*/parent::*/@name</xpath>
+  <xpath name="single root node">/*</xpath>
+  <xpath name="user repository">/config/users</xpath>
+  <xpath name="hardlink siblings" result-count="2">/object:Server/repository:tests/gs:data/gs:hardlink-target</xpath>
+  <xpath name="deviation content" result-xml="deviant">/object:Server/repository:tests/gs:data/gs:deviations-target/gs:a-thing/text()</xpath>
+  <xpath name="deviation attribute" result-xml=" name=&quot;deviant&quot;">/object:Server/repository:tests/gs:data/gs:deviations-target/gs:a-thing/@name</xpath>
+  <xpath name="deviation name axis" result-xml="deviant">/object:Server/repository:tests/gs:data/gs:deviations-target/name::deviant/text()</xpath>
+  <xpath name="deviation top attribute" result-xml=" name=&quot;deviant&quot;" flags="XML_DEBUG_PARENT_ROUTE">/object:Server/repository:tests/gs:data/gs:deviations-target/@name</xpath>
+
+  <!-- XPath grammar tests -->
+  <xpath name="abbr: ~" result-xml=" namespace-prefix=&quot;class&quot;">~Class/@namespace-prefix</xpath>
+  <xpath name="abbr: ^">^Class__HTTP</xpath>
+  <xpath name="abbr: !" result-xml=" test=&quot;success&quot;">!(/config/repository:tests/gs:data/gs:eval-test/@gs:xpath)/gs:result/@test</xpath>
+  <!-- TODO: no session! xpath name="abbr: `">`0</xpath -->
+
+  <!-- XPath axis tests -->
+  <xpath name="axis: name">/object:Server/repository:tests/name::data</xpath>
+  <xpath name="axis: default name" result-xml="works">/config/repository:tests/gs:data/default-name/axis/test/text()</xpath>
+  <xpath name="axis: name 2">/config/users</xpath>
+  <xpath name="axis: not(name)" result-count="0">not(/config/users)</xpath>
+  <xpath name="axis: parent-route" result-xml=" name=&quot;works&quot;">/object:Server/repository:tests/gs:data/gs:under/gs:thing/parent-route::*/@name</xpath>
+  <xpath name="axis: parent-natural" result-xml=" name=&quot;parent-test&quot;">/object:Server/repository:tests/gs:data/gs:under/gs:thing/parent-natural::*/parent-natural::*/@name</xpath>
+  <xpath name="axis: hardlink" result-count="2">/object:Server/repository:tests/gs:data/gs:under/hardlink::*</xpath>
+  <xpath name="axis: top" result-count="2">/object:Server/repository:tests/gs:data/top::gs:top</xpath>
+  <xpath name="axis: parents" result-count="2">/object:Server/repository:tests/gs:data/gs:under/parents::*</xpath>
+  <xpath name="axis: ancestors" result-count="2">/object:Server/repository:tests/gs:data/gs:under/ancestors::gs:data</xpath>
+  <xpath name="axis: descendant-natural" result-count="2">/object:Server/repository:tests/gs:data/descendant-natural::gs:top</xpath>
+  <!-- xpath name="axis: ancestors-or-self" result-count="2">/object:Server/repository:tests/gs:data/gs:under/ancestors-or-self::*</xpath -->
+
+  <!-- Misc -->
+  <transform name="xsl:transform HTML output test" result-count="1" result-xml="&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;&lt;head&gt;&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;&lt;script src=&quot;testonly.js&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;/html&gt;">
+    <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" version="1.0" exclude-result-prefixes="#default repository gs database debug conversation xxx html rx class xmlsecurity xmltransaction xsl object interface xsd service javascript css meta response str server request regexp session flow dyn exsl">
+      <xsl:output method="html" adorn-literals="no" encoding="utf-8" omit-xml-declaration="yes" indent="no"/>
+      <xsl:template match="/">
+        <html>
+          <head><script src="testonly.js"/></head>
+        </html>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>  
+
+  <transform name="XML output control API" result-count="1" result-xml="&lt;xml-output-test xmlns=&quot;http://general_server.org/xmlnamespaces/general_server/2006&quot; name=&quot;xml-output-test&quot;&gt;&#10;    &lt;child&gt;thing&lt;/child&gt;&#10;    &lt;hierarchy&gt;&#10;      &lt;with&gt;&#10;    &lt;stuff/&gt;&#10;      &lt;/with&gt;&#10;    &lt;/hierarchy&gt;&#10;  &lt;/xml-output-test&gt;">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" exclude-result-prefixes="#default repository gs database debug conversation xxx html rx class xmlsecurity xmltransaction xsl object interface xsd service javascript css meta response">
+      <xsl:variable name="gs_debug_interface_render" select="false()"/>
+      <xsl:variable name="gs_service" select="/config/data/object:Service"/>
+      <xsl:variable name="gs_request" select="/config/data/object:Request"/>
+      <xsl:variable name="gs_session" select="/config/data/object:Session"/>
+      <xsl:variable name="gs_user" select="/config/data/object:User"/>
+      <xsl:variable name="gs_message_interpretation" select="/config/data/object:MessageInterpretation"/>
+      <xsl:include xpath="~HTTP/controllers/GET_request_api/controller"/>
+
+      <xsl:template match="/">
+        <xsl:apply-templates select="/config/repository:tests/gs:data/xml-output-test" mode="gs_interface_render">
+          <xsl:with-param name="gs_create_meta_context_attributes" select="'none'"/>
+        </xsl:apply-templates>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>  
+
+  <transform name="XML output control direct" result-count="1" result-xml="&lt;xml-output-test xmlns=&quot;http://general_server.org/xmlnamespaces/general_server/2006&quot; name=&quot;xml-output-test&quot;&gt;&#10;    &lt;child&gt;thing&lt;/child&gt;&#10;    &lt;hierarchy&gt;&#10;      &lt;with&gt;&#10;    &lt;stuff/&gt;&#10;      &lt;/with&gt;&#10;    &lt;/hierarchy&gt;&#10;  &lt;/xml-output-test&gt;">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" exclude-result-prefixes="#default repository gs database debug conversation xxx html rx class xmlsecurity xmltransaction xsl object interface xsd service javascript css meta response">
+      <xsl:output method="xml" encoding="utf-8" omit-xml-declaration="yes" indent="no"/>
+      
+      <xsl:template match="/">
+        <xsl:apply-templates select="/config/repository:tests/gs:data/xml-output-test"/>
+      </xsl:template>
+      
+      <xsl:template match="@* | text() | comment() | processing-instruction()"><xsl:copy/></xsl:template>
+      <xsl:template match="*"><xsl:element name="{name()}" namespace="{namespace-uri()}"><xsl:apply-templates select="@* | node()"/></xsl:element></xsl:template>
+    </xsl:stylesheet>
+  </transform>   
+</repository:xml-tests>

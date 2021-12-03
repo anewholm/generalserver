@@ -1,0 +1,1 @@
+<repository:php name="php" tree-icon="world" database:on-before-read="database:parse-xml(repository:read-valid-xml('http://general-resources-server.localhost/php/example.php'), /object:Server/repository:server/repository:test/repository:php)"/>

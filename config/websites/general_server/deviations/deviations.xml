@@ -1,0 +1,12 @@
+<deviations xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <IDE-name name="index" title="IDE"/>
+  <index-name name="index" title="main website index page"/>
+  
+  <documentation-name name="index" title="documentation"/>
+  <server-name name="server" title="server documentation"/>
+  <process-name name="process-HTTP" title="HTTP processing schema"/>
+  <AJAXHTML-name name="process-AJAXHTML" title="AJAXHTML processing schema"/>
+  <libxml-name name="libxml" title="LibXML changes"/>
+  <libxsl-name name="libxsl" title="LibXSL changes and flows"/>
+  <api-name name="API" title="API documentation"/>
+</deviations>

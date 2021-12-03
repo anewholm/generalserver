@@ -1,0 +1,58 @@
+<xsl_types xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <!-- ################################ 19 primitive data types ################################ -->
+  <!-- basic -->
+  <xsd:string description="Any string"/>
+  <xsd:token description="Whitespace-replaced and collapsed strings"/>
+  <xsd:QName description="Namespaces in XML-qualified names"/>
+  <xsd:Name description="XML 1.O name"/>
+  <xsd:NCName description="Unqualified names"/>
+  <xsd:normalizedString description="Whitespace-replaced strings"/>
+
+  <xsd:boolean description="Boolean" value-type="true or false"/>
+
+  <xsd:decimal description="Decimal numbers"/>
+  <xsd:double description="IEEE 64-bit floating-point"/>
+  <xsd:float description="IEEE 32-bit floating-point"/>
+  <xsd:int description="32-bit signed integers"/>
+  <xsd:integer description="Signed integers of arbitrary length"/>
+  <xsd:long description="64-bit signed integers"/>
+  <xsd:negativeInteger description="Strictly negative integers of arbitrary length"/>
+  <xsd:nonNegativeInteger description="Integers of arbitrary length positive or equal to zero"/>
+  <xsd:nonPositiveInteger description="Integers of arbitrary length negative or equal to zero"/>
+  <xsd:positiveInteger description="Strictly positive integers of arbitrary length"/>
+  <xsd:short description="32-bit signed integers"/>
+  <xsd:unsignedInt description="Unsigned integer of 32 bits"/>
+  <xsd:unsignedLong description="Unsigned integer of 64 bits"/>
+  <xsd:unsignedShort description="Unsigned integer of 16 bits"/>
+
+  <!-- date / time -->
+  <xsd:duration description="Time durations"/>
+  <xsd:date description="Gregorian calendar date"/>
+  <xsd:dateTime description="Instant of time" value-type="Gregorian calendar"/>
+  <xsd:time description="Point in time recurring each day"/>
+  <xsd:gDay description="Recurring period of time: monthly day"/>
+  <xsd:gMonth description="Recurring period of time: yearly month"/>
+  <xsd:gMonthDay description="Recurring period of time: yearly day"/>
+  <xsd:gYear description="Period of one year"/>
+  <xsd:gYearMonth description="Period of one month"/>
+
+  <!-- resource -->
+  <xsd:anyURI description="URI" value-type="Uniform Resource Identifier"/>
+  <xsd:base64Binary description="Binary content coded as &quot;base64&quot;"/>
+  <xsd:unsignedByte description="Unsigned value of 8 bits"/>
+  <xsd:byte description="Signed value of 8 bits"/>
+  <xsd:hexBinary description="Binary contents coded in hexadecimal"/>
+
+  <!-- enumerated types -->
+  <xsd:language description="RFC 1766 language codes"/>
+
+  <!-- XML elements -->
+  <xsd:ID description="Definition of unique identifiers"/>
+  <xsd:IDREF description="Definition of references to unique identifiers"/>
+  <xsd:IDREFS description="Definition of lists of references to unique identifiers"/>
+  <xsd:ENTITIES description="Whitespace-separated list of unparsed entity references"/>
+  <xsd:ENTITY description="Reference to an unparsed entity"/>
+  <xsd:NOTATION description="Emulation of the XML 1.0 feature"/>
+  <xsd:NMTOKEN description="XML 1.0 name token" value-type="NMTOKEN"/>
+  <xsd:NMTOKENS description="List of XML 1.0 name tokens" value-type="NMTOKEN"/>
+</xsl_types>

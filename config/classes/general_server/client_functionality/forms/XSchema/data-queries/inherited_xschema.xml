@@ -1,0 +1,1 @@
+<xsd:render xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" meta:data-query-type="replace" interface-mode-condition="editor" interface-mode="editor" class="$gs_current/parent::class:*"/>

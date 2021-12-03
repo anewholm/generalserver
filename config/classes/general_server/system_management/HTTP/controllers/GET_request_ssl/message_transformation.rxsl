@@ -1,0 +1,3 @@
+<object:Request xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:gs="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:rx="http://general_server.org/xmlnamespaces/rx/2006">
+  <HTTP type="=SSL">https</HTTP>
+</object:Request>

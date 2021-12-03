@@ -1,0 +1,5 @@
+<xsl:stylesheet response:server-side-only="true" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:server="http://general_server.org/xmlnamespaces/server/2006" xmlns:debug="http://general_server.org/xmlnamespaces/debug/2006" xmlns:database="http://general_server.org/xmlnamespaces/database/2006" xmlns:gs="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:interface="http://general_server.org/xmlnamespaces/interface/2006" xmlns:object="http://general_server.org/xmlnamespaces/object/2006" xmlns:str="http://exslt.org/strings" name="virtualhosts-stage" version="1.0" extension-element-prefixes="debug dyn str regexp database server request">
+  <xsl:param name="gs_stage" select="string(($gs_query_string/@stage | $gs_website_root/@stage)[1])"/>
+  <xsl:param name="gs_stage_live" select="$gs_stage = 'live'"/>
+  <xsl:param name="gs_stage_dev" select="not($gs_stage_live)"/>
+</xsl:stylesheet>

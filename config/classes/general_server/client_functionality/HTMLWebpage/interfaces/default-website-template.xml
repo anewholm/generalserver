@@ -1,0 +1,5 @@
+<interface:HTMLWebpage xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://www.w3.org/1999/xhtml" name="[@meta:suggest-deviate]" title="{str:dynamic(interface:*[1]/@title, @name)}" favicon="{$gs_resource_server}/resources/{request:resource-ID()}/favicon.ico" body-class="" jQuery="1.10.2" jQueryUI="1.10.3" standard-libraries="jquery.cookie,modernizr" general-server-framework="1.0" code-class="include" code-class-dependencies="include" class-styles="include" class-style-dependencies="include" response:classes-and-bases="$gs_website_classes">
+  <interface:HTMLContainer title="deviate this @title!" meta:suggest-deviate="yes">
+    <div>deviate this!</div>
+  </interface:HTMLContainer>
+</interface:HTMLWebpage>

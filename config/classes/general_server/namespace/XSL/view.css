@@ -1,0 +1,17 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause name="hide namespace_prefix">
+    <path>
+      <class relation="self">gs-interface-mode-list</class>
+      <class relation="child-only">namespace_prefix</class>
+    </path>
+    <display>none</display>
+  </clause>
+
+  <clause>
+    <path>
+      <class relation="self">gs-interface-mode-list</class>
+      <class relation="child-only">details</class>
+    </path>
+    <color type="hash">0000aa</color>
+  </clause>
+</css:stylesheet>

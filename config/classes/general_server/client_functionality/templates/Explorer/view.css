@@ -1,0 +1,53 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <css:dependency uri="/resources/shared/jquery/plugins/splitter/css/jquery.splitter.css"/>
+
+  <css:section name="frames">
+    <path><interface>default</interface></path>
+
+    <clause>
+      <path/>
+      <position>fixed</position>
+      <width metric="percent">100</width>
+      <top metric="pixel">0</top>
+      <bottom metric="pixel">0</bottom>
+    </clause>
+
+    <clause>
+      <path>
+        <class>splitter_panel</class>
+        <class>vsplitter</class>
+      </path>
+      <background-color type="hash">fff</background-color>
+    </clause>
+
+    <clause>
+      <path><class>gs-name-frame-head</class></path>
+      <height metric="pixel">35</height>
+      <padding metric="pixel">2</padding>
+    </clause>
+
+    <clause>
+      <path><class>gs-name-frame-footer</class></path>
+      <width metric="percent">100</width>
+      <height metric="pixel">16</height>
+      <background-color type="hash">e3e3e3</background-color>
+    </clause>
+
+    <clause>
+      <path><class>gs-name-frameset-main</class></path>
+      <width metric="percent">100</width>
+    </clause>
+
+    <clause>
+      <path><class>gs-name-frame-tree</class></path>
+
+      <border-right>1px solid #d7d7d7</border-right>
+      <border-top>1px solid #a7a7a7</border-top>
+      <padding metric="pixel">2</padding>
+      <background-color type="hash">f7f7f7</background-color>
+      <text-shadow>2px 2px 5px #ffffff, -2px -2px 5px #ffffff, 2px -2px 5px #ffffff, -2px 2px 5px #ffffff</text-shadow>
+      <icon group="general_server">general_server_500_watermark2</icon>
+      <background-position>top center</background-position>
+    </clause>
+  </css:section>
+</css:stylesheet>

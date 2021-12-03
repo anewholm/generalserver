@@ -1,0 +1,20 @@
+<people xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <object:User>
+    <gs:username>a1</gs:username>
+    <gs:email>a2</gs:email>
+    <gs:strap-line>a3</gs:strap-line>
+  </object:User>
+  <object:Person test="wibbley3">
+    <gs:username>p1</gs:username>
+    <gs:email>2</gs:email>
+    <gs:strap-line>3</gs:strap-line>
+    <gs:job>4</gs:job>
+  </object:Person>
+  <object:Manager test="wibble">
+    <gs:username>1</gs:username>
+    <gs:email>2</gs:email>
+    <gs:strap-line>3</gs:strap-line>
+    <gs:job>4</gs:job>
+    <gs:arsehole>1</gs:arsehole>
+  </object:Manager>
+<object:Manager><arsehole/></object:Manager></people>

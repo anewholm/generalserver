@@ -1,0 +1,19 @@
+<javascript:code xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="controller" controller="true">
+  <javascript:object>
+    <javascript:method is-protected="true" name="potentialHandlerObjects" parameters="jqTarget"><![CDATA[
+      return this.bubbleEverywhereHandlerObjects(jqTarget);
+    ]]></javascript:method>
+      
+    <javascript:method is-protected="true" name="bubbleInit"/>
+
+    <javascript:method is-protected="true" name="bubbleNextSetup" parameters="jqCurrentDisplayObject, iIndex">
+      this.bubbleEverywhereNextSetup(jqCurrentDisplayObject, iIndex);
+    </javascript:method>
+
+    <javascript:method is-protected="true" name="bubbleFinish"/>
+
+    <javascript:method name="trigger" parameters="[aExtraParameters, fCallback]"><![CDATA[
+      this.queueEventTrigger(aExtraParameters, fCallback);
+    ]]></javascript:method>
+  </javascript:object>
+</javascript:code>

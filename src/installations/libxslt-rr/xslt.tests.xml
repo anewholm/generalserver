@@ -1,0 +1,110 @@
+<repository:xslt-tests>
+  <!-- XSL structure tests -->
+  <transform name="xsl:transform hardlink parent" result-count="1" result-xml="data">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" version="1.0">
+      <xsl:template match="/"><xsl:apply-templates select="object:Server/repository:tests/gs:data"/></xsl:template>
+      <xsl:template match="gs:data"><xsl:apply-templates select="gs:under"/></xsl:template>
+      <xsl:template match="gs:under"><xsl:apply-templates select="*"/></xsl:template> <!-- gs:under is the hardlink -->
+      <xsl:template match="gs:thing"><xsl:value-of select="../../@name"/></xsl:template>
+    </xsl:stylesheet>
+  </transform>  
+
+  <transform name="xsl:transform absolute parent_route reset" result-xml="">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" version="1.0">
+      <xsl:template match="/"><xsl:apply-templates select="object:Server/repository:tests/gs:data"/></xsl:template>
+      <xsl:template match="gs:data"><xsl:apply-templates select="gs:under"/></xsl:template>
+      <xsl:template match="gs:under"><xsl:apply-templates select="*"/></xsl:template> <!-- gs:under is the hardlink -->
+      <xsl:template match="gs:thing"><xsl:apply-templates select="/" mode="parent_route"/></xsl:template>
+      <xsl:template match="/" mode="parent_route"><xsl:copy-of select="parent-route::*"/></xsl:template>
+    </xsl:stylesheet>
+  </transform>  
+
+  <transform name="xsl:transform meta:parent-route" result-count="1" result-xml="under|">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="database">
+      <xsl:template match="/"><xsl:apply-templates select="object:Server/repository:tests/gs:data"/></xsl:template>
+      <xsl:template match="gs:data"><xsl:apply-templates select="gs:under"/></xsl:template>
+      <xsl:template match="gs:under"><xsl:apply-templates select="*"/></xsl:template> <!-- gs:under is the hardlink -->
+      <xsl:template match="gs:thing">
+        <!-- check that the database:without-node-mask is not harming the xpath context -->
+        <database:without-node-mask>
+          <xsl:apply-templates select="parent-route::*" mode="parent_route"/>
+        </database:without-node-mask>
+      </xsl:template>
+      <xsl:template match="*" mode="parent_route"><xsl:value-of select="name()"/>|</xsl:template>
+    </xsl:stylesheet>
+  </transform>  
+
+  <!-- XSL instruction tests -->
+  <transform name="xsl:param xpath evaluation" result-xml="/config/tests/data/works/thing">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="database">
+      <xsl:param name="gs_xpath_test" select="database:xpath-to-node(/object:Server/repository:tests/gs:data/gs:under/gs:thing)"/>
+      <xsl:template match="/"><xsl:value-of select="$gs_xpath_test"/></xsl:template>
+    </xsl:stylesheet>
+  </transform>
+
+  <transform name="xsl:else" result-xml="works">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" version="1.0">
+      <xsl:template match="/">
+        <xsl:if test="0">fail</xsl:if>
+        <xsl:else-if test="1">wor</xsl:else-if>
+        <xsl:else>fail</xsl:else>
+        <xsl:if test="1">ks</xsl:if>
+        <xsl:else>fail</xsl:else>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>
+
+  <transform name="xsl:template @match=* @mode=*" result-xml="works">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" version="1.0">
+      <xsl:template match="/"><xsl:apply-templates select="*" mode="mode-not-exist"/></xsl:template>
+      <xsl:template match="*" mode="*">works</xsl:template>
+    </xsl:stylesheet>
+  </transform>
+
+  <transform name="xsl:apply-templates no @select" result-xml="works">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" version="1.0">
+      <xsl:template match="/"><xsl:apply-templates/></xsl:template>
+      <xsl:template match="object:Server">works</xsl:template>
+    </xsl:stylesheet>
+  </transform>
+
+  <transform name="xsl:template dynamic @match" result-xml="works">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" version="1.0">
+      <xsl:template match="{'object:Server'}">works</xsl:template>
+    </xsl:stylesheet>
+  </transform>
+    
+  <transform name="xsl:param @select defaults" result-xml="data">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" version="1.0">
+      <xsl:template match="/">
+        <xsl:param name="not_present"/>
+        <xsl:apply-templates>
+          <xsl:with-param name="not_present" value="$not_present"/>
+        </xsl:apply-templates>
+      </xsl:template>
+      
+      <xsl:template match="object:Server">
+        <xsl:param name="not_present" select="/object:Server/repository:tests/gs:data/@name" select-when-blank="yes"/>
+        <xsl:value-of select="$not_present"/>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>
+    
+  <!-- 
+  <xsl:include xpath="multiple"/>
+    xpath can link to multiple stylesheets
+    this is important as it enables a dynamic [re]compilation of all class:*/xsl:stylesheets
+    using wildcards without stating exactly each stylesheet
+    
+  <xsl:* xsl:error-policy="continue" />
+    currently implemented at the C++ level this should be incorporated in to the C LibXML library
+    could use a strategy pattern also.
+    or continue to simply allow the host to trap errors and decide what to do
+    XSL has been changed to politely continue when asked
+    
+  <xsl:template and <xsl:apply-templates @with-all-params=all
+    NOT_COMPLETE;
+    automatically declare all <xsl:with-params sent from the xsl:apply-templates
+    good for simple short pass-through templates
+    -->
+</repository:xslt-tests> 

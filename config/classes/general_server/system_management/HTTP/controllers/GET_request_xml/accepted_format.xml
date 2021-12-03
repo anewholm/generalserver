@@ -1,0 +1,3 @@
+<accepted-format xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" summary="*.xml (same as API)"><![CDATA[^(GET) /([^? \.]+\.xml)\??([^ ]*) HTTP/(\d+)\.(\d+)\s+
+[Hh]ost:\s*([^\s]+)\s+
+(.*)\s+]]></accepted-format>

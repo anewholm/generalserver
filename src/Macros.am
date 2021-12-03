@@ -1,0 +1,3 @@
+ABS_DIR = /home/anewholm/Software/generalserver/src/server/Utilities
+export ABS_DIR
+ 

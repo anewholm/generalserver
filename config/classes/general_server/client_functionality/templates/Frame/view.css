@@ -1,0 +1,12 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <css:dependency uri="/resources/shared/jquery/plugins/splitter/css/jquery.splitter.css"/>
+
+  <section>
+    <path><interface>default</interface></path>
+
+    <clause>
+      <path/>
+      <background-color type="hash">ffffff</background-color>
+    </clause>
+  </section>
+</css:stylesheet>

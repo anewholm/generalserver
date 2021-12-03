@@ -1,0 +1,757 @@
+<javascript:code xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <javascript:object>
+    <javascript:static-property name="oQueuedEvents">new Object()</javascript:static-property>
+    <javascript:static-property name="eCurrentEvent"/>
+    <javascript:static-property name="aCurrentEvents">new Array()</javascript:static-property>
+    <javascript:static-property name="oMutationObserver"/>
+
+    <!-- ####################################### init and Event properties ####################################### -->
+    <javascript:static-property name="aQuietEvents" delay="false">new Array("mouseover", "mouseout")</javascript:static-property>
+    <javascript:static-property name="aNotFoundStop" delay="false">new Array("mouseover", "mouseout")</javascript:static-property>
+    <javascript:static-property name="aFormEvents" delay="false">new Array("submit")</javascript:static-property>
+    <javascript:static-property name="bQuietOn">true</javascript:static-property>
+    <javascript:static-property name="debugMessage">'maybe switch Event.bQuietOn off also?'</javascript:static-property>
+
+    <javascript:init parameters="oJQueryNativeEvent" parameter-checks="off" chain="false"><![CDATA[
+      //NOTE: you cannot simply sub-class jQuery with inherits-javascript-primitive="jQuery"
+      //or indeed with x.prototype = new jQuery();
+      //this is a fake class to wrap jQuery which allows GS style inheritance
+      //use the Event.factory() below to create a proper sub-class like ContentChangedEvent
+      if ((oJQueryNativeEvent.oEvent !== undefined) && oJQueryNativeEvent.oEvent != this) Debug.warn(this, "Event.oEvent being used, overwriting with this Event");
+      
+      this.event           = oJQueryNativeEvent;
+      this.event.oEvent    = this;         //Event::factory(jQuery.Event) will use oEvent if this is trigger()ed
+      
+      //this.jqTarget
+      //this.jqTargetDisplayObject
+      //this.jqFirstStatedCSSFunctionElement
+      //this.jqCurrentDisplayObject
+      
+      this.aStaticHandlers = new Array();
+      this.aEventHandlers  = new Array();
+      this.oResultsObject  = new Object(); //collect results by type for all handlers
+      this.jqPotentialHandlerObjects = new jQuery();
+      
+      this.isHandled         = false;
+      this.isUnhandled       = true;
+      
+      this.updateUsefulProperties();
+    ]]></javascript:init>
+
+    <javascript:static-method name="factory" parameters="[uP1, uP2, uP3, uP4, uP5, uP6, uP7, uP8, uP9, uP10]" parameter-checks="off"><![CDATA[
+      //created a sub-class based on the event type name
+      //https://api.jquery.com/category/events/event-object/
+      
+      var hTarget, oOptions;
+      var fEventClass, s1EventTypeClassName, eEvent;
+
+      //---------------------------------------------------------- direct create-syntax
+      //factory(Event)
+      //Event.factory(event)
+      if (uP1 instanceof jQuery.Event) {
+        //direct instanciation from a native jQuery.Event
+        oJQueryNativeEvent = uP1;
+        if ((oJQueryNativeEvent.oEvent !== undefined)) eEvent = oJQueryNativeEvent.oEvent;
+        if (arguments.length > 1) Debug.error(this, "to many arguments in Event instanciation");
+      //Event.factory(eEvent)
+      } else if (uP1 instanceof Event) {
+        eEvent = uP1;
+        if (arguments.length > 1) Debug.error(this, "to many arguments in Event instanciation");
+
+      //---------------------------------------------------------- parameter create-syntax
+      //jQuery.Event(type, target etc.)
+      } else {
+        //Event.factory(ContentChangedEvent)
+        if      (uP1 instanceof Function)  s1EventTypeClassName = uP1.functionStem().toLowerCase();
+        //Event.factory("contentchanged")
+        else if (String.istype(uP1))       s1EventTypeClassName = uP1.toString();
+        
+        //Event.factory(..., hTarget)
+        if      (Node.istype(uP2))                                    
+          hTarget = uP2;
+        //Event.factory(..., jTargets)
+        else if (uP2 instanceof JOO || uP2 instanceof JInherit)
+          hTarget = uP2.elements.get(0); //not allowing JOO override here
+        //Event.factory(..., jqTargets)
+        else if (uP2 instanceof jQuery) 
+          hTarget = uP2.get(0);
+        
+        //checks
+        if (arguments.length > 2) Debug.error(this, "to many arguments in Event instanciation");
+        
+        //native jQuery
+        if (hTarget) oOptions = {target:hTarget, currentTarget:hTarget};
+        oJQueryNativeEvent = new jQuery.Event(s1EventTypeClassName, oOptions); 
+      }
+      
+      //---------------------------------------------------------- sub-class
+      if ((eEvent === undefined)) {
+        s1EventTypeClassName = (oJQueryNativeEvent.type + "event").toLowerCase();
+        fEventClass = Event.derivedClasses.untilEx(function(s1EventTypeClassName){
+          return (s1EventTypeClassName == this.functionName().toLowerCase() ? this : undefined);
+        }, DEFAULT, s1EventTypeClassName);
+        if ((fEventClass === undefined)) fEventClass = Event;
+        
+        eEvent = new fEventClass(oJQueryNativeEvent);
+      }
+      
+      return eEvent;
+    ]]></javascript:static-method>
+  
+    <!-- ####################################### type ####################################### -->
+    <javascript:static-method name="isTypeHungarianNotation" parameters="s1Name" parameter-checks="off"><![CDATA[
+      return (s1Name[0] == "e");
+    ]]></javascript:static-method>
+
+    <javascript:static-method name="isTypeNaturalNotation" parameters="s1NameCamel" parameter-checks="off"><![CDATA[
+      return false;
+    ]]></javascript:static-method>
+
+    <javascript:static-method name="istype" parameters="uValue" parameter-checks="off"><![CDATA[
+      return (uValue instanceof Event);
+    ]]></javascript:static-method>
+
+    <javascript:method name="updateUsefulProperties" is-protected="true"><![CDATA[
+      //update our Event wrapper properties
+      var uEventProperty;
+      var oJQueryEvent = this.event;
+      var s1EventType = this.event.type;
+
+      //---------------------- variable properties from the jQuery.Event
+      for (var sExpando in oJQueryEvent) {
+        uEventProperty = oJQueryEvent[sExpando];
+        if (!(uEventProperty instanceof Function)) this[sExpando] = uEventProperty;
+      }
+      
+      //---------------------- misc
+      this.jqTarget                = new jQuery(this.event.target);     //original element clicked on
+      if (this.jqTarget.length)
+        this.jqTargetDisplayObject = this.jqTarget.closest(".Object");
+
+      //.gs-form-include can change isFormInclude later on
+      this.isFormInclude          = Event.aFormEvents.contains(      s1EventType); //form events to include the FORM data
+      this.isQuiet                = Event.aQuietEvents.contains(     s1EventType); //mouse hover events
+      this.isNotFoundStop         = Event.aNotFoundStop.contains(    s1EventType); //mouse hover events (to intensive)
+
+      //---------------------- Stated CSS event specification
+      //e.g. f_click_reloadChildren:
+      //  target."click" => ancestor-or-self-DatabaseObject::f_click_reloadChildren
+      //f_[parts]:
+      //  0 - f_click_toggleCSSDashPathDOFromEventDisplayObject_children_query
+      //  1 - f_click_toggleCSSDashPathDOFromEventDisplayObject: function name
+      //  2 - toggleCSSDashPathDOFromEventDisplayObject:         unique function part (often used to run internal function)
+      //  3 - children_query:                            parameters (often ocnverted directly to CSSPath)
+      //
+      this.s1DefaultFunctionName       = "f_" + oJQueryEvent.type;
+      this.sCSSFunctionRegEx           = "(" + this.s1DefaultFunctionName + "_([^_]+))_?(.+)?";
+      this.sCSSFunctionRegExClassName  = "^" + this.sCSSFunctionRegEx;     //start only for a single class name
+      this.sCSSFunctionRegExInClasses  = "(^| )" + this.sCSSFunctionRegEx; //start or after space in @class attribute
+      this.cCSSFunctionRegExSearch     = new CSSPathString().regex(this.sCSSFunctionRegExInClasses);
+      this.rxCSSFunctionRegExClassName = new RegExp(this.sCSSFunctionRegExClassName);
+    ]]></javascript:method>
+
+    <!-- ####################################### accessors ####################################### -->
+    <javascript:method name="targetElement"><![CDATA[
+      return new JOO(this.jqTarget);
+    ]]></javascript:method>
+  
+    <javascript:method name="targetObject"><![CDATA[
+      return new JOO(this.jqTargetDisplayObject);
+    ]]></javascript:method>
+  
+    <javascript:method name="currentDisplayObject"><![CDATA[
+      return new JOO(this.jqCurrentDisplayObject);
+    ]]></javascript:method>
+
+    <javascript:method name="firstStatedCSSFunctionElement"><![CDATA[
+      return new JOO(this.jqFirstStatedCSSFunctionElement);
+    ]]></javascript:method>
+
+    <!-- ####################################### Event bubble and execution ####################################### -->
+    <javascript:static-method name="process_f_event" parameters="(Event) eEvent, ..."><![CDATA[
+      //the conversion to a Class__Event will cause extra analysis:
+      //see updateUsefulProperties(...) above
+      //  event.target related j1DisplayObjects and owners
+      //  event.type default quiet, form and propogation
+      //the jQuery DOM event will send through any parameters attached to the 
+      //  trigger(event, [extra-parameters...]) call
+      //arguments may include other values like oUI
+      var aOldValue;
+      
+      if (eEvent.isQuiet && !Event.bQuietOn) {
+        //manually ignore quiet events. useful for debug
+        Debug.warn(this, "quiet event ignored because !Event.bQuietOn");
+      } else {
+        if (eEvent.type === "contextmenu" && eEvent.ctrlKey) {
+          Debug.warn(this, "contextmenu event default because ctrl key is pressed");
+          return true;
+        }
+
+        if (eEvent.isQuiet) aOldValue = Debug.off(true);
+        eEvent.aTriggerExtraArguments = Array.prototype.slice.call(arguments, 1);
+        Event.setCurrentEvent(eEvent);
+        {
+          eEvent.staticExecuteRelevantBeforeHandlers(); //javascript:static-method
+          eEvent.bubbleExecuteRelevantHandlers();
+          eEvent.staticExecuteRelevantAfterHandlers();  //javascript:static-method @stage=after
+          
+          if (eEvent.fCallback) eEvent.fCallback(eEvent, eEvent.oResultsObject);
+          if (!eEvent.isQuiet) Debug.log(eEvent, eEvent);
+        }
+        Event.clearCurrentEvent();
+        if (eEvent.isQuiet) Debug.on(aOldValue);
+      }
+      
+      //manual propogation has happened in the bubbleExecuteRelevantHandlers() call already
+    ]]></javascript:static-method>
+
+    <javascript:static-method name="currentEvent"><![CDATA[
+      if ((Event.eCurrentEvent === undefined)) Debug.warn(this, "no current event");
+      return Event.eCurrentEvent;
+    ]]></javascript:static-method>
+
+    <javascript:static-method name="setCurrentEvent" parameters="eEvent"><![CDATA[
+      if (Event.eCurrentEvent) Event.aCurrentEvents.push(Event.eCurrentEvent);
+      Event.eCurrentEvent = eEvent;
+    ]]></javascript:static-method>
+      
+    <javascript:static-method name="clearCurrentEvent"><![CDATA[
+      Event.eCurrentEvent = Event.aCurrentEvents.pop();
+    ]]></javascript:static-method>
+
+    <javascript:method name="staticExecuteRelevantBeforeHandlers" is-protected="true" requires="OO.IntrospectionStaticEventHandler"><![CDATA[
+      //look only for each this.s1DefaultFunctionName in static Class
+      //e.g. DatabaseElement.f_contentchanged
+      var aAllStaticHandlers = OO.IntrospectionStaticEventHandler.prototype[this.type];
+      var aAllEventHandlers  = (aAllStaticHandlers ? aAllStaticHandlers.aMethods : new Array());
+      var aEventHandlers     = new Array();
+      var aArguments         = this.fullHandlerParameters();
+
+      //filter handlers to just the static after ones
+      aEventHandlers = aAllEventHandlers.eachEx(function(eEvent, aArguments) {
+        if (this.isStatic 
+          && this.stage !== "after" 
+          && ((this.requiredEventProperty === undefined) || eEvent[this.requiredEventProperty] == true)
+        ) {
+          return {
+            func: this, 
+            args: aArguments, 
+            obj:  this.classDerivedConstructor //static
+          };
+        }
+      }, DEFAULT, this, aArguments);
+      
+      //run handlers
+      this.runEventHandlers(aEventHandlers);
+      this.aStaticHandlers = this.aStaticHandlers.concat(aEventHandlers);
+    ]]></javascript:method>
+      
+    <javascript:method name="staticExecuteRelevantAfterHandlers" is-protected="true" requires="OO.IntrospectionStaticEventHandler"><![CDATA[
+      //look only for each this.s1DefaultFunctionName in static Class
+      //e.g. DatabaseElement.f_contentchanged
+      //TODO: can we afford to do this staticExecuteRelevantHandlers() live?
+      var aAllStaticHandlers = OO.IntrospectionStaticEventHandler.prototype[this.type];
+      var aAllEventHandlers  = (aAllStaticHandlers ? aAllStaticHandlers.aMethods : new Array());
+      var aEventHandlers     = new Array();
+      var aArguments         = this.fullHandlerParameters();
+
+      //filter handlers to just the static after ones
+      aEventHandlers = aAllEventHandlers.eachEx(function(eEvent, aArguments) {
+        if (this.isStatic 
+          && this.stage === "after" 
+          && ((this.requiredEventProperty === undefined) || eEvent[this.requiredEventProperty] == true)
+        ) {
+          return {
+            func: this, 
+            args: aArguments, 
+            obj:  this.classDerivedConstructor //static
+          };
+        }
+      }, DEFAULT, this, aArguments);
+      
+      //run handlers
+      this.runEventHandlers(aEventHandlers);
+      this.aStaticHandlers = this.aStaticHandlers.concat(aEventHandlers);
+    ]]></javascript:method>
+
+    <javascript:method name="bubbleExecuteRelevantHandlers" is-protected="true"><![CDATA[
+      //Manually navigate UP the DOM looking for:
+      //  Stated CSS function like f_click_toggleCSSDashPathDOFromEventDisplayObject
+      //  .DatabaseObject with an f_click method. this does not require a CSS stated f_click
+      //if a "Stated CSS function" is found, following ancestor .DatabaseObjects will require that exact method, not the generic f_click anymore
+      //this.isNotFoundStop indicates that the handler must be found on the first .DatabaseObject, e.g. mouse events
+      //ALL events come are bound to the document.body so nothing DOM bubbles
+      //TODO: untilFalseAsync() => setTimeout(this.bubbleNextAndExecute);
+      this.s1ObjectFunctionSearch        = this.s1DefaultFunctionName;
+      this.bSearchingSpecificCSSFunction = false;
+      this.bubbling                      = false;
+      
+      //these will be in reverse document order
+      this.jqPotentialHandlerObjects = this.potentialHandlerObjects(this.jqTarget);
+      
+      if (this.bubbleInit() !== false) {
+        //all each loops exit on false return
+        this.jqPotentialHandlerObjects.eachEq(this.bubbleNextAndExecute, this);
+        this.bubbleFinish();
+      }
+    ]]></javascript:method>
+
+    <javascript:method name="bubbleNextAndExecute" is-protected="true" parameters="jqCurrentDisplayObject, iIndex, ..."><![CDATA[
+      //we running in an untilFalse() loop
+      var aEventHandlers, bPropagate = true;
+      
+      this.jqCurrentDisplayObject = jqCurrentDisplayObject;
+      this.bubbleNextSetup(jqCurrentDisplayObject, iIndex);
+      aEventHandlers = this.checkForHandlerOn(jqCurrentDisplayObject, iIndex);
+      bPropagate     = this.runEventHandlers(aEventHandlers);
+      
+      this.bubbling = true;
+      if (aEventHandlers.length) {
+        this.isHandled   = true;
+        this.isUnhandled = false;
+      }
+      this.aEventHandlers = this.aEventHandlers.concat(aEventHandlers);
+      
+      //eachEq() loop will stop only when it returns === false
+      return bPropagate;
+    ]]></javascript:method>
+  
+    <javascript:method name="checkForHandlerOn" is-protected="true" parameters="jqCurrentDisplayObject, iIndex"><![CDATA[
+      //here we change handler search criteria if needed
+      //and test the current DO for a handler
+      var fEventHandler, jqSelector, fTargetClass, fSourceClass;
+      var aEventHandlers = new Array();
+      var oOwner         = jqCurrentDisplayObject.object();
+      
+      if (oOwner) { 
+        //------------------------------ @event
+        //f_click / f_click_doSomething
+        fEventHandler = oOwner[this.s1ObjectFunctionSearch];
+        
+        //------------------------------ @action CSS function
+        //f_click_doSomething direct=> doSomething()
+        if (!fEventHandler && this.bSearchingSpecificCSSFunction && this.s1CSSFunctionIdentifier) {
+          fEventHandler = oOwner[this.s1CSSFunctionIdentifier];
+        }
+
+        //------------------------------ Class level handler inheritance restriction
+        //e.g. Menus require non-inherited event-handlers only
+        //so that their LI sub-menu items can trigger inherited events on the target-object, not the same Menu object
+        if (fEventHandler && oOwner.canHandleEvent instanceof Function && !oOwner.canHandleEvent(this, jqCurrentDisplayObject, fEventHandler)) 
+          fEventHandler = undefined;
+        
+        //------------------------------ @interface-modes restriction
+        //default javascript:event-handlers
+        //  e.g. f_click, f_mouseup, f_submit
+        //  still work on all INTERFACES
+        //stated specific f_ classes work always as they were included in the display output
+        //  e.g. @class=f_click_expand_children
+        //  direct actions are, by definition, CSS stated
+        if ( fEventHandler 
+          && !this.bSearchingSpecificCSSFunction
+          && fEventHandler.interfaceModes instanceof Array
+          && fEventHandler.interfaceModes.length
+          && !fEventHandler.interfaceModes.contains("all")
+          && !fEventHandler.interfaceModes.contains(jqCurrentDisplayObject.cssInterfaceMode())
+        ) fEventHandler = undefined;
+          
+        //------------------------------ @target-classes restriction
+        //if @target-classes is not found then the handler will NOT trigger
+        if (fEventHandler 
+          && fEventHandler.targetClasses instanceof Array
+        ) {
+          //lazy compile into Class Function pointers
+          if (!fEventHandler.aTargetClassFunctions) {
+            fEventHandler.aTargetClassFunctions = fEventHandler.targetClasses.eachResults(function(){
+              if (!(window[this] instanceof Function)) Debug.error(this, "@target-classes [" + this + "] Class not found");
+              return window[this];
+            });
+          }
+          
+          if (this.jqTargetDisplayObject) {
+            fSourceClass = this.jqTargetDisplayObject.object().classDerivedConstructor;
+            if (!fEventHandler.aTargetClassFunctions.contains(fSourceClass)) fEventHandler = undefined;
+          } else Debug.warn(this, "Event.target not found during @target-classes restriction");
+        }
+
+        //------------------------------ @selector same as jQuery [selector]
+        if (fEventHandler && fEventHandler.selector) {
+          jqSelector = jqCurrentDisplayObject.find(fEventHandler.selector);
+          if (!jqSelector.isAncestorOf(this.jqTarget)) fEventHandler = undefined;
+        }
+        
+        //------------------------------ return spec
+        if (fEventHandler) {
+          aEventHandlers.push({
+            func: fEventHandler, 
+            args: this.fullHandlerParameters(fEventHandler.isFormInclude === true), 
+            obj:  oOwner
+          });
+        }
+      } else {
+        //!oOwner
+        //this should have been always be true but if attachToObject() fails it could be annoying
+        Debug.warn(this, "potentialHandlerObjects() without an Object");
+        Debug.log(this, jqCurrentDisplayObject, true);
+      }
+
+      return aEventHandlers;
+    ]]></javascript:method>
+
+    <javascript:method name="runEventHandlers" is-protected="true" parameters="aEventHandlers"><![CDATA[
+      var aResults, bPropagate;
+        
+      //[{func:fFunc, args:[], obj:oThis }]
+      if (aEventHandlers.length) {
+        //prevent the default first in case the execution crashes
+        //otherwise form submission would then refresh the page
+        aEventHandlers.eachEx(function(eEvent){
+          if (this.func.preventDefault) eEvent.preventDefault();
+        }, DEFAULT, this)
+        aResults = aEventHandlers.execute();
+        //TODO: updateClassDataObject(fClass, oRet, oResultsObject);
+        bPropagate = false;
+      } else bPropagate = (this.isNotFoundStop !== true);
+
+      return bPropagate;
+    ]]></javascript:method>
+
+    <javascript:method name="fullHandlerParameters" is-protected="true" parameters="[bIsFormInclude]"><![CDATA[
+      var aFormData, aFullParameters = new Array();
+
+      //j1DisplayObject, [css statement parameters], [form elements], [trigger arguments]
+      aFullParameters.push(new JOO(this.jqCurrentDisplayObject));
+      if ((this.aCSSParameters !== undefined)) aFullParameters = aFullParameters.concat(this.aCSSParameters);
+      if ((bIsFormInclude || this.isFormInclude) && this.jqTargetDisplayObject)  {
+        //need to assemble the form on the original object submitted
+        //e.g. if the XSchema search form is submitted, we do not want the IDE DisplayObject to assemble the form
+        aFormData = this.jqTargetDisplayObject.findOrSelf("form").first().serializeParameters();
+        if (aFormData) aFullParameters = aFullParameters.concat(aFormData);
+      }
+      if ((this.aTriggerExtraArguments !== undefined)) aFullParameters = aFullParameters.concat(this.aTriggerExtraArguments);
+      
+      return aFullParameters;
+    ]]></javascript:method>
+
+    <!-- ########################################## overridible bubble setup ########################################## -->
+    <javascript:method name="potentialHandlerObjects" is-protected="true" parameters="jqTarget"><![CDATA[
+      return this.bubbleUpHandlerObjects(jqTarget);
+    ]]></javascript:method>
+      
+    <javascript:method name="bubbleInit" is-protected="true"><![CDATA[
+      return this.bubbleUpInit();
+    ]]></javascript:method>
+
+    <javascript:method name="bubbleNextSetup" is-protected="true" parameters="jqCurrentDisplayObject, iIndex"><![CDATA[
+      return this.bubbleUpNextSetup(jqCurrentDisplayObject, iIndex);
+    ]]></javascript:method>
+
+    <javascript:method name="bubbleFinish" is-protected="true"><![CDATA[
+      return this.bubbleUpFinish();
+    ]]></javascript:method>
+
+    <!-- ########################################## bubble types ########################################## -->
+    <javascript:method name="bubbleUpHandlerObjects" is-protected="true" parameters="jqTarget"><![CDATA[
+      //self, parent, ancestor order
+      return jqTarget.ancestorsOrSelf(".Object");
+    ]]></javascript:method>
+
+    <javascript:method name="bubbleDownHandlerObjects" is-protected="true" parameters="jqTarget"><![CDATA[
+      //document-order
+      return jqTarget.findOrSelf(".Object");
+    ]]></javascript:method>
+
+    <javascript:method name="bubbleEverywhereHandlerObjects" is-protected="true" parameters="jqTarget"><![CDATA[
+      //document-order
+      return new jQuery(".Object");
+    ]]></javascript:method>
+
+    <javascript:method name="bubbleUpInit" is-protected="true"><![CDATA[
+      var s1CSSFunctionSpec, aCSSFunctionSpecMatches;
+      var sCSSFunctionRegExSearch = this.cCSSFunctionRegExSearch.toString(); //no JInherit to convert it
+      this.jqFirstStatedCSSFunctionElement = this.jqTarget.closest(sCSSFunctionRegExSearch);
+      this.sFunctionType                   = "generic";
+      
+      //---------------------- @disabled
+      //TODO: should failover to the next
+      if (this.jqFirstStatedCSSFunctionElement.length) {
+        if (this.jqFirstStatedCSSFunctionElement.hasClass("gs-disabled") || this.jqFirstStatedCSSFunctionElement.attr("disabled"))
+          this.jqFirstStatedCSSFunctionElement = new jQuery();
+      }
+
+      //---------------------- potential stated CSS function element info
+      if (this.jqFirstStatedCSSFunctionElement.length) {
+        //DisplayObjects before the Stated CSS element will require the default function
+        //DisplayObjects after  the Stated CSS element will require that CSS function statement
+        //pre calculate the special CSS function name
+        s1CSSFunctionSpec            = this.jqFirstStatedCSSFunctionElement.firstClass(this.rxCSSFunctionRegExClassName);
+        aCSSFunctionSpecMatches      = this.rxCSSFunctionRegExClassName.exec(s1CSSFunctionSpec);
+        this.s1CSSFunctionName       = aCSSFunctionSpecMatches[1];
+        this.s1CSSFunctionIdentifier = aCSSFunctionSpecMatches[2];
+        this.aCSSParameters          = aCSSFunctionSpecMatches[3] && aCSSFunctionSpecMatches[3].split("_");
+        if (this.jqFirstStatedCSSFunctionElement.hasClass("gs-form-include")) this.isFormInclude = true;
+      }
+    ]]></javascript:method>
+      
+    <javascript:method name="bubbleUpNextSetup" is-protected="true" parameters="jqCurrentDisplayObject, iIndex"><![CDATA[
+      if ( this.jqFirstStatedCSSFunctionElement 
+        && this.jqFirstStatedCSSFunctionElement.length 
+        && !this.bSearchingSpecificCSSFunction
+        && jqCurrentDisplayObject.isAncestorOf(this.jqFirstStatedCSSFunctionElement)
+      ) {
+        //there was an element demanding a specific method between the target and this DO
+        //so change what we are searching for
+        this.s1ObjectFunctionSearch        = this.s1CSSFunctionName;
+        this.sFunctionType                 = "css";
+        this.bSearchingSpecificCSSFunction = true;
+      }
+    ]]></javascript:method>
+  
+    <javascript:method name="bubbleUpFinish" is-protected="true"/>
+
+    <javascript:method name="bubbleDownNextSetup" is-protected="true" parameters="jqCurrentDisplayObject, iIndex"><![CDATA[
+      //bubbling down does not pass through children elements that affect the object
+      //so we treat them as independent
+      return this.bubbleEverywhereNextSetup(jqCurrentDisplayObject, iIndex);
+    ]]></javascript:method>
+  
+    <javascript:method name="bubbleEverywhereNextSetup" is-protected="true" parameters="jqCurrentDisplayObject, iIndex"><![CDATA[
+      var s1CSSFunctionSpec, aCSSFunctionSpecMatches;
+      
+      //check for @class f_event_action
+      if (s1CSSFunctionSpec = jqCurrentDisplayObject.firstClass(this.rxCSSFunctionRegExClassName)) {
+        //search specific
+        aCSSFunctionSpecMatches      = this.rxCSSFunctionRegExClassName.exec(s1CSSFunctionSpec);
+        this.s1CSSFunctionName       = aCSSFunctionSpecMatches[1];
+        this.s1CSSFunctionIdentifier = aCSSFunctionSpecMatches[2];
+        this.aCSSParameters          = aCSSFunctionSpecMatches[3] && aCSSFunctionSpecMatches[3].split("_");
+        this.s1ObjectFunctionSearch  = this.s1CSSFunctionName;
+      } else {
+        //search default
+        this.s1CSSFunctionName       = undefined;
+        this.s1CSSFunctionIdentifier = undefined;
+        this.aCSSParameters          = undefined;
+        this.s1ObjectFunctionSearch  = this.s1DefaultFunctionName;
+      }
+    ]]></javascript:method>
+
+    <!-- ########################################## conversion ########################################## -->
+    <javascript:conversion to-type="JQueryNativeValue"><![CDATA[
+      return this.event;
+    ]]></javascript:conversion>
+
+    <javascript:conversion to-type="JOO"><![CDATA[
+      return this.jqTargetDisplayObject;
+    ]]></javascript:conversion>
+  
+    <javascript:conversion to-type="JOOs"><![CDATA[
+      return this;
+    ]]></javascript:conversion>
+  
+    <!-- ########################################## methods ########################################## -->
+    <javascript:method name="triggerInternal" is-protected="true" parameters="[aExtraParameters]"><![CDATA[
+      //all JOO->trigger(sEventType) comes here
+      //JOO->trigger(sEventType) will create this Event with the JOO target
+      this.clearEventTrigger();
+      return this.jqTarget.trigger(this.event, aExtraParameters);
+    ]]></javascript:method>
+  
+    <javascript:method name="trigger" parameters="[aExtraParameters]"><![CDATA[
+      //all JOO->trigger(sEventType) comes here
+      //JOO->trigger(sEventType) will create this Event with the JOO target
+      return this.triggerInternal(aExtraParameters); //jQuery.trigger(this, ...)
+    ]]></javascript:method>
+  
+    <javascript:method name="same" parameters="eOtherEvent"><![CDATA[
+      return (this.type == eOtherEvent.type);
+    ]]></javascript:method>
+
+    <javascript:method name="queueEventTrigger" is-protected="true" parameters="[aExtraParameters, fCallback]"><![CDATA[
+      //TODO: this whole queueEventTrigger concept needs review:
+      //  firstly: why? = jQuery now implicitly creates multiple contentchanged events when updating any part of the DOM
+      //  multiple similar events are potentially an issue
+      //  Class__*Event can override the same() method to define if they want to queue themselves again
+      //  hey, if you don't like it then don't use it :D
+      var eExistingQueuedEvent = Event.oQueuedEvents[this.type];
+      var bAlreadyQueued = ((eExistingQueuedEvent !== undefined) && eExistingQueuedEvent.same(this));
+      if (!bAlreadyQueued) {
+        this.aExtraParameters = aExtraParameters;
+        this.fCallback        = fCallback;
+        this.queued           = true;
+        Event.oQueuedEvents[this.type] = this;
+        if ((Event.queuedEventsTimer === undefined)) 
+          Event.queuedEventsTimer = this.setTimeout(Event.runQueuedEvents);
+      }
+    ]]></javascript:method>
+  
+    <javascript:method name="clearEventTrigger" is-protected="true" parameters="[aExtraParameters]"><![CDATA[
+      var eExistingQueuedEvent = Event.oQueuedEvents[this.type];
+      var bAlreadyQueued = ((eExistingQueuedEvent !== undefined) && eExistingQueuedEvent.same(this));
+      if (bAlreadyQueued) Event.oQueuedEvents[this.type] = undefined;
+      return bAlreadyQueued;
+    ]]></javascript:method>
+  
+    <javascript:static-method name="runQueuedEvents" is-protected="true"><![CDATA[
+      var eQueuedEvent;
+      for (var sEventType in Event.oQueuedEvents) {
+        eQueuedEvent = Event.oQueuedEvents[sEventType];
+        eQueuedEvent.triggerInternal(eQueuedEvent.aExtraParameters);
+      }
+      //reset
+      Event.oQueuedEvents     = new Object();
+      Event.queuedEventsTimer = undefined;
+    ]]></javascript:static-method>
+
+  
+    <!-- ########################################## event binding ########################################## 
+      bind everything to the document.body
+      manual bubble and bPropagate
+    -->
+    <javascript:global-init name="setupEventListeners" requires="OO.IntrospectionEventHandler" delay="true"><![CDATA[
+      //attach all <Class>::f_<event>s listeners to the body
+      //all event handlers MUST be f_.* methods on a registered Class to be attached
+      //this therefore includes all custom events, e.g. "shown"
+      //we use base jQuery.on(eEvent, ...) because static Event::process_f_event() will:
+      //  manually bubble up
+      //  to locate the first correct DisplayObject.object().f_<event>_<function>
+      //  provide "this"
+      //  process quiet, form and propogation
+      var sEvent, jqWindow = new jQuery(window);
+      
+      //method
+      if (OO.IntrospectionEventHandler) {
+        for (sEvent in OO.IntrospectionEventHandler.prototype)
+          jqWindow.on(sEvent, Event.process_f_event);
+      }
+      //static
+      if (OO.IntrospectionStaticEventHandler) {
+        for (sEvent in OO.IntrospectionStaticEventHandler.prototype)
+          if (!OO.IntrospectionEventHandler.prototype[sEvent])
+            jqWindow.on(sEvent, Event.process_f_event);
+      }
+      
+      //https://www.w3.org/TR/dom/#mutation-observers
+      if (window.MutationObserver) Event.oMutationObserver = new MutationObserver(Event.mutationsObserved);
+      
+      if (!sEvent && window.console) window.console.error("failed to setup event handlers on window!"); 
+      return "all events attached to window" + (window.MutationObserver ? " and the Mutation server setup" : "");
+    ]]></javascript:global-init>
+
+    <javascript:static-event-handler event="ready"><![CDATA[
+      if (Event.oMutationObserver) {
+        Event.oMutationObserver.observe(window.document.body, {
+          childList:true,
+          subtree:true,
+          attributes:true,
+          characterData:true
+        });
+      }
+    ]]></javascript:static-event-handler>
+
+    <javascript:static-method name="mutationsObserved" parameters="aRecords, [oMutationObserver]"><![CDATA[
+      aRecords.eachEx(Event.mutationObserved);
+    ]]></javascript:static-method>
+
+    <javascript:static-method name="mutationObserved" is-protected="true"><![CDATA[
+      //this.type: characterData, attributes, childList
+      if (this.target) new jQuery(this.target).trigger(this.type + "mutation", [this]);
+    ]]></javascript:static-method>
+
+    <!-- ########################################## manual inheritance ########################################## -->
+    <javascript:method name="invoked" parameters="sFuncName, oArguments" is-protected="true" parameter-checks="off"><![CDATA[
+      var oRet, uJRet;
+      var fFunc = jQuery.Event.prototype[sFuncName];
+
+      oArguments      = Event.convertArguments(fFunc, oArguments);  //Array in-place processing of arguments object
+      uJRet = fFunc.apply(this.event, oArguments);
+      this.updateUsefulProperties();
+      
+      if (this.event === uJRet) oRet = this;
+      else oRet = uJRet;
+
+      return oRet;
+    ]]></javascript:method>
+
+    <javascript:static-method name="runJQueryStaticFunc" is-protected="true" parameters="fFunc, oArguments" parameter-checks="off"><![CDATA[
+      var oRet, uJRet;
+
+      oArguments = Event.convertArguments(fFunc, oArguments);  //Array in-place processing of arguments object
+      uJRet = fFunc.apply(window, oArguments);
+
+      if (this.event === uJRet) oRet = this;
+      else oRet = uJRet;
+
+      return oRet;
+    ]]></javascript:static-method>
+
+    <javascript:static-method name="convertArguments" is-protected="true" parameters="fFunc, oOriginalArguments" parameter-checks="off"><![CDATA[
+      //arguments processing and checking required for some extended classes
+      //e.g. CSSPathString => this.csspath
+      //     DisplayObject => this.event via the above inherited toJQueryNativeValue()
+      var oNewArguments = new Array();
+      for (var i = 0; i < oOriginalArguments.length; i++) {
+        uArg = oOriginalArguments[i];
+        if (uArg instanceof Object && uArg.toJQueryNativeValue instanceof Function)
+          oNewArguments.push(uArg.toJQueryNativeValue());
+        else oNewArguments.push(uArg);
+      }
+      return oNewArguments;
+    ]]></javascript:static-method>
+
+    <javascript:global-init name="copyJQueryEventExpandos"><![CDATA[
+      //jQuery.Event inheritance
+      //inherit all jQuery.Event functions as accessors
+      var sFuncName, fFunc, fExistingFunc, fAccessor, i = 0;
+      var aNames = new Array(); //STAGE-DEV
+
+      if (window.jQuery.Event) {
+        //-------------------------------------------------- prototype
+        for (sFuncName in jQuery.Event.prototype) {
+          //jQuery.Event.fn === jQuery.Event.prototype
+          fFunc = jQuery.Event.prototype[sFuncName];
+          if (fFunc instanceof Function) {
+            //we do not want to redirect Functions like constructor
+            //we do want to redirect extensions like toString()
+            fExistingFunc = Event.prototype[sFuncName];
+            if ((fExistingFunc === undefined) || fExistingFunc.builtIn()) {
+              //use Function to avoid execution contexts
+              //new Function([arg1, arg2, ....], function-body)
+              //TODO: sFuncName = sFuncName.replace(/([' ])/, "\\$1");
+              fAccessor          = new Function("return this.invoked('" + sFuncName + "', arguments);");
+              fAccessor.functionNameHint        = sFuncName; //picked up by functionName()
+              fFunc.functionNameHint            = sFuncName; //picked up by functionName()
+              fAccessor.classDerivedConstructor = Event;
+              Event.prototype[sFuncName]        = fAccessor;
+              i++;
+              aNames.push(sFuncName); //STAGE-DEV
+            }
+            //allow functionName to work on the base jQuery library also
+            fFunc.functionNameHint = sFuncName;
+          }
+        }
+        //exceptions
+        delete Event.prototype.data;
+
+        //-------------------------------------------------- static
+        for (sFuncName in jQuery.Event) {
+          fFunc = jQuery.Event[sFuncName];
+          if (fFunc instanceof Function) {
+            //we do not want to redirect Function extensions like functionName()
+            fExistingFunc = Event[sFuncName];
+            if (fExistingFunc === undefined) {
+              Event[sFuncName] = fFunc;
+              i++;
+              aNames.push(sFuncName); //STAGE-DEV
+            }
+            //allow functionName to work on the base jQuery library also
+            fFunc.functionNameHint = sFuncName;
+          }
+        }
+      }
+
+      window.console.log(aNames); //STAGE-DEV
+      if (!i && window.console) window.console.warn("failed to inherit any jQuery Event functions");
+      return "Event (inherits) [" + i + "] methods => jQuery.Event";
+    ]]></javascript:global-init>
+  </javascript:object>
+</javascript:code>

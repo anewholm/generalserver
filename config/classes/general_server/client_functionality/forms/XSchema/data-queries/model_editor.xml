@@ -1,0 +1,1 @@
+<database:query xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" interface-mode-condition="editor" data-container-name="xsd:app-info" data="~XSDField/xsd:schema[@name='model-editor']"/>

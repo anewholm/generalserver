@@ -1,0 +1,1 @@
+<object:Website xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="api" resource-match="^.*api.+" resource-server="general resources server" jquery-version="1.10.2" jquery-ui-version="1.10.3"/>

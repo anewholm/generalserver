@@ -1,0 +1,128 @@
+<repository:general-tests>
+  <!-- extended integrity checks -->
+  <transform name="check absolute paths" result-xml="" debug-mode-only="yes" run="no">
+    <xsl:stylesheet xmlns:dyn="http://exslt.org/dynamic" xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="database debug dyn">
+      <xsl:template match="/">
+        <xsl:variable name="gs_area" select="/config/classes"/>
+        <xsl:variable name="gs_apply_templates" select="$gs_area/descendant-natural::xsl:apptemplates/@select"/>
+        <xsl:variable name="gs_include" select="$gs_area/descendant-natural::xsl:include/@xpath"/>
+        <xsl:variable name="gs_value_of" select="$gs_area/descendant-natural::xsl:value-of/@select"/>
+        <xsl:variable name="gs_param" select="$gs_area/descendant-natural::xsl:param/@select"/>
+        <xsl:variable name="gs_variable" select="$gs_area/descendant-natural::xsl:variable/@select"/>
+        
+        <xsl:variable name="gs_all" select="$gs_apply_templates|$gs_include|$gs_value_of|$gs_param|$gs_variable"/>
+        <xsl:variable name="gs_targets" select="$gs_all[not(contains(., '$')) and not(../@database:path-check = 'ignore') and (starts-with(., '/') or starts-with(., '~'))]"/>
+        
+        <xsl:apply-templates select="$gs_targets" mode="gs_check_absolute"/>
+      </xsl:template>
+
+      <xsl:template match="@*" mode="gs_check_absolute">
+        <xsl:variable name="gs_result" select="dyn:evaluate(.)"/>
+
+        <xsl:if test="database:is-node-set($gs_result)">
+          <xsl:if test="count($gs_result) = 0">
+            <xsl:value-of select="."/> = empty nodeset
+            <debug:server-message output="  {name(..)} @{name()}={.} = empty node-set" type="warning"/>
+          </xsl:if>
+        </xsl:if>
+        <xsl:else-if test="database:is-boolean($gs_result)">
+        </xsl:else-if>
+        <xsl:else>
+          <debug:server-message output="  {name(..)} @{name()}={.} not node-set"/>
+        </xsl:else>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>
+
+  <transform name="check stylesheet client access" result-xml="" debug-mode-only="yes" run="no">
+    <xsl:stylesheet xmlns:dyn="http://exslt.org/dynamic" xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="database debug dyn">
+      <xsl:template match="/">
+        <xsl:variable name="gs_area" select="/config/classes"/>
+        <xsl:variable name="gs_stylesheets_client" select="$gs_area/descendant-natural::xsl:stylesheet[not(@response:server-side-only)]"/>
+
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'database'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'server'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'session'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'conversation'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'user'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'request'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'response'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'repository'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'flow'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'str'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'regexp'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client//xsl:*/@*" mode="gs_function_prefix_check"><xsl:with-param name="gs_prefix" select="'dyn'"/></xsl:apply-templates>
+        
+        <xsl:apply-templates select="$gs_stylesheets_client[@name = 'analyser' or @name = 'HTTP' or @name = 'controller' or @name = 'code_render' or @name = 'interface_render']"/>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/debug/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/database/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/server/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/service/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/session/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/conversation/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/user/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/request/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/response/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/rx/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/repository/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://general_server.org/xmlnamespaces/xjavascript/2006'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://exslt.org/regular-expressions'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://exslt.org/flow'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://exslt.org/strings'"/></xsl:apply-templates>
+        <xsl:apply-templates select="$gs_stylesheets_client" mode="gs_namespace_check"><xsl:with-param name="gs_namespace" select="'http://exslt.org/dynamic'"/></xsl:apply-templates>
+      </xsl:template>
+
+      <xsl:template match="xsl:stylesheet">
+        <xsl:text>accessible server-side xsl:stylesheet/@name=</xsl:text>
+        <xsl:value-of select="@name"/>
+        <xsl:text> under </xsl:text>
+        <xsl:value-of select="name(..)"/>/<xsl:value-of select="../@name"/>
+        <xsl:value-of select="'&#10;'"/>
+      </xsl:template>
+
+      <xsl:template match="xsl:stylesheet" mode="gs_namespace_check">
+        <xsl:param name="gs_namespace"/>
+        <xsl:apply-templates select=".//*[namespace-uri() = $gs_namespace]" mode="gs_namespace_sub_check"/>
+      </xsl:template>
+        
+      <xsl:template match="*" mode="gs_namespace_sub_check">
+        <xsl:choose>
+          <xsl:when test="self::database:query"/>
+          <xsl:otherwise>
+            <xsl:text>client-side xsl:stylesheet/@name=</xsl:text>
+            <xsl:value-of select="@name"/>
+            <xsl:text> under </xsl:text>
+            <xsl:value-of select="name(..)"/>/<xsl:value-of select="../@name"/>
+            <xsl:text> with </xsl:text>
+            <xsl:value-of select="name()"/>
+            <xsl:text> namespace</xsl:text>
+            <xsl:value-of select="'&#10;'"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:template>
+    
+      <xsl:template match="@*" mode="gs_function_prefix_check">
+        <xsl:param name="gs_prefix"/>
+        
+        <xsl:variable name="gs_stylesheet" select="ancestor::xsl:stylesheet[1]"/>
+        
+        <xsl:choose>
+          <xsl:when test="not(contains(., '('))"/>
+          <xsl:when test="contains(., concat('@', $gs_prefix, ':'))"/>
+          <xsl:when test="contains(., 'database:query')"/>
+          <xsl:when test="contains(., '~'database:~'')"/>
+          <xsl:when test="contains(., concat($gs_prefix, ':'))">
+            <xsl:text>client-side xsl:stylesheet/@name=</xsl:text>
+            <xsl:value-of select="$gs_stylesheet/@name"/>
+            <xsl:text> under </xsl:text>
+            <xsl:value-of select="name($gs_stylesheet/..)"/>/<xsl:value-of select="$gs_stylesheet/../@name"/>
+            <xsl:text> with </xsl:text>
+            <xsl:value-of select="$gs_prefix"/>
+            <xsl:text>:*() function call</xsl:text>
+            <xsl:value-of select="'&#10;'"/>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>
+</repository:general-tests>

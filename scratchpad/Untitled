@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" charset="utf-8" href="/ID/Class__Response_response_loader.xsl?auto-add=true" ?>
+<object:Response xmlns:object="http://general_server.org/xmlnamespaces/object/2006" xmlns:gs="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:meta="http://general_server.org/xmlnamespaces/meta/2006" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:interface="http://general_server.org/xmlnamespaces/interface/2006" xmlns:response="http://general_server.org/xmlnamespaces/response/2006" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xmlsecurity="http://general_server.org/xmlnamespaces/xmlsecurity/2006" gs:xpath-to-node-client="admin/index" name="index" xml:id="Class__Response_webpage_response" meta:child-count="2" meta:fully-qualified-prefix="object" meta:is-hard-linked="true" meta:is-hard-link="true" meta:has-descendant-deviants="true" meta:xpath-to-node="!0" meta:parent-route="">
+  <meta:environment xml:id="Class__Response_standard_environment" meta:child-count="3" meta:fully-qualified-prefix="meta" meta:is-hard-linked="true" meta:xpath-to-node="!1" meta:parent-route="">
+    <object:Server gs:interface-mode="environment" name="config" xml:id="server" meta:child-count="15" meta:fully-qualified-prefix="object" meta:is-hard-linked="true" meta:xpath-to-node="/config" meta:parent-route=""> 
+
+</object:Server>
+    <object:User gs:interface-mode="environment" guid="ce8fb5faaea044879b358c680d86156f" and="467rrb" tree-icon="tux" password-hash="test" name="root" xml:id="usr_r" test="er" meta:child-count="2" meta:fully-qualified-prefix="object" meta:is-hard-linked="true" meta:xpath-to-node="!133" meta:parent-route="">
+  
+  
+</object:User>
+    <object:LinkedServer gs:interface-mode="environment" name="general resources server" uri="http://general_resources_server.dev" meta:child-count="0" meta:fully-qualified-prefix="object" meta:xpath-to-node="!2" meta:parent-route=""/>
+    <xsl:stylesheet gs:interface-mode="environment" name="controller" controller="true" version="1.0" extension-element-prefixes="dyn database debug" meta:child-count="11" meta:fully-qualified-prefix="xsl" meta:xpath-to-node="!3" meta:parent-route=""/>
+    <object:HTTP gs:interface-mode="environment" port="8776" name="HTTP" meta:child-count="2" meta:fully-qualified-prefix="object" meta:xpath-to-node="!4" meta:parent-route=""/>
+    <object:Database gs:interface-mode="environment" resource-match="^.*general_server.+" name="general_server" meta:child-count="3" meta:fully-qualified-prefix="object" meta:xpath-to-node="!5" meta:parent-route=""/>
+    <object:Website gs:interface-mode="environment" stage="dev" resource-match="^.*general_server.+" name="general_server" resource-server="general resources server" jquery-version="1.10.2" jquery-ui-version="1.10.3" meta:child-count="14" meta:fully-qualified-prefix="object" meta:is-hard-linked="true" meta:xpath-to-node="!6" meta:parent-route=""/>
+    <object:Session gs:interface-mode="environment" guid="f7e07eb5-53b5-407b-9129-d28b630c0816" client-can-XSLT="yes" meta:child-count="2" meta:fully-qualified-prefix="object" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route="">
+      <repository:errors gs:transient="yes" meta:child-count="1" meta:fully-qualified-prefix="repository" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+      <object:User guid="ce8fb5faaea044879b358c680d86156f" and="467rrb" tree-icon="tux" password-hash="test" name="root" xml:id="usr_r" test="er" meta:child-count="2" meta:fully-qualified-prefix="object" meta:is-hard-linked="true" meta:is-hard-link="true" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route="">
+  
+  
+</object:User>
+    </object:Session>
+    <object:Request gs:interface-mode="environment" url="admin/" id="27" meta:child-count="14" meta:fully-qualified-prefix="object" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route="">
+      <HTTP xmlns="http://general_server.org/xmlnamespaces/general_server/2006" type="GET" major="1" minor="1" meta:child-count="0" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+      <host xmlns="http://general_server.org/xmlnamespaces/general_server/2006" port="8776" meta:child-count="0" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route="">general_server.dev</host>
+      <user-agent xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="4" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+      <query-string xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="0" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+      <cookies xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="1" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+      <url xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="0" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route="">admin/</url>
+      <url_parts xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="1" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+      <url_extension xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="0" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+      <stylesheet_modifiers xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="0" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+      <accept xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="5" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+      <accept-encoding xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="3" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+      <accept-language xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="5" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+      <message_type xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="0" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route="">GET request_120</message_type>
+      <all-headers xmlns="http://general_server.org/xmlnamespaces/general_server/2006" meta:child-count="10" meta:fully-qualified-prefix="gs" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+    </object:Request>
+  </meta:environment>
+  <gs:data meta:child-count="1" meta:fully-qualified-prefix="gs" meta:is-hard-linked="true" meta:xpath-to-node="!7" meta:parent-route="">
+    <interface:HTMLWebpage xmlns="http://www.w3.org/1999/xhtml" name="[@meta:suggest-deviate]" title="★ integrated development environment" favicon="http://general_resources_server.dev/resources/general_server.dev/favicon.ico" body-class="" jQuery="1.10.2" jQueryUI="1.10.3" standard-libraries="jquery.cookie,modernizr" general-server-framework="1.0" code-class="include" code-class-dependencies="include" class-styles="include" class-style-dependencies="include" response:classes-and-bases="$gs_website_classes" xml:id="default_webpage_template" meta:child-count="1" meta:fully-qualified-prefix="interface" meta:is-hard-linked="true" meta:is-hard-link="true" meta:xpath-to-node="!8" meta:parent-route="">
+      <interface:IDE title="★ integrated development environment" doxygen-support="on" name="head-tree-detail" xml:id="IDE_Panel_head_tree_detail" meta:child-count="2" meta:fully-qualified-prefix="interface" meta:is-hard-linked="true" meta:is-deviant="true" meta:xpath-to-node="!9" meta:parent-route="">
+        <interface:SharedInterfaces name="general" xml:id="shared-interfaces-general" meta:child-count="3" meta:fully-qualified-prefix="interface" meta:is-hard-linked="true" meta:xpath-to-node="!10" meta:parent-route="">
+          <interface:AJAXHTMLLoader gs:display-class="dynamic-reloader" gs:dom-targets="parent" data="$gs_query_string/gs:xpath-to-current-node-db/*" interface-mode="" node-mask="." meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!11" meta:parent-route=""/>
+          <interface:ContextMenu title="placeholder" gs:display-class="contextmenu" meta:child-count="4" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!12" meta:parent-route="">
+            <gs:menu-section xml:id="Class__ContextMenu_interaction" meta:child-count="3" meta:fully-qualified-prefix="gs" meta:is-hard-linked="true" meta:is-hard-link="true" meta:xpath-to-node="!13" meta:parent-route="">
+              <li class="f_click_select_children" xml:id="Class__ContextMenu_select" meta:child-count="0" meta:fully-qualified-prefix="html" meta:is-hard-linked="true" meta:is-hard-link="true" meta:xpath-to-node="!14" meta:parent-route="">select</li>
+              <li class="icon_developer" xml:id="Class__ContextMenu_developer" meta:child-count="1" meta:fully-qualified-prefix="html" meta:is-hard-linked="true" meta:is-hard-link="true" meta:xpath-to-node="!15" meta:parent-route="">developer<interface:SubMenu meta:child-count="2" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!16" meta:parent-route=""><gs:menu-section name="inspection" meta:child-count="9" meta:fully-qualified-prefix="gs" meta:xpath-to-node="!17" meta:parent-route=""><li class="f_click_reload" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!18" meta:parent-route="">reload</li><li class="f_click_reloadFields" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!19" meta:parent-route="">reload fields</li><li class="f_click_reload_debug" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!20" meta:parent-route="">reload (debug)</li><li class="f_click_reloadCSS" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!21" meta:parent-route="">reload CSS</li><li class="f_click_reloadJavaScript" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!22" meta:parent-route="">reload JavaScript</li><li class="f_click_clearStylesheetCache" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!23" meta:parent-route="">clear stylesheet cache</li><li class="f_click_debugToggle" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!24" meta:parent-route="">debug on</li><li class="f_click_properties" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!25" meta:parent-route="">properties</li><li class="f_click_inspectElement" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!26" meta:parent-route="">inspect element</li></gs:menu-section><gs:menu-section name="debugging" meta:child-count="2" meta:fully-qualified-prefix="gs" meta:xpath-to-node="!27" meta:parent-route=""><li class="f_click_setBreakpoint gs-disabled-false" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!28" meta:parent-route="">set breakpoint</li><li class="f_click_clearBreakpoint gs-disabled-false" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!29" meta:parent-route="">clear breakpoint</li></gs:menu-section></interface:SubMenu></li>
+              <li class="icon_administrator gs-admin-only" xml:id="Class__ContextMenu_administrator" meta:child-count="1" meta:fully-qualified-prefix="html" meta:is-hard-linked="true" meta:is-hard-link="true" meta:xpath-to-node="!30" meta:parent-route="">administrator<interface:SubMenu meta:child-count="3" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!31" meta:parent-route=""><li class="gs-admin-only f_click_databaseBackup gs-sysadmin-command gs-disabled" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!32" meta:parent-route="">backup</li><li class="gs-admin-only f_click_databaseIntegrity gs-sysadmin-command" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!33" meta:parent-route="">integrity</li><li class="gs-admin-only f_click_serverRestart gs-sysadmin-command" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!34" meta:parent-route="">exit</li></interface:SubMenu></li>
+            </gs:menu-section>
+            <gs:menu-section name="dynamic class introspection" meta:child-count="5" meta:fully-qualified-prefix="gs" meta:xpath-to-node="!35" meta:parent-route="">
+              <li class="icon_new f_click_toggleCSSDashPathDOFromEventFunctionElement_Object f_mouseover_nothing" meta:child-count="1" meta:fully-qualified-prefix="html" meta:xpath-to-node="!36" meta:parent-route="">add<interface:AJAXHTMLLoader func-class-start-notify="SubMenu" data="$gs_query_string/gs:xpath-to-ancestor-node-dbs/*[position() = 2]" interface-mode="contextmenu_news" meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!37" meta:parent-route=""/></li>
+              <li class="icon_set f_click_toggleCSSDashPathDOFromEventFunctionElement_Object f_mouseover_nothing" meta:child-count="1" meta:fully-qualified-prefix="html" meta:xpath-to-node="!38" meta:parent-route="">set<interface:AJAXHTMLLoader func-class-start-notify="SubMenu" data="$gs_query_string/gs:xpath-to-ancestor-node-dbs/*[position() = 2]" interface-mode="contextmenu_sets" meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!39" meta:parent-route=""/></li>
+              <li class="icon_views f_click_toggleCSSDashPathDOFromEventFunctionElement_Object f_mouseover_nothing" meta:child-count="1" meta:fully-qualified-prefix="html" meta:xpath-to-node="!40" meta:parent-route="">views<interface:AJAXHTMLLoader func-class-start-notify="SubMenu" data="$gs_query_string/gs:xpath-to-ancestor-node-dbs/*[position() = 2]" interface-mode="contextmenu_views" meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!41" meta:parent-route=""/></li>
+              <li class="icon_controllers f_click_toggleCSSDashPathDOFromEventFunctionElement_Object f_mouseover_nothing" meta:child-count="1" meta:fully-qualified-prefix="html" meta:xpath-to-node="!42" meta:parent-route="">controllers<interface:AJAXHTMLLoader func-class-start-notify="SubMenu" data="$gs_query_string/gs:xpath-to-ancestor-node-dbs/*[position() = 2]" interface-mode="contextmenu_controllers" meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!43" meta:parent-route=""/></li>
+              <li class="icon_controllers f_click_toggleCSSDashPathDOFromEventFunctionElement_Object f_mouseover_nothing" meta:child-count="1" meta:fully-qualified-prefix="html" meta:xpath-to-node="!44" meta:parent-route="">event-handlers<interface:AJAXHTMLLoader func-class-start-notify="SubMenu" data="$gs_query_string/gs:xpath-to-ancestor-node-dbs/*[position() = 2]" interface-mode="contextmenu_event_handlers" meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!45" meta:parent-route=""/></li>
+            </gs:menu-section>
+            <gs:menu-section title="structural changes" xml:id="Class__ContextMenu_structure" meta:child-count="4" meta:fully-qualified-prefix="gs" meta:is-hard-linked="true" meta:is-hard-link="true" meta:xpath-to-node="!46" meta:parent-route="">
+              <li class="f_click_cut" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!47" meta:parent-route="">cut</li>
+              <li class="f_click_copy" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!48" meta:parent-route="">copy</li>
+              <li class="f_click_paste gs-enabled-with-clipboard disabled" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!49" meta:parent-route="">paste</li>
+              <li class="f_click_hardlink gs-enabled-with-clipboard disabled" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!50" meta:parent-route="">link</li>
+            </gs:menu-section>
+            <gs:menu-section title="element changes" xml:id="Class__ContextMenu_change" meta:child-count="2" meta:fully-qualified-prefix="gs" meta:is-hard-linked="true" meta:is-hard-link="true" meta:xpath-to-node="!51" meta:parent-route="">
+              <li class="f_click_rename" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!52" meta:parent-route="">rename...</li>
+              <li class="f_click_delete" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!53" meta:parent-route="">delete...</li>
+            </gs:menu-section>
+          </interface:ContextMenu>
+          <interface:ContextMenu gs:display-class="move-copy-link" meta:child-count="3" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!54" meta:parent-route="">
+            <li class="icon_move" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!55" meta:parent-route="">move</li>
+            <li class="icon_copy" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!56" meta:parent-route="">copy</li>
+            <li class="icon_link" meta:child-count="1" meta:fully-qualified-prefix="html" meta:xpath-to-node="!57" meta:parent-route="">link<interface:SubMenu meta:child-count="2" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!58" meta:parent-route=""><li class="icon_copy" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!59" meta:parent-route="">hard-link</li><li class="icon_copy" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!60" meta:parent-route="">soft-link ...</li></interface:SubMenu></li>
+          </interface:ContextMenu>
+        </interface:SharedInterfaces>
+        <interface:Explorer meta:child-count="3" meta:fully-qualified-prefix="interface" meta:is-hard-linked="true" meta:xpath-to-node="!61" meta:parent-route="">
+          <interface:Frame name="head" title-1="★ integrated development environment" html:height="39px" meta:child-count="3" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!62" meta:parent-route="">
+            <object:Session gs:interface-mode="controls" guid="f7e07eb5-53b5-407b-9129-d28b630c0816" client-can-XSLT="yes" meta:child-count="2" meta:fully-qualified-prefix="object" meta:is-transient="true" meta:no-xpath-to-node="(because transient)" meta:parent-route=""/>
+            <interface:HorizontalMenu meta:child-count="1" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!69" meta:parent-route="">
+              <repository:documentation gs:interface-mode="link" meta:menu-item="documentation" name="documentation" xml:id="documentation" meta:child-count="6" meta:fully-qualified-prefix="repository" meta:is-hard-linked="true" meta:xpath-to-node="!70" meta:parent-route=""/>
+            </interface:HorizontalMenu>
+            <interface:HTMLContainer dynamic-example="02" meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!71" meta:parent-route="">[02]</interface:HTMLContainer>
+          </interface:Frame>
+          <interface:VerticalFrameset name="main" start-position="300" limit="150" meta:child-count="2" meta:fully-qualified-prefix="interface" meta:is-hard-linked="true" meta:xpath-to-node="!72" meta:parent-route="">
+            <interface:Frame name="tree" meta:child-count="2" meta:fully-qualified-prefix="interface" meta:is-hard-linked="true" meta:xpath-to-node="!73" meta:parent-route="">
+              <xsd:schema xmlns="http://general_server.org/xmlnamespaces/general_server/2006" xsl:is-literal="1" name="search" meta:child-count="3" meta:fully-qualified-prefix="xsd" meta:xpath-to-node="!75" meta:parent-route="">
+                <xsd:annotation meta:type="data-queries" xsl:is-literal="1"/>
+                <xsd:annotation meta:type="context" xsl:is-literal="1">
+                  <xsd:documentation meta:type="is-standalone" meta:direct-render="no" xsl:is-literal="1">false</xsd:documentation>
+                  <xsd:documentation meta:type="is-compiled" meta:direct-render="no" xsl:is-literal="1">true</xsd:documentation>
+                  <xsd:documentation meta:type="is-literal" xsl:is-literal="1">1</xsd:documentation>
+                  <xsd:documentation meta:type="xschema-name" xsl:is-literal="1">search</xsd:documentation>
+                  <xsd:documentation meta:type="class" xsl:is-literal="1">!74</xsd:documentation>
+                  <xsd:documentation meta:type="event-functions" xsl:is-literal="1">f_keyup_searchchange f_change_searchchange f_mouseup_searchchange f_input_searchchange f_paste_searchchange</xsd:documentation>
+                </xsd:annotation>
+                <xsd:annotation meta:type="form-display" meta:clent-side-only="yes" meta:child-count="3" meta:fully-qualified-prefix="xsd" meta:xpath-to-node="!76" meta:parent-route="">
+                  <xsd:app-info meta:type="title">search</xsd:app-info>
+                  <xsd:app-info meta:type="submit-caption">search</xsd:app-info>
+                  <xsd:app-info meta:type="style">compact</xsd:app-info>
+                </xsd:annotation>
+                <xsd:annotation meta:type="data-processing" meta:child-count="1" meta:fully-qualified-prefix="xsd" meta:xpath-to-node="!77" meta:parent-route="">
+                  <xsd:app-info meta:type="processing" meta:dom-method="none" meta:description="search the database!"/>
+                </xsd:annotation>
+                <xsd:complexType name="class:IDE" xml:add-xml-id="no" xsl:is-literal="1" xml:id="gs-xsd-complex-type-IDE">
+                  <xsd:sequence xml:add-xml-id="no" xsl:is-literal="1">
+                    <xsd:element name="phrase" type="xsd:string" minOccurs="1" maxOccurs="1" meta:child-count="1" meta:fully-qualified-prefix="xsd" meta:xpath-to-node="!78" meta:parent-route="" meta:class="IDE">
+                      <xsd:annotation meta:field-message-type="H">
+                        <xsd:documentation>search</xsd:documentation>
+                      </xsd:annotation>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:schema>
+              <interface:Collection name="IDE-main-tree" meta:child-count="1" meta:fully-qualified-prefix="interface" meta:is-hard-linked="true" meta:xpath-to-node="!79" meta:parent-route="">
+                <interface:Collection name="children" meta:for="id('server')" gs:display-class="children" meta:context-menu="off" xml:id="Class__AJAXHTMLLoader_children_collection" xsl:is-literal="1">
+                  <repository:groups gs:interface-mode="list" meta:classes-context-menu-news="Group" xml:id="groups" name="groups" meta:child-count="2" meta:fully-qualified-prefix="repository" meta:is-hard-linked="true" meta:xpath-to-node="/config/groups" meta:parent-route="">
+                    <interface:AJAXHTMLLoader gs:data-context="!80" name="children" interface-mode="children-IDETreeRecord" interface-child-interface-mode="list" data="." node-mask=".|*" optional="true" interface-render-output="placeholder" meta:xpath-to-node="!81" xml:id="Class__AJAXHTMLLoader_children_loader" xsl:is-literal="1"/>
+                  </repository:groups>
+                  <repository:databases gs:interface-mode="list" meta:classes-context-menu-news="Database" xml:id="databases" name="databases" meta:child-count="2" meta:fully-qualified-prefix="repository" meta:is-hard-linked="true" meta:xpath-to-node="/config/databases" meta:parent-route="">
+                    <interface:AJAXHTMLLoader gs:data-context="!82" name="children" interface-mode="children-IDETreeRecord" interface-child-interface-mode="list" data="." node-mask=".|*" optional="true" interface-render-output="placeholder" meta:xpath-to-node="!81" xml:id="Class__AJAXHTMLLoader_children_loader" xsl:is-literal="1"/>
+                  </repository:databases>
+                  <repository:users gs:interface-mode="list" meta:classes-context-menu-news="User" test="100" name="users" meta:child-count="3" meta:fully-qualified-prefix="repository" meta:is-hard-linked="true" meta:xpath-to-node="/config/users" meta:parent-route="">
+                    <interface:AJAXHTMLLoader gs:data-context="!83" name="children" interface-mode="children-IDETreeRecord" interface-child-interface-mode="list" data="." node-mask=".|*" optional="true" interface-render-output="placeholder" meta:xpath-to-node="!81" xml:id="Class__AJAXHTMLLoader_children_loader" xsl:is-literal="1"/>
+                  </repository:users>
+                  <repository:websites gs:interface-mode="list" meta:classes-context-menu-news="Website" xml:id="websites" name="websites" meta:child-count="3" meta:fully-qualified-prefix="repository" meta:is-hard-linked="true" meta:xpath-to-node="/config/websites" meta:parent-route="">
+                    <interface:AJAXHTMLLoader gs:data-context="!84" name="children" interface-mode="children-IDETreeRecord" interface-child-interface-mode="list" data="." node-mask=".|*" optional="true" interface-render-output="placeholder" meta:xpath-to-node="!81" xml:id="Class__AJAXHTMLLoader_children_loader" xsl:is-literal="1"/>
+                  </repository:websites>
+                  <repository:system_transforms gs:interface-mode="list" name="system_transforms" meta:classes-context-menu-news="XSLStylesheet" meta:child-count="2" meta:fully-qualified-prefix="repository" meta:xpath-to-node="/config/system_transforms" meta:parent-route="">
+                    <interface:AJAXHTMLLoader gs:data-context="!85" name="children" interface-mode="children-IDETreeRecord" interface-child-interface-mode="list" data="." node-mask=".|*" optional="true" interface-render-output="placeholder" meta:xpath-to-node="!81" xml:id="Class__AJAXHTMLLoader_children_loader" xsl:is-literal="1"/>
+                  </repository:system_transforms>
+                  <repository:server gs:interface-mode="list" name="server" meta:child-count="2" meta:fully-qualified-prefix="repository" meta:xpath-to-node="/config/server" meta:parent-route="">
+                    <interface:AJAXHTMLLoader gs:data-context="!86" name="children" interface-mode="children-IDETreeRecord" interface-child-interface-mode="list" data="." node-mask=".|*" optional="true" interface-render-output="placeholder" meta:xpath-to-node="!81" xml:id="Class__AJAXHTMLLoader_children_loader" xsl:is-literal="1"/>
+                  </repository:server>
+                  <repository:classes gs:interface-mode="list" meta:classes-context-menu-news="Class" tree-icon="package_go" xml:id="classes" name="classes" meta:child-count="2" meta:fully-qualified-prefix="repository" meta:is-hard-linked="true" meta:xpath-to-node="/config/classes" meta:parent-route="">
+                    <interface:AJAXHTMLLoader gs:data-context="!87" name="children" interface-mode="children-IDETreeRecord" interface-child-interface-mode="list" data="." node-mask=".|*" optional="true" interface-render-output="placeholder" meta:xpath-to-node="!81" xml:id="Class__AJAXHTMLLoader_children_loader" xsl:is-literal="1"/>
+                  </repository:classes>
+                  <repository:services gs:interface-mode="list" meta:classes-context-menu-news="Service" name="services" meta:child-count="1" meta:fully-qualified-prefix="repository" meta:xpath-to-node="/config/services" meta:parent-route="">
+                    <interface:AJAXHTMLLoader gs:data-context="!88" name="children" interface-mode="children-IDETreeRecord" interface-child-interface-mode="list" data="." node-mask=".|*" optional="true" interface-render-output="placeholder" meta:xpath-to-node="!81" xml:id="Class__AJAXHTMLLoader_children_loader" xsl:is-literal="1"/>
+                  </repository:services>
+                  <repository:transactions gs:interface-mode="list" meta:classes-context-menu-news="Transaction" gs:transient-area="yes" xml:id-policy-area="ignore" xmlsecurity:ownerid="usr_r" xmlsecurity:ownergroupid="1" xmlsecurity:permissions="740" name="transactions" meta:child-count="0" meta:fully-qualified-prefix="repository" meta:xpath-to-node="/config/transactions" meta:parent-route=""/>
+                  <repository:linked_servers gs:interface-mode="list" gs:context-menu-news="Server" name="linked servers" meta:child-count="2" meta:fully-qualified-prefix="repository" meta:xpath-to-node="/config/linked_servers" meta:parent-route="">
+                    <interface:AJAXHTMLLoader gs:data-context="!89" name="children" interface-mode="children-IDETreeRecord" interface-child-interface-mode="list" data="." node-mask=".|*" optional="true" interface-render-output="placeholder" meta:xpath-to-node="!81" xml:id="Class__AJAXHTMLLoader_children_loader" xsl:is-literal="1"/>
+                  </repository:linked_servers>
+                </interface:Collection>
+              </interface:Collection>
+            </interface:Frame>
+            <interface:Frame name="detail" meta:child-count="1" meta:fully-qualified-prefix="interface" meta:is-hard-linked="true" meta:xpath-to-node="!90" meta:parent-route="">
+              <interface:MultiDocument reload-last-setup="true" meta:child-count="3" meta:fully-qualified-prefix="interface" meta:is-hard-linked="true" meta:xpath-to-node="!91" meta:parent-route="">
+                <interface:SharedInterfaces name="tab-templates" meta:child-count="4" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!92" meta:parent-route="">
+                  <interface:AJAXHTMLLoader gs:display-class="node-details" data-context="~IDE/repository:interfaces" data="name::multiview" xml:id="node_details_loader" meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!93" meta:parent-route=""/>
+                  <interface:AJAXHTMLLoader gs:display-class="node-add" data-context="~IDE/repository:interfaces" data="name::add" xml:id="node_add_loader" meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!94" meta:parent-route=""/>
+                  <interface:AJAXHTMLLoader gs:display-class="search-text" data-context="~IDE/repository:interfaces" data="name::search-text" xml:id="node_search_text_loader" meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!95" meta:parent-route=""/>
+                  <interface:AJAXHTMLLoader gs:display-class="search-xpath" data-context="~IDE/repository:interfaces" data="name::search-xpath" xml:id="node_search_xpath_loader" meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!96" meta:parent-route=""/>
+                </interface:SharedInterfaces>
+                <gs:tab title="welcome" solo="true" meta:child-count="1" meta:fully-qualified-prefix="gs" meta:xpath-to-node="!97" meta:parent-route="">
+                  <interface:HTMLContainer meta:child-count="3" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!98" meta:parent-route="">
+                    <img id="logo" src="http://general_resources_server.dev/resources/shared/images/general_server/general_server_500.png" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!99" meta:parent-route=""/>
+                    <ul id="technologies" meta:child-count="5" meta:fully-qualified-prefix="html" meta:xpath-to-node="!100" meta:parent-route="">
+                      <li meta:child-count="2" meta:fully-qualified-prefix="html" meta:xpath-to-node="!101" meta:parent-route="">
+                        <span class="name" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!102" meta:parent-route="">RegularX</span>
+                        <span class="fullname" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!103" meta:parent-route="">Regular Expression XSL</span>
+                      </li>
+                      <li meta:child-count="2" meta:fully-qualified-prefix="html" meta:xpath-to-node="!104" meta:parent-route="">
+                        <span class="name" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!105" meta:parent-route="">TXML</span>
+                        <span class="fullname" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!106" meta:parent-route="">Transactional XML</span>
+                      </li>
+                      <li meta:child-count="2" meta:fully-qualified-prefix="html" meta:xpath-to-node="!107" meta:parent-route="">
+                        <span class="name" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!108" meta:parent-route="">ERDL</span>
+                        <span class="fullname" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!109" meta:parent-route="">Entity Relationship Design</span>
+                      </li>
+                      <li meta:child-count="2" meta:fully-qualified-prefix="html" meta:xpath-to-node="!110" meta:parent-route="">
+                        <img src="http://general_resources_server.dev/resources/general_server.dev/images/Libxml2-Logo-180x168.gif" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!111" meta:parent-route=""/>
+                        <span class="extensions" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!112" meta:parent-route="">+security, +hardlinks, +name::axis</span>
+                      </li>
+                      <li meta:child-count="2" meta:fully-qualified-prefix="html" meta:xpath-to-node="!113" meta:parent-route="">
+                        <img src="http://general_resources_server.dev/resources/general_server.dev/images/Libxslt-Logo-180x168.gif" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!114" meta:parent-route=""/>
+                        <span class="extensions" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!115" meta:parent-route="">+EXSLT, +write-back</span>
+                      </li>
+                    </ul>
+                    <div id="editor" style="display:none;" meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!116" meta:parent-route=""/>
+                  </interface:HTMLContainer>
+                </gs:tab>
+                <gs:tab id="new" title="new tab" meta:child-count="1" meta:fully-qualified-prefix="gs" meta:xpath-to-node="!117" meta:parent-route="">
+                  <interface:HTMLContainer meta:child-count="1" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!118" meta:parent-route="">
+                    <ul meta:child-count="6" meta:fully-qualified-prefix="html" meta:xpath-to-node="!119" meta:parent-route="">
+                      <li meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!120" meta:parent-route="">TODO pad</li>
+                      <li meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!121" meta:parent-route="">node</li>
+                      <li meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!122" meta:parent-route="">XML editor</li>
+                      <li meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!123" meta:parent-route="">pad</li>
+                      <li meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!124" meta:parent-route="">search</li>
+                      <li meta:child-count="1" meta:fully-qualified-prefix="html" meta:xpath-to-node="!125" meta:parent-route="">template results<input meta:child-count="0" meta:fully-qualified-prefix="html" meta:xpath-to-node="!126" meta:parent-route=""/></li>
+                    </ul>
+                  </interface:HTMLContainer>
+                </gs:tab>
+              </interface:MultiDocument>
+            </interface:Frame>
+          </interface:VerticalFrameset>
+          <interface:Frame name="footer" meta:child-count="0" meta:fully-qualified-prefix="interface" meta:xpath-to-node="!127" meta:parent-route=""/>
+        </interface:Explorer>
+      </interface:IDE>
+    </interface:HTMLWebpage>
+  </gs:data>
+</object:Response>

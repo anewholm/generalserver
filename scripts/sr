@@ -1,0 +1,36 @@
+#!/bin/sh
+#perl stuff for search replace
+
+#----------------------------- grep examples
+# (?s) enable DOTALL
+# P PERL regexp
+# z no newlines
+# o only the match
+# l list files only
+# grep -rl ^\<gs:hardlink.*target=\".*DatabaseObject.* ../config`
+# grep -rlPo "(?s)^#ifdef\ WITH_XSLT_DEBUG_([A-Z_]+)\s+xsltGenericDebug\(xsltGenericDebugContext,\s+([^,)]+\);)\s+#endif" .
+
+#----------------------------- replacemement examples:
+# single quotes uses $, double quotes uses backslash
+# -0... set the newline character (multiline)
+# /gm global multiline when using ^ or $
+# perl -pi -w -e "s///g;" `grep -rl ... .`
+# perl -pi -w -e 's/^\<class:([^ ]+) (.*) xml:id="[^"]+"/<class:$1 $2 xml:id="Class__$1"/g;' `grep -rl ^\<class: ../TODO.txt`
+# perl -pi -w -e 's/^\<gs:hardlink.*target=\".*DatabaseObject.*/<gs:hardlink target="id('Class__DatabaseObject')" \/\>/g;' `grep -rl ^\<gs:hardlink.*target=\".*DatabaseObject.* ../config`
+# perl -pi -w -e "s/gs:hardlink target=\"id\('([^']+)'\)\"/gs:hardlink target-id=\"\1\"/g;" `grep -rl gs:hardlink\ target=\"id ../config`
+# perl -0pi -w -e "s/(?s)^#ifdef WITH_XSLT_DEBUG_([A-Z_]+)(\s*)xsltGenericDebug\(xsltGenericDebugContext\s*,\s*\"([^\"]+)\\\\n\"\s*\);\s*#endif/\2XSLT_TRACE_GENERIC(XSLT_TRACE_\1, \"\3\");/gm;" `grep -rl WITH_XSLT_DEBUG_ .`
+# perl -0pi -w -e "s/(?s)^#ifdef WITH_XSLT_DEBUG_([A-Z_]+)(\s*)xsltGenericDebug\(xsltGenericDebugContext\s*,\s*\"([^\"]+)\\\\n\",([^)]+)\);\s*#endif/\2XSLT_TRACE_GENERIC1(XSLT_TRACE_\1, \"\3\",\4);/gm;" `grep -rl WITH_XSLT_DEBUG_ .`
+# perl -0pi -w -e "s/(?s)^#ifdef WITH_XSLT_DEBUG(\s*)xsltGenericDebug\(xsltGenericDebugContext\s*,\s*\"([^\",]+)\\\\n\"\);\s*#endif/\1XSLT_TRACE_GENERIC_ANY(\"\2\");/gm;" `grep -rl WITH_XSLT_DEBUG_ .`
+# perl -0pi -w -e "s/(?s)^#ifdef WITH_XSLT_DEBUG_[A-Z_]+(\s*XSLT_TRACE\([^)]+\)\);\s*)#endif/\1/gm;" `grep -rl WITH_XSLT_DEBUG_ .`
+# perl -0pi -w -e "s/ xml:duplicate_id=\"idx_[0-9]+\"//g;" `grep -rl xml:duplicate_id .`
+# perl -0pi -w -e "s/ xml:id=\"idx_[0-9]+\"//g;" `grep -rl --include=*.xsl xml:id .`
+# perl -0pi -w -e "s/ object:cpp-component=\"yes\"//g;" `grep -rl object:cpp-component .`
+# perl -0pi -w -e "s/([^a-zA-Z0-9_]j[A-Z0-9][A-Z0-9a-z_]+\.[A-Z0-9a-z_]+\(\s*)([^e])/\1eEvent, \2/g;" `grep -rl --include=*js [^a-zA-Z0-9_]j ../config`
+# perl -0pi -w -e "s/gs_interface([^_])/gs_interface_mode\1/g;" `grep -rl gs_interface ../config`
+# perl -0pi -w -e "s/ elements=\"([a-z]+):([A-Za-z]+)\"/ namespace=\"http:\/\/general_server.org\/xmlnamespaces\/\1\/2006\" elements=\"\2\"/g;" `grep -rl elements ../config`
+# perl -0pi -w -e "s/\<class:([a-zA-Z]+)  +/<class:\1 /g;" `grep -rl "<class:" ../config`
+# perl -0pi -w -e "s/=\"([a-zA-Z]+)\/2006\"/=\"\1\"/g;" `grep -rl \<class: ../config`
+# perl -0pi -w -e "s/isDefined\(([^)]+)\)/(\1 !== undefined)/g;" `grep -rl isDefined ../config`
+# perl -0pi -w -e "s/\.dev/.localhost/g;" `grep -rl dev *`
+# perl -0pi -w -e "s/^(\s*)const bool(\s+[a-zA-Z0-9:]+)\(/\1bool\2(/g;" `grep -rl bool ../src`
+perl -0pi -w -e "s/^(\s*IFDEBUG\(.*)\);$/\1;)/g;" `grep -rl IFDEBUG ../src`

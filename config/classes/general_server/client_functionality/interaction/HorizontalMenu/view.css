@@ -1,0 +1,13 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <section name="default">
+    <path><interface>default</interface></path>
+
+    <clause>
+      <path><element relation="child-only">li</element></path>
+
+      <float>left</float>
+      <padding>2px 10px</padding>
+      <margin>0px 2px</margin>
+    </clause>
+  </section>
+</css:stylesheet>

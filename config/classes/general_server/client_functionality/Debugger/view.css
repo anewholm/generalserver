@@ -1,0 +1,26 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause>
+    <path><class relation="self">gs-debugger-target</class></path>
+
+    <margin>-1px -1px</margin>
+    <border>1px dotted #a0a0a0</border>
+    <background-color type="hash">ffffd7</background-color>
+  </clause>
+
+  <clause>
+    <path><class relation="self">Class__Debugger</class></path>
+
+    <position>fixed</position>
+    <z-index>10000</z-index>
+    <top metric="percent">50</top>
+    <left metric="percent">20</left>
+    <min-width metric="pixel">100</min-width>
+    <min-height metric="pixel">100</min-height>
+    <padding metric="pixel">3</padding>
+
+    <border>1px dotted #a0a0a0</border>
+    <background-color type="hash">ffffd7</background-color>
+    <font-size metric="pixel">10</font-size>
+    <color type="hash">000</color>
+  </clause>
+</css:stylesheet>

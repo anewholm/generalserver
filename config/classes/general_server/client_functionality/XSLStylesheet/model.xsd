@@ -1,0 +1,14 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:complexType>
+    <xsd:sequence>
+  <xsd:attribute name="name" type="xsd:string" default="stylesheet"/>
+  <xsd:attribute name="gs:server-side-only" type="xsd:boolean" default="false"/>
+
+  <xsd:element name="xsl:template" minOccurs="0" maxOccurs="unbounded" type="class:XSLTemplate"/>
+  <xsd:element name="xsl:variable" minOccurs="0" maxOccurs="unbounded" type="class:XSLVariable"/>
+  <xsd:element name="xsl:include" minOccurs="0" maxOccurs="unbounded" type="class:XSLInclude"/>
+  <xsd:element name="xsl:param" minOccurs="0" maxOccurs="unbounded" type="class:XSLInclude"/>
+  </xsd:sequence>
+  </xsd:complexType>
+<xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:forms/class:XSchema/xsd:schema[2]/*[2]" /></xsd:schema>

@@ -1,0 +1,216 @@
+<css:stylesheet xmlns="http://general_server.org/xmlnamespaces/css/2006" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlid="idx_3295">
+  <section name="welcome">
+    <path><interface>default</interface></path>
+
+    <!-- #################################### tree #################################### -->
+    <!--
+      .tree {
+        margin:0;
+        padding:0;
+          }
+    -->
+
+    <section name="welcome tech">
+      <path><id>technologies</id></path>
+      <!-- #################################### welcome tech #################################### -->
+
+      <clause>
+        <path/>
+        <position>absolute</position>
+        <list-style>none</list-style>
+        <top metric="pixel">95</top>
+        <left metric="pixel">520</left>
+      </clause>
+
+      <clause>
+        <path><class>name</class></path>
+        <font-weight>bold</font-weight>
+        <font-size metric="pixel">40</font-size>
+        <text-shadow>1px 1px 2px #aaaaaa, -1px -1px 2px #aaaaaa</text-shadow>
+      </clause>
+
+
+      <clause>
+        <path><class>fullname</class></path>
+        <path><class>extensions</class></path>
+        <font-size metric="pixel">16</font-size>
+        <color type="hash">335577</color>
+        <padding-left metric="pixel">5</padding-left>
+      </clause>
+
+      <clause>
+        <path><element>li</element></path>
+        <display>none</display>
+      </clause>
+    </section>
+
+    <!-- #################################### styles #################################### -->
+    <section name="styles">
+      <clause>
+        <path>
+          <class>gs-name-frame-head</class>
+          <element>h1</element>
+        </path>
+        <icon group="general_server">general_server_24</icon>
+        <padding-left metric="pixel">32</padding-left>
+        <margin-right metric="pixel">10</margin-right>
+        <float>left</float>
+      </clause>
+
+      <clause>
+        <path><class>gs-xschema-name-search</class></path>
+        <margin-bottom metric="pixel">5</margin-bottom>
+        <padding-bottom metric="pixel">5</padding-bottom>
+        <border-bottom>1px solid #d7d7d7</border-bottom>
+      </clause>
+
+      <clause>
+        <path>
+          <class>gs-xschema-name-search</class>
+          <class>gs-form-elements</class>
+          <class>gs-phrase</class>
+          <element>input</element>
+        </path>
+        <width metric="percent">100</width>
+      </clause>
+
+      <clause>
+        <path><class>gs-xschema-name-search</class><class>gs-form-title</class></path>
+        <path><class>gs-xschema-name-search</class><class>gs-phrase</class><class>gs-xsd-name</class></path>
+        <display>none</display>
+      </clause>
+
+      <clause>
+        <path><class>gs-xschema-name-search</class><class>gs-search-option</class></path>
+        <display>none</display>
+      </clause>
+
+      <clause>
+        <path>
+          <class>gs-xschema-name-search</class>
+          <id>gs-submit-options</id>
+          <class>gs-selected</class>
+        </path>
+        <font-weight>bold</font-weight>
+      </clause>
+
+      <clause>
+        <path>
+          <class>gs-xschema-name-search</class>
+          <class>gs-form-submit</class>
+        </path>
+        <width metric="percent">25</width>
+      </clause>
+
+      <clause>
+        <path>
+          <element>h1</element>
+          <class>note</class>
+        </path>
+        <path>
+          <element>h2</element>
+          <class>note</class>
+        </path>
+        <font-size metric="pixel">11</font-size>
+        <color type="hash">666666</color>
+        <font-weight>normal</font-weight>
+        <padding-left metric="pixel">10</padding-left>
+      </clause>
+
+      <css:clause>
+        <path><id>gs-copyright</id></path>
+        <border-top>initial</border-top>
+        <background-color type="hash">Transparent</background-color>
+        <background-image>none</background-image>
+      </css:clause>
+
+      <clause>
+        <path><class>gs-interface-mode-controls</class></path>
+        <float>right</float>
+      </clause>
+
+      <clause>
+        <path><class>gs-interface-mode-controls</class><class>gs-xsd-name</class></path>
+        <path><class>gs-interface-mode-controls</class><class>gs-form-title</class></path>
+        <display>none</display>
+      </clause>
+
+      <clause>
+        <path><class>gs-interface-mode-controls</class><class>gs-xsd-form-item</class></path>
+        <path><class>gs-interface-mode-controls</class><class>gs-form-submit</class></path>
+        <float>left</float>
+      </clause>
+
+      <clause>
+        <path><class>permission_bit</class></path>
+        <padding-right metric="pixel">5</padding-right>
+      </clause>
+
+      <clause>
+        <path><id>xmledit</id></path>
+        <width metric="percent">100</width>
+        <height metric="pixel">200</height>
+      </clause>
+    </section>
+
+    <section name="programming">
+      <css:clause>
+        <path><id>gs_document_validity_check</id></path>
+        <path><class>gs_node_validity_check</class></path>
+
+        <background-color type="hash">fcfd64</background-color>
+        <border>1px solid #666666</border>
+        <padding>5px 5px 5px 30px</padding>
+        <margin>5px 20px 20px 20px</margin>
+        <color type="hash">111</color>
+        <icon>error</icon>
+        <background-position>center left</background-position>
+      </css:clause>
+
+      <css:clause>
+        <path>
+          <element>div</element>
+          <class>todo</class>
+        </path>
+        <color type="hash">dd0000</color>
+        <font-style>italic</font-style>
+        <font-weight>bold</font-weight>
+      </css:clause>
+
+      <css:clause>
+        <path><class>gs_description</class></path>
+        <margin-top metric="pixel">2</margin-top>
+        <margin-bottom metric="pixel">4</margin-bottom>
+        <padding-left metric="pixel">16</padding-left>
+        <color type="hash">666</color>
+        <font-size metric="pixel">11</font-size>
+      </css:clause>
+
+      <css:clause>
+        <path><class>gs-warning</class></path>
+        <background-color type="hash">fcfd64</background-color>
+        <border>1px solid #666666</border>
+        <padding>5px 5px 5px 30px</padding>
+        <margin>5px 20px 20px 20px</margin>
+        <color type="hash">111</color>
+        <icon>error</icon>
+        <background-position>center left</background-position>
+      </css:clause>
+
+      <css:clause>
+        <path><class>gs-empty-message</class></path>
+        <color type="hash">555</color>
+        <font-style>italic</font-style>
+        <icon>information</icon>
+        <background-position>center left</background-position>
+      </css:clause>
+
+      <css:clause>
+        <path><class>gs-add-message</class></path>
+        <color type="hash">555</color>
+        <text-align>center</text-align>
+        <background-position>center left</background-position>
+      </css:clause>
+    </section>
+  </section>
+</css:stylesheet>

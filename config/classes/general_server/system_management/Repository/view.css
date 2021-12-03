@@ -1,0 +1,135 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:css="http://general_server.org/xmlnamespaces/css/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <css:clause>
+    <path>
+      <class relation="child-only">details</class>
+    </path>
+    <icon>folder</icon>
+  </css:clause>
+
+  <css:clause>
+    <path>
+      <interface>list</interface>
+      <local-name>interfaces</local-name>
+      <class relation="child-only">details</class>
+    </path>
+    <path>
+      <interface>list</interface>
+      <local-name>interfaces</local-name>
+      <class relation="child-only">children</class>
+      <element relation="child-only">li</element>
+      <class relation="child-only">details</class>
+    </path>
+    <icon>application_cascade</icon>
+  </css:clause>
+
+  <clause>
+    <path>
+      <class relation="child-only">details</class>
+      <class relation="child-only">namespace_prefix</class>
+    </path>
+    <display>none</display>
+  </clause>
+
+  <css:section name="custom specfic names">
+    <css:clause>
+      <path>
+        <class relation="self">gs-local-name-services</class>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>server_add</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="self">gs-local-name-linked_servers</class>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>server_add</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="self">gs-local-name-websites</class>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>world</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="self">gs-local-name-databases</class>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>database_add</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="self">gs-local-name-system_data</class>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>database_table</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="self">gs-local-name-system_data</class>
+        <class relation="child-only">children</class>
+        <element relation="child-only">li</element>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>text_list_numbers</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="self">gs-local-name-server</class>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>information</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="self">gs-local-name-system_transforms</class>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>page_lightning</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="self">gs-local-name-transactions</class>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>report_add</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="self">gs-local-name-users</class>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>group</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="self">gs-local-name-groups</class>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>group</icon>
+    </css:clause>
+  </css:section>
+</css:stylesheet>

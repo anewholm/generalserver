@@ -1,0 +1,13 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:forms/class:XSchema/xsd:schema[2]/*[2]" />
+
+  <xsd:annotation meta:type="form-display">
+    <xsd:app-info meta:type="order">username,password</xsd:app-info>
+  </xsd:annotation>
+
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element name="gs:arsehole" type="xsd:boolean"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

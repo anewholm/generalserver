@@ -1,0 +1,8 @@
+<interface:Collection xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="search-xpath">
+  <interface:QualifiedName>{$gs_query_string/@xpath}</interface:QualifiedName>
+  
+  <interface:dynamic data-container-name="results-xpath" optional="yes" interface-mode="list" evaluate="yes" data="$gs_query_string/@xpath" node-mask="."/>
+  <!-- TODO: xsl:if test="not(gs:data/*/*)">
+    <div class="gs-central-screen">no results</div>
+  </xsl:if -->
+</interface:Collection>

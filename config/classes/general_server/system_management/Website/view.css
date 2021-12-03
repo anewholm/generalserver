@@ -1,0 +1,9 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:css="http://general_server.org/xmlnamespaces/css/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <css:clause>
+    <path>
+      <class relation="child-only">details</class>
+    </path>
+    <padding-left metric="pixel">18</padding-left>
+    <icon>application_cascade</icon>
+  </css:clause>
+</css:stylesheet>

@@ -1,0 +1,25 @@
+<test xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <form name="fwibble" formid="54">
+    <another id="a5678">thing</another>
+  </form>
+  <form if="6" xmlsecurity:ownername="anewholm" xmlsecurity:ownergroupname="group" xmlsecurity:permissions="347"/>
+  <example xmlsecurity:ownername="anewholm" xmlsecurity:ownergroupname="group" xmlsecurity:permissions="400">
+    <cant_get_to_this>security test</cant_get_to_this>
+  </example>
+  <link_to_the_form>
+    <here xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="#a567">
+      <test_ns xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xlink2="http://www.w3.org/1999/xlink2"/>
+    </here>
+    <and xml:idref="e4d"/>
+    <test mother="43"/>
+    <test mother="43d"/>
+    <object:Horse>
+      <door position="left"/>
+    </object:Horse>
+
+  </link_to_the_form>
+
+  <object:Car>
+    <door position="left"/>
+  </object:Car>
+</test>

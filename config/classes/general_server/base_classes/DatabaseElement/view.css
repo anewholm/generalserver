@@ -1,0 +1,198 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006" xmlns:css="http://general_server.org/xmlnamespaces/css/2006">
+  <!-- ############################### general and gs-list-child-control ###############################  -->
+  <css:section name="list">
+    <path>
+      <interface>list</interface>
+    </path>
+    <css:clause>
+      <path/>
+      <color type="hash">000</color>
+      <white-space>nowrap</white-space>
+    </css:clause>
+    <css:clause>
+      <path>
+        <class relation="self">gs-ajax-loading</class>
+        <element relation="child-only">div</element>
+        <class relation="self">gs-list-child-control</class>
+      </path>
+      <icon group="" type="gif">throbber_16</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="self">gs-ajax-loading</class>
+        <class>details</class>
+      </path>
+      <color type="hash">777</color>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="child-only">gs-list-child-control</class>
+      </path>
+      <height metric="pixel">16</height>
+      <width metric="pixel">16</width>
+      <float>left</float>
+      <margin-right metric="pixel">1</margin-right>
+      <icon group="">expand</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="child-only">gs-list-child-control</class>
+        <class relation="self">expanded</class>
+      </path>
+      <icon group="">collapse</icon>
+    </css:clause>
+
+    <!-- ############################### indicators ###############################  -->
+    <css:section name="indicators">
+      <path>
+        <class>indicators</class>
+      </path>
+      <css:clause>
+        <path>
+          <element>img</element>
+        </path>
+        <background-repeat>none</background-repeat>
+        <width metric="pixel">12</width>
+        <height metric="pixel">16</height>
+      </css:clause>
+      <css:clause>
+        <path>
+          <class>indicator-is-transient-area</class>
+        </path>
+        <icon group="indicators">transientarea</icon>
+      </css:clause>
+      <css:clause>
+        <path>
+          <class>indicator-id-policy-area</class>
+        </path>
+        <icon group="indicators">idpolicyarea</icon>
+      </css:clause>
+      <css:clause>
+        <path>
+          <class>indicator-is-hard-link</class>
+        </path>
+        <icon group="indicators">hardlink</icon>
+      </css:clause>
+      <css:clause>
+        <path>
+          <class>indicator-is-registered</class>
+        </path>
+        <icon group="indicators">registered</icon>
+      </css:clause>
+    </css:section>
+
+    <!-- ############################### misc styles ###############################  -->
+    <css:clause>
+      <path>
+        <class relation="self">selected</class>
+        <class relation="child-only">details</class>
+        <class>name</class>
+      </path>
+      <background-color>#fffe83</background-color>
+      <border>1px dotted #888888</border>
+      <padding>0 6px 0 2px</padding>
+    </css:clause>
+    <css:clause>
+      <path>
+        <element>form</element>
+        <element>input</element>
+      </path>
+      <font-size>14px</font-size>
+      <white-space>nowrap</white-space>
+    </css:clause>
+    <css:clause>
+      <path>
+        <class>children</class>
+      </path>
+      <margin>0</margin>
+      <padding>0 0 0 12px</padding>
+    </css:clause>
+    <css:clause>
+      <path>
+        <class>text</class>
+      </path>
+      <font-style>italic</font-style>
+      <padding-left>3px</padding-left>
+    </css:clause>
+    <css:clause>
+      <path>
+        <class relation="self">gs-children-none</class>
+        <class>gs-list-child-control</class>
+      </path>
+      <display>none</display>
+    </css:clause>
+    <css:clause>
+      <path>
+        <class>attributes</class>
+      </path>
+      <font-size>12px</font-size>
+      <display>inline</display>
+      <margin>0</margin>
+      <padding>0</padding>
+    </css:clause>
+    <css:clause>
+      <path>
+        <class>attributes</class>
+        <element>li</element>
+      </path>
+      <display>inline</display>
+      <color>#6666ff</color>
+      <padding>0</padding>
+      <margin>0 0 0 5px</margin>
+    </css:clause>
+    <css:clause>
+      <path>
+        <class>child-count</class>
+      </path>
+      <font-size>10px</font-size>
+      <color>#885555</color>
+    </css:clause>
+    <css:clause>
+      <path>
+        <class relation="self">gs-children-none</class>
+        <class relation="child-only">details</class>
+        <class>child-count</class>
+      </path>
+      <display>none</display>
+    </css:clause>
+
+    <!-- ############################### details ###############################  -->
+    <css:section>
+      <path>
+        <class relation="child-only">details</class>
+      </path>
+      <css:clause>
+        <path>
+          <class relation="child-only">name</class>
+        </path>
+        <border>1px solid Transparent</border>
+      </css:clause>
+      <css:clause>
+        <path/>
+        <margin>0 0 0 14px</margin>
+        <padding-left metric="pixel">18</padding-left>
+      </css:clause>
+      <css:clause>
+        <path>
+          <class>tree</class>
+          <element>li</element>
+        </path>
+        <background-position>left top</background-position>
+        <background-repeat>no-repeat</background-repeat>
+      </css:clause>
+    </css:section>
+  </css:section>
+
+  <css:section name="link">
+    <path>
+      <interface>link</interface>
+    </path>
+    <css:clause>
+      <path><class relation="child-only">details</class></path>
+      <padding-left metric="pixel">20</padding-left>
+    </css:clause>
+  </css:section>
+</css:stylesheet>

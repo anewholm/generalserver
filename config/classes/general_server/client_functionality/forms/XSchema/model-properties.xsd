@@ -1,0 +1,20 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="model-properties" xsd:schema="tst">
+  <xsd:annotation meta:type="form-display">
+    <xsd:app-info meta:type="title"/>
+    <xsd:app-info meta:type="submit-caption">set</xsd:app-info>
+    <xsd:app-info meta:type="orientation">horizontal</xsd:app-info>
+    <xsd:app-info meta:type="multi-form">@*</xsd:app-info>
+  </xsd:annotation>
+
+  <xsd:annotation meta:type="data-processing">
+    <!-- XSchema processor will look for this app-info using the xs:schema @xml:id when processing the POST inputs -->
+    <xsd:app-info meta:type="processing" meta:dom-method="set-attribute" meta:description="generic attribute change"/>
+  </xsd:annotation>
+
+  <!-- all of the user entered items that contribute to the value of this attribute -->
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:attribute name="new_value" type="xsd:string" meta:caption="{name()}" meta:current-value-type="singular" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

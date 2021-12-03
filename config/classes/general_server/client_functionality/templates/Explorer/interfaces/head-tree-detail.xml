@@ -1,0 +1,36 @@
+<interface:Explorer xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <interface:Frame name="head" title="explorer" height="30px"/>
+  <interface:VerticalFrameset name="main" meta:start-position="300" meta:limit="150">
+    <interface:Frame name="tree"/>
+    <interface:Frame name="detail">
+      <interface:MultiDocument reload-last-setup="true">
+        <gs:tab title="welcome" solo="true">
+          <interface:HTMLContainer>
+            <img id="logo" src="{$gs_resource_server}/resources/shared/images/general_server/general_server_500.png"/>
+            <ul id="technologies">
+              <li><span class="name">RegularX</span><span class="fullname">Regular Expression XSL</span></li>
+              <li><span class="name">TXML</span><span class="fullname">Transactional XML</span></li>
+              <li><span class="name">ERDL</span><span class="fullname">Entity Relationship Design</span></li>
+              <li><img src="{$gs_resource_server}/resources/general_server.localhost/images/Libxml2-Logo-180x168.gif"/><span class="extensions">+security, +hardlinks, +axis</span></li>
+              <li><img src="{$gs_resource_server}/resources/general_server.localhost/images/Libxslt-Logo-180x168.gif"/><span class="extensions">+EXSLT, +write-back</span></li>
+            </ul>
+            <div id="editor" style="display:none;"/>
+          </interface:HTMLContainer>
+        </gs:tab>
+        <gs:tab id="new" title="new tab">
+          <interface:HTMLContainer>
+            <ul>
+              <li>TODO pad</li>
+              <li>node</li>
+              <li>XML editor</li>
+              <li>pad</li>
+              <li>search</li>
+              <li>template results <input/></li>
+            </ul>
+          </interface:HTMLContainer>
+        </gs:tab>
+      </interface:MultiDocument>
+    </interface:Frame>
+  </interface:VerticalFrameset>
+  <interface:Frame name="footer"/>
+</interface:Explorer>

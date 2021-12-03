@@ -1,0 +1,86 @@
+<data xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="data" meta:system-node="yes">
+  <hardlink-target name="hardlink-target"/>
+  <xml:hardlink target="/object:Server/repository:tests/gs:data/*[1]" />
+  
+  <security xmlsecurity:ownername="test" xmlsecurity:permissions="740">
+    <success>success</success>
+    <fail>fail</fail>
+  </security>
+  
+  <gs:top>
+    <gs:top/>
+  </gs:top>
+  <xml:hardlink target="/object:Server/repository:tests/gs:data/*[4]" />
+  
+  <default-name-axis-test name="default-name">
+    <under name="axis">
+      <thing name="test">works</thing>
+    </under>
+  </default-name-axis-test>
+  
+  <!-- fake conversation for the test environment -->
+  <object:Request>
+    <gs:url>config</gs:url>
+  </object:Request>
+  
+  <!-- standard naming parsing test -->
+  <_1>test</_1>
+  
+  <xml-output-test xmlns="http://general_server.org/xmlnamespaces/general_server/2006" name="xml-output-test">
+    <child>thing</child>
+    <hierarchy>
+      <with>
+    <stuff/>
+      </with>
+    </hierarchy>
+  </xml-output-test>
+  
+  <gs:eval-test gs:xpath="/config/repository:tests/data/gs:eval-test">
+    <gs:result test="success"/>
+  </gs:eval-test>
+  
+  <parent-test name="parent-test">
+    <under name="works">
+      <thing name="thing">original</thing>
+    </under>
+  </parent-test>
+  <xml:hardlink target="/object:Server/repository:tests/gs:data/*[11]/*" />
+  
+  <similarity>
+    <existing>
+      <wtf>and</wtf>
+    </existing>
+    <new>
+      <wtf>and</wtf>
+    </new>
+  </similarity>
+  
+  <deviations-test name="deviations-test">
+    <deviations-target name="original" deviated-dynamic-content="{@name}">
+      <a-thing name="original">original</a-thing>
+    </deviations-target>
+    <deviations name="deviant">
+      <a-thing name="deviant">deviant</a-thing>
+    </deviations>
+  </deviations-test>
+  <!-- links gs:data/gs:deviations-target 
+    *[14]      == gs:data/gs:deviations-test
+    *[14]/*[1] == gs:data/gs:deviations-test/gs:deviations-target
+  -->
+  <xml:hardlink target="/object:Server/repository:tests/gs:data/*[14]/*[1]">
+    <!-- gs:data/gs:deviations-target/gs:a-thing => alternative gs:deviations/gs:a-thing -->
+    <xml:deviation original="/object:Server/repository:tests/gs:data/*[14]/*[1]/*" deviant="/object:Server/repository:tests/gs:data/*[14]/*[2]/*" />
+    <!-- gs:data/gs:deviations-target/gs:a-thing/@name => alternative gs:deviations/gs:a-thing/@name -->
+    <xml:deviation attribute-name="name" original="/object:Server/repository:tests/gs:data/*[14]/*[1]" deviant="/object:Server/repository:tests/gs:data/*[14]/*[2]" />
+  </xml:hardlink>
+  
+  <gs:softlink-test result="ok">
+    <gs:element><gs:within/></gs:element>
+    <gs:from result="failed: gs:from">
+      <xml:hardlink target="/object:Server/repository:tests/gs:data/gs:softlink-test/gs:element"/>
+    </gs:from>
+    <gs:query-string result="failed: gs:query-string"/>
+  </gs:softlink-test>
+  
+  <object:Manager/>
+</data>

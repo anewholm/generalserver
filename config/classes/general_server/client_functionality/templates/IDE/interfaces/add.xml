@@ -1,0 +1,7 @@
+<interface:HTMLContainer xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="add">
+  <interface:QualifiedName>add {$gs_query_string/@type-target}</interface:QualifiedName>
+  <!-- using string values cause they get passed through as strings in to the output -->
+  <xsd:add name="add" class="$gs_query_string/gs:xpath-to-target-children-node-dbs/*[position() = 1]" xpath-to-destination="$gs_query_string/gs:xpath-to-target-ancestor-node-dbs/*[position() = 3]">
+    <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:system_management/*[1]/xsd:schema/xsd:complexType/xsd:sequence/*[2]" />
+  </xsd:add>
+</interface:HTMLContainer>

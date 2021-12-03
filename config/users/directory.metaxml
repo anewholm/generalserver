@@ -1,0 +1,1 @@
+<repository:users xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" meta:classes-context-menu-news="User" test="100" name="users"/>

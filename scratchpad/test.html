@@ -1,0 +1,51 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+<script src="JInherit.js"></script>
+
+<div style="display:none;">LOL</div>
+
+<script>
+m = new Might(89);
+jQuery("div:first").data().object = m;
+
+//--------------------------- Thing class
+function Thing(){
+  //constructor
+}
+Thing.prototype.publicFunc = function publicFunc() {
+  this.privateFunc();
+}
+Thing.prototype.publicFunc.classDerivedConstructor=Thing;
+
+Thing.prototype.privateFunc = function privateFunc() {
+  if (checkPrivateFunctionScope()) {
+    console.info(9);
+  }
+}
+Thing.prototype.privateFunc.classDerivedConstructor=Thing;
+
+function checkPrivateFunctionScope() {
+  //private methods MUST be called from another method with the same Class
+  var oArguments;
+  var bFromSameClass = (
+       arguments.callee
+    && arguments.callee.caller
+    && (oArguments = arguments.callee.caller.arguments)
+    && oArguments.callee 
+    && oArguments.callee.caller 
+    && oArguments.callee.classDerivedConstructor 
+    && oArguments.callee.caller.classDerivedConstructor 
+    && oArguments.callee.caller.classDerivedConstructor === oArguments.callee.classDerivedConstructor
+  );
+  
+  if (!bFromSameClass) {
+    var sFunctionName = "unknown", sClass = "unknown";
+    if (oArguments && oArguments.callee) {
+      sClass        = oArguments.callee.classDerivedConstructor.name;
+      sFunctionName = oArguments.callee.name;
+    }
+    console.error(sClass + "::" + sFunctionName + "() private function called");
+  }
+  
+  return bFromSameClass;
+}
+</script>

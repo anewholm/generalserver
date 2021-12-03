@@ -1,0 +1,114 @@
+<interface:IDE xmlns:conversation="http://general_server.org/xmlnamespaces/conversation/2006" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:gs="http://general_server.org/xmlnamespaces/general_server/2006" title="★ integrated development environment" doxygen-support="on" name="head-tree-detail">
+  <!-- ##################################### shared objects #####################################
+    interface:SharedInterfaces/* are copied under the caller by JOO.orSharedClone(...) if not found there already
+    $gs_query_string/@parameters required to be sent through sometimes
+    interfaces also require $parameters sometimes
+  -->
+  <interface:SharedInterfaces name="general">
+    <!-- dynamic reloader used by debug and server events
+      the data context is the current event DisplayObject where the reload() method is running
+      @node-mask is default so that just this object, not its children, is reloaded
+      @data and @interface-mode are dynamically passed by the client object
+      @dom-targets=parent because we want to merge the parent of this childOrSharedClone()
+    -->
+    <interface:AJAXHTMLLoader gs:display-class="dynamic-reloader" gs:dom-targets="parent" data="$gs_query_string/gs:xpath-to-current-node-db/*" interface-mode="{$gs_query_string/@interface-mode-current}" node-mask="."/>
+    
+    <!-- main context-menu -->
+    <interface:ContextMenu xmlns="http://www.w3.org/1999/xhtml" title="placeholder" gs:display-class="contextmenu">
+      <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:interaction/class:ContextMenu/repository:panels/gs:context-menu-pieces/*[1]" /> <!-- interaction: select, developer, administrator -->
+      <gs:menu-section name="dynamic class introspection">
+        <li class="icon_new f_click_toggleCSSDashPathDOFromEventFunctionElement_Object f_mouseover_nothing">add
+          <interface:AJAXHTMLLoader func-class-start-notify="SubMenu" data="$gs_query_string/gs:xpath-to-ancestor-node-dbs/*[position() = 2]" interface-mode="contextmenu_news"/>
+        </li>
+        <li class="icon_set f_click_toggleCSSDashPathDOFromEventFunctionElement_Object f_mouseover_nothing">set
+          <interface:AJAXHTMLLoader func-class-start-notify="SubMenu" data="$gs_query_string/gs:xpath-to-ancestor-node-dbs/*[position() = 2]" interface-mode="contextmenu_sets"/>
+        </li>
+        <li class="icon_views f_click_toggleCSSDashPathDOFromEventFunctionElement_Object f_mouseover_nothing">views
+          <interface:AJAXHTMLLoader func-class-start-notify="SubMenu" data="$gs_query_string/gs:xpath-to-ancestor-node-dbs/*[position() = 2]" interface-mode="contextmenu_views"/>
+        </li>
+        <li class="icon_controllers f_click_toggleCSSDashPathDOFromEventFunctionElement_Object f_mouseover_nothing">controllers
+          <interface:AJAXHTMLLoader func-class-start-notify="SubMenu" data="$gs_query_string/gs:xpath-to-ancestor-node-dbs/*[position() = 2]" interface-mode="contextmenu_controllers"/>
+        </li>
+        <li class="icon_controllers f_click_toggleCSSDashPathDOFromEventFunctionElement_Object f_mouseover_nothing">event-handlers
+          <interface:AJAXHTMLLoader func-class-start-notify="SubMenu" data="$gs_query_string/gs:xpath-to-ancestor-node-dbs/*[position() = 2]" interface-mode="contextmenu_event_handlers"/>
+        </li>
+      </gs:menu-section>
+      <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:interaction/class:ContextMenu/repository:panels/gs:context-menu-pieces/*[2]" /> <!-- structural changes: cut, copy -->
+      <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:interaction/class:ContextMenu/repository:panels/gs:context-menu-pieces/*[3]" /> <!-- element changes: rename, delete -->
+    </interface:ContextMenu>
+
+    <!-- copy, move, link context-menu -->
+    <interface:ContextMenu xmlns="http://www.w3.org/1999/xhtml" gs:display-class="move-copy-link">
+      <li class="icon_move">move</li>
+      <li class="icon_copy">copy</li>
+      <li class="icon_link">link
+        <interface:SubMenu>
+          <li class="icon_copy">hard-link</li>
+          <li class="icon_copy">soft-link ...</li>
+        </interface:SubMenu>
+      </li>
+    </interface:ContextMenu>
+  </interface:SharedInterfaces>
+
+  <!-- ##################################### main Explorer ##################################### -->
+  <interface:Explorer>
+    <interface:Frame name="head" title-1="{../../@title}" html:height="39px">
+      <!-- remember that the object:User is hardlinked under here so the node-mask needs to respect that -->
+      <interface:dynamic interface-mode="controls" data="$gs_session" node-mask=".|*|*/*|$gs_user/gs:debug//*|xsd:schema//*" source="Session Controls"/>
+      <interface:HorizontalMenu>
+        <interface:dynamic interface-mode="link" node-mask="descendant-or-self::*[@meta:menu-item]" data="$gs_website_root/*[@meta:menu-item]" source="Main Menu"/>
+      </interface:HorizontalMenu>
+      <interface:HTMLContainer dynamic-example="0{count(ancestor::interface:IDE[1]/*)}">
+        [{@dynamic-example}]
+      </interface:HTMLContainer>
+    </interface:Frame>
+    <interface:VerticalFrameset name="main" start-position="300" limit="150">
+      <interface:Frame name="tree">
+        <xsd:render xschema-name="search" class="~IDE" meta:event-functions="f_keyup_searchchange f_change_searchchange f_mouseup_searchchange f_input_searchchange f_paste_searchchange"/>
+        <interface:Collection name="IDE-main-tree">
+          <interface:dynamic interface-mode="children-IDETreeRecord" interface-child-interface="list" data="object:Server" node-mask=".|*" source="Top Tree Level"/>
+        </interface:Collection>
+      </interface:Frame>
+      <interface:Frame name="detail">
+
+        <!-- ##################################### MDI ##################################### -->
+        <interface:MultiDocument reload-last-setup="true">
+          <interface:SharedInterfaces name="tab-templates">
+            <interface:AJAXHTMLLoader gs:display-class="node-details" data-context="~IDE/repository:interfaces" data="multiview"/>
+            <interface:AJAXHTMLLoader gs:display-class="node-add" data-context="~IDE/repository:interfaces" data="add"/>
+            <interface:AJAXHTMLLoader gs:display-class="search-text" data-context="~IDE/repository:interfaces" data="search-text"/>
+            <interface:AJAXHTMLLoader gs:display-class="search-xpath" data-context="~IDE/repository:interfaces" data="search-xpath"/>
+          </interface:SharedInterfaces>
+
+          <gs:tab title="welcome" solo="true">
+            <interface:HTMLContainer>
+              <img id="logo" src="{$gs_resource_server}/resources/shared/images/general_server/general_server_500.png"/>
+              <ul id="technologies">
+                <li><span class="name">RegularX</span><span class="fullname">Regular Expression XSL</span></li>
+                <li><span class="name">TXML</span><span class="fullname">Transactional XML</span></li>
+                <li><span class="name">ERDL</span><span class="fullname">Entity Relationship Design</span></li>
+                <li><img src="{$gs_resource_server}/resources/general_server.localhost/images/Libxml2-Logo-180x168.gif"/><span class="extensions">+security, +hardlinks, +axis</span></li>
+                <li><img src="{$gs_resource_server}/resources/general_server.localhost/images/Libxslt-Logo-180x168.gif"/><span class="extensions">+EXSLT, +write-back</span></li>
+              </ul>
+              <div id="editor" style="display:none;"/>
+            </interface:HTMLContainer>
+          </gs:tab>
+
+          <gs:tab id="new" title="new tab">
+            <interface:HTMLContainer>
+              <ul>
+                <li>TODO pad</li>
+                <li>node</li>
+                <li>XML editor</li>
+                <li>pad</li>
+                <li>search</li>
+                <li>template results <input/></li>
+              </ul>
+            </interface:HTMLContainer>
+          </gs:tab>
+        </interface:MultiDocument>
+      </interface:Frame>
+    </interface:VerticalFrameset>
+    <interface:Frame name="footer"/>
+  </interface:Explorer>
+</interface:IDE>

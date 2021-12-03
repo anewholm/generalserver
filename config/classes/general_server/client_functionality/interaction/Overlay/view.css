@@ -1,0 +1,21 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause>
+    <path><interface>default</interface></path>
+    <path><interface>placeholder</interface></path>
+
+    <position>absolute</position>
+    <float>left</float>
+    <z-index>10100</z-index>
+    <min-width metric="pixel">140</min-width>
+
+    <border>1px solid #aaa</border>
+    <background-color type="hash">ffffff</background-color>
+    <box-shadow>2px 2px 20px #888888</box-shadow>
+  </clause>
+
+  <clause>
+    <path><interface>placeholder</interface></path>
+    <width metric="pixel">50</width>
+    <height metric="pixel">50</height>
+  </clause>
+</css:stylesheet>

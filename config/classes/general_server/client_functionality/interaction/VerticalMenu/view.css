@@ -1,0 +1,40 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <section name="default">
+    <path><interface>default</interface></path>
+
+    <css:clause>
+      <path><class>gs-title</class></path>
+
+      <font-size metric="pixel">11</font-size>
+      <text-align>center</text-align>
+      <color type="hash">555</color>
+      <background-color type="hash">f7f7f7</background-color>
+    </css:clause>
+
+    <css:clause>
+      <path><class>gs-menu-section</class></path>
+      <border-top>1px solid #aaa</border-top>
+    </css:clause>
+
+    <css:clause>
+      <path><element>li</element></path>
+
+      <padding>3px 20px 3px 22px</padding>
+      <margin>0 4px</margin>
+      <float>none</float>
+      <border>none</border>
+      <font-size metric="pixel">12</font-size>
+
+      <background-position>left center</background-position>
+      <white-space>nowrap</white-space>
+      <cursor>pointer</cursor>
+    </css:clause>
+
+    <css:clause>
+      <!-- TODO: indicate clickable -->
+      <path><class relation="child-only">f_click_toggleCSSDashPathDOFromEventFunctionElement_Object</class></path>
+      <font-style>italic</font-style>
+    </css:clause>
+
+  </section>
+</css:stylesheet>

@@ -1,0 +1,15 @@
+<gs:fora xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <interface:AdvancedForum/>
+  <interface:Forum>
+    <gs:title xmlns="http://general_server.org/xmlnamespaces/general_server/2006">my first forum</gs:title>
+    <gs:description xmlns="http://general_server.org/xmlnamespaces/general_server/2006">mindegy</gs:description>
+    <interface:ForumPost>
+      <title>jhfg</title>
+      <body>kjh</body>
+      <interface:ForumPost>
+        <title>jhfg</title>
+        <body>kjh</body>
+      </interface:ForumPost>
+    </interface:ForumPost>
+  </interface:Forum>
+</gs:fora>

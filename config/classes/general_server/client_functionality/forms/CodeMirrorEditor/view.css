@@ -1,0 +1,83 @@
+<css:stylesheet xmlns="http://general_server.org/xmlnamespaces/css/2006" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlid="idx_3295">
+  <css:dependency uri="/resources/shared/codemirror/codemirror-3.20/lib/codemirror.css"/>
+
+  <!-- #################################### common #################################### -->
+  <clause>
+    <path/>
+    <path><class>CodeMirror</class></path>
+
+    <position>absolute</position>
+    <top metric="pixel">0</top>
+    <bottom metric="pixel">0</bottom>
+    <width metric="percent">100</width>
+    <margin metric="pixel">0</margin>
+    <padding metric="pixel">0</padding>
+  </clause>
+
+  <clause xmlid="idx_3000">
+    <path xmlid="idx_3001">
+      <class xmlid="idx_3006">CodeMirror</class>
+    </path>
+    <height>auto</height>
+    <width metric="percent">100</width>
+    <background-color type="hash">dddddd</background-color>
+    <font-style>italic</font-style>
+    <padding-bottom metric="pixel">20</padding-bottom>
+  </clause>
+
+  <clause xmlid="idx_3000">
+    <path xmlid="idx_3001">
+      <class xmlid="idx_3006">CodeMirror-scroll</class>
+    </path>
+    <overflow-y>auto</overflow-y>
+    <overflow-x>auto</overflow-x>
+  </clause>
+
+  <clause xmlid="idx_3000">
+    <path xmlid="idx_3001">
+      <class relation="self">gs-ajax-loaded</class>
+      <class xmlid="idx_3006">CodeMirror</class>
+    </path>
+    <background-color type="hash">ffffff</background-color>
+    <font-style>normal</font-style>
+  </clause>
+
+  <clause xmlid="idx_3000">
+    <path xmlid="idx_3001">
+      <class xmlid="idx_3006">CodeMirror</class>
+      <class>gs-breakpoint</class>
+    </path>
+    <background-color type="hash">fff0f0</background-color>
+  </clause>
+
+  <clause xmlid="idx_3000">
+    <path xmlid="idx_3001">
+      <class xmlid="idx_3006">CodeMirror-foldmarker</class>
+    </path>
+    <color>blue</color>
+    <text-shadow>#b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px</text-shadow>
+    <line-height>.3</line-height>
+    <cursor>pointer</cursor>
+  </clause>
+
+  <!-- #################################### bare #################################### -->
+  <!-- css:section name="bare layout">
+    <path><class relation="self">gs-interface-mode-bare</class></path>
+
+    <clause>
+      <path>
+        <class>gs-xschema-name-single-node</class>
+        <class>gs-xsd-name</class>
+      </path>
+      <path>
+        <class>gs-xschema-name-single-node</class>
+        <class>gs-form-title</class>
+      </path>
+      <path>
+        <class>gs-xschema-name-single-node</class>
+        <class>gs-form-submit</class>
+      </path>
+      <display>none</display>
+    </clause>
+  </css:section -->
+</css:stylesheet>

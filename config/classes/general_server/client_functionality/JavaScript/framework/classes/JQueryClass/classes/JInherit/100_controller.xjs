@@ -1,0 +1,229 @@
+<javascript:code xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="controller" controller="true">
+  <javascript:object requires="jQuery" inherits-javascript-primitive="Array">
+    <!-- JInherit links through to jQuery
+      we use static-methods everywhere to maintain a clean jQuery expando list
+      ALL jQuery functions are inherited
+      jQuery that changes the DOM will run OO attachement methods afterwards
+    -->
+    <javascript:static-property name="fMasqueradeClass" delay="false">jQuery</javascript:static-property>
+
+    <javascript:init parameters="..."><![CDATA[
+      //useful for setting display object specific stuff
+      //data() will return a null if there are no elements
+      var oArguments = JInherit.convertArguments(this, arguments);
+      this.elements  = jQuery.apply(window, oArguments);
+      JInherit.updateUsefulProperties(this);
+    ]]></javascript:init>
+  
+    <javascript:method name="factory" parameters="uP0, uP1, uP2, uP3, uP4, uP5, uP6, uP7, uP8, uP9" parameter-checks="off"><![CDATA[
+      return new JInherit(uP0, uP1, uP2, uP3, uP4, uP5, uP6, uP7, uP8, uP9);
+    ]]></javascript:method>
+      
+    <javascript:static-method name="updateUsefulProperties" parameters="oInherit" parameter-checks="off"><![CDATA[
+      oInherit.length = oInherit.elements.length;
+      for (var i = 0; i < oInherit.elements.length; i++) oInherit[i] = oInherit.elements[i];
+      oInherit.o = oInherit.elements.data() || new Object(); 
+    ]]></javascript:static-method>
+  
+    <!-- ######################################## conversion ######################################## -->
+    <javascript:conversion to-type="JQueryNativeValue"><![CDATA[
+      return this.elements;
+    ]]></javascript:conversion>
+
+    <javascript:conversion to-type="JQuery"><![CDATA[
+      //jquery extensions require jqParameters
+      return this.elements;
+    ]]></javascript:conversion>
+
+    <!-- ######################################## method redirection jQuery ######################################## -->
+    <javascript:static-method name="convertArguments" parameters="fFunc, oOriginalArguments" parameter-checks="off"><![CDATA[
+      //arguments processing and checking required for some extended classes
+      //e.g. CSSPathString => this.csspath
+      //     DisplayObject => this.elements via the above inherited toJQueryNativeValue()
+      var aNewArguments = new Array();
+      for (var i = 0; i < oOriginalArguments.length; i++) {
+        uArg = oOriginalArguments[i];
+        
+        if ( 
+          //Object, Function, RegExp, sending through an oFrame will be caught by fFunc.Frame
+             (uArg instanceof Object && (fException = fFunc[uArg.constructor.functionName()]))
+          //specifc Class constructors, e.g. jp.hasClass.ContextMenu catches window.ContextMenu
+          || (uArg instanceof Function && (fException = fFunc[uArg.functionName()]))
+          //all Class constructors, e.g. jp.hasClass.BaseObject catches ALL classes
+          || (uArg instanceof Function && uArg.prototype instanceof window.BaseObject && (fException = fFunc.BaseObject))
+        ) {
+          uArg = fException(uArg);
+        } else if (uArg instanceof Object && uArg.toJQueryNativeValue instanceof Function) {
+          uArg = uArg.toJQueryNativeValue();
+        }
+        
+        aNewArguments.push(uArg);
+      }
+      return aNewArguments;
+    ]]></javascript:static-method>
+
+    <javascript:method name="invoked" is-protected="true" parameters="sFuncName, oArguments" parameter-checks="off"><![CDATA[
+      //Event is a required 1st argument for all GeneralServer calls
+      //this is because any Classes overriding functionality may need to understand client-event-context
+      //the Event is a general container for all relevant Objects relating to what is happening on the client
+      var oRet, uJRet, u1JRet, oObject;
+      var jqDetachInvalid;
+      var jqDetach, jqAttachTree, jqAttachResultTree, jqDetachTree;
+      var fFunc = JInherit.fMasqueradeClass.prototype[sFuncName];
+      var aNewArguments, bHasCallback;
+      
+      //Array processing of arguments object
+      if (fFunc.isRawArguments) aNewArguments = Array.prototype.slice.apply(oArguments);
+      else                      aNewArguments = JInherit.convertArguments(fFunc, oArguments); 
+      
+      //-------------------------------------- OO dettachment checks
+      if (fFunc.fDetachInvalid) jqDetachInvalid = fFunc.fDetachInvalid.apply(this.elements, aNewArguments);
+      if (fFunc.fDetach)     jqDetach           = fFunc.fDetach.apply(this.elements, aNewArguments);
+      if (fFunc.fDetachTree) jqDetachTree       = fFunc.fDetachTree.apply(this.elements, aNewArguments);
+      if (fFunc.fAttachTree) jqAttachTree       = fFunc.fAttachTree.apply(this.elements, aNewArguments);
+      if (jqDetach)     OO.detachFromObjects(jqDetach);
+      if (jqDetachTree) OO.detachFromObjects(jqDetachTree.findOrSelf(".Object"));
+
+      //-------------------------------------- execute
+      //direct jQuery function run ignoring data.Object Object overrides
+      uJRet = fFunc.apply(this.elements, aNewArguments);
+        
+      //-------------------------------------- OO attachment / checks
+      if (jqDetachInvalid) OO.checkDisplayObjectValidities(jqDetachInvalid);
+      if (jqAttachTree)    OO.attachToObjects(jqAttachTree.findOrSelf(".Object"));
+      if (fFunc.fAttachResultTree && uJRet instanceof jQuery) {
+        if (jqAttachResultTree = fFunc.fAttachResultTree.apply(uJRet, aNewArguments)) {
+          //any result tree attachement is defined as all new
+          //e.g. .cloneTo(x)
+          jqAttachResultTree.findOrSelf(GS_OBJECT_ATTACHED_FILTER).removeClass(GS_OBJECT_ATTACHED_CLASS);
+          if (jqAttachResultTree.length) OO.attachToObjects(jqAttachResultTree.findOrSelf(".Object"));
+        }
+      }
+      
+      //-------------------------------------- intelligent return based on jQuery returns
+      //jQuery will always return a new, altered jQuery set rather than changing itself
+      //or return a non-jquery type
+      //we use a === to avoid any implicit this.elements.toString()
+      if (uJRet === this.elements) {
+        //same jQuery returned, possibly a content/structure-changer
+        //e.g. remove(), append()
+        //all properties the same still
+        oRet = this;                //JInherit / JQueryClass
+      } else if (uJRet instanceof jQuery) {
+        //new mixed jQuery returned: no affect on elements
+        //e.g. children()
+        oRet = this.factory(uJRet); //JInherit / JQueryClass
+      } else {
+        //other value type returned
+        //e.g. position {top:left:}, attribute value "thing"
+        oRet = uJRet;
+        //maybe property changes so update ourselves
+        JInherit.updateUsefulProperties(this);
+      }
+      
+      //-------------------------------------- events
+      //OO.attachToObjects() will trigger the NewObjects events
+      if  (fFunc.fAttachTree || fFunc.fAttachResultTree || fFunc.fDetachInvalid) this.trigger(ContentChangedEvent);
+      else if (fFunc.fDetach || fFunc.fDetachTree) this.trigger(ContentRemovedEvent);
+      
+      return oRet;
+    ]]></javascript:method>
+
+    <!-- ######################################## inherit jQuery ######################################## -->
+    <javascript:global-init name="annotateJQueryFunctions" requires="jQuery">
+      //http://api.jquery.com/category/manipulation/
+      //fDetach:           pre-execution remove DOs
+      //fDetachTree:       pre-execution remove DOs
+      //fAttachTree:       post-execution add any new DOs based on this
+      //fAttachResultTree: post-execution add any new DOs based on result
+      //fDetachInvalid:    post-execution same as fDetach but with expensive checks 
+      var jp = jQuery.prototype;
+      
+      //------------------------------ ignore functions
+      jp.constructor.inherit = false;
+      
+      //------------------------------ adding content, no removal or change
+      jp.addClass.fDetachInvalid  = function(sClassName){return this;};
+      jp.cloneTo.fAttachResultTree = function(jWhat){return this;};
+      
+      jp.insertAfter.fAttachTree  = function (jTarget) {return this;};
+      jp.insertBefore.fAttachTree = function (jTarget) {return this;};
+
+      /*      
+      jp.after;     //parameters are moved after  this CHECK: result this.parent().find(Object)
+      jp.before;    //parameters are moved before this CHECK: result this.parent().find(Object)
+      
+      jp.append;    //parameters are inserted inside this CHECK: this
+      jp.prepend;   //parameters are inserted inside this CHECK: this
+      
+      jp.appendTo;  //(!append) this is moved into the single parameter CHECK: this moved external-document =&gt; document
+      jp.prependTo; //(!prepend)this is moved into the single parameter CHECK: this moved external-document =&gt; document
+      
+      jp.wrap;      //this is wrapped with single element argument CHECK: original this.parent()s
+      jp.wrapAll;   //grouped this elements are wrapped with single element argument CHECK: original this.parent()s
+      jp.wrapInner; //CHECK: this
+      */
+      
+      //------------------------------ removal only
+      jp.remove.fDetachTree               = function(jWhat){return this;};
+      jp.empty.fDetachTree                = function(jFrom){return this.children();};
+      jp.unwrap.fDetach                   = function(jInner){return this.parent();};
+      jp.removeClass.fDetachInvalid       = function(sClassName){return this;};
+      jp.removeAttr.fDetachTree           = function(sAttrName ){if (sAttrName  == "class") return this;};
+      jp.removeProp.fDetachTree           = function(sAttrName ){if (sAttrName  == "class") return this;};
+      
+      //------------------------------ removal and addition
+      jp.attr.fDetachInvalid     = function(sAttrName, uProperty){if (sAttrName == "class" &amp;&amp; arguments.length &gt; 1) return this;};
+      jp.attr.fAttachTree        = jp.attr.fDetachInvalid;
+      
+      jp.toggleClass.fDetachInvalid = function(){return this;};
+      jp.html.fDetachTree        = function(sHTML){if (arguments.length) return this.children();};
+      jp.html.fAttachResultTree  = jp.html.fDetachTree;
+      
+      jp.mergeNodes.fAttachResultTree = function(){return this;}
+      
+      //replaceWith() returns the set of elements that was removed
+      //replaceWith() can replace one node with many
+      jp.replaceWith.fDetachTree = function(){return this;};
+      jp.replaceWith.fAttachTree = function(){return this.parent();};
+      //(!replaceWith) this is cloned to replace argument CHECK-detach: singular argument CHECK: result this
+      jp.replaceAll.fDetachTree  = function(jTarget){return jTarget;};    
+      jp.replaceAll.fAttachTree  = function(jTarget){return this;};    
+      
+      //------------------------------ raw and explicit arguments conversion
+      jp.data.isRawArguments     = true;
+      jp.object.isRawArguments   = true; //setting the object only
+      jp.hasClass.BaseObject     = function(fBO){return CSSPathString.fromGSClass(fBO, true);} //prevent leading .
+      jp.filter.RegExp           = function(rxRegExp) {return rxRegExp.toCSSPathString();}
+    </javascript:global-init>
+
+    <javascript:global-init name="inheritMasqueradeFunctions"><![CDATA[
+      //we cannot simply inherit the jQuery.prototype so we redirect
+      //~0.03 seconds to inherit everything :(
+      //this improves to ~0.004 seconds when we use a fixed function() 
+      //but we cannot ascertain the function requested (expando used) as yet
+      var sFuncName, fJQueryFunc, fAccessor, i = 0;
+      var aNames = new Array(); //STAGE-DEV
+      
+      for (sFuncName in JInherit.fMasqueradeClass.prototype) {
+        fJQueryFunc = JInherit.fMasqueradeClass.prototype[sFuncName];
+        if ( JInherit.fMasqueradeClass.prototype.hasOwnProperty(sFuncName)
+          && fJQueryFunc instanceof Function 
+          && fJQueryFunc.inherit !== false
+        ) {
+          fAccessor = new Function("return this.invoked('" + sFuncName + "',arguments);");
+          fAccessor.functionNameHint        = sFuncName; //picked up by functionName()
+          fJQueryFunc.functionNameHint      = sFuncName; //picked up by functionName()
+          fAccessor.functionType            = "method";  //OO.IntrospectionMethod.prototype
+          JInherit.prototype[sFuncName]     = fAccessor;
+          i++;
+          aNames.push(sFuncName); //STAGE-DEV
+        }
+      }
+
+      window.console.log(aNames); //STAGE-DEV
+      if (!i && window.console) window.console.warn("failed to inherit any jQuery functions");
+      return "JInherit (inherits) [" + i + "] methods => jQuery";
+    ]]></javascript:global-init>
+  </javascript:object>
+</javascript:code>

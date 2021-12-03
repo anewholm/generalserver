@@ -1,0 +1,17 @@
+Documents
+---------
+See:
+	generalserver/config/websites/general_server/
+		TODO.xml
+		WHY.xml
+		README.xml
+
+Server Control
+--------------
+In
+	generalserver/
+Run
+	bin/generalserver
+This, by default, loads the XML tree from
+	./config
+Which contains the overall setup: services, databases, etc.

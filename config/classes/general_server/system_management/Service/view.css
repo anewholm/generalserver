@@ -1,0 +1,49 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <section name="list">
+    <path><interface>list</interface></path>
+
+    <clause name="styles">
+      <path>
+        <class relation="child-only">details</class>
+      </path>
+      <padding>0 0 0 18px</padding>
+      <icon>server</icon>
+      <font-weight>bold</font-weight>
+      <color>#222255</color>
+    </clause>
+
+    <clause name="hide namespace_prefix">
+      <path>
+        <class>namespace_prefix</class>
+      </path>
+      <display>none</display>
+    </clause>
+
+    <css:clause>
+      <path><class>gs-context-menu</class><class>f_click_stop</class></path>
+      <icon>stop</icon>
+    </css:clause>
+
+    <clause>
+      <path>
+        <class relation="child-only">children</class>
+        <class relation="child-only">gs-local-name-conversation</class>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>sound</icon>
+    </clause>
+
+    <clause>
+      <path>
+        <class relation="child-only">children</class>
+        <class relation="child-only">gs-local-name-conversation</class>
+        <class relation="child-only">children</class>
+        <element relation="child-only">li</element>
+        <class relation="child-only">details</class>
+      </path>
+      <padding-left metric="pixel">18</padding-left>
+      <icon>text_letterspacing</icon>
+    </clause>
+  </section>
+</css:stylesheet>

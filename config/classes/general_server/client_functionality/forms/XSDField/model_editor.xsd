@@ -1,0 +1,36 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:xsd="http://www.w3.org/2001/XMLSchema" meta:type="field-model" name="model-editor">
+  <!-- data-query included with the inherited xsd:schema in interface-mode=editor -->
+  <xsd:annotation meta:type="form-display">
+    <xsd:app-info meta:type="title"/>
+    <xsd:app-info meta:type="submit-caption">update field</xsd:app-info>
+    <xsd:app-info meta:type="orientation">horizontal</xsd:app-info>
+    <xsd:app-info meta:type="style">compact</xsd:app-info>
+  </xsd:annotation>
+
+  <xsd:annotation meta:type="data-processing">
+    <xsd:app-info meta:type="processing" meta:select="." meta:dom-method="replace-child"/>
+    <xsd:app-info meta:type="required-documentation">
+      <xsd:sequence>
+      </xsd:sequence>
+    </xsd:app-info>
+  </xsd:annotation>
+
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:attribute name="name">
+        <xsd:annotation meta:field-message-type="H"><xsd:documentation>field name</xsd:documentation></xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[a-zA-Z][-a-zA-Z0-9_.]{3}"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+      <xsd:attribute name="type" meta:editor-class="class:Selector" meta:selector-options-id="xsd_types_options"/>
+      <xsd:attribute name="default">
+        <xsd:annotation meta:field-message-type="H"><xsd:documentation>default</xsd:documentation></xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="minOccurs"/>
+      <xsd:attribute name="maxOccurs"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

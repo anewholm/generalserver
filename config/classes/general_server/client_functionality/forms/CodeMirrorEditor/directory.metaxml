@@ -1,0 +1,1 @@
+<class:CodeMirrorEditor xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" namespace-prefix="xsd" elements="attribute" predicate="@meta:editor-class = 'class:CodeMirrorEditor'" xml:id="Class__CodeMirrorEditor" name="CodeMirrorEditor"/>

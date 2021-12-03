@@ -1,0 +1,12 @@
+<response:remove xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="XSLElementException">
+HTTP/1.0 500 Server Error
+
+  <html>
+    <head>
+    </head>
+
+    <body>
+      HTTP/1.0 500 Server Error: oops, server xsl element error
+    </body>
+  </html>
+</response:remove>

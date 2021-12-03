@@ -1,0 +1,6 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006" repository:name="view.css" repository:type="File" object-name="inherit" object:cpp-component="yes">
+  <clause>
+    <path><class relation="self">gs-display-mode-editor</class></path>
+    <border>2px dotted red</border>
+  </clause>
+</css:stylesheet>

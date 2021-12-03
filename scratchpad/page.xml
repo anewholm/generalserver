@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet charset="utf-8" type="text/xsl" href="/admin/head.xsl"?>
+<gs:root xmlns:exsl="http://exslt.org/common" xmlns:response-xml="http://general_server.org/xmlnamespaces/response/2006" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:gs="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:service="http://general_server.org/xmlnamespaces/service/2006" xmlns:rxsl="http://general_server.org/xmlnamespaces/rxsl/2006" xmlns:object="http://general_server.org/xmlnamespaces/object/2006" xmlns:javascript="http://general_server.org/xmlnamespaces/javascript/2006" xmlns:class="http://general_server.org/xmlnamespaces/class/2006" xmlns:css="http://general_server.org/xmlnamespaces/css/2006" xmlns:xmlsecurity="http://general_server.org/xmlnamespaces/xmlsecurity/2006" xmlns:xmltransaction="http://general_server.org/xmlnamespaces/xmltransaction/2006" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <gs:environment resource_server="http://general_resources_server.dev:8778"/>
+  <gs:input>
+    <query/>
+  </gs:input>
+  <gs:session id="bbd86b08-8586-4a24-8aa6-202c2593c0a4"/>
+  <gs:data source="head.xsl">
+    <links>
+      <gs:immediate_children>
+        <repository:classes repository:name="classes" repository:type="Directory" gs:child_count="1" gs:position="0" gs:fully-qualified-prefix="repository" gs:is-hard-link="false" gs:xpath_to_node="id('idx_2083')"/>
+        <xsl:stylesheet repository:name="index.xsl" repository:type="File" gs:menu-item="home2" extension-element-prefixes="server request regexp" version="1.0" gs:child_count="10" gs:position="1" gs:fully-qualified-prefix="xsl" gs:is-hard-link="false" gs:xpath_to_node="id('idx_208')"/>
+        <repository:admin repository:name="admin" repository:type="Directory" gs:child_count="8" gs:position="2" gs:fully-qualified-prefix="repository" gs:is-hard-link="false" gs:xpath_to_node="id('idx_283')"/>
+        <xsl:stylesheet repository:name="db_transform.xsl" repository:type="File" version="1.0" gs:menu-item="db-transform" gs:child_count="1" gs:position="3" gs:fully-qualified-prefix="xsl" gs:is-hard-link="false" gs:xpath_to_node="id('idx_625')"/>
+        <xsl:stylesheet repository:name="form_generic.xsl" repository:type="File" version="1.0" gs:child_count="1" gs:position="4" gs:fully-qualified-prefix="xsl" gs:is-hard-link="false" gs:xpath_to_node="id('idx_634')"/>
+        <javascript:raw repository:name="alert.js" repository:type="File" gs:child_count="0" gs:position="5" gs:fully-qualified-prefix="javascript" gs:is-hard-link="false" gs:xpath_to_node="id('idx_3321')"/>
+        <xsl:stylesheet repository:name="custom_bootstrap_notInUse.xsl" repository:type="File" version="1.0" extension-element-prefixes="dyn" gs:child_count="3" gs:position="6" gs:fully-qualified-prefix="xsl" gs:is-hard-link="false" gs:xpath_to_node="id('idx_629')"/>
+        <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" repository:name="index_data_transform.xsl" repository:type="File" version="1.0" extension-element-prefixes="request" gs:child_count="1" gs:position="7" gs:fully-qualified-prefix="xsl" gs:is-hard-link="false" gs:xpath_to_node="id('idx_638')"/>
+        <repository:services repository:name="services" repository:type="Directory" gs:child_count="1" gs:position="8" gs:fully-qualified-prefix="repository" gs:is-hard-link="false" gs:xpath_to_node="id('idx_641')"/>
+        <repository:shared repository:name="shared" repository:type="Directory" gs:child_count="6" gs:position="9" gs:fully-qualified-prefix="repository" gs:is-hard-link="true" gs:xpath_to_node="id('idx_184')"/>
+      </gs:immediate_children>
+    </links>
+  </gs:data>
+</gs:root>

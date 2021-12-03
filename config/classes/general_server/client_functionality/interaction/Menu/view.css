@@ -1,0 +1,240 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <section name="default">
+    <path><interface>default</interface></path>
+
+    <!-- #################################### action #################################### -->
+    <clause>
+      <path>
+        <class>Object</class>
+        <class relation="self">gs-ajax-running</class>
+      </path>
+      <icon group="" type="gif">loading-bar</icon>
+      <background-position>center bottom</background-position>
+      <background-repeat>repeat-x</background-repeat>
+      <padding-bottom metric="pixel">16</padding-bottom>
+    </clause>
+    
+    <clause>
+      <path><class>gs-ajax-ran-success</class></path>
+      <icon>tick</icon>
+      <background-position>top right</background-position>
+      <background-repeat>norepeat</background-repeat>
+    </clause>
+
+    <clause>
+      <path><class>gs-ajax-ran-failure</class></path>
+      <icon>cross</icon>
+      <background-position>top right</background-position>
+      <background-repeat>norepeat</background-repeat>
+    </clause>
+
+    <!-- #################################### layout #################################### -->
+    <clause>
+      <path><element>a</element></path>
+      <text-decoration>none</text-decoration>
+    </clause>
+
+    <clause>
+      <path/>
+      <list-style>none</list-style>
+    </clause>
+
+    <css:clause>
+      <path><class>gs-menu-dropdown-image</class></path>
+
+      <padding-right>16px</padding-right>
+      <icon group="">down_arrow</icon>
+      <background-position>center right</background-position>
+    </css:clause>
+
+    <css:clause>
+      <path><element with-pseudo="hover">li</element></path>
+      <background-color type="hash">f7f7f7</background-color>
+    </css:clause>
+
+    <!-- #################################### action icons #################################### -->
+    <css:clause>
+      <path><class>gs-sysadmin-command</class></path>
+      <color type="hash">3D578C</color>
+      <icon>server_lightning</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_save</class></path>
+      <path><class>f_click_saveXML</class></path>
+      <icon>disk</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_formatXML</class></path>
+      <icon>text_indent</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_show_ns</class></path>
+      <icon>magnifier_zoom_in</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_show_xmlid</class></path>
+      <icon>magnifier_zoom_in</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_new</class></path>
+      <icon>add</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_debugToggle</class></path>
+      <icon>bug</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_reload_debug</class></path>
+      <icon>bug_go</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_setBreakpoint</class></path>
+      <icon>bullet_delete</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_clearBreakpoint</class></path>
+      <icon>bullet_black</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_inspectElement</class></path>
+      <icon>magnifier</icon>
+    </css:clause>
+
+
+    <css:clause>
+      <path><class>f_click_rename</class></path>
+      <icon>textfield_rename</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_select_children</class></path>
+      <icon>package</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_properties</class></path>
+      <icon>information</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_reload</class></path>
+      <path><class>f_click_reload</class></path>
+      <path><class>f_click_reloadCSS</class></path>
+      <path><class>f_click_reloadJavaScript</class></path>
+      <path><class>f_click_reloadChildren</class></path>
+      <path><class>f_click_clearStylesheetCache</class></path>
+
+      <icon>arrow_refresh</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_cut</class></path>
+      <icon>cut</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_copy</class></path>
+      <icon>page_copy</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_paste</class></path>
+      <icon>paste_plain</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_delete</class></path>
+      <icon>delete</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_hardlink</class></path>
+      <icon>link</icon>
+    </css:clause>
+
+    <css:clause>
+      <path><class>f_click_unlink</class></path>
+      <icon>link_break</icon>
+    </css:clause>
+  </section>
+
+  <css:section name="general icons">
+    <clause>
+      <path>
+        <class>gs-xsl-javascript-function</class>
+      </path>
+      <icon>script_code</icon>
+      <clear>both</clear>
+    </clause>
+
+    <clause>
+      <path>
+        <class>gs-xsl-javascript-function</class>
+        <class>gs-xsl-template-parameters</class>
+        <element>li</element>
+      </path>
+      <font-size metric="pixel">10</font-size>
+      <color type="hash">aaa</color>
+      <float>left</float>
+    </clause>
+
+    <clause>
+      <path>
+        <class>gs-xsl-javascript-view</class>
+      </path>
+      <icon>page_find</icon>
+    </clause>
+
+    <css:clause>
+      <path>
+        <class>icon_new</class>
+      </path>
+      <icon>add</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class>icon_set</class>
+      </path>
+      <icon>cup_edit</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class>icon_developer</class>
+      </path>
+      <icon>user</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class>icon_administrator</class>
+      </path>
+      <icon>user_suit</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class>icon_controllers</class>
+      </path>
+      <icon>page_code</icon>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class>icon_views</class>
+      </path>
+      <icon>zoom_out</icon>
+    </css:clause>
+  </css:section>
+</css:stylesheet>

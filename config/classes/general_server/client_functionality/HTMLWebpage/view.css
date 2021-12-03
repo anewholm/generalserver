@@ -1,0 +1,333 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause>
+    <path>
+      <class relation="child-only">details</class>
+    </path>
+    <icon>page_world</icon>
+  </clause>
+
+  <!-- #################################### named simple styles #################################### -->
+  <css:section name="named simple styles">
+    <css:raw><![CDATA[
+      .gs-xtransport {display:none;} /* generic data transport class */
+      .gs-meta-data  {display:none;}
+      .bare, .bare a {
+        text-decoration:none;
+      }
+      #body .gs-disabled-true, #body .gs-disabled {
+        color:#888888;
+        cursor:default;
+      }
+      .gs-clickable {cursor:pointer;}
+      .gs-at, .gs-dot {vertical-align:bottom;} /* email disguise */
+    ]]></css:raw>
+  </css:section>
+
+  <!-- #################################### quicklinks #################################### -->
+  <css:section name="quicklinks">
+    <clause>
+        <path><class>quicklink</class></path>
+        <position>relative</position>
+    </clause>
+
+    <clause>
+        <path><class>quicklink_linked</class></path>
+        <text-decoration>none</text-decoration>
+        <border-bottom>1px dashed #a0a0a0</border-bottom>
+    </clause>
+
+    <clause>
+        <path><class>quicktip</class></path>
+        <display>none</display>
+        <position>absolute</position>
+        <left>10px</left>
+        <top>70%</top>
+        <z-index>100</z-index>
+        <cursor>default</cursor>
+        <border>1px solid #a0a0a0</border>
+        <color>#000000</color>
+        <padding>2px</padding>
+        <white-space>nowrap</white-space>
+        <background-image type="url">/societycard/images/yellowback.png</background-image>
+        <background-position>center center</background-position>
+        <background-repeat>repeat-x</background-repeat>
+    </clause>
+  </css:section>
+
+  <!-- #################################### style classes #################################### -->
+  <css:section name="style classes">
+    <clause>
+        <path><class>display-none</class></path>
+        <display>none</display>
+    </clause>
+
+    <clause>
+        <path><class>display-block</class></path>
+        <display>block</display>
+    </clause>
+
+    <clause>
+        <path><class>display-inline</class></path>
+        <path><class>inline</class></path>
+        <display>inline</display>
+    </clause>
+
+    <clause>
+        <path><class>full-width</class></path>
+        <width metric="percent">100</width>
+    </clause>
+
+    <clause>
+        <path><class>gs-float-left</class></path>
+        <float>left</float>
+    </clause>
+
+    <clause>
+        <path><class>gs-float-right</class></path>
+        <float>right</float>
+    </clause>
+
+    <clause>
+        <path><class>clear</class></path>
+        <clear>both</clear>
+    </clause>
+
+    <clause>
+        <path><class>clear-left</class></path>
+        <clear>left</clear>
+    </clause>
+
+    <clause>
+        <path><class>clear-right</class></path>
+        <clear>right</clear>
+    </clause>
+
+    <clause>
+        <path><class>relative</class></path>
+        <position>relative</position>
+    </clause>
+
+    <clause>
+        <path><class>gs-indent-10</class></path>
+        <margin-left metric="pixel">10</margin-left>
+    </clause>
+
+    <clause>
+        <path><class>gs-indent-20</class></path>
+        <margin-left metric="pixel">20</margin-left>
+    </clause>
+
+    <clause>
+        <path><class>gs-indent-30</class></path>
+        <margin-left metric="pixel">30</margin-left>
+    </clause>
+
+    <clause>
+        <path><class>nowrap</class></path>
+        <white-space>nowrap</white-space>
+    </clause>
+
+    <clause>
+        <path><class>center</class></path>
+        <margin-left>auto</margin-left>
+        <margin-right>auto</margin-right>
+        <display>block</display>
+    </clause>
+
+    <clause><path><class>zi-1</class></path><z-index>1</z-index></clause>
+    <clause><path><class>zi-2</class></path><z-index>2</z-index></clause>
+    <clause><path><class>zi-3</class></path><z-index>3</z-index></clause>
+    <clause><path><class>zi-4</class></path><z-index>4</z-index></clause>
+    <clause><path><class>zi-5</class></path><z-index>5</z-index></clause>
+    <clause><path><class>zi-6</class></path><z-index>6</z-index></clause>
+    <clause><path><class>zi-7</class></path><z-index>7</z-index></clause>
+    <clause><path><class>zi-8</class></path><z-index>8</z-index></clause>
+    <clause><path><class>zi-9</class></path><z-index>9</z-index></clause>
+  </css:section>
+
+  <!-- #################################### html layout defaults #################################### -->
+  <css:section name="layout re-defaults">
+    <clause name="top align TD contents">
+      <path><element>td</element></path>
+      <vertical-align>top</vertical-align>
+    </clause>
+
+    <clause name="remove all layout formatting on an element">
+      <path><id relation="self">body</id><class>gs-semantic-only-markup</class></path>
+
+      <display>inline</display>
+      <padding metric="pixel">0</padding>
+      <margin metric="pixel">0</margin>
+    </clause>
+
+    <clause><path><class>gs-margin-1</class></path><margin metric="pixel">1</margin></clause>
+    <clause><path><class>gs-margin-2</class></path><margin metric="pixel">2</margin></clause>
+    <clause><path><class>gs-margin-5</class></path><margin metric="pixel">5</margin></clause>
+    <clause><path><class>gs-margin-10</class></path><margin metric="pixel">10</margin></clause>
+
+    <clause name="inline forms">
+      <path><element>form</element></path>
+      <path>
+        <element>form.inline</element>
+        <element>div</element>
+      </path>
+      <display>inline</display>
+    </clause>
+
+    <clause name="full width tables and textareas">
+      <path><element>textarea</element></path>
+      <path><element>table</element></path>
+      <width metric="percent">100</width>
+    </clause>
+
+    <clause name="no href img borders">
+      <path>
+        <element>a</element>
+        <element>img</element>
+      </path>
+      <border>none</border>
+    </clause>
+
+    <clause name="img middle align">
+      <path>
+        <element>img</element>
+      </path>
+      <vertical-align>middle</vertical-align>
+    </clause>
+
+    <clause name="UL layout none">
+      <path><element>ul</element></path>
+      <padding metric="pixel">0</padding>
+      <margin metric="pixel">0</margin>
+      <list-style-type>none</list-style-type>
+    </clause>
+
+    <clause name="point to labels">
+      <path><element>label</element></path>
+      <cursor>pointer</cursor>
+    </clause>
+
+    <clause name="no underline for SUP">
+      <path><element>sup</element></path>
+      <text-decoration>none</text-decoration>
+    </clause>
+
+    <clause name="IMG repeat off for backgrounds">
+      <path><element>*</element></path>
+      <background-repeat>no-repeat</background-repeat>
+    </clause>
+  </css:section>
+
+  <!-- #################################### html style defaults #################################### -->
+  <css:section name="html style defaults">
+    <clause name="font and size, body layout">
+      <path/>
+      <!-- font-family>RammettoOne, Lucida Grande, Verdana, Geneva, Arial, sans-serif</font-family -->
+      <font-family>Balto, Helvetica, sans-serif</font-family>
+      <padding metric="pixel">0</padding>
+      <margin metric="pixel">0</margin>
+    </clause>
+
+    <clause>
+      <path><element>h1</element></path>
+      <font-size metric="pixel">20</font-size>
+      <margin metric="pixel">0</margin>
+    </clause>
+
+    <clause>
+      <path><element>h2</element></path>
+      <font-size metric="pixel">16</font-size>
+      <margin metric="pixel">0</margin>
+    </clause>
+
+    <clause>
+      <path><element>h3</element></path>
+      <font-size metric="pixel">14</font-size>
+      <font-style>italic</font-style>
+      <margin>
+        <top metric="pixel">8</top>
+        <right>0</right>
+        <bottom>0</bottom>
+        <left metric="pixel">0</left>
+      </margin>
+      <border-bottom>
+        <width metric="pixel">1</width>
+        <style>solid</style>
+        <color type="hash">a7a7a7</color>
+      </border-bottom>
+    </clause>
+  </css:section>
+
+  <!-- #################################### body information #################################### -->
+  <css:section name="body information">
+    <clause><path><class>gs-admin-only</class></path><display>none</display></clause>
+    <clause><path><class>gs-user-only</class></path><display>none</display></clause>
+    <clause><path><class>gs-anonymous-only</class></path><display>block</display></clause>
+
+    <clause><path><class relation="self">gs-is-admin</class><class>gs-admin-only</class></path><display>block</display></clause>
+    <clause><path><class relation="self">gs-logged-in</class><class>gs-user-only</class></path><display>block</display></clause>
+    <clause><path><class relation="self">gs-logged-in</class><class>gs-anonymous-only</class></path><display>none</display></clause>
+
+    <clause>
+      <path>
+        <id relation="self">body</id>
+        <class>embedded_only</class>
+      </path>
+      <path>
+        <class>embedded</class>
+        <id relation="self">body</id>
+        <class>not_embedded</class>
+      </path>
+      <display>none</display>
+    </clause>
+
+    <clause>
+      <path>
+        <id relation="self">body</id>
+        <class>not_embedded</class>
+      </path>
+      <path>
+        <class>embedded</class>
+        <id relation="self">body</id>
+        <class>embedded_only</class>
+      </path>
+      <display>block</display>
+    </clause>
+
+    <clause>
+      <path>
+        <class>gs-central-screen</class>
+      </path>
+
+      <position>absolute</position>
+      <left metric="pixel">0</left>
+      <right metric="pixel">0</right>
+      <bottom metric="percent">20</bottom>
+      <top metric="percent">20</top>
+
+      <font-size metric="pixel">60</font-size>
+      <font-weight>bold</font-weight>
+      <text-align>center</text-align>
+      <color type="hash">d7d7d7</color>
+    </clause>
+
+    <clause important="yes">
+      <path><class>gs-loading-main-stylesheet</class></path>
+      <path><class>gs-ajax-loading</class></path>
+      <path><class>gs-ajax-loading</class><element>*</element></path>
+      <path><class>gs-ajax-saving</class></path>
+      <path><class>gs-ajax-saving</class><element>*</element></path>
+
+      <color type="hash">777</color>
+    </clause>
+
+    <clause>
+      <path><class>gs-ajax-loading-message</class></path>
+      <path><class>gs-ajax-saving-message</class></path>
+
+      <padding-top metric="pixel">26</padding-top>
+      <icon group="" type="gif">throbber_16</icon>
+      <background-position>center top</background-position>
+    </clause>
+  </css:section>
+</css:stylesheet>

@@ -1,0 +1,17 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <clause>
+    <path>
+      <class relation="child-only">details</class>
+      <class relation="child-only">name</class>
+    </path>
+    <font-style>italic</font-style>
+  </clause>
+
+  <clause>
+    <path>
+      <class relation="child-only">details</class>
+      <class relation="child-only">namespace_prefix</class>
+    </path>
+    <display>none</display>
+  </clause>
+</css:stylesheet>

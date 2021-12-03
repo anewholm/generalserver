@@ -1,0 +1,23 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="search">
+  <xsd:annotation meta:type="form-display" meta:clent-side-only="yes">
+    <!-- form display overrides -->
+    <xsd:app-info meta:type="title">search</xsd:app-info>
+    <xsd:app-info meta:type="submit-caption">search</xsd:app-info>
+    <xsd:app-info meta:type="style">compact</xsd:app-info>
+  </xsd:annotation>
+
+  <xsd:annotation meta:type="data-processing">
+    <!-- XSchema processor will look for this app-info using the xs:schema @xml:id when processing the POST inputs -->
+    <xsd:app-info meta:type="processing" meta:dom-method="none" meta:description="search the database!"/>
+  </xsd:annotation>
+
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element name="phrase" type="xsd:string" minOccurs="1" maxOccurs="1">
+        <xsd:annotation meta:field-message-type="H"><xsd:documentation>search</xsd:documentation></xsd:annotation>
+      </xsd:element>
+      <!-- xsd:element name="regex" type="xsd:boolean" meta:css-classes="gs-search-option" minOccurs="1" maxOccurs="1"/ -->
+      <!-- xsd:element name="show-in-tree-only" type="xsd:boolean" meta:css-classes="gs-search-option" minOccurs="1" maxOccurs="1"/ -->
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

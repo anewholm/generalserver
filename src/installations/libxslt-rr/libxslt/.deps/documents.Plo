@@ -1,0 +1,301 @@
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/documents.lo: \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/documents.c \
+ /usr/include/stdc-predef.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/libxslt.h \
+ ../config.h ../libxslt/xsltconfig.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlversion.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlexports.h \
+ /usr/include/string.h \
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/bits/long-double.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+ /usr/include/strings.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlmemory.h \
+ /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/FILE.h /usr/include/libio.h \
+ /usr/include/_G_config.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+ /usr/lib/gcc/x86_64-linux-gnu/7/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/threads.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/globals.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/parser.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/tree.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlstring.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlfilter.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmltrigger.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/list.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/list_gs.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlregexp.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/dict.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/tree_gs.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/hash.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/valid.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlerror.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlautomata.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/entities.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/encoding.h \
+ /usr/include/iconv.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlIO.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/SAX.h \
+ /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-intn.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap-16.h \
+ /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+ /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
+ /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xlink.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/SAX2.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/parserInternals.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xpath.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlprocessor.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlgrammarprocessor.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xpath_gs.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/HTMLparser.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/chvalid.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/xslt.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltexports.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltInternals.h \
+ ../libxslt/xslt.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltlocale.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/numbersInternals.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltutils.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/documents.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/transform.h \
+ ../libxslt/xsltInternals.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/imports.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/keys.h \
+ /home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/security.h \
+ /home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xinclude.h
+
+/usr/include/stdc-predef.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/libxslt.h:
+
+../config.h:
+
+../libxslt/xsltconfig.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlversion.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlexports.h:
+
+/usr/include/string.h:
+
+/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
+
+/usr/include/features.h:
+
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/x86_64-linux-gnu/bits/long-double.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+
+/usr/include/strings.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlmemory.h:
+
+/usr/include/stdio.h:
+
+/usr/include/x86_64-linux-gnu/bits/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/typesizes.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/libio.h:
+
+/usr/include/_G_config.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/7/include/stdarg.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/threads.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/globals.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/parser.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/tree.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlstring.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlfilter.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmltrigger.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/list.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/list_gs.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlregexp.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/dict.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/tree_gs.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/hash.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/valid.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlerror.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlautomata.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/entities.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/encoding.h:
+
+/usr/include/iconv.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlIO.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/SAX.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn.h:
+
+/usr/include/x86_64-linux-gnu/sys/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
+
+/usr/include/endian.h:
+
+/usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/usr/include/x86_64-linux-gnu/bits/byteswap.h:
+
+/usr/include/x86_64-linux-gnu/bits/byteswap-16.h:
+
+/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
+
+/usr/include/x86_64-linux-gnu/sys/select.h:
+
+/usr/include/x86_64-linux-gnu/bits/select.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
+
+/usr/include/x86_64-linux-gnu/sys/sysmacros.h:
+
+/usr/include/x86_64-linux-gnu/bits/sysmacros.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+
+/usr/include/alloca.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xlink.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/SAX2.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/parserInternals.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xpath.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlprocessor.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlgrammarprocessor.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xpath_gs.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/HTMLparser.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/chvalid.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/xslt.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltexports.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltInternals.h:
+
+../libxslt/xslt.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltlocale.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/numbersInternals.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltutils.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/documents.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/transform.h:
+
+../libxslt/xsltInternals.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/imports.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/keys.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxslt-rr/libxslt/security.h:
+
+/home/anewholm/Software/generalserver/src/installations/libxml2-rr/include/libxml/xinclude.h:

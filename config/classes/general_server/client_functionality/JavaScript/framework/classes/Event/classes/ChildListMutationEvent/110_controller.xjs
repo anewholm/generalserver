@@ -1,0 +1,9 @@
+<javascript:code xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="controller" controller="true">
+  <javascript:object>
+    <javascript:init>
+      //these can trigger when using the console or debug env to change things on the client
+      this.bTriggeredByFramework = (Event.currentEvent() !== undefined);
+      //if (!this.bTriggeredByFramework) console.log(this);
+    </javascript:init>
+  </javascript:object>
+</javascript:code>

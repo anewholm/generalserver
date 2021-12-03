@@ -1,0 +1,15 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <css:clause>
+    <path><class relation="child-only">details</class></path>
+    <padding-left metric="pixel">18</padding-left>
+    <icon>lightning</icon>
+  </css:clause>
+
+  <css:clause>
+    <path>
+      <class>gs-context-menu</class>
+      <class>f_click_run</class>
+    </path>
+    <icon>lightning</icon>
+  </css:clause>
+</css:stylesheet>

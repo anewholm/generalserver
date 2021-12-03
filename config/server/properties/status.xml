@@ -1,0 +1,1 @@
+<repository:status xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" gs:transient-area="yes" database:on-before-read-no="server:serialise(/object:Server/repository:server/repository:properties/repository:status)"/>

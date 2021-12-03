@@ -1,0 +1,2 @@
+<accepted-format xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" summary="POST .*"><![CDATA[^(POST) /([^? ]*)\??([^ ]*) HTTP/(\d+)\.(\d+)\s+
+[Hh]ost:\s*([^\s]+)\s+]]></accepted-format>

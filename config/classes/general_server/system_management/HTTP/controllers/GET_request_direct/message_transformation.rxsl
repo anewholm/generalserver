@@ -1,0 +1,53 @@
+<object:Request xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:gs="http://general_server.org/xmlnamespaces/general_server/2006" xmlns:rx="http://general_server.org/xmlnamespaces/rx/2006" url="$2">
+  <HTTP type="$1" major="$4" minor="$5">=http</HTTP>
+  <rx:scope rx:regex="^Host:\s*([^\n\r]+)\s*$">
+    <host port=":([^\n\r]+)">^([^:]+)</host>
+  </rx:scope>
+  <user-agent>
+    <rx:scope rx:regex="^User-Agent:\s*([^\n\r]+)\s*$">
+      <rx:multi rx:name="agent" rx:regex="([^ ]+/[^ ]+(?: [(][^)]+[)])?) "/>
+    </rx:scope>
+  </user-agent>
+  <query-string>
+    <rx:scope rx:regex="$3">
+      <rx:multi rx:type="attribute" rx:name="query" rx:regex="([^=&amp;]+)=([^=&amp;]*)" rx:decode="URL"/>
+      <rx:multi rx:name="$1" rx:regex="([^=&amp;]+)=([^=&amp;]*)" rx:decode="URL"/>
+    </rx:scope>
+  </query-string>
+  <cookies>
+    <rx:scope rx:regex="^Cookie:\s*([^\n\r]+)\s*$">
+      <rx:multi rx:name="cookie" rx:regex="([^=; \r\n&amp;]+)=([^=; \r\n&amp;]*)"/>
+    </rx:scope>
+  </cookies>
+  <url rx:decode="URL">$2</url>
+  <url_parts>
+    <rx:scope rx:regex="$2">
+      <rx:multi rx:name="part" rx:regex="([^/]+)" rx:decode="URL"/>
+    </rx:scope>
+  </url_parts>
+  <url_extension>^GET /[^ ]*\.([a-z0-9]{2,5})[? ]</url_extension>
+  <stylesheet_modifiers>
+    <rx:scope rx:regex="$3">
+      <rx:multi rx:name="query" rx:regex="stylesheet_modifier_([^=&amp;]+)=([^=&amp;]*)" rx:decode="URL"/>
+    </rx:scope>
+  </stylesheet_modifiers>
+  <accept>
+    <rx:scope rx:regex="^Accept:\s*([^\n\r]+)\s*$">
+      <rx:multi rx:name="mime-weight" rx:regex="\s*([^,]+)\s*"/>
+    </rx:scope>
+  </accept>
+  <accept-encoding>
+    <rx:scope rx:regex="^Accept-Encoding:\s*([^\n\r]+)\s*$">
+      <rx:multi rx:name="encoding" rx:regex="\s*([^,]+)\s*"/>
+    </rx:scope>
+  </accept-encoding>
+  <accept-language>
+    <rx:scope rx:regex="^Accept-Language:\s*([^\n\r]+)\s*$">
+      <rx:multi rx:name="language-weight" rx:regex="\s*([^,]+)\s*"/>
+    </rx:scope>
+  </accept-language>
+  <message_type>=GET request_direct_119</message_type>
+  <all-headers>
+    <rx:multi rx:name="all_headers" rx:regex="^(?!GET )([^:\n]+):\s*([^\n\r]*)\s*$"/>
+  </all-headers>
+</object:Request>

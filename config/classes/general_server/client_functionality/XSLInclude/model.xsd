@@ -1,0 +1,18 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:forms/class:XSchema/xsd:schema[2]/*[2]" />
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:forms/class:XSchema/xsd:schema[2]/*[1]" />
+
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:attribute name="href" type="xsd:string" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[a-z]{3,8}://[-a-zA-Z0-9_.]+(/[-a-zA-Z0-9_.]+)?"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+      <xsd:attribute name="xpath" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:attribute name="href" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

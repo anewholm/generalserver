@@ -1,0 +1,27 @@
+<!DOCTYPE object:Server [
+<!-- predefined XML entities
+  http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references#Predefined_entities_in_XML
+  http://www.w3.org/TR/xhtml1/#a_dtd_XHTML-1.0-Strict
+  <!ENTITY quot """>
+  <!ENTITY apos "'">
+  <!ENTITY amp "&">
+  <!ENTITY lt "<">
+  <!ENTITY gt ">">
+--><!ENTITY newline "&#10;">
+<!ENTITY nbsp " ">
+<!ENTITY iexcl "¡">
+<!ENTITY cent "¢">
+<!ENTITY pound "£">
+<!ENTITY curren "¤">
+<!ENTITY yen "¥">
+<!ENTITY brvbar "¦">
+<!ENTITY sect "§">
+<!ENTITY uml "¨">
+<!ENTITY copy "©">
+<!ENTITY trade "™">
+<!ENTITY euro "€">
+<!ENTITY reg "®">
+<!ENTITY admin_teal "#335577">
+<!ENTITY admin_font "#000000">
+<!ENTITY admin_shadow "1px 1px 2px #888888, -1px -1px 2px #888888">
+]>

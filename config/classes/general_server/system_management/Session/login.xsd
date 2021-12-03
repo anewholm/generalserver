@@ -1,0 +1,36 @@
+<xsd:schema xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="login">
+  <xsd:annotation meta:type="form-display" meta:ajax="off">
+    <!-- form display overrides -->
+    <xsd:app-info meta:type="title">login</xsd:app-info>
+    <xsd:app-info meta:type="submit-caption">login</xsd:app-info>
+    <xsd:app-info meta:type="style">compact</xsd:app-info>
+  </xsd:annotation>
+
+  <xsd:annotation meta:type="data-processing">
+    <!-- XSchema processor will look for this app-info using the xs:schema @xml:id when processing the POST inputs -->
+    <xsd:app-info meta:type="processing" meta:dom-method="class-command" meta:interface-mode="login" meta:select="$gs_session" meta:description="login and add a user node to the session"/>
+  </xsd:annotation>
+
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element name="username" default="root" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[a-zA-Z][-a-zA-Z0-9_.]{3}"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+        <xsd:annotation meta:field-message-type="H"><xsd:documentation>username</xsd:documentation></xsd:annotation>
+        <xsd:annotation><xsd:documentation>your username dude!</xsd:documentation></xsd:annotation>
+      </xsd:element>
+
+      <xsd:element name="password" default="test" minOccurs="1" maxOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+              <xsd:pattern value=".{4}"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+        <xsd:annotation meta:field-message-type="H"><xsd:documentation>password</xsd:documentation></xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

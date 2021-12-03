@@ -1,0 +1,505 @@
+<javascript:code xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/javascript/2006">
+  <javascript:object>
+    <!-- this object will:
+      allow basic children [xpath filtered associated object] viewing
+      TODO: connect with data watching and update
+    -->
+
+    <!-- ########################################## init and lookups ########################################## -->
+    <javascript:static-property name="bCookieStateStorage">false</javascript:static-property>
+
+    <javascript:method name="isA" parameters="sLocalName"><![CDATA[
+      return this.jqDisplays.hasClass("gs-local-name-" + sLocalName);
+    ]]></javascript:method>
+
+    <javascript:stage-dev>
+      <javascript:method name="addElement" parameters="jq1Element" chain="true"><![CDATA[
+        //var oChainResult = OO.chainMethod(...)
+
+        if (!this.xpathToNode 
+          && !this.isLiteral   //e.g. a HTMLCollection around children or a gs:data
+          && !this.isTransient //e.g. <script> Request and Session abstract objects
+          && this.classDerivedConstructor.bCanHoldMetaData !== false
+        ) {
+          Debug.warn(this, "DatabaseElement [" + this.classDerivedConstructor.functionName() + "] has no @meta:xpath-to-node");
+          Debug.log(this, this, true);
+        }
+
+        return oChainResult;
+      ]]></javascript:method>
+    </javascript:stage-dev>
+
+    <javascript:conversion to-type="XPathString"><![CDATA[
+      return this.xpathToNode;
+    ]]></javascript:conversion>
+
+    <javascript:conversion to-type="URLEncoded"><![CDATA[
+      return this.toXPathString().toString();
+    ]]></javascript:conversion>
+
+    <javascript:conversion to-type="String"><![CDATA[
+      //NOTE: cannot call this directly from a JOO because that will override it and return the HTML
+      //need to get the .object() first or be more specific
+      return this.toXPathString().toString();
+    ]]></javascript:conversion>
+
+    <javascript:static-method name="createAbstract" parameters="sXmlID, [jElement = new JOO()]"><![CDATA[
+      //creates (and links up) an DatabaseElement with only it's xml:id defined
+      //useful for then running an reload() -> a jArea
+      var oObject = new DatabaseElement(jElement);
+      oObject.xmlID         = sXmlID;
+      oObject.xpathToNode = XPathString.xmlID(sXmlID);
+      OO.registerObject(oObject, sXmlID);
+      return oObject;
+    ]]></javascript:static-method>
+
+    <!-- ########################################## client state ########################################## -->
+    <javascript:method is-protected="true" name="addToClientObjectState" parameters="sContext, [sValue = 'true']"><![CDATA[
+      //cookie storage e.g.: {'expandChildrenArea':[children], etc.}
+      var aValues, oState, sJSONState;
+
+      NOT_CURRENTLY_USED("");
+      
+      if (DatabaseElement.bCookieStateStorage) {
+        if (this.xmlID) {
+          oState = this.getClientObjectState(); //always an object
+          if (sContext) {
+            //add to values array
+            aValues = oState[sContext];
+            if (aValues && aValues instanceof Array) {
+              if (!aValues.contains(sValue)) aValues.push(sValue);
+            } else aValues = [sValue];
+            oState[sContext] = aValues;
+
+            //save to client
+            if (window.JSON) {
+              sJSONState = JSON.stringify(oState);
+              jQuery.cookie('DatabaseElement-' + this.xmlID, sJSONState);
+            } else Debug.warn(this, 'window.JSON not supported');
+          }
+        }
+      }
+
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="removeFromClientObjectState" parameters="sContext, [sValue]"><![CDATA[
+      var aValues, oState, sJSONState;
+
+      NOT_CURRENTLY_USED("");
+      
+      if (DatabaseElement.bCookieStateStorage) {
+        if (this.xmlID) {
+          oState = this.getClientObjectState(); //always an object
+          if (sContext) {
+            //remove from values array
+            //complete removal if there is no value to remove
+            aValues = oState[sContext];
+            if (sValue === undefined) aValues = [];
+            else {
+              if (aValues && aValues instanceof Array) aValues.remove(sValue);
+              else                                     aValues = [];
+            }
+            if (aValues.length) oState[sContext] = aValues;
+            else                delete oState[sContext];
+
+            //save to client
+            if (window.JSON) {
+              if (Object.getOwnPropertyNames(oState).length) {
+                sJSONState = JSON.stringify(oState);
+                jQuery.cookie('DatabaseElement-' + this.xmlID, sJSONState);
+              } else {
+                jQuery.removeCookie('DatabaseElement-' + this.xmlID);
+              }
+            } else Debug.warn(this, 'window.JSON not supported');
+          }
+        }
+      }
+
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="getClientObjectState"><![CDATA[
+      //always returns an object
+      var sState;
+      if (DatabaseElement.bCookieStateStorage && this.xmlID) sState = jQuery.cookie('DatabaseElement-' + this.xmlID);
+      return (sState ? jQuery.parseJSON(sState) : new Object());
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="cookieStateReload" parameters="jElement"><![CDATA[
+      var aValues;
+      var oState;
+      var aKeys;
+
+      if (DatabaseElement.bCookieStateStorage) {
+        if (this.xmlID) {
+          if (oState = this.getClientObjectState()) {
+            if (Object.getOwnPropertyNames) {
+              aKeys = Object.getOwnPropertyNames(oState);
+              if (aKeys.length) {
+
+                for (var i = 0; i < aKeys.length; i++) {
+                  sContext  = aKeys[i];
+                  aValues   = oState[sContext];
+                  if (!aValues || !(aValues instanceof Array)) aValues = [];
+                  sFunction = 'cookieStateReload_' + sContext;
+                  if (this[sFunction] instanceof Function) {
+                    //TODO: cookie based state reload is off
+                    //replaced by server User state storage
+                    this[sFunction](jElement, aValues);
+                  } else Debug.warn(this, 'object state handler for [' + sContext + '] not found');
+                };
+
+              }
+            } else Debug.warn(this, 'getOwnPropertyNames() not supported');
+          }
+        }
+      }
+    ]]></javascript:method>
+
+    <!-- ########################################## event handlers ##########################################
+      server events generated by the gs_server_event_node_changed() function
+      in system script hardwires.js
+    -->
+  
+    <javascript:event-handler event="serverdescendantnodechangedevent" interface-modes="all" parameters="j1DisplayObject, jqPrimaryNodes, [fCallback]"><![CDATA[
+      //NOT using an action here because we want chain to work from derived classes
+      //f_servernodechanged_reloadDisplay will not chain to f_servernodechanged
+      this.reload(j1DisplayObject);
+      return false; //do not bubble
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="servernodechanged" interface-modes="all" parameters="j1DisplayObject, jqPrimaryNodes, [fCallback]"><![CDATA[
+      //NOT using an action here because we want chain to work from derived classes
+      //f_servernodechanged_reloadDisplay will not chain to f_servernodechanged
+      this.reload(j1DisplayObject);
+      return false; //do not bubble
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="submit" action="menuitem" prevent-default="true" parameters="j1DisplayObject, sModeName, ..."><![CDATA[
+      //sometimes the menu item displays a form for the parameter values
+      return this.f_click_menuitem.apply(this, arguments);
+    ]]></javascript:event-handler>
+    
+    <javascript:event-handler event="click" action="menuitem" is-form-include="true" parameters="j1DisplayObject, sModeName, ..."><![CDATA[
+      //f_click_menuitem_changename + <form>
+      var jFunctionElement = Event.currentEvent().firstStatedCSSFunctionElement(); //always returns a JOO
+      var jFunctionName    = jFunctionElement.children(".gs-name");
+      var aArguments       = Array.prototype.slice.apply(arguments);
+      var fFunc            = this[sModeName];
+      var fCallback        = function(hData, sStatus){jFunctionElement.finishedRunning("ran-" + sStatus);}
+
+      if (fFunc instanceof Function) {
+        jFunctionElement.startedRunning();
+        
+        //------------------------------ arguments 
+        aArguments.splice(1,1); //remove the mode name
+        //add callbacks: the status will be sent through
+        aArguments.push(fCallback); //success
+        aArguments.push(fCallback); //failure
+        
+        fFunc.apply(this, aArguments);
+      } else Debug.error(this, "[" + sModeName + "()] controller not found");
+
+      return false;
+    ]]></javascript:event-handler>
+  
+    <javascript:event-handler event="click" action="copy"><![CDATA[
+      gs_clipboard_copy(this);
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="cut"><![CDATA[
+      gs_clipboard_cut(this);
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="paste"><![CDATA[
+      switch (gs_clipboard_state) {
+        case GS_CLIP_CUT:  {Database.moveChild(gs_clipboard_object, this); break;}
+        case GS_CLIP_COPY: {Database.copyChild(gs_clipboard_object, this); break;}
+        default: {Debug.warn(this, "nothing to paste");}
+      }
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="hardlink"><![CDATA[
+      switch (gs_clipboard_state) {
+        case GS_CLIP_CUT:
+        case GS_CLIP_COPY: {Database.hardlinkChild(gs_clipboard_object, this); break;}
+        default: {Debug.warn(this, "nothing to link");}
+      }
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="inspectElement"><![CDATA[
+      alert("hold down ctrl for the standard browser context menu");
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="setBreakpoint"><![CDATA[
+      var self = this;
+
+      OO.requireClass("User",     "User Class required for setBreakpoint()");
+      OO.requireClass("Database", "Database Class required for setBreakpoint()");
+
+      User.setBreakpoint(
+        this.xpathToNode,
+        function(oXMLDoc) {self.setBreakpointComplete();},
+        function(sMessage){Debug.error(this, sMessage);}
+      );
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="rename"><![CDATA[
+      sNewName = prompt("new name?");
+      if (sNewName) Database.renameNode(this, sNewName);
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="delete"><![CDATA[
+      Database.removeNode(this);
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="select" interface-modes="all" parameters="j1DisplayObject, [s1DashCSSPath]"/>
+
+    <javascript:event-handler event="click" action="debugToggle"><![CDATA[
+      var jLI;
+      if (window.Debug && (jLI = Event.currentEvent().firstStatedCSSFunctionElement())) {
+        if (jLI.text() == "debug off") {
+          //turn off
+          jLI.text("debug on");
+          Debug.off();
+        } else {
+          //turn on
+          jLI.text("debug off");
+          Debug.all();
+          Debug.only(this.classDerivedConstructor, window.DatabaseElement, window.IDE);
+        }
+      }
+      return false;
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="ajaxReloadCSS" parameters="j1DisplayObject, [bDebug = false]"><![CDATA[
+      this.reload_css();
+      return false;
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="ajaxReloadJavaScript" parameters="j1DisplayObject, [bDebug = false]"><![CDATA[
+      this.reload_javascript();
+      return false;
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="clearStylesheetCache" parameters="j1DisplayObject, [bDebug = false]"><![CDATA[
+      this.clearStylesheetCache();
+      return false;
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="reloadFields" interface-modes="all" parameters="j1DisplayObject, [bDebug = false]"><![CDATA[
+      var self = this;
+      var fCallback, oDebugAny, oDebugAll;
+
+      //debug on and then off again
+      if (bDebug && window.Debug) {
+
+        oDebugAll = Debug.all();
+        oDebugAny = Debug.any();
+      }
+      fCallback = function(){
+        if (bDebug && window.Debug) {
+          Debug.on.apply(self, oDebugAll);
+          Debug.only.apply(self, oDebugAny);
+
+        }
+      }
+
+      //reload object, not just this displayObject
+      return this.reloadFields(fCallback);
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="reload" interface-modes="all" parameters="j1DisplayObject, [bDebug = false]"><![CDATA[
+      var self = this;
+      var fCallback, oDebugAny, oDebugAll;
+
+      //debug on and then off again
+      if (bDebug && window.Debug) {
+
+        oDebugAll = Debug.all();
+        oDebugAny = Debug.any();
+      }
+      fCallback = function(){
+        if (bDebug && window.Debug) {
+          Debug.on.apply(self, oDebugAll);
+          Debug.only.apply(self, oDebugAny);
+
+        }
+      }
+
+      //reload object, not just this displayObject
+      return this.reload(j1DisplayObject, fCallback);
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="click" action="ajaxReloadChildren" parameters="j1DisplayObject, [sElementClassSent]"><![CDATA[
+      var self = this;
+
+      //re-get ajax
+      this.select();
+      this.toggleCSSDashPathDOFromEventDisplayObject("", function(oAJAXHTMLLoaderDO){
+        //self.expand(oAJAXHTMLLoaderDO.parent(), NO_CALLBACK);
+      }, true); //true = force reload
+    ]]></javascript:event-handler>
+
+    <javascript:event-handler event="contextmenu" prevent-default="true" interface-modes="all" parameters="j1DisplayObject"><![CDATA[
+      //generic overridable contextmenu event trap
+      var jContextMenu = j1DisplayObject.childrenOrSharedClone(".contextmenu");
+      if (jContextMenu && jContextMenu.length) jContextMenu.show();
+      else Debug.warn(this, "shared or local contextmenu not found");
+    ]]></javascript:event-handler>
+
+    <!-- ########################################## workers ########################################## -->
+    <javascript:method is-protected="true" name="reload_css"><![CDATA[
+      NOT_COMPLETE; //interface doesn't flow through
+      //TODO: currently loads the LI instead
+      //.gs-class-css-" + this.functionName();
+      //gsQuery(CSSDependency).reload()
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="reload_javascript"><![CDATA[
+      NOT_COMPLETE; //interface doesn't flow through
+      //TODO: currently loads the LI instead
+      //.gs-class-javascript-" + this.functionName();
+      //gsQuery(JavaScriptDependency).reload();
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="setBreakpointComplete"><![CDATA[
+      this.jqDisplays.removeClass("gs-ajax-loading");
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="select" parameters="j1DisplayObject, [s1DashCSSPath]" chain="true"><![CDATA[
+      //this.addToClientObjectState("select");
+      this.showCSSDOFromEventDisplayObject.apply(this, arguments);
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="unselect" chain="true"><![CDATA[
+      //this.removeFromClientObjectState("select");
+    ]]></javascript:method>
+
+    <!-- ########################################## activity indicators ########################################## -->
+    <javascript:static-method name="startedLoading" parameters="j1DisplayObject"><![CDATA[
+      return j1DisplayObject.startedLoading();
+    ]]></javascript:static-method>
+
+    <javascript:static-method name="finishedLoading" parameters="j1DisplayObject"><![CDATA[
+      return j1DisplayObject.finishedLoading();
+    ]]></javascript:static-method>
+
+    <javascript:static-method name="startedSaving" parameters="j1DisplayObject"><![CDATA[
+      return j1DisplayObject.startedSaving();
+    ]]></javascript:static-method>
+
+    <javascript:static-method name="finishedSaving" parameters="j1DisplayObject"><![CDATA[
+      return j1DisplayObject.finishedSaving();
+    ]]></javascript:static-method>
+
+    <!-- ########################################## ajax load and complete ##########################################
+      these are worker functions and not for direct call
+    -->
+    <javascript:method name="showCSSDOFromEventDisplayObject" parameters="j1DisplayObject, s1DashCSSPath, [fCallback, bForceReload]"><![CDATA[
+      var oChildrenDO;
+      if (oChildrenDO = this.cssTargetDO(s1DashCSSPath, j1DisplayObject)) {
+        oChildrenDO.show(DEFAULT, fCallback);
+      } //else Debug.warn(this, "[" + sCSSPath + "] database query DO not found");
+      return false;
+    ]]></javascript:method>
+
+    <javascript:method name="toggleCSSDashPathDOFromEventDisplayObject" parameters="j1DisplayObject, s1DashCSSPath, [fCallback, bForceReload]"><![CDATA[
+      var jTargets;
+      if (jTargets = this.cssTargetDO(s1DashCSSPath, j1DisplayObject)) {
+        jTargets.toggle(DEFAULT, fCallback);
+      } //else Debug.warn(this, "[" + sCSSPath + "] database query DO not found");
+      return false;
+    ]]></javascript:method>
+
+    <javascript:method name="toggleCSSDashPathDOFromEventFunctionElement" parameters="j1DisplayObject, s1DashCSSPath, [fCallback, bForceReload]"><![CDATA[
+      var jTargets;
+      if (jTargets = this.cssTargetDO(s1DashCSSPath, Event.currentEvent().firstStatedCSSFunctionElement())) {
+        jTargets.toggle(DEFAULT, fCallback);
+      } //else Debug.warn(this, "[" + sCSSPath + "] database query DO not found");
+      return false;
+    ]]></javascript:method>
+
+    <javascript:method name="toggleCSSChildClassDOFromEventDisplayObject" parameters="j1DisplayObject, s1CSSChildClass, [fCallback, bForceReload]"><![CDATA[
+      var jTargets;
+      if (jTargets = j1DisplayObject.children(CSSPathString.fromClass(s1CSSChildClass))) {
+        jTargets.toggle(DEFAULT, fCallback);
+      } //else Debug.warn(this, "[." + s1CSSChildClass + "] database query DO not found");
+      return false;
+    ]]></javascript:method>
+
+    <javascript:method name="toggleCSSChildClassDOFromEventFunctionElement" parameters="j1DisplayObject, s1CSSChildClass, [fCallback, bForceReload]"><![CDATA[
+      var jTargets;
+      if (jTargets = Event.currentEvent().firstStatedCSSFunctionElement().children(CSSPathString.fromClass(s1CSSChildClass))) {
+        jTargets.toggle(DEFAULT, fCallback);
+      } //else Debug.warn(this, "[." + s1CSSChildClass + "] database query DO not found");
+      return false;
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="cssTargetDO" parameters="s1DashCSSPath, j1Start"><![CDATA[
+      //navigate down to the child area
+      //for example:
+      //  f_click_toggleChildrenEvent_children-query
+      //  > .children > .query
+      return j1Start.find(CSSPathString.fromDashClassList(s1DashCSSPath));
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="reloadFields" parameters="[fCallback, sExplicitStylesheet = HTMLWebpage.stylesheetHREF()]" interface-modes="all" requires="Database,HTMLWebpage,HTMLWebpage.canTransform" chain="true"><![CDATA[
+      //reload each representation separately because they may have different display modes
+      //as standard, these are XML calls without a new stylesheet call so many calls are ok
+      if (this.jqDisplays.length > 10) Debug.warn(this, "[" + this.jqDisplays.length + "] on this object reload");
+
+      this.jqDisplays.eachEq(function(fCallback, sExplicitStylesheet, j1DisplayObject) {
+        this.reloadFieldsDisplay(j1DisplayObject, fCallback, sExplicitStylesheet);
+      }, this, fCallback, sExplicitStylesheet);
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="reloadFieldsDisplay" parameters="j1DisplayObject, [fCallback, sExplicitStylesheet = HTMLWebpage.stylesheetHREF()]" interface-modes="all" requires="Database,HTMLWebpage,HTMLWebpage.canTransform" chain="true"><![CDATA[
+      //reload only the Fields
+      //use an API XML call and set all field text
+      NOT_COMPLETE;
+    ]]></javascript:method>
+
+    <javascript:method name="reload" parameters="[j1DisplayObject, fCallback, sExplicitStylesheet = HTMLWebpage.stylesheetHREF()]" interface-modes="all" requires="Database,HTMLWebpage,HTMLWebpage.canTransform" chain="true"><![CDATA[
+      //reload each representation separately because they may have different display modes
+      //as standard, these are XML calls without a new stylesheet call so many calls are ok
+      if (this.jqDisplays.length > 10) Debug.warn(this, "[" + this.jqDisplays.length + "] on this object reload");
+
+      this.jqDisplays.eachEx(function(fCallback, sExplicitStylesheet, hDisplayObject) {
+        this.reloadDisplay(new JOO(hDisplayObject), fCallback, sExplicitStylesheet);
+      }, this, fCallback, sExplicitStylesheet);
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="reloadDisplay" parameters="j1DisplayObject, [fCallback, sExplicitStylesheet = HTMLWebpage.stylesheetHREF()]" interface-modes="all" requires="Database,HTMLWebpage,HTMLWebpage.canTransform" chain="true"><![CDATA[
+      //reload entire display HTML
+      //  use a dynamic transform HTML call with merge HTML nodes
+      //  useful when programmering and the interface has changed
+      //  will attempt also to clone in to abstract DOs (<script> in head)
+      //An AJAXHTMLLoader dynamic-reloader allows data driven reload control
+      //  stylesheet can be sent through instead for the transform and can alter the ajax load situations
+      //  an additional transform or parameter is also possible
+      var self = this;
+      var oDatabaseQuery   = new Object();
+      var cDynamicReloader = CSSPathString.fromClass("dynamic-reloader");
+      var jDynamicReloaderDO;
+      
+      //a breakpoint here will cycle
+      //because a asynchronous NewObjectEvent will occur
+      jDynamicReloaderDO = j1DisplayObject.childrenOrSharedClone(cDynamicReloader);
+      if (jDynamicReloaderDO.length) {
+        //load() will also do an automatic:
+        //merge(jTargets, jSources, fFirstIndexOf, bRemoveOldTargets, uLimitSelector)
+        //  will sync from the source: attributes, text nodes, all non-Object nodes
+        //  true:   anything in the target that is not in the source will be removed
+        //  Object: Objects will not be descended on
+        //these DOM changes will cause a OO.attachToObjects()
+        jDynamicReloaderDO.load(fCallback, oDatabaseQuery);
+      } else Debug.error(this, ".dynamic-reloader not found cannot reload display");
+    ]]></javascript:method>
+
+    <javascript:method is-protected="true" name="containerLoadNodeMask"><![CDATA[
+      return "descendant-or-self::*";
+    ]]></javascript:method>
+  </javascript:object>
+</javascript:code>

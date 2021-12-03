@@ -1,0 +1,1 @@
+<repository:services xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" gs:transient-area="yes" database:on-before-read="database:rx(server:server-process-list(), /object:Server[1]/repository:server[1]/repository:properties/repository:rx[1]/services-rx, /object:Server[1]/repository:server[1]/repository:properties/repository:services[1])"/>

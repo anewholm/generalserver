@@ -1,0 +1,194 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+  <css:section name="one-max form interface">
+    <path><class relation="self">form-render-one-max</class></path>
+
+    <clause>
+      <path><class>gs-xsd-form-item</class></path>
+      <path><class>gs-xsd-form-item</class><class relation="child-only">gs-xsd-value</class></path>
+
+      <position>absolute</position>
+      <top metric="pixel">0</top>
+      <bottom metric="pixel">0</bottom>
+      <width metric="percent">100</width>
+      <margin metric="pixel">0</margin>
+      <padding metric="pixel">0</padding>
+    </clause>
+  </css:section>
+
+  <css:section name="horizontal form style">
+    <path>
+      <class relation="self">gs-orientation-horizontal</class>
+      <element relation="child-only">form</element>
+      <element relation="child-only">div</element>
+      <class relation="child-only">gs-form-elements</class>
+    </path>
+
+    <css:clause>
+      <path>
+        <class relation="child-only">CSS__XSDField</class>
+      </path>
+      <path>
+        <class relation="child-only">gs-form-submit</class>
+      </path>
+      
+      <float>left</float>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class relation="child-only">CSS__XSDField</class>
+        <class relation="child-only">gs-extended-attributes</class>
+      </path>
+      <display>inline</display>
+    </css:clause>
+
+    <clause>
+      <path>
+        <class relation="child-only">CSS__XSDField</class>
+        <class relation="child-only">gs-xsd-name</class>
+      </path>
+      <width metric="percent">200</width>
+    </clause>
+
+    <css:clause>
+      <path><class>gs-xsd-form-item</class><class>gs-xsd-type</class></path>
+      <display>none</display>
+    </css:clause>
+  </css:section>
+
+  <css:section name="compact form style">
+    <path><class relation="self">gs-style-compact</class></path>
+
+    <clause>
+      <path><class>gs-xsd-type</class></path>
+      <path><class>gs-xsd-name</class></path>
+      <path><class>gs-form-title</class></path>
+      <display>none</display>
+    </clause>
+  </css:section>
+
+  <css:clause>
+    <path>
+      <class>gs-context-menu</class>
+      <class>f_submit_ajax</class>
+    </path>
+    <icon>sport_8ball</icon>
+  </css:clause>
+
+  <css:section name="form errors">
+    <css:clause>
+      <path>
+        <class>gs-error</class>
+      </path>
+      <border>1px solid red</border>
+      <padding>3px 10px 3px 22px</padding>
+      <margin metric="pixel">2</margin>
+      <icon>error</icon>
+      <white-space>nowrap</white-space>
+      <font-style>italic</font-style>
+      <background-position>2px center</background-position>
+      <background-color type="hash">f7f0f0</background-color>
+    </css:clause>
+
+    <!-- css:clause>
+      <path>
+        <class>gs-configuration-error</class>
+      </path>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <class>gs-ajax-validation-error</class>
+      </path>
+    </css:clause -->
+
+    <css:clause>
+      <path>
+        <class>gs-serious</class>
+      </path>
+
+      <color type="hash">dd0000</color>
+    </css:clause>
+  </css:section>
+
+  <css:section name="news">
+    <clause>
+      <path><class relation="self">gs-interface-mode-new</class></path>
+      <path><class relation="self">gs-interface-mode-set</class></path>
+      <padding>0</padding>
+      <margin>0</margin>
+    </clause>
+  </css:section>
+
+  <css:section name="editor">
+    <path>
+      <class relation="self">gs-interface-mode-editor</class>
+    </path>
+
+    <clause>
+      <path>
+        <class>gs-xsd-editor-list</class>
+        <element>li</element>
+      </path>
+
+      <display>block</display>
+      <border-top>1px solid #d7d7d7</border-top>
+      <border-bottom>1px solid #a7a7a7</border-bottom>
+      <background-color type="hash">f4fff4</background-color>
+      <background-position>center left</background-position>
+      <icon>sort</icon>
+    </clause>
+
+    <clause>
+      <path>
+        <class>gs-xsd-editor-list</class>
+        <class>gs-xsd-editor-list-add-field</class>
+      </path>
+      <background-color type="hash">fff4f4</background-color>
+      <icon/>
+    </clause>
+
+    <clause>
+      <path>
+        <class>gs-xsd-section</class>
+      </path>
+      <margin-bottom metric="pixel">20</margin-bottom>
+    </clause>
+
+    <clause>
+      <path>
+        <class>gs-xsd-editor-list</class>
+        <element relation="child-only">li</element>
+        <element relation="child-only">form</element>
+        <element relation="child-only">div</element>
+        <element relation="child-only">*</element>
+      </path>
+      <display>inline</display>
+      <margin-right metric="pixel">20</margin-right>
+    </clause>
+  </css:section>
+
+  <css:raw><![CDATA[
+    input {
+      border-width:1px;
+      margin-top:0;
+      margin-bottom:0;
+    }
+    .textarea_medium {height:200px;}
+    .textarea_large  {height:400px;}
+    .input_small {width:100px;}
+    .input_medium {width:300px;}
+    .input_large {width:500px;}
+    .input_full {width:100%;}
+    .gs-input-default {color:#666666;}
+    .gs-labelover {background-color:#FFFACD;}
+
+    .gs-ajax-submitted .gs-submission-confirmation {
+      width:24px;
+      height:24px;
+      background-image:url(/societycard/images/smalltick.png);
+      background-position:center center;
+      background-repeat:no-repeat;
+    }
+  ]]></css:raw>
+</css:stylesheet>

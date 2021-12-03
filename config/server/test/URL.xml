@@ -1,0 +1,1 @@
+<repository:google xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://www.w3.org/1999/xhtml" name="URL" tree-icon="world" database:on-before-read="database:parse-xml(repository:read-valid-xml('http://google.com/'), /object:Server/repository:server/repository:test/repository:google)"/>

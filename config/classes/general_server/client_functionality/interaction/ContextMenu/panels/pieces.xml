@@ -1,0 +1,70 @@
+<gs:context-menu-pieces xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml">
+  <!-- standard sections -->
+  <gs:menu-section xmlns="http://www.w3.org/1999/xhtml">
+    <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:interaction/class:ContextMenu/repository:panels/gs:context-menu-pieces/gs:menu-section[4]/*[1]" /> <!-- select -->
+    <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:interaction/class:ContextMenu/repository:panels/gs:context-menu-pieces/gs:menu-section[4]/*[2]" /> <!-- developer -->
+    <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:interaction/class:ContextMenu/repository:panels/gs:context-menu-pieces/gs:menu-section[4]/*[3]" /> <!-- administrator -->
+  </gs:menu-section>
+
+  <gs:menu-section xmlns="http://www.w3.org/1999/xhtml" title="structural changes">
+    <li class="f_click_cut">cut</li>
+    <li class="f_click_copy">copy</li>
+    <li class="f_click_paste gs-enabled-with-clipboard disabled">paste</li>
+    <li class="f_click_hardlink gs-enabled-with-clipboard disabled">link</li>
+  </gs:menu-section>
+
+  <gs:menu-section xmlns="http://www.w3.org/1999/xhtml" title="element changes">
+    <li class="f_click_rename">rename...</li>
+    <li class="f_click_delete">delete...</li>
+  </gs:menu-section>
+
+  <!-- individual menu-items with SubMenus -->
+  <gs:menu-section xmlns="http://www.w3.org/1999/xhtml" title="element changes">
+    <li xmlns="http://www.w3.org/1999/xhtml" class="f_click_select_children">select</li>
+
+    <li class="icon_developer">developer
+      <interface:SubMenu>
+        <gs:menu-section name="inspection">
+          <li class="f_click_reload">reload</li>
+          <li class="f_click_reloadFields">reload fields</li>
+          <li class="f_click_reload_debug">reload (debug)</li>
+          <li class="f_click_reloadCSS">reload CSS</li>
+          <li class="f_click_reloadJavaScript">reload JavaScript</li>
+          <li class="f_click_clearStylesheetCache">clear stylesheet cache</li>
+          <li class="f_click_debugToggle">debug on</li>
+          <li class="f_click_properties">properties</li>
+          <li class="f_click_inspectElement">inspect element</li>
+        </gs:menu-section>
+
+        <gs:menu-section name="debugging">
+          <li class="f_click_setBreakpoint gs-disabled-{not($gs_is_logged_in)}">set breakpoint</li>
+          <li class="f_click_clearBreakpoint gs-disabled-{not($gs_is_logged_in)}">clear breakpoint</li>
+        </gs:menu-section>
+      </interface:SubMenu>
+    </li>
+
+    <li class="icon_administrator gs-admin-only">administrator
+      <interface:SubMenu>
+        <!-- TODO: render these administrator context menu Class__XSchema properly -->
+        <!-- li class="gs-admin-only gs-sysadmin-command">
+          <div class="Object Class__XSchema CSS__XSchema gs-interface-mode-default f_submit_ajax gs-cancel-bubble">
+            <form method="post" action="/api/server/commit"><div>
+              <input name="submit" type="submit" value="commit"/>
+              <input id="gs-commit-full" type="checkbox" name="full" value="full"/> <label for="gs-commit-full">full</label>
+            </div></form>
+          </div>
+        </li>
+        <li class="gs-admin-only gs-sysadmin-command">
+          <div class="Object Class__XSchema CSS__XSchema gs-interface-mode-default f_submit_ajax gs-cancel-bubble">
+            <form method="post" action="/api/server/rollback"><div>
+              <input class="gs-serious" name="submit" type="submit" value="rollback"/>
+            </div></form>
+          </div>
+        </li -->
+        <li class="gs-admin-only f_click_databaseBackup gs-sysadmin-command gs-disabled">backup</li>
+        <li class="gs-admin-only f_click_databaseIntegrity gs-sysadmin-command">integrity</li>
+        <li class="gs-admin-only f_click_serverRestart gs-sysadmin-command">exit</li>
+      </interface:SubMenu>
+    </li>
+  </gs:menu-section>
+</gs:context-menu-pieces>

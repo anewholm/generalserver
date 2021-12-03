@@ -1,0 +1,22 @@
+<object:Response stage="{$gs_stage}" xml:id-policy-area="ignore" xmlns:meta="http://general_server.org/xmlnamespaces/meta/2006" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="webpage-response" meta:menu-item="{@name}">
+  <!--
+    logged-in: boolean($gs_environment/object:User)
+    host:      string($gs_request/object:Request/gs:host)
+  -->
+  <meta:environment>
+    <!-- 
+      $gs_server used for all server change event listening at the Server
+      $gs_resource_server_object is important for foreign resources like images 
+      $gs_user for logged in status
+    -->
+    <database:query source="meta:environment/server" data="$gs_server|$gs_user|$gs_resource_server_object" interface-mode="environment" interface-render-output="placeholder" node-mask="."/>
+    <!-- these Classes are used in the JavaScript on the client also -->
+    <database:query source="meta:environment/service" data="$gs_primary_stylesheet|$gs_service|$gs_context_database|$gs_website_root" interface-mode="environment" interface-render-output="placeholder" node-mask="." node-mask-type="auto-include-attributes"/>
+    <!-- information only -->
+    <database:query source="meta:environment/request" data="$gs_session|$gs_request" interface-mode="environment" interface-render-output="placeholder" node-mask=".|*"/>
+  </meta:environment>
+
+  <gs:data>
+    <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/*[2]/repository:interfaces/*" />
+  </gs:data>
+</object:Response>

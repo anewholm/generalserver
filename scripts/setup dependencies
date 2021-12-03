@@ -1,0 +1,17 @@
+# https://robots.thoughtbot.com/the-magic-behind-configure-make-make-install
+
+apt-get -y install uuid-dev
+apt-get -y install libreadline6-dev
+apt-get -y install libgcrypt11-dev
+apt-get -y install zlib1g-dev
+apt-get -y install libpng-dev
+
+apt-get -y install doxygen
+apt-get -y install valgrind
+
+# apache and resources
+# apt-get -y install apache2
+# apt-get -y install libapache2-mod-php5
+
+# databases
+# apt-get -y install postgresql

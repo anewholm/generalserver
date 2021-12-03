@@ -1,0 +1,18 @@
+<interface:VerticalFrameset xmlns="http://www.w3.org/1999/xhtml" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" title="Play Place" name="index">
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:templates/class:IDE/repository:interfaces/*[5]/*[1]" />
+  
+  <interface:Frame>
+    <object:HTMLObject>just chekin'</object:HTMLObject>
+    <database:query data="$db/gs:fora/interface:Forum" node-mask="false()"/>
+    <xsd:add class="~ForumPost" xpath-to-destination="$db/gs:fora/interface:Forum[1]">
+      <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:system_management/*[1]/xsd:schema/xsd:complexType/xsd:sequence/*[2]" />
+    </xsd:add>
+  </interface:Frame>
+  
+  <interface:Frame>
+    <database:query data="$db/gs:people" node-mask="false()"/>
+    <xsd:add class="~Manager" xpath-to-destination="$db/gs:people">
+      <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:system_management/*[1]/xsd:schema/xsd:complexType/xsd:sequence/*[2]" />
+    </xsd:add>
+  </interface:Frame>
+</interface:VerticalFrameset>

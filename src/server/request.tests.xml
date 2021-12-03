@@ -1,0 +1,17 @@
+<repository:request-tests>
+  <transform name="throw" result-throw="Up">
+    <xsl:stylesheet xmlns:request="http://general_server.org/xmlnamespaces/request/2006" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="request" exclude-result-prefixes="#default repository gs database debug conversation xxx html rx class xmlsecurity xmltransaction xsl object interface xsd service javascript css meta response">
+      <xsl:template match="/">
+        <request:throw class="Up" parameter="__testing only__"/>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>  
+
+  <transform name="read-only" result-throw="XSLTThrow">
+    <xsl:stylesheet xmlns:request="http://general_server.org/xmlnamespaces/request/2006" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="request" exclude-result-prefixes="#default repository gs database debug conversation xxx html rx class xmlsecurity xmltransaction xsl object interface xsd service javascript css meta response">
+      <xsl:template match="/">
+        <request:throw native="true" parameter="__testing only__"/>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>  
+</repository:request-tests>

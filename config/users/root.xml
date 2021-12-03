@@ -1,0 +1,13 @@
+<object:User xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" guid="ce8fb5faaea044879b358c680d86156f" and="467rrb" tree-icon="tux" password-hash="test" name="root" test="er">
+  <gs:persistent-server-states>
+    <gs:IDE-tree-expanded-objects>
+      <xml:hardlink target="/object:Server/*[4]" />
+      <xml:hardlink target="/object:Server/*[15]" />
+    </gs:IDE-tree-expanded-objects>
+    <gs:dynamics-documentation-positioning>
+    </gs:dynamics-documentation-positioning>
+  </gs:persistent-server-states>
+  <gs:groups>
+    <xml:hardlink target="/object:Server/*[4]/*[1]" />
+  </gs:groups>
+</object:User>

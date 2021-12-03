@@ -1,0 +1,463 @@
+<javascript:code xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="controller" controller="true">
+  <javascript:object>
+    <javascript:static-property name="rxXmlID"><![CDATA[/^gs-xml-id-(.+)/g]]></javascript:static-property>
+    <javascript:static-property name="cXPathToNodePath"><![CDATA['> .gs-meta-data > .xpath-to-node']]></javascript:static-property>
+    
+    <javascript:init parameters="[uP1, uP2, uP3, uP4, uP5, uP6, uP7, uP8, uP9, uP10]" chain="false" parameter-checks="off"><![CDATA[
+      //NOTE: you cannot simply sub-class jQuery with inherits-javascript-primitive="jQuery"
+      //or indeed with x.prototype = new jQuery();
+      //this is a fake class to wrap jQuery which allows GS style inheritance
+      //this means that:
+      //  JQueryClass not instanceof jQuery
+      //  JQueryClass instanceof Array because @inherits-javascript-primitive=Array
+      //    this is to allow @dom-targets that requires an Array to accept this JQueryClass
+      var oObject, oArguments;
+
+      //---------------------------------------------------------- Class() function
+      if (OO.bInitialised && Class.istype(uP1)) {
+        //a GS Class, e.g. function HTMLWebpage() {...}
+        //inheritance: e.g. Frame also return ExtendedFrame
+        //we could allow fClass => ".Class__<fClass>" naturally but we want extended capacity like derived classes
+        var aAllElements = OO.listObjects(uP1, (uP2 === true), (uP3 === true)).eachEx(function(){return this.jqDisplays;});
+        JQueryClass.call(this, aAllElements); //Array
+      }
+
+      //---------------------------------------------------------- Function() call
+      else if (Function.istype(uP1) && !Class.istype(uP1)) {
+        //instanciation by Function call
+        //could cause infinite loop here!!! : reject Function returns
+        oObject = uP1();
+        if (Function.istype(oObject) && !Class.istype(oObject)) Debug.error(this, "cannot instanciate JQueryClass with a Function that returns a Function");
+        else JQueryClass.call(this, oObject); //?
+      }
+
+      //---------------------------------------------------------- number: !session-id or xml:id number part idx_[n]
+      //we check this only on instanciation: not on all jQuery calls
+      else if (Number.istype(uP1) && ((oObject = OO.fromIDX('!' + uP1)) || (oObject = OO.fromIDX('idx_' + uP1)))) {
+        JQueryClass.call(this, oObject.jqDisplays); //JQueryClass
+      }
+      
+      //---------------------------------------------------------- string: xml:id
+      //we check this only on instanciation: not on all jQuery calls
+      else if (String.istype(uP1) && (oObject = OO.fromIDX(uP1))) {
+        JQueryClass.call(this, oObject.jqDisplays); //JQueryClass
+      }
+      
+      //-------------------- try native jQuery arguments
+      //argument conversion ensures:
+      //  JOO           => .elements
+      //  String        => string
+      //  BaseObject    => displays().elements
+      else {
+        JInherit.apply(this, arguments);
+      }
+    ]]></javascript:init>
+
+    <javascript:method name="factory" parameters="uP0, uP1, uP2, uP3, uP4, uP5, uP6, uP7, uP8, uP9" parameter-checks="off"><![CDATA[
+      return new JQueryClass(uP0, uP1, uP2, uP3, uP4, uP5, uP6, uP7, uP8, uP9);
+    ]]></javascript:method>
+      
+    <!-- create properties here so that JQueryClass has already isType*Notation() funcs -->
+    <javascript:static-property name="scrolling">false</javascript:static-property>
+    <javascript:static-property name="jqExclusiveGlobalExpanded">jQuery()</javascript:static-property>
+    <javascript:static-property name="iExclusiveGlobalExpandedClosingTimer"/>
+
+    <!-- ########################################## settings ########################################## -->
+    <javascript:method name="optional" parameters="s1DashName, [uPassedValue, aOtherObjects, ...]"><![CDATA[
+      return this.setting(s1DashName, DEFAULT, OPTIONAL, uPassedValue, aOtherObjects);
+    ]]></javascript:method>
+
+    <javascript:method name="setting" parameters="s1DashName, [uDefault, bOptional = false, uPassedValue, aOtherObjects, ...]"><![CDATA[
+      //search a DO and related objects for a custom / default setting
+      //allows a function to override a DO to override a Class setting etc.
+      //bExample = j1DisplayObject.checkSetting("is-example", true, [bExample, [oThisFunction]])
+      var uSetting, bCorrectType, bLengthRequired, fType; //= undefined;
+      var s1CamelName = s1DashName.dashToCamel();
+      var s1Context   = this.cssClassName() + "::" + s1DashName;
+      var bHasObjects = this.hasObjects();
+
+      //passed directly to the function as a parameter #1 priority
+      //f(..., sType)
+      if      ((uPassedValue !== undefined))              uSetting = uPassedValue;
+      //written on the j1DisplayObject, probably loaded from the element meta-data
+      //oDO.type     <= @gs:type=example
+      else if ((this[s1CamelName] !== undefined))         uSetting = this[s1CamelName];
+      //written on the j1DisplayObject, probably loaded from the element meta-data
+      //this.o = this.elements.data() 
+      else if ((this.o[s1CamelName] !== undefined))       uSetting = this.o[s1CamelName];
+      //owner oObject global setting (not just the display)
+      //oFrame.type  <= @type=example
+      else if (bHasObjects && this.object()[s1CamelName] !== undefined) uSetting = this.object()[s1CamelName];
+      //Class__* global setting
+      //Frame.type
+      else if (bHasObjects && this.object().classDerivedConstructor[s1CamelName] !== undefined) uSetting = this.object().classDerivedConstructor[s1CamelName];
+      //dynamically check the aOtherObjects for the setting
+      //this commonly includes the Function
+      else if (aOtherObjects) {
+        aOtherObjects.eachEx(function(){
+          if ((this[s1CamelName] !== undefined)) uSetting = this[s1CamelName];
+        });
+      }
+
+      fType           = Function.typeNatural(s1DashName);
+      bLengthRequired = false; //TODO: natural length requirements?
+      uSetting        = Function.optionalDefaultVariable(s1Context, uSetting, bOptional, uDefault);
+      bCorrectType    = Function.checkType(s1Context, uSetting, fType, bLengthRequired, bOptional);
+
+      return uSetting;
+    ]]></javascript:method>
+  
+    <!-- ########################################## conversion ########################################## -->
+    <javascript:conversion to-type="JOO"><![CDATA[
+      return new JOO(this.elements);
+    ]]></javascript:conversion>
+
+    <!-- ########################################## extended functionality ########################################## -->
+    <javascript:method name="mousePosition" parameters="..."><![CDATA[
+      return {top:Event.currentEvent().pageY, left:Event.currentEvent().pageX};
+    ]]></javascript:method>
+
+    <javascript:method name="positionToMouse" parameters="..."><![CDATA[
+      //our offset() require the singular element to be :visible
+      //TODO: need to take in to account scroll
+      this.offset(this.mousePosition());
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method name="withName" parameters="uLocalName, [s1Name, ...]"><![CDATA[
+      return this.filter(new CSSPathString().withName(uLocalName, s1Name));
+    ]]></javascript:method>
+
+    <javascript:method name="withDefaultInterfaceMode" parameters="..."><![CDATA[
+      return this.filter(new CSSPathString().withDefaultInterfaceMode());
+    ]]></javascript:method>
+
+    <javascript:method name="withInterfaceMode" parameters="s1Interfacemode, ..."><![CDATA[
+      return this.filter(new CSSPathString().withInterfaceMode(s1Interfacemode));
+    ]]></javascript:method>
+
+    <javascript:method name="toggleChildren" parameters="..."><![CDATA[
+      //we override toggle to ensure that it uses our show() and hide() because they can also be overridden
+      var fFunc     = (this.isExpanded() ? this.hideChildren : this.showChildren);
+      return fFunc.apply(this, arguments);
+    ]]></javascript:method>
+
+    <javascript:method name="showChildren" parameters="[oOptions, fCallback, ...]"><![CDATA[
+      var jChildren = this.children();
+
+      //only run the show filter IF it is currently hidden
+      if (!this.isExpanded()) {
+        //ensure visibility of children during show of container
+        //TODO: run the show on the potentially overridden DOs, not the base JQueryClass
+        jChildren.show(oOptions);
+        //[re-]show container with JQueryClass additions
+        this.show.apply(this, arguments);
+      }
+
+      this.addClass("expanded").removeClass("compact");
+
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method name="hideChildren" parameters="[oOptions, fCallback, ...]"><![CDATA[
+      if (!this.isCollapsed()) this.hide.apply(this, arguments);
+      this.addClass("compact").removeClass("expanded");
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method name="remove" parameters="..."><![CDATA[
+      //additional checks only
+      if (this.o.removed === true && !this.isInDocument()) Debug.warn(this, "JQueryClass: double removal from DOM");
+      this.o.removed = true;
+      return JInherit.prototype.remove.apply(this, arguments);
+    ]]></javascript:method>
+
+    <!-- ####################################### Fields ####################################### -->
+    <javascript:method name="fields" parameters="[s1Type, ...]"><![CDATA[
+      var sClass = ".Field";
+      if ((s1Type !== undefined)) sClass += ".gs-field-" + s1Type.toLowerCase();
+      return this.findBefore(sClass, Object);
+    ]]></javascript:method>
+
+    <javascript:method name="field" parameters="s1Name, [s1Type, ...]"><![CDATA[
+      var sClass = ".Field.gs-name-" + s1Name.toLowerCase();
+      if ((s1Type !== undefined)) sClass += ".gs-field-" + s1Type.toLowerCase();
+      return this.findBefore(sClass, Object);
+    ]]></javascript:method>
+
+    <!-- ####################################### toggle ####################################### -->
+    <javascript:static-method is-protected="true" name="hideAllGlobalExpanded" parameters="[jqExcept, iTimeout]"><![CDATA[
+      var oRet;
+
+      //if (!window.isie) {
+      if (JQueryClass.iExclusiveGlobalExpandedClosingTimer) clearTimeout(JQueryClass.iExclusiveGlobalExpandedClosingTimer);
+
+      if ((iTimeout !== undefined)) {
+        //delayed
+        JQueryClass.iExclusiveGlobalExpandedClosingTimer = setTimeout(function(jqExcept){
+          JQueryClass.hideAllGlobalExpandedDirect(jqExcept);
+        }, iTimeout, [jqExcept]);
+      } else {
+        //immediate
+        oRet = JQueryClass.hideAllGlobalExpandedDirect(jqExcept);
+      }
+
+      return oRet;
+    ]]></javascript:static-method>
+
+    <javascript:static-method is-protected="true" name="hideAllGlobalExpandedDirect" parameters="[jqExcept]"><![CDATA[
+      //close everything that is not an ancestor of jChildrenContainer
+      var jqBody, jqNewExclusiveGlobalExpanded, jqElementToClose, jqExceptAncestorsOrSelf, jqAllElementsToClose;
+
+      if ((jqExcept !== undefined)) {
+        //hide some
+        jqNewExclusiveGlobalExpanded = jqExcept;
+        jqExceptAncestorsOrSelf      = jqExcept.add(jqExcept.ancestors()); //jQuery.ancestors() = jQuery.parents()
+        jqAllElementsToClose         = new jQuery();
+        JQueryClass.jqExclusiveGlobalExpanded.each(function(){
+          jqElementToClose = new jQuery(this);
+          if (jqElementToClose.inside(jqExceptAncestorsOrSelf)) { //jQuery.inside(JQueryClass.jqExclusiveGlobalExpanded) = JQueryClass.jqExclusiveGlobalExpanded.is(jQuery)
+            jqNewExclusiveGlobalExpanded = jqNewExclusiveGlobalExpanded.add(jqElementToClose);
+          } else {
+            jqAllElementsToClose         = jqAllElementsToClose.add(jqElementToClose);
+          }
+        });
+        new JOO(jqAllElementsToClose).hide(); //run objects
+        JQueryClass.jqExclusiveGlobalExpanded = jqNewExclusiveGlobalExpanded;
+      } else {
+        //hide everything
+        new JOO(JQueryClass.jqExclusiveGlobalExpanded).hide(); //run objects
+        JQueryClass.jqExclusiveGlobalExpanded = new jQuery();
+      }
+
+      //indicators
+      jqBody = new jQuery(window.document.body);
+      if (JQueryClass.jqExclusiveGlobalExpanded.length)
+        jqBody.addClass("gs-has-exclusive-global-expanded");
+      else
+        jqBody.removeClass("gs-has-exclusive-global-expanded");
+
+      //prevent closing if in process
+      if (JQueryClass.iExclusiveGlobalExpandedClosingTimer) clearTimeout(JQueryClass.iExclusiveGlobalExpandedClosingTimer);
+
+      return JQueryClass.jqExclusiveGlobalExpanded;
+    ]]></javascript:static-method>
+
+    <javascript:method name="triggerInternal" is-protected="true" parameters="eEventToTrigger, [aExtraParameters = new Array()]"><![CDATA[
+      //immediate synchronous jQuery trigger => DOM::eventDispatch()
+      this.elements.trigger(eEventToTrigger.event, aExtraParameters);
+      return this;
+    ]]></javascript:method>
+  
+    <javascript:method name="childrenOrSharedClone" parameters="u1FindClause, [s1SharedGroup = 'general', ...]"><![CDATA[
+      //return this unless it is empty
+      //if empty, look for some shared elements
+      //.Class__SharedInterfaces.gs-interface-mode-default.gs-name-sharedinterfaces-general > .Class__ContextMenu
+      var jShared, c1SharedGroupPath;
+      var jResult = this.children(u1FindClause);
+
+      if (!jResult.length) {
+        //---------------------------------------- shared discovery
+        //TODO: assemble css string first for performance
+        //  currently CSSPathString does not accept Class arguments => .Class__...
+        //c1SharedGroupPath = CSSPathString.fromGSClass(SharedInterfaces).withDefaultInterfaceMode().withName(SharedInterfaces, s1SharedGroup).children(u1FindClause);
+        //jShared           = new JOO(c1SharedGroupPath);
+        jShared           = new JOO(SharedInterfaces).withDefaultInterfaceMode().withName(SharedInterfaces, s1SharedGroup).children(u1FindClause);
+        
+        //---------------------------------------- shared clone
+        if (jShared.length > 1) {
+          Debug.error(this, "several Class__SharedInterfaces found for [" + u1FindClause + "]");
+        } else if (jShared.length) {
+          //potential multiple targets
+          jResult = jShared.cloneTo(this);
+           
+          if (this.children(u1FindClause).length == 0) Debug.warn(this, "shared copy is not discoverable locally");
+        }
+      }
+
+      return jResult;
+    ]]></javascript:method>
+
+    <javascript:method name="hideDirect" parameters="..."><![CDATA[
+      this.elements.hide();
+    ]]></javascript:method>
+
+    <javascript:method name="showDirect" parameters="..."><![CDATA[
+      this.elements.show();
+    ]]></javascript:method>
+
+    <!-- ########################################## jQuery accessor overrides ##########################################
+      important not to infinitely call functions on the DO instead of the elements
+      always use the .elements property in these overrides
+      jQuery will internally call these functions, e.g. .change(...) will call .on("change", ...)
+      so the parameters must match and behave exactly
+    -->
+    <javascript:method name="trigger" parameters="uEvent, [aExtraParameters, fCallback, ...]"><![CDATA[
+      //http://api.jquery.com/trigger/
+      //we implicitly hand over control to the Event sub-class
+      //Event sub-class may queue the event, leaving oResultsObject empty
+      //  jWhere->trigger(sEvent)
+      //  Event->trigger(jWhere)
+      //use triggerImmediateWithResults() to be sure to receive immediate synchronous results
+      //fCallback = function(oResultsObject) {...}
+      var eEvent;
+      var aCallbackArguments = Array.prototype.slice.call(arguments, 3);
+      
+      if (uEvent instanceof Event) eEvent = uEvent;
+      else                         eEvent = Event.factory(uEvent, this);
+      
+      eEvent.fCallback = fCallback; //function(oResultsObject, ...) {...}
+      return eEvent.trigger(aExtraParameters);
+    ]]></javascript:method>
+
+    <javascript:method name="clone" parameters="..."><![CDATA[
+      //https://api.jquery.com/clone/
+      //[withDataAndEvents = false]
+      //additional check that we are not trying to clone the document because it would cause a crash
+      var oRet, jAttachedObjectClones;
+      this.each(function(){
+        if (this === document && window.console) window.console.error("cannot clone the document");
+      });
+      oRet = JInherit.prototype.clone.apply(this, arguments);
+
+      //--------------- additionally recursively removes GS_OBJECT_ATTACHED_FILTER
+      //thus subsequent contentchanged events will attach the new DisplayObject
+      if (oRet && oRet instanceof JQueryClass) {
+        jAttachedObjectClones = oRet.find(GS_OBJECT_ATTACHED_FILTER).add(oRet);
+        jAttachedObjectClones.removeClass(GS_OBJECT_ATTACHED_CLASS);
+      } else Debug.error(this, "failed to find clone when clone()ing");
+
+      return oRet;
+    ]]></javascript:method>
+
+    <javascript:method name="on" parameters="sEvent, ..."><![CDATA[
+      Debug.warn(this, "please use the GeneralServer event system for [" + sEvent + "]: declare an f_<event>() method");
+      return JInherit.prototype.on.apply(this, arguments);
+    ]]></javascript:method>
+
+    <javascript:method name="off" parameters="sEvent, ..."><![CDATA[
+      Debug.warn(this, "please use the GeneralServer event system for [" + sEvent + "]: declare an f_<event>() method");
+      return JInherit.prototype.off.apply(this, arguments);
+    ]]></javascript:method>
+
+    <javascript:method name="parent" parameters="..."><![CDATA[
+      if (this.o.removed === true) Debug.error(this, "removed from DOM: cannot access parent");
+      return JInherit.prototype.parent.apply(this, arguments);
+    ]]></javascript:method>
+
+    <javascript:method name="toggle" parameters="[oOptions = {}, ...]"><![CDATA[
+      //we override toggle to ensure that it uses our show() and hide() on objects()
+      //we CANNOT use this.show here because this may be JQueryClass[2]
+      //so we want runJQueryFunc() to ensure show() is run on the objects()
+      var fFunc = (this.elements.someHidden() ? JQueryClass.prototype.show : JQueryClass.prototype.hide);
+      return fFunc.apply(this, arguments);
+    ]]></javascript:method>
+
+    <javascript:method name="show" parameters="[oOptions = {}, fCallback = Debug.callback, ...]"><![CDATA[
+      //only show(options, callback) is supported here
+      //  show(duration, callback) etc. is not
+      
+      //should not override normal JQueryClass::runJQueryFunc on a jQuery[>1] 
+      //because it will not cycle the items looking for objects
+      //it works fine with JQueryClass[1] methods()
+      //because the actual return from JQueryClass.method() is the actual object() with the override on
+      var jToggler;
+      var sTagName, jParent;
+      var fNativeJQueryShowFunc = jQuery.prototype.show;
+      
+      //---------------------------------------------- classes
+      this.addClass("shown").removeClass("hidden");
+      //additionally indicate toggle on the event target
+      if (Event.currentEvent()) {
+        jToggler = Event.currentEvent().targetElement(); // + toggler image
+        if (jToggler.hasClass("gs-toggle")) jToggler.addClass("expanded").removeClass("collapsed");
+      }
+
+      //---------------------------------------------- style based visibility change
+      if (this.length && this.someHidden()) {
+        //allow CSS controls
+        if      (this.hasClass("gs-show-fade-in")         || oOptions.showFadeIn)        fNativeJQueryShowFunc = jQuery.prototype.fadeIn;
+        else if (this.hasClass("gs-show-slide-down")      || oOptions.showSlideDown)     fNativeJQueryShowFunc = jQuery.prototype.slideDown;
+        else if (this.hasClass("gs-show-duration-fast")   || oOptions.showDurationFast)  oOptions.duration = "fast";
+        else if (this.hasClass("gs-show-duration-slow")   || oOptions.showDurationSlow)  oOptions.duration = "slow";
+
+        //running the appearance function with in-place altered argument objects
+        if (fCallback) oOptions.complete = fCallback;
+        fNativeJQueryShowFunc.call(this.elements, oOptions, fCallback);
+        if (this.someHidden()) Debug.warn(this, "show() attempt failed. this could be because the element has no content or layout");
+      }
+
+      //---------------------------------------------- optional positioning
+      if (this.hasClass("gs-position-mouse") || oOptions.positionMouse) {
+        this.toJOO().positionToMouse();
+      }
+
+      //---------------------------------------------- displayObject exclusivity options
+      if (this.hasClass("gs-exclusivity-global") || oOptions.exclusivity == "global") {
+        JQueryClass.hideAllGlobalExpanded(this.elements);
+      } else if (this.hasClass("gs-exclusivity-sibling") || oOptions.exclusivity == "sibling") {
+        JQueryClass.hideAllGlobalExpanded(this.elements);
+      }
+
+      //------------------------------------------------ events
+      //shown goes up, appear goes down
+      this.trigger("shown").trigger("appear");
+
+      return this;
+    ]]></javascript:method>
+
+    <javascript:method name="hide" parameters="[oOptions = {}, fCallback = Debug.callback, ...]"><![CDATA[
+      //only hide(options, callback) is supported here
+      //  hide(duration, callback) etc. is not
+      //should not override normal JQueryClass::runJQueryFunc on a jQuery[>1] 
+      //because it will not cycle the items looking for objects
+      //it works fine with JQueryClass[1] methods()
+      //because the actual return from JQueryClass.method() is the actual object() with the override on
+      var jToggler;
+      var fNativeJQueryHideFunc = jQuery.prototype.hide;
+
+      //---------------------------------------------- classes
+      this.addClass("hidden").removeClass("shown");
+      //additionally indicate toggle on the event target
+      if (Event.currentEvent()) {
+        jToggler = Event.currentEvent().targetElement(); // + toggler image
+        if (jToggler.hasClass("gs-toggle")) jToggler.removeClass("expanded").addClass("collapsed");
+      }
+
+      //---------------------------------------------- style based visibility change
+      if (this.someVisible()) {
+        //allow CSS controls
+        if      (this.hasClass("gs-show-fade-in")         || oOptions.showFadeIn)        fNativeJQueryHideFunc = jQuery.prototype.fadeOut;
+        else if (this.hasClass("gs-show-slide-down")      || oOptions.showSlideDown)     fNativeJQueryHideFunc = jQuery.prototype.slideUp;
+        else if (this.hasClass("gs-show-duration-fast")   || oOptions.showDurationFast)  oOptions.duration = "fast";
+        else if (this.hasClass("gs-show-duration-slow")   || oOptions.showDurationSlow)  oOptions.duration = "slow";
+
+        if (fCallback) oOptions.complete = fCallback;
+        fNativeJQueryHideFunc.call(this.elements, oOptions, fCallback);
+      };
+
+      //---------------------------------------------- displayObject exclusivity options
+      if (this.hasClass("gs-exclusivity-global") || oOptions.exclusivity == "global") {
+        new JOO(document.body).removeClass("gs-has-toggle-hover-exclusivity-global-expanded");
+      }
+
+      //---------------------------------------------- triggered event "hidden"
+      this.trigger("hidden");
+
+      return this;
+    ]]></javascript:method>
+
+    <!-- ########################################## events and init ########################################## -->
+    <javascript:static-event-handler event="ready"><![CDATA[
+      //dynamic JQueryClass changes will do this automatcially
+      //here we ensure that the document.ready also attaches to the new static HTML document
+      return OO.attachToObjects(new jQuery(".Object")); //document.ready
+    ]]></javascript:static-event-handler>
+  
+    <javascript:static-event-handler event="click" stage="after" required-event-property="isUnhandled"><![CDATA[
+      //@required-event-property=unhandled
+      //  requires: eEvent.isUnhandled = true
+      JQueryClass.hideAllGlobalExpanded();
+    ]]></javascript:static-event-handler>
+  </javascript:object>
+</javascript:code>

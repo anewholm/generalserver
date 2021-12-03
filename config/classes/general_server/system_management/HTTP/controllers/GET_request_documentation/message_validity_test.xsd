@@ -1,0 +1,5 @@
+<xsd:element xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns:xsd="http://www.w3.org/2001/XMLSchema" meta:different-file-name="ok" name="request" type="xsd:string">
+	<xsd:attribute name="protocol" type="xsd:string"/>
+	<xsd:attribute name="requestType" type="xsd:string"/>
+	<xsd:element name="host" type="xsd:string"/>
+</xsd:element>

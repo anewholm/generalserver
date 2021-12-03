@@ -1,0 +1,15 @@
+<javascript:code xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="controller" controller="true">
+  <javascript:object>
+    <javascript:method name="potentialHandlerObjects" is-protected="true" parameters="jqTarget"><![CDATA[
+      return this.bubbleDownHandlerObjects(jqTarget);
+    ]]></javascript:method>
+      
+    <javascript:method name="bubbleInit" is-protected="true"/>
+
+    <javascript:method name="bubbleNextSetup" is-protected="true" parameters="jqCurrentDisplayObject, iIndex">
+      this.bubbleDownNextSetup(jqCurrentDisplayObject, iIndex);
+    </javascript:method>
+
+    <javascript:method name="bubbleFinish" is-protected="true"/>
+  </javascript:object>
+</javascript:code>

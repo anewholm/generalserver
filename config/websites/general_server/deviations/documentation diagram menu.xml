@@ -1,0 +1,12 @@
+<interface:SharedInterfaces xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <interface:ContextMenu xmlns="http://www.w3.org/1999/xhtml" title="placeholder" gs:display-class="contextmenu">
+    <li class="icon_move">move</li>
+    <li class="icon_copy">copy</li>
+    <li class="icon_link">link
+      <interface:SubMenu>
+        <li class="icon_copy">hard-link</li>
+        <li class="icon_copy">soft-link ...</li>
+      </interface:SubMenu>
+    </li>
+  </interface:ContextMenu>
+</interface:SharedInterfaces>

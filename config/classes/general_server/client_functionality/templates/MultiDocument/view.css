@@ -1,0 +1,126 @@
+<css:stylesheet xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" xmlns="http://general_server.org/xmlnamespaces/css/2006">
+
+  <!-- #################################### tabs #################################### -->
+  <css:section name="tabs">
+    <css:raw><![CDATA[
+      .ui-tabs .ui-tabs-nav {
+        margin: 0;
+      }
+      .ui-tabs .ui-tabs-nav li {
+        font-size:13px;
+        color:#333;
+        list-style: none;
+        float: left;
+        position: relative;
+        top: 1px;
+        border:1px solid #dfdfdf;
+        border-bottom:0;
+        padding: 0 12px;
+        white-space: nowrap;
+        background-color:#f7f7f7;
+      }
+      .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+        color:#000;
+        margin-bottom: 0;
+        padding-bottom: 1px;
+        border:1px solid #333;
+        border-bottom:1px solid #fff;
+        background-color:#fff;
+      }
+
+      .ui-tabs .ui-tabs-nav li a {
+        float: left;
+        color:#000;
+        text-decoration: none;
+      }
+      .ui-tabs .ui-tabs-nav li.ui-tabs-active a {
+        color:#333;
+      }
+      .ui-tabs .ui-tabs-nav li.ui-tabs-active a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {
+        cursor: text;
+      }
+      .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a {
+        /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+        cursor: pointer;
+      }
+
+      .ui-tabs .ui-tabs-hide { display: none !important; }
+    ]]></css:raw>
+  </css:section>
+
+  <css:section name="full">
+    <path><interface>default</interface></path>
+
+    <css:clause>
+      <path>
+        <class relation="child-only">ui-tabs-panel</class>
+        <element relation="child-only">*</element>
+        <class relation="child-only">Class__QualifiedName</class>
+      </path>
+      <display>none</display>
+    </css:clause>
+
+    <css:clause>
+      <path/>
+      <position>absolute</position>
+      <top>0</top>
+      <bottom>0</bottom>
+      <width metric="percent">100</width>
+    </css:clause>
+
+    <section name="heightStyle fill fix">
+      <path><class>ui-tabs-nav</class></path>
+
+      <css:clause>
+        <path/>
+        <height metric="pixel">18</height>
+        <margin-bottom metric="pixel">4</margin-bottom>
+        <position>relative</position>
+        <z-index>1000</z-index>
+      </css:clause>
+
+      <css:clause>
+        <path>
+          <element>li</element>
+        </path>
+        <height metric="pixel">19</height>
+      </css:clause>
+    </section>
+
+    <clause>
+      <path><class relation="child-only">ui-tabs-panel</class></path>
+      <position>absolute</position>
+      <top>21px</top>
+      <bottom>0px</bottom>
+      <display>block</display>
+      <width>100%</width>
+      <border-top>1px solid #333333</border-top>
+    </clause>
+
+    <css:clause>
+      <path>
+        <element relation="child-only">ul</element>
+        <element>li</element>
+      </path>
+      <padding-right metric="pixel">24</padding-right>
+    </css:clause>
+
+    <css:clause>
+      <path><id>tab-new-tab</id></path>
+      <font-style>italic</font-style>
+      <color type="hash">aaaaaa</color>
+    </css:clause>
+
+    <css:clause>
+      <path>
+        <element relation="child-only">ul</element>
+        <class relation="child-only">gs-ajax-loading</class>
+      </path>
+      <font-style>italic</font-style>
+      <color type="hash">aaaaaa</color>
+      <icon group="" type="gif">throbber_16</icon>
+      <background-position>6px center</background-position>
+      <padding-left metric="pixel">26</padding-left>
+    </css:clause>
+  </css:section>
+</css:stylesheet>

@@ -1,0 +1,11 @@
+<object:Response stage="{$gs_stage}" xml:id-policy-area="ignore" xmlns="http://www.w3.org/1999/xhtml" xmlns:meta="http://general_server.org/xmlnamespaces/meta/2006" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="directory-response-envelope">
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:system_management/class:Response/repository:interfaces/*[1]/*[1]" />
+  <gs:data>
+    <interface:HTMLWebpage title="{local-name($gs_request_target)}" class-styles="include">
+      <h1>{local-name($gs_request_target)}</h1>
+      <interface:Collection>
+        <interface:dynamic data-context="$gs_request_target" data="*" node-mask="$gs_request_target/*" interface-mode="link" />
+      </interface:Collection>
+    </interface:HTMLWebpage>
+  </gs:data>
+</object:Response>

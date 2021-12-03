@@ -1,0 +1,7 @@
+<javascript:code xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="controller" controller="true">
+  <javascript:object>
+    <javascript:method name="trigger" parameters="[aExtraParameters, fCallback]"><![CDATA[
+      this.queueEventTrigger(aExtraParameters, fCallback);
+    ]]></javascript:method>
+  </javascript:object>
+</javascript:code>
