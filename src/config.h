@@ -263,7 +263,7 @@
 #define WITH_DEBUG 1
 
 /* 0 */
-#define WITH_DEBUG_EXCEPTIONS 1
+/* #undef WITH_DEBUG_EXCEPTIONS */
 
 /* 0 */
 /* #undef WITH_DEBUG_RX */
