@@ -9,12 +9,12 @@ See:
 Server Control
 --------------
 In
-	generalserver/
+	generalserver/ this base directory from github.com
 Run
 	bin/generalserver
 This, by default, loads the XML tree from
 	./config
-Which contains the overall setup: services, databases, etc.
+Which contains the overall setup: http services, databases, etc.
 
 Installation
 ------------
