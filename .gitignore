@@ -1,5 +1,11 @@
 **/*.o
+**/*.a
+**/*.log
+**/*.code-workspace
 **/*.Po
 **/*.so
 **/*.la
 **/*~
+
+/src/generalserver
+/bin/*
