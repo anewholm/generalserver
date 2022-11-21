@@ -1878,7 +1878,7 @@ namespace general_server {
                       //found the target repository
                       //move it to before iCurrent++
                       //PERFORMANCE: this is NOT efficient
-                      //IFDEBUG(Debug::report("xml:sort file [%s]", MM_STRDUP(sFilename)));
+                      //IFDEBUG(Debug::report("xml:sort file [%s]", MM_STRDUP(sFilename));)
                       pChildRepository = *iChildRepository;
                       pTarget->erase(iChildRepository);
                       pTarget->insert(iCurrent++, pChildRepository);

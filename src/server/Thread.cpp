@@ -67,7 +67,7 @@ namespace general_server {
   bool Thread::isRunning()    const {return m_tThread;}
   bool Thread::isAutoDelete() const {return m_bAutoDeleteOnExit;}
 
-  void Thread::static_runThreaded(Thread *thread) {
+  void* Thread::static_runThreaded(Thread *thread) {
     //now in a separate thread
     thread->m_tThread = pthread_self();
     //cout << thread->toString() << "\n";
@@ -83,6 +83,7 @@ namespace general_server {
     //explicitly pop and execute static_cleanup()
     //this cleanup may delete thread (isAutoDelete)
     pthread_cleanup_pop(PTHREAD_EXECUTE_CLEANUP);
+    return NULL;
   }
 
   void Thread::static_cleanup(Thread *thread) {

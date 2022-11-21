@@ -105,7 +105,7 @@ namespace general_server {
 
     //const namespace HREF comparison, no reconcile default needed
     pInputNodeType  = pInputNode->queryInterface((const IXmlNamespaced*) 0);
-    //IFDEBUG_RX(cout << "------ pInputNode: " << pInputNode->toString() << "\n");
+    //IFDEBUG_RX(cout << "------ pInputNode: " << pInputNode->toString() << "\n";)
 
     //process by namespace of input node
     if (pInputNodeType->isNamespace(NAMESPACE_RX)) { //const namespace HREF comparison, no reconcile default needed
@@ -123,7 +123,7 @@ namespace general_server {
         //------------------ scope: limit the text stream to a subset for this area
         sNewTextStream = 0; //will cause the "" blank string sNewTextStream below by default
         if (!sRegularExpressionAttribute || !*sRegularExpressionAttribute) {
-          IFDEBUG_RX(cout << "warning: missing or blank @rx:regex on rx:scope\n");
+          IFDEBUG_RX(cout << "warning: missing or blank @rx:regex on rx:scope\n";)
         } else if (*sRegularExpressionAttribute == '$') {
           //shorthand for backreference to current default distributed
           if (pmResults) {
@@ -143,7 +143,7 @@ namespace general_server {
             //set the new text stream for this area
             if (br.first && br.second) sNewTextStream = copyString(br.first, br.second);
           } else {
-            IFDEBUG_RX(cout << "warning: multiple backrefs from rx:scope\n");
+            IFDEBUG_RX(cout << "warning: multiple backrefs from rx:scope\n";)
           }
         }
         //if scope fails for some reason then run children on no input
@@ -182,7 +182,7 @@ namespace general_server {
 
       } else if (!strncmp(sLocalName, "multi", 5) && sRegularExpressionAttribute) {
         //------------------ multi: multiple matches with names for the tags
-        IFDEBUG_RX(cout << "------ rx:multi [" << sRegularExpressionAttribute << "]\n");
+        IFDEBUG_RX(cout << "------ rx:multi [" << sRegularExpressionAttribute << "]\n";)
         sMultiType          = pInputNode->attributeValue(pQE, "type", NAMESPACE_RX);
         bAttributeMultiType = _STREQUAL(sMultiType, "attribute");
         bAllowNamespace     = pInputNode->attributeValueBoolInterpret(pQE, "allow-namespace", NAMESPACE_RX, ALLOW_NAMESPACE);
@@ -233,24 +233,24 @@ namespace general_server {
                       pOutputNode->setAttribute(pQE, sAttributeValueStartName, (size_t) (br.second - sNewTextStream));
                     }
                   }
-                  IFDEBUG_RX(cout << "  rx:multi tag @" << sTagName << "=" << sMatch << "\n");
+                  IFDEBUG_RX(cout << "  rx:multi tag @" << sTagName << "=" << sMatch << "\n";)
                 } else {
                   pNewOutputChild = pOutputNode->createChildElement(pQE, sTagName, NULL, NULL, false, "RegularXSL");
                   pNewOutputChild->value(pQE, sMatch);
                   if (bWriteBackEnable) pNewOutputChild->setAttribute(pQE, "relative-value-start", (size_t) (br.first  - sNewTextStream), NAMESPACE_RX);
                   if (bWriteBackEnable) pNewOutputChild->setAttribute(pQE, "relative-value-end",   (size_t) (br.second - sNewTextStream), NAMESPACE_RX);
-                  IFDEBUG_RX(cout << "  rx:multi tag <" << sTagName << ">" << sMatch << "</" << sTagName << ">\n");
+                  IFDEBUG_RX(cout << "  rx:multi tag <" << sTagName << ">" << sMatch << "</" << sTagName << ">\n";)
                 }
               }
             } 
             catch (CannotReconcileNamespacePrefix &eb) {
-              IFDEBUG_RX(cout << "  rx:multi tag <" << sTagName << ">" << sMatch << "</" << sTagName << "> FAILED because CannotReconcileNamespacePrefix()\n");
-              IFDEBUG(if (!bThrowOnSingleOutputFail) Debug::reportObject(&eb));
+              IFDEBUG_RX(cout << "  rx:multi tag <" << sTagName << ">" << sMatch << "</" << sTagName << "> FAILED because CannotReconcileNamespacePrefix()\n";)
+              IFDEBUG(if (!bThrowOnSingleOutputFail) Debug::reportObject(&eb);)
               if (bThrowOnSingleOutputFail) throw;
             }
             catch (ExceptionBase &eb) {
               IFDEBUG_RX(cout << "  rx:multi tag <" << sTagName << ">" << sMatch << "</" << sTagName << "> FAILED\n");
-              IFDEBUG(if (!bThrowOnSingleOutputFail) Debug::reportObject(&eb));
+              IFDEBUG(if (!bThrowOnSingleOutputFail) Debug::reportObject(&eb);)
               if (bThrowOnSingleOutputFail) throw;
             }
 
@@ -332,7 +332,7 @@ namespace general_server {
       if (sRegularExpression) {MM_FREE(sRegularExpression);sRegularExpression = 0;}
     }
 
-    //IFDEBUG_RX(if (pNewOutputChild) cout << "------ pNewOutputChild: " << pNewOutputChild->toString() << "\n");
+    //IFDEBUG_RX(if (pNewOutputChild) cout << "------ pNewOutputChild: " << pNewOutputChild->toString() << "\n";)
 
     //navigate down to the next RegularX command (pInputNode) or node to copy output
     if (pCurrentOutputChild && pInputNode->isNodeElement()) {

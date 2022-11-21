@@ -1,1 +1,36 @@
-/home/anewholm/Software/generalserver/src/server/xslfunctions.tests.xml
+<repository:xslfunctions-tests>
+  <xpath-string name="str:escape" result-xml="@match[test~']">str:escape('@match[test~']')</xpath-string>
+  <xpath-string name="str:unescape" result-xml="@match[test']">str:unescape('@match[test~~~']')</xpath-string>
+  <xpath-string name="str:dynamic fail1" result-xml="only one { is invalid">str:dynamic('only one { is invalid')</xpath-string>
+  <xpath-string name="str:dynamic fail2" result-xml="also {$invalid*xpath}">str:dynamic('also {$invalid*xpath}')</xpath-string>
+  
+  <transform name="str:dynamic parent_route" result-xml="deviant">
+    <xsl:stylesheet xmlns:debug="http://general_server.org/xmlnamespaces/debug/2006" xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="database debug">
+      <xsl:template match="/">
+        <!-- gs:deviations-target is a hardlink 
+          @deviated-dynamic={@name}
+          @name is deviated from original to deviation
+        -->
+        <xsl:variable name="gs_deviant_loaded" select="/object:Server/repository:tests/gs:data/gs:deviations-target/@deviated-dynamic-content"/>
+        <xsl:if test="not($gs_deviant_loaded)"><debug:server-message output="deviated dynamic content not found" type="warning"/></xsl:if>
+        <xsl:apply-templates select="$gs_deviant_loaded" mode="gs_check_dynamic_attribute_on_parent"/>
+      </xsl:template>
+
+      <xsl:template match="@*" mode="gs_check_dynamic_attribute_on_parent">
+        <xsl:apply-templates select=".." mode="gs_check_dynamic_attribute">
+          <xsl:with-param name="gs_str" select="string(.)"/>
+        </xsl:apply-templates>
+      </xsl:template>
+      
+      <xsl:template match="*" mode="gs_check_dynamic_attribute">
+        <!-- value = {@name}, @name is deviated -->
+        <xsl:param name="gs_str"/>
+        
+        <xsl:variable name="gs_result" select="str:dynamic($gs_str, '', 100)" xsl:error-policy="continue"/>
+        <xsl:value-of select="$gs_result"/>
+        <xsl:if test="not($gs_result = 'deviant')"><debug:server-message output="{name()}/@deviated-dynamic-content={.}" type="warning"/></xsl:if>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>
+</repository:xslfunctions-tests>      
+ 

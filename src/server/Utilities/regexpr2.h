@@ -253,9 +253,9 @@ class backref_tag : public std::pair<IterT, IterT>
     template< typename OStreamT, typename OtherT >
     void REGEX_CDECL _do_print( OStreamT & sout, OtherT, ... ) const
     {
-        typedef typename OStreamT::char_type char_type;
+        typedef typename OStreamT::char_type char_type2;
         typedef typename OStreamT::traits_type traits_type;
-        std::ostreambuf_iterator<char_type, traits_type> iout( sout );
+        std::ostreambuf_iterator<char_type2, traits_type> iout( sout );
 		for( IterT iter = std::pair<IterT, IterT>::first; iter != std::pair<IterT, IterT>::second; ++iter, ++iout )
             *iout = *iter;
     }

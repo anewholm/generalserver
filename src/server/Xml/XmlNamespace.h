@@ -34,7 +34,7 @@ namespace general_server {
     void addAllStandardNamespaceDefinitions();
     void addNamespaceDefinitions(const StringMap<const char*> *mDefinitions);
     
-    IFDEBUG(const char *x() const);
+    IFDEBUG(const char *x() const;)
   };
 }
 

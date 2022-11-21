@@ -362,10 +362,10 @@ namespace general_server {
     UNWIND_EXCEPTION_BEGIN {
       if (pThisType) {
         try {
-          //IFDEBUG(dynamic_cast<const Database*>(this)->validityCheck("check Database before TXml application"));
+          //IFDEBUG(dynamic_cast<const Database*>(this)->validityCheck("check Database before TXml application");)
           //this application may involve a transform, and thus a new cached stylesheet
           tr = t->applyTo(pThisType, NO_RESULTS_NODE, pDirectPassedQE);
-          //IFDEBUG(dynamic_cast<const Database*>(this)->validityCheck("check Database after TXml application"));
+          //IFDEBUG(dynamic_cast<const Database*>(this)->validityCheck("check Database after TXml application");)
         } catch (ExceptionBase &eb) {
           throw TXmlApplicationFailed(eb, t);
         } catch (exception &ex) {

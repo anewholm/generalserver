@@ -131,6 +131,8 @@ namespace general_server {
       lifetime_unspecified = 0,
       lifetime_parent
     };
+    
+    void operator=(const MemoryLifetimeOwner& mlo) {}
 
     const char *toStringMemory(size_t iLevel = 0, const bool bInDestructor = false) const;
 

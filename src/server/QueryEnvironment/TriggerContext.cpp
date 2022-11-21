@@ -125,7 +125,7 @@ namespace general_server {
     int iLastRun, iNow;
     string stAttributeNameLastRun;
     int iCacheTimeSeconds = 5;
-    IFDEBUG(iCacheTimeSeconds = 30);
+    IFDEBUG(iCacheTimeSeconds = 30;)
 
     //trigger running concepts:
     //--------- Enabled triggers: triggers are sometimes disabled for admin and startup tasks
@@ -207,12 +207,12 @@ namespace general_server {
               pCur->setAttribute(&ibqe_trigger_manager, stAttributeNameLastRun.c_str(), iNow, NAMESPACE_DATABASE);
 
               //this getMultipleNodes() which *is* the trigger can now run more triggers
-              IFDEBUG(Debug::report("[%s] triggered at [%u]", pCur->fullyQualifiedName(), iNow));
+              IFDEBUG(Debug::report("[%s] triggered at [%u]", pCur->fullyQualifiedName(), iNow);)
               pTrigger->addRunningTrigger(pCur); {
                 //TODO: allow relative paths to trigger node inputs, include cur in the xmlTriggerCall()?
                 pNodeList = pCur->getMultipleNodes(pQETriggerEnvironment, sXPathCommand);
               } pTrigger->removeRunningTrigger(pCur);
-            } //IFDEBUG(else cout << "cached trigger\n");
+            } //IFDEBUG(else cout << "cached trigger\n";)
           } pthread_mutex_unlock(&mGlobalTriggerMutex);
         }
       }
@@ -262,7 +262,7 @@ namespace general_server {
   IXmlQueryEnvironment::accessResult TriggerContextDatabaseAttribute::afterWriteTriggerCallback(const IXmlQueryEnvironment *pQE, IXmlBaseNode *pCur) {
     IFDEBUG(
       if (pCur->isTransient()) {
-        //Debug::report("IFDEBUG mode ignoring transient changes on [%s]", pCur->uniqueXPathToNode(pQE, NO_BASE_NODE, INCLUDE_TRANSIENT));
+        //Debug::report("IFDEBUG mode ignoring transient changes on [%s]", pCur->uniqueXPathToNode(pQE, NO_BASE_NODE, INCLUDE_TRANSIENT);)
         return IXmlQueryEnvironment::RESULT_INCLUDE;
       }
     )
@@ -275,7 +275,7 @@ namespace general_server {
   IXmlQueryEnvironment::accessResult TriggerContextDatabaseAttribute::afterAddTriggerCallback(const IXmlQueryEnvironment *pQE, IXmlBaseNode *pParent) {
     IFDEBUG(
       if (pParent->isTransientAreaParent()) {
-        //Debug::report("IFDEBUG mode ignoring transient changes on children of [%s]", pParent->uniqueXPathToNode(pQE, NO_BASE_NODE, INCLUDE_TRANSIENT));
+        //Debug::report("IFDEBUG mode ignoring transient changes on children of [%s]", pParent->uniqueXPathToNode(pQE, NO_BASE_NODE, INCLUDE_TRANSIENT);)
         return IXmlQueryEnvironment::RESULT_INCLUDE;
       }
     )

@@ -1,1 +1,3 @@
-/home/anewholm/Software/generalserver/src/server/repository.tests.xml
+<repository:repository-tests>
+  <xpath-string name="repository:filesystempath-to-nodes write access" result-throw="NodeWriteableAccessDenied">repository:filesystempath-to-nodes('database:set-attribute(/config, ~'read-only-test~', ~'failed~')')</xpath-string>
+</repository:repository-tests>

@@ -260,9 +260,9 @@ namespace general_server {
     //caller frees result
     stringstream sOut;
     sOut << "Server:";
-    IFDEBUG(sOut << " (WITH_DEBUG mode)");
-    IFDEBUG_EXCEPTIONS(sOut << " (WITH_DEBUG_EXCEPTIONS mode)");
-    IFDEBUG_RX(sOut << " (WITH_DEBUG_RX mode)");
+    IFDEBUG(sOut << " (WITH_DEBUG mode)";)
+    IFDEBUG_EXCEPTIONS(sOut << " (WITH_DEBUG_EXCEPTIONS mode)";)
+    IFDEBUG_RX(sOut << " (WITH_DEBUG_RX mode)";)
     if (m_bListenForCommandLine) sOut << " (interactive)"; else sOut << " (non-interactive)";
     if (m_bBlockThisThread) sOut << " (primary thread blocking)";
     sOut << "\n  MemoryLifetimeOwner (OS):        [" << (memUsageOperatingSystem() / 1024) << "] Mb";
@@ -489,8 +489,8 @@ namespace general_server {
   }
 
   void Server::compilationInformation(const IXmlQueryEnvironment *pQE, IXmlBaseNode *pOutput) {
-    IFDEBUG( pOutput->setAttribute(pQE, "DEBUG", "on"));
-    IFNDEBUG(pOutput->setAttribute(pQE, "DEBUG", "off"));
+    IFDEBUG( pOutput->setAttribute(pQE, "DEBUG", "on");)
+    IFNDEBUG(pOutput->setAttribute(pQE, "DEBUG", "off");)
 #ifdef VERSION_MAJOR
     pOutput->setAttribute(pQE, "VERSION_MAJOR", VERSION_MAJOR);
 #endif

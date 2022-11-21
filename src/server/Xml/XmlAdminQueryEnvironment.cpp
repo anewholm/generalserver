@@ -39,6 +39,7 @@ namespace general_server {
     //only XmlAdminQueryEnvironment is allowed to do this
     assert(pNewDoc);
     m_pSingularDocumentContext = pNewDoc;
+    return pNewDoc;
   }
 
   IXmlQueryEnvironment *XmlAdminQueryEnvironment::inherit(IXslDoc *pNewStylesheet) const {return 0;}

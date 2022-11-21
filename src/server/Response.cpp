@@ -166,7 +166,7 @@ namespace general_server {
                   sNamespace     = pInputNode->queryInterface((const IXmlNamespaced *) 0)->namespaceHREF(NO_DUPLICATE);
                 } else {
                   //can happen when response:can-have-attribute(element-node)
-                  IFDEBUG(Debug::warn("response:can-have-attribute(node) attribute required"));
+                  IFDEBUG(Debug::warn("response:can-have-attribute(node) attribute required");)
                   //throw XPathFunctionWrongArgumentType(this, MM_STRDUP("attribute"), MM_STRDUP("node"), sFunctionSignature);
                 }
               } else {
@@ -174,7 +174,7 @@ namespace general_server {
                 //allow return of false
                 //because we cannot ascertain the name of the intended source attribute
                 //and the output cannot have it if it does not exist
-                IFDEBUG(Debug::warn("response:can-have-attribute(attribute) empty node-set"));
+                IFDEBUG(Debug::warn("response:can-have-attribute(attribute) empty node-set");)
               }
               break;
             }
@@ -197,12 +197,12 @@ namespace general_server {
             } else {
               //can happen when element-node => response:can-have-attribute()
               //allow false return
-              IFDEBUG(Debug::warn("response:can-have-attribute() not attribute"));
+              IFDEBUG(Debug::warn("response:can-have-attribute() not attribute");)
             }
           } else {
             //no context at all
             //allow false return
-            IFDEBUG(Debug::warn("response:can-have-attribute() not context"));
+            IFDEBUG(Debug::warn("response:can-have-attribute() not context");)
           }
           break;
         }
@@ -317,12 +317,12 @@ namespace general_server {
     //get the Response to do it because Response knows about appropriate roots (not removed)
     if (pMI->needsMoveAllPrefixedNamespaceDefinitionsToAppropriateRoots()) {
       pAnalysedDataDoc->moveAllPrefixedNamespaceDefinitionsToAppropriateRoots();
-      //RESOURCE HUNGRY: IFDEBUG(pAnalysedDataDoc->validityCheck("check output doc after post-processing"));
+      //RESOURCE HUNGRY: IFDEBUG(pAnalysedDataDoc->validityCheck("check output doc after post-processing");)
     }
     
     if (pMI->needsAddAllStandardNamespaceDefinitionsToAppropriateRoots()) {
       pAnalysedDataDoc->addAllStandardNamespaceDefinitionsToAppropriateRoots();
-      //RESOURCE HUNGRY: IFDEBUG(pAnalysedDataDoc->validityCheck("check output doc after post-processing"));
+      //RESOURCE HUNGRY: IFDEBUG(pAnalysedDataDoc->validityCheck("check output doc after post-processing");)
     }
     
     //---------------------------------------------------- last PHP debug 

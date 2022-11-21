@@ -1,1 +1,107 @@
-/home/anewholm/Software/generalserver/src/server/database.tests.xml
+<repository:database-tests>
+  <xpath-string name="database:similarity" result-xml="88">database:similarity(/object:Server/repository:tests/gs:data/gs:similarity/gs:existing, /object:Server/repository:tests/gs:data/gs:similarity/gs:new)</xpath-string>
+  <xpath-string name="database:xpath-to-node with-ids" result-xml="~HTTP" disable-warning="@enable-ids">database:xpath-to-node(^Class__HTTP, /, false(), true())</xpath-string>
+  <xpath-string name="database:xpath-to-node with-base-node" result-xml="general_server/system_management/HTTP">database:xpath-to-node(~HTTP, /config/classes)</xpath-string>
+  <xpath-string name="database:xpath-to-node with-forced-base-node" disable-warning="strafe" result-xml="classes/website_all_classes/classes/general_server/system_management/HTTP">database:xpath-to-node(/config/classes/general_server/system_management/HTTP, /config/websites/general_server, true())</xpath-string>
+  <xpath-string name="database:xpath-to-node" result-xml="/config/tests/data/gs:top[1]">database:xpath-to-node(/config/tests/data/gs:top[1])</xpath-string>
+  <xpath-string name="deviated parent ascent" result-xml="documentation/server">database:xpath-to-node(/config/websites/general_server/documentation/server, /config/websites/general_server)</xpath-string>
+
+  <!-- transform name="database:differences" result-count="1">
+    <xsl:stylesheet version="1.0" extension-element-prefixes="database" xmlns:xmltransaction="http://general_server.org/xmlnamespaces/xmltransaction/2006" xmlns:html="http://www.w3.org/1999/xhtml" exclude-result-prefixes="#default repository gs database str server request session debug regexp exsl dyn flow conversation xxx html rx class xmlsecurity xsl object interface xsd service javascript css meta response">
+      <xsl:output method="xml" encoding="utf-8" omit-xml-declaration="yes" indent="no"/>
+      
+      <xsl:template match="/">
+        <xmltransaction:differences>
+          <xsl:apply-templates select="/object:Server/repository:tests/gs:data/gs:similarity"/>
+        </xmltransaction:differences>
+      </xsl:template>
+      
+      <xsl:template match="gs:similarity">
+        <database:differences existing="gs:existing" new="gs:new"/>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform -->  
+      
+  <transform name="login" result-xml="success">
+    <xsl:stylesheet xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="database">
+      <xsl:template match="/">
+        <xsl:choose>
+          <xsl:when test="not(/object:Server/repository:users)">no standard respoitory:users area</xsl:when>
+          <xsl:when test="not(/object:Server/repository:users/object:User[@name='test'])">no test user</xsl:when>
+          <xsl:when test="not(/object:Server/repository:users/object:User[@name='test']/@password-hash = 'test')">test user password needs to be 'test'</xsl:when>
+          <xsl:when test="not(/object:Server/repository:users/object:User[@name='test']/@name)">test user needs a @name</xsl:when>
+          <xsl:otherwise>
+            <!-- fail read (740) -->
+            <xsl:value-of select="/object:Server/repository:tests/gs:data/gs:security/gs:fail"/>
+            
+            <database:set-security-context username="test" password="test"/>
+            <xsl:if test="database:is-logged-in()">
+              <xsl:value-of select="/object:Server/repository:tests/gs:data/gs:security/gs:success"/>
+            </xsl:if>
+            <xsl:else>failed: not database:is-logged-in()</xsl:else>
+            <database:clear-security-context/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>
+
+  <!--
+    ITDF_RETURN moveChild(         ITDF_SECURITY_PARAMS, ITDF_BASE_PARAMS, const IXmlBaseNode *pTSelectNode, const char *sDestinationXPath, const char *sBeforeXPath, const int iDestinationPosition, ITDF_TRANSFORM_PARAMS, ITDF_RESULT_PARAMS);
+    ITDF_RETURN copyChild(         ITDF_SECURITY_PARAMS, ITDF_BASE_PARAMS, const IXmlBaseNode *pTSelectNode, const char *sDestinationXPath, const char *sBeforeXPath, const int iDestinationPosition, const bool bDeepClone, ITDF_TRANSFORM_PARAMS, ITDF_RESULT_PARAMS);
+    ITDF_RETURN deviateNode(       ITDF_SECURITY_PARAMS, ITDF_BASE_PARAMS, const char *sHardlinkXPath, const char *sNewNodeXPath, ITDF_RESULT_PARAMS);
+    ITDF_RETURN hardlinkChild(     ITDF_SECURITY_PARAMS, ITDF_BASE_PARAMS, const char *sDestinationXPath, const char *sBeforeXPath, const int iDestinationPosition, ITDF_RESULT_PARAMS);
+    ITDF_RETURN replaceNodeCopy(   ITDF_SECURITY_PARAMS, ITDF_BASE_PARAMS, const IXmlBaseNode *pTSelectNode, const char *sDestinationXPath, ITDF_TRANSFORM_PARAMS, ITDF_RESULT_PARAMS);
+    ITDF_RETURN mergeNode(         ITDF_SECURITY_PARAMS, ITDF_BASE_PARAMS, const IXmlBaseNode *pTSelectNode, const char *sDestinationXPath, ITDF_TRANSFORM_PARAMS, ITDF_RESULT_PARAMS);
+    ITDF_RETURN setValue(          ITDF_SECURITY_PARAMS, ITDF_BASE_PARAMS, const char *sValue, ITDF_RESULT_PARAMS);
+    ITDF_RETURN removeNode(        ITDF_SECURITY_PARAMS, ITDF_BASE_PARAMS, ITDF_RESULT_PARAMS);
+    ITDF_RETURN changeName(        ITDF_SECURITY_PARAMS, ITDF_BASE_PARAMS, const char *sName, ITDF_RESULT_PARAMS);
+    ITDF_RETURN touch(             ITDF_SECURITY_PARAMS, ITDF_BASE_PARAMS, ITDF_RESULT_PARAMS);
+  -->
+
+  <transform name="database:set-attribute" result-xml="ok">
+    <xsl:stylesheet xmlns:date="http://exslt.org/dates-and-times" xmlns:dyn="http://exslt.org/dynamic" xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="database debug dyn">
+      <xsl:variable name="gs_current_time" select="date:date-time()"/>
+      <xsl:template match="/"><xsl:apply-templates select="object:Server/repository:tests/gs:data"/></xsl:template>
+      <xsl:template match="gs:data">
+        
+        <database:set-attribute select="." name="set-attribute-test" namespace="http://www.w3.org/1999/xhtml" value="{$gs_current_time}"/>
+        <xsl:variable name="gs_result" select="@html:set-attribute-test"/>
+        
+        <xsl:if test="$gs_result = $gs_current_time">ok</xsl:if>
+        <xsl:else>wrong result [<xsl:value-of select="$gs_result"/>]</xsl:else>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>
+
+  <transform name="database:create-child-element" result-xml="ok">
+    <xsl:stylesheet xmlns:date="http://exslt.org/dates-and-times" xmlns:dyn="http://exslt.org/dynamic" xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="database debug dyn">
+      <xsl:variable name="gs_current_time" select="date:date-time()"/>
+      <xsl:template match="/"><xsl:apply-templates select="object:Server/repository:tests/gs:data"/></xsl:template>
+      <xsl:template match="gs:data">
+
+        <database:create-child-element select="." name="create-child" namespace="http://www.w3.org/1999/xhtml" value="{$gs_current_time}"/>
+        <xsl:variable name="gs_result" select="html:create-child"/>
+        
+        <xsl:if test="$gs_result = $gs_current_time">ok</xsl:if>
+        <xsl:else>wrong result [<xsl:value-of select="$gs_result"/>]</xsl:else>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>
+
+  <transform name="database:softlink-child with original parent route" result-xml="ok gs:softlink-test[1]/gs:element[1]">
+    <xsl:stylesheet xmlns:date="http://exslt.org/dates-and-times" xmlns:dyn="http://exslt.org/dynamic" xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="database debug dyn">
+      <xsl:template match="/"><xsl:apply-templates select="object:Server/repository:tests/gs:data"/></xsl:template>
+      <xsl:template match="gs:data">
+
+        <!-- TODO: this will currently generate a progressive hardlinking notice 
+          the original at gs:softlink-test/gs:element will be linked instead
+        -->
+        <database:softlink-child select="gs:softlink-test/gs:from/gs:element" destination="gs:softlink-test/gs:query-string"/>
+        <xsl:value-of select="gs:softlink-test/gs:query-string/gs:element/../@result"/>
+        <xsl:text>&nbsp;</xsl:text>
+        <xsl:value-of select="database:xpath-to-node(gs:softlink-test/gs:query-string/gs:element, .)"/>
+      </xsl:template>
+    </xsl:stylesheet>
+  </transform>
+</repository:database-tests>

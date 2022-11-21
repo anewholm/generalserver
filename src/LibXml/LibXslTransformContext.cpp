@@ -135,7 +135,7 @@ namespace general_server {
       
       try {
         oRes = xsltApplyStylesheetUserSecure(m_ctxt->style, m_ctxt->document->doc, pcParams, pcNodeSets, 0, 0, m_ctxt);
-        //RESOURCE HUNGRY: IFDEBUG(m_pSourceDoc->validityCheck("check doc after transform()"));
+        //RESOURCE HUNGRY: IFDEBUG(m_pSourceDoc->validityCheck("check doc after transform()");)
       } catch (ExceptionBase &eb) {
         //need to OURS free this m_ctxt
         throw XSLTException(eb, this);
@@ -217,7 +217,7 @@ namespace general_server {
 
       try {
         oRes = xsltApplyStylesheetUserSecure(m_ctxt->style, m_ctxt->document->doc, pcParams, pcNodeSets, 0, 0, m_ctxt);
-        //RESOURCE HUNGRY: IFDEBUG(m_pSourceDoc->validityCheck("check doc after transform()"));
+        //RESOURCE HUNGRY: IFDEBUG(m_pSourceDoc->validityCheck("check doc after transform()");)
       } catch (ExceptionBase &eb) {
         //need to OURS free this m_ctxt
         throw XSLTException(eb, this);

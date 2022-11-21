@@ -75,7 +75,7 @@ namespace general_server {
     virtual void addAllStandardNamespaceDefinitions() = 0;
     
     virtual const char *toString() const = 0;
-    IFDEBUG(virtual const char *x() const = 0);
+    IFDEBUG(virtual const char *x() const = 0;)
 
     //interface navigation: concrete classes MUST implement these to return the correct vtable pointer
     //these pure virtual methods simply REQUIRE their concrete classes to implement these implicit casts
