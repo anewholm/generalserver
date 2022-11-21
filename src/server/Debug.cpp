@@ -217,8 +217,8 @@ namespace general_server {
 
   IXmlBaseNode *Debug::xslCommand_terminate(const IXmlQueryEnvironment *pQE, const IXslCommandNode *pCommandNode, const IXmlBaseNode *pSourceNode, IXmlBaseNode *pOutputNode) {
     static const char *sCommandSignature = "debug:terminate"; UNUSED(sCommandSignature);
-    IFDEBUG(terminate());
-    IFNDEBUG(throw XSLCommandNotSupported(this, sCommandSignature));
+    IFDEBUG(terminate();)
+    IFNDEBUG(throw XSLCommandNotSupported(this, sCommandSignature);)
     return 0;
   }
 
@@ -271,7 +271,7 @@ namespace general_server {
         sBecause = pCommandNodeType->attributeValueDynamic(pQE, "because");
 
       sXPath = pQE->currentXSLCommandXPath();
-      IFDEBUG(Debug::report("NOT_COMPLETE %s [%s]", sBecause, sXPath));
+      IFDEBUG(Debug::report("NOT_COMPLETE %s [%s]", sBecause, sXPath);)
       NOT_COMPLETE(sBecause); //may throw an exception
     } UNWIND_EXCEPTION_END;
 
@@ -296,7 +296,7 @@ namespace general_server {
         sBecause = pCommandNodeType->attributeValueDynamic(pQE, "because");
 
       sXPath = pQE->currentXSLCommandXPath();
-      IFDEBUG(Debug::report("NOT_CURRENTLY_USED %s [%s]", sBecause, sXPath));
+      IFDEBUG(Debug::report("NOT_CURRENTLY_USED %s [%s]", sBecause, sXPath);)
       NOT_CURRENTLY_USED(sBecause); //may throw an exception
     } UNWIND_EXCEPTION_END;
 
@@ -491,7 +491,7 @@ namespace general_server {
       //because the API needs moving to api.localhost
       //otherwise it is asking for /api which doesn't exist
       //and the target is in the path which also doesn't work
-      IFDEBUG(if (rt > IReportable::rtInformation) SHARED_BREAKPOINT("Debug", sFullMessage));
+      IFDEBUG(if (rt > IReportable::rtInformation) SHARED_BREAKPOINT("Debug", sFullMessage);)
     }
 
     //free up

@@ -361,6 +361,7 @@ namespace general_server {
   bool DatabaseNode::removeAndDestroyNode(const IXmlQueryEnvironment *pQE, const char *sReason) {
     TXml_RemoveNode t(this, pQE, sReason, NO_TXML_BASENODE, m_pNode);
     t.applyTo(m_pDatabase, NO_RESULTS_NODE, pQE);
+    return true;
   }
 
   void DatabaseNode::inheritanceTransform(const char *sClassName,

@@ -2047,8 +2047,8 @@ namespace general_server {
     //copy root elements, not doc elements
     oNodeToCopy = docToRootIf(oNodeToCopy);
 
-    //IFDEBUG(m_pDoc->validityCheck("pre copyChild() check on destination (this)"));
-    //IFDEBUG(pNodeToCopy->document()->validityCheck("pre copyChild() check on source (pNodeToCopy)"));
+    //IFDEBUG(m_pDoc->validityCheck("pre copyChild() check on destination (this)");)
+    //IFDEBUG(pNodeToCopy->document()->validityCheck("pre copyChild() check on source (pNodeToCopy)");)
 
     UNWIND_EXCEPTION_BEGIN {
       if (bSameDoc) {
@@ -2111,8 +2111,8 @@ namespace general_server {
           throw XmlGenericException(this, MM_STRDUP("LibXml2 API internal errors during xmlDOMWrapCloneNode"));
         }
 
-        //IFDEBUG(m_pDoc->validityCheck("post copyChild() check on destination (this)"));
-        //IFDEBUG(pNodeToCopy->document()->validityCheck("post copyChild() check on source (pNodeToCopy)"));
+        //IFDEBUG(m_pDoc->validityCheck("post copyChild() check on destination (this)");)
+        //IFDEBUG(pNodeToCopy->document()->validityCheck("post copyChild() check on source (pNodeToCopy)");)
 
         //add it to the destination, because xmlDOMWrapCloneNode() doesn't!
         oNewNode = addChildToMeOrSetRootSecure(pQE, oNewNode, pBeforeNode);

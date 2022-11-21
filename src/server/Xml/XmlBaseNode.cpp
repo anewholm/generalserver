@@ -786,7 +786,7 @@ namespace general_server {
       //  OR this m_oNode if not
       if (!pFromNode) {
         pFromNode = this;
-        IFDEBUG(if (*sXPath != '/' && *sXPath != '$') Debug::warn("relative @%s=%s to node from same node", MM_STRDUP(sName), MM_STRDUP(sXPath)));
+        IFDEBUG(if (*sXPath != '/' && *sXPath != '$') Debug::warn("relative @%s=%s to node from same node", MM_STRDUP(sName), MM_STRDUP(sXPath));)
       }
       pNode = pFromNode->getSingleNode(pQE, sXPath);
       MM_FREE(sXPath);

@@ -1,8 +1,0 @@
-/home/anewholm/Software/generalserver/src/LibXml/LibXSchemaDoc.o: \
- /home/anewholm/Software/generalserver/src/LibXml/LibXSchemaDoc.cpp \
- /usr/include/stdc-predef.h \
- /home/anewholm/Software/generalserver/src/LibXml/LibXSchemaDoc.h
-
-/usr/include/stdc-predef.h:
-
-/home/anewholm/Software/generalserver/src/LibXml/LibXSchemaDoc.h:

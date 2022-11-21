@@ -1,1 +1,29 @@
-../scripts/valgrind.suppressions.supp
+####################################### STL
+{
+  STL map pool memory usage
+  Memcheck:Leak
+  fun:_Znwj
+  fun:_ZN9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeISt4pairIKPKcS4_EEE8allocateEjPKv
+  fun:_ZNSt8_Rb_treeIPKcSt4pairIKS1_S1_ESt10_Select1stIS4_ESt4lessIS1_ESaIS4_EE11_M_get_nodeEv
+  fun:_ZNSt8_Rb_treeIPKcSt4pairIKS1_S1_ESt10_Select1stIS4_ESt4lessIS1_ESaIS4_EE14_M_create_nodeERKS4_
+  fun:_ZNSt8_Rb_treeIPKcSt4pairIKS1_S1_ESt10_Select1stIS4_ESt4lessIS1_ESaIS4_EE10_M_insert_EPKSt18_Rb_tree_node_baseSD_RKS4_
+  fun:_ZNSt8_Rb_treeIPKcSt4pairIKS1_S1_ESt10_Select1stIS4_ESt4lessIS1_ESaIS4_EE16_M_insert_uniqueERKS4_
+  fun:_ZNSt3mapIPKcS1_St4lessIS1_ESaISt4pairIKS1_S1_EEE6insertERKS6_
+  fun:_ZN14general_server9StringMapIPKcE6insertES2_S2_
+  fun:_ZN14general_server10XmlBaseDoc30addPrefixedNamespaceDefinitionEPKcS2_
+  fun:_ZN14general_server10XmlBaseDoc44cacheAllPrefixedNamespaceDefinitionsForXPathEPNS_12IXmlBaseNodeEb
+  fun:_ZN14general_server13LibXmlBaseDoc13streamLoadXMLEPNS_10RepositoryE
+  fun:_ZN14general_server10XmlBaseDoc20XmlBaseDoc_constructEPKcPNS_10RepositoryE
+}
+
+####################################### GS
+{
+   the getline in the CommandLineProcessor cannot be cancelled, so it's resources are zapped!
+   Memcheck:Leak
+   fun:malloc
+   fun:getdelim
+   fun:getline
+   fun:_ZN14general_server6Thread18static_runThreadedEPS0_
+   fun:start_thread
+   fun:clone
+}

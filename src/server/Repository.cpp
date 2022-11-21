@@ -460,7 +460,7 @@ namespace general_server {
     //used only by:
     //  commit process: TXmlProcessor::commit(...) -> commitCreatePlaceholders(...) -> affectedSubRepositories(...) -> nearestSubRepository(...)
     const XmlAdminQueryEnvironment ibqe(this, pAffectedNode->document()); //commit process: Repository::nearestSubRepository() find repository related to this changed node
-    IFDEBUG(assert(m_pNode));
+    IFDEBUG(assert(m_pNode);)
 
     const IXmlBaseNode *pNearestRepositoryNode;
     Repository *pRepository = 0;
@@ -893,7 +893,7 @@ namespace general_server {
             sContent = pSource->readRaw();
           }
           catch (ExceptionBase &eb) {
-            IFDEBUG(if (!bThrowOnError) Debug::reportObject(&eb));
+            IFDEBUG(if (!bThrowOnError) Debug::reportObject(&eb);)
             if (bThrowOnError) throw;
           }
         } else throw XPathStringArgumentRequired(this, MM_STRDUP("Cannot create repository"));
@@ -1023,7 +1023,7 @@ namespace general_server {
             pSource = Repository::factory_reader(pQE, m_pLib, sFileSystemPath); //pQE as MM
           }
           catch (ExceptionBase &eb) {
-            IFDEBUG(if (!bThrowOnError) Debug::reportObject(&eb));
+            IFDEBUG(if (!bThrowOnError) Debug::reportObject(&eb);)
             if (bThrowOnError) throw;
           }
           

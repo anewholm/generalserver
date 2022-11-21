@@ -111,7 +111,6 @@ namespace general_server {
         case maskExplicit: 
           //in() uses is() which is hardlink aware by default
           if (!bRet) bRet = pChildNode->in(m_pvMaskNodes, EXACT_MATCH);
-          ATTRIBUTE_FALLTHROUGH; //failover if not successful
       }
       //if (true) cout << "mask nodes [" << m_pvMaskNodes->size() << "] check of [" << pChildNode->fullyQualifiedName() << "] = [" << bRet << "]\n";
     } else if (m_bNoSource) {

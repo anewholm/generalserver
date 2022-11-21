@@ -32,7 +32,7 @@ namespace general_server {
     m_sMallocedWhat(0), 
     m_pOuterEB(0)
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase blank constructor");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase blank constructor";)
     // Only used by UnWind()ers
     // which are routinely created on the stack:
     //   UnWind eb();
@@ -45,7 +45,7 @@ namespace general_server {
     m_sMallocedWhat(0), 
     m_pOuterEB(0)
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase static message constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase static message constructor" << "[" << what() << "]\n";)
     if (bSharedBreakpoint) SHARED_BREAKPOINT(type(), sStaticMessage);
   }
 
@@ -55,7 +55,7 @@ namespace general_server {
     m_sMallocedWhat(formatOutput(sFormat, iParam)), 
     m_pOuterEB(0)
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase malloced formatOutput(int) constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase malloced formatOutput(int) constructor" << "[" << what() << "]\n";)
     if (bSharedBreakpoint) SHARED_BREAKPOINT(type(), m_sMallocedWhat);
   }
   
@@ -65,7 +65,7 @@ namespace general_server {
     m_sMallocedWhat(formatOutput(sFormat, sParam1)), 
     m_pOuterEB(0)
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase malloced formatOutput(char) constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase malloced formatOutput(char) constructor" << "[" << what() << "]\n";)
     if (bSharedBreakpoint) SHARED_BREAKPOINT(type(), m_sMallocedWhat);
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
@@ -77,7 +77,7 @@ namespace general_server {
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2)), 
     m_pOuterEB(0)
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase malloced formatOutput(char,char) constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase malloced formatOutput(char,char) constructor" << "[" << what() << "]\n";)
     if (bSharedBreakpoint) SHARED_BREAKPOINT(type(), m_sMallocedWhat);
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
@@ -90,7 +90,7 @@ namespace general_server {
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3)), 
     m_pOuterEB(0)
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase malloced formatOutput(char,char,char) constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase malloced formatOutput(char,char,char) constructor" << "[" << what() << "]\n";)
     if (bSharedBreakpoint) SHARED_BREAKPOINT(type(), m_sMallocedWhat);
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
@@ -104,7 +104,7 @@ namespace general_server {
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3, sParam4)), 
     m_pOuterEB(0)
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase malloced formatOutput(char,char,char) constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase malloced formatOutput(char,char,char) constructor" << "[" << what() << "]\n";)
     if (bSharedBreakpoint) SHARED_BREAKPOINT(type(), m_sMallocedWhat);
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
@@ -120,7 +120,7 @@ namespace general_server {
     m_sMallocedWhat(0), 
     m_pOuterEB(outerEB.clone_with_resources())
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained static message constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained static message constructor" << "[" << what() << "]\n";)
   }
 
   ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const int iParam, const bool bSharedBreakpoint): 
@@ -129,7 +129,7 @@ namespace general_server {
     m_sMallocedWhat(formatOutput(sFormat, iParam)), 
     m_pOuterEB(outerEB.clone_with_resources())
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(int) constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(int) constructor" << "[" << what() << "]\n";)
   }
   
   ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const bool bSharedBreakpoint): 
@@ -138,7 +138,7 @@ namespace general_server {
     m_sMallocedWhat(formatOutput(sFormat, sParam1)), 
     m_pOuterEB(outerEB.clone_with_resources())
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char) constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
   }
@@ -149,7 +149,7 @@ namespace general_server {
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2)), 
     m_pOuterEB(outerEB.clone_with_resources())
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char) constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
     if (sParam2) MM_FREE(sParam2); 
@@ -161,7 +161,7 @@ namespace general_server {
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3)), 
     m_pOuterEB(outerEB.clone_with_resources())
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char,char) constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char,char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
     if (sParam2) MM_FREE(sParam2); 
@@ -174,7 +174,7 @@ namespace general_server {
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3, sParam4)), 
     m_pOuterEB(outerEB.clone_with_resources())
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char,char,char) constructor" << "[" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char,char,char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
     if (sParam2) MM_FREE(sParam2); 
@@ -361,7 +361,7 @@ namespace general_server {
     m_sMallocedWhat  = (eb.m_sMallocedWhat ? MM_STRDUP(eb.m_sMallocedWhat) : 0);
     m_sStaticMessage = eb.m_sStaticMessage;
 
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase assigment [" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase assigment [" << what() << "]\n";)
     return *this;
   }
 
@@ -371,19 +371,19 @@ namespace general_server {
     m_sMallocedWhat(eb.m_sMallocedWhat ? MM_STRDUP(eb.m_sMallocedWhat) : 0),
     m_sStaticMessage(eb.m_sStaticMessage)
   {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase copy constructor [" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase copy constructor [" << what() << "]\n";)
   }
 
   ExceptionBase::~ExceptionBase() throw() {
-    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase ~destructor [" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "ExceptionBase ~destructor [" << what() << "]\n";)
     
     if (m_sMallocedWhat) {
-      IFDEBUG_EXCEPTIONS(cout << "  freeing m_sMallocedWhat\n");
+      IFDEBUG_EXCEPTIONS(cout << "  freeing m_sMallocedWhat\n";)
       MMO_FREE(m_sMallocedWhat);
     }
     
     if (m_pOuterEB) {
-      IFDEBUG_EXCEPTIONS(cout << "  freeing m_sMallocedWhat\n");
+      IFDEBUG_EXCEPTIONS(cout << "  freeing m_sMallocedWhat\n";)
       delete m_pOuterEB;
     }
   }
@@ -423,7 +423,7 @@ namespace general_server {
       (sParam3 ? sParam3 : ""),
       (sParam4 ? sParam4 : "")
     );
-    //IFDEBUG(cout << "new ExceptionBase(" << sBuffer << ")");
+    //IFDEBUG(cout << "new ExceptionBase(" << sBuffer << ")";)
     return sBuffer;
   }
 
@@ -433,7 +433,7 @@ namespace general_server {
     char *sBuffer = (char*) MMO_MALLOC(lSize); //private
     _SNPRINTF1(sBuffer, lSize, sFormat, sParam);
     MM_FREE(sParam);
-    //IFDEBUG(cout << "new ExceptionBase(" << sBuffer << ")");
+    //IFDEBUG(cout << "new ExceptionBase(" << sBuffer << ")";)
     return sBuffer;
   }
 
@@ -574,7 +574,7 @@ namespace general_server {
     m_sCurrentMode( pCtxt->currentModeName()),
     ExceptionBase(eb, "XSLTException(xpath [%s]) %s", pCtxt->currentXSLCommandXPath(), sErrorMessage)
   {
-    IFDEBUG_EXCEPTIONS(cout << "XSLTException constructor with COPYOUTEREXCEPTION\n");
+    IFDEBUG_EXCEPTIONS(cout << "XSLTException constructor with COPYOUTEREXCEPTION\n";)
   }
   
   XSLTException::XSLTException(const IXslTransformContext *pCtxt, const char *sErrorMessage):
@@ -585,11 +585,11 @@ namespace general_server {
     m_sCurrentMode( pCtxt->currentModeName()),
     ExceptionBase(pCtxt, "XSLTException(xpath [%s]) %s", pCtxt->currentXSLCommandXPath(), sErrorMessage)
   {
-    IFDEBUG_EXCEPTIONS(cout << "XSLTException constructor\n");
+    IFDEBUG_EXCEPTIONS(cout << "XSLTException constructor\n";)
   }
   
   XSLTException::~XSLTException() throw() {
-    IFDEBUG_EXCEPTIONS(cout << "XSLTException ~destructor\n");
+    IFDEBUG_EXCEPTIONS(cout << "XSLTException ~destructor\n";)
     if (m_pInputNode)    MMO_DELETE(m_pInputNode);
     if (m_pCommandNode)  MMO_DELETE(m_pCommandNode);
     if (m_pTemplateNode) MMO_DELETE(m_pTemplateNode);
@@ -613,7 +613,7 @@ namespace general_server {
     m_sCurrentMode( xte.m_sCurrentMode  ? MMO_STRDUP(xte.m_sCurrentMode) : NULL),
     ExceptionBase(xte) 
   {
-    IFDEBUG_EXCEPTIONS(cout << "XSLTException copy constructor [" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "XSLTException copy constructor [" << what() << "]\n";)
   }
   
   const char *XSLTException::contextXPath(const IXmlQueryEnvironment *pQE) {
@@ -623,10 +623,10 @@ namespace general_server {
 
   //------------------------------------------- XSLElementException -------------------------------------------
   XSLElementException::XSLElementException(const ExceptionBase &eb): ExceptionBase(eb, "XSLElementException") {
-    IFDEBUG_EXCEPTIONS(cout << "XSLElementException constructor [" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "XSLElementException constructor [" << what() << "]\n";)
   }
   XSLElementException::~XSLElementException() throw() {
-    IFDEBUG_EXCEPTIONS(cout << "XSLElementException ~destructor [" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "XSLElementException ~destructor [" << what() << "]\n";)
   }
   XSLElementException *XSLElementException::clone_with_resources() const {
     return new XSLElementException(*this);
@@ -640,7 +640,7 @@ namespace general_server {
     m_pCurrentNode(      pXCtxt ? MMO_CLONE( pXCtxt->currentNode(this))  : NULL), 
     ExceptionBase(outerEB, "XPathException [%s] [%s]", _STRDDUP(pXCtxt->xpath(), "<no xpath>"), sErrorMessage)
   {
-    IFDEBUG_EXCEPTIONS(cout << "XPathException constructor [" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "XPathException constructor [" << what() << "]\n";)
   }
   
   XPathException::XPathException(const IXslXPathFunctionContext *pXCtxt, const char *sErrorMessage): 
@@ -650,7 +650,7 @@ namespace general_server {
     m_pCurrentNode(      pXCtxt ? MMO_CLONE( pXCtxt->contextNode(this))  : NULL), 
     ExceptionBase(pXCtxt->mmParent(), "XPathException [%s] [%s]", _STRDDUP(pXCtxt->xpath(), "<no xpath>"), sErrorMessage)
   {
-    IFDEBUG_EXCEPTIONS(cout << "XPathException constructor [" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "XPathException constructor [" << what() << "]\n";)
   }
   
   //TODO: output the xpath that failed
@@ -663,7 +663,7 @@ namespace general_server {
   {}
   
   XPathException::~XPathException() throw() {
-    IFDEBUG_EXCEPTIONS(cout << "XPathException ~destructor [" << what() << "]\n");
+    IFDEBUG_EXCEPTIONS(cout << "XPathException ~destructor [" << what() << "]\n";)
     if (m_sXPath)             MMO_FREE(m_sXPath);
     if (m_sFunctionName)      MMO_FREE(m_sFunctionName);
     if (m_sFunctionNamespace) MMO_FREE(m_sFunctionNamespace);

@@ -66,8 +66,8 @@ namespace general_server {
     unsigned int id() const {return m_tThread;}
 
     //init and cleanup
-    static void static_cleanup(Thread *thread);
-    static void static_runThreaded(Thread *thread);
+    static void  static_cleanup(Thread *thread);
+    static void* static_runThreaded(Thread *thread);
     virtual void threadInit();
     virtual void threadCleanup();
 

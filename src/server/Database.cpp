@@ -2833,11 +2833,11 @@ namespace general_server {
         } else throw XPathStringArgumentRequired(this, MM_STRDUP("xml"));
       }
       catch (InvalidXML &eb) {
-        IFDEBUG(if (!bThrowOnError) Debug::reportObject(&eb));
+        IFDEBUG(if (!bThrowOnError) Debug::reportObject(&eb);)
         if (bThrowOnError) throw;
       }
       catch (ExceptionBase &eb) {
-        IFDEBUG(if (!bThrowOnError) Debug::reportObject(&eb));
+        IFDEBUG(if (!bThrowOnError) Debug::reportObject(&eb);)
         if (bThrowOnError) throw;
       }
 

@@ -1,9 +1,9 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.69])
+AC_PREREQ([2.71])
 AC_INIT([generalserver], [1.0], [annesley_newholm@yahoo.it])
-AC_CONFIG_SRCDIR([platform_define.h]) # random file just to check this is the correct src
+AC_CONFIG_SRCDIR([config.h.in]) # random file just to check this is the correct src
 AM_INIT_AUTOMAKE
 AC_ARG_WITH(database-trigger, [  --without-database-trigger            programmable database changes during read/write operations], [AC_DEFINE(WITHOUT_DATABASE_TRIGGER,1,0)
 AC_SUBST(WITHOUT_DATABASE_TRIGGER,1)])
@@ -79,7 +79,7 @@ AC_CHECK_LIB([dl], [main])
 
 # Checks for header files.
 AC_FUNC_ALLOCA
-AC_CHECK_HEADERS([arpa/inet.h fcntl.h limits.h malloc.h memory.h netdb.h netinet/in.h stddef.h stdlib.h string.h sys/socket.h sys/time.h unistd.h wchar.h wctype.h])
+AC_CHECK_HEADERS([arpa/inet.h fcntl.h malloc.h netdb.h netinet/in.h sys/socket.h sys/time.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL

@@ -126,7 +126,7 @@ namespace general_server {
         //avoid any HTTP testing at this point because the server is not up
         //the Server loads the Classes as well, asking the Database to install them
         Tests ts_pre(m_pConfigDatabase, "HTTP-tests,databaseclass-tests"); //BLOCKING
-        IFDEBUG(Debug::reportObject(m_pConfigDatabase));
+        IFDEBUG(Debug::reportObject(m_pConfigDatabase);)
 
         //manual code test area
         /*

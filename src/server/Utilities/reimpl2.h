@@ -1104,7 +1104,7 @@ struct regex_access
                 break;
 
             case subst_node::SUBST_BACKREF:
-                switch( isubst->m_subst_backref )
+                switch( (int) isubst->m_subst_backref )
                 {
                 case subst_node::PREMATCH:
                     itsubpos1 = results.backref_str().begin();

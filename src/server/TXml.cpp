@@ -675,7 +675,7 @@ namespace general_server {
       case createChildElement: {sUpdateTypeName = "create-child-element"; break;}
       case touchNode:     {sUpdateTypeName = "touch-node";     break;}
       case deviateNode:   {sUpdateTypeName = "deviate-node";   break;}
-      case unknownUpdateType: ATTRIBUTE_FALLTHROUGH;
+      case unknownUpdateType:;
     }
     return sUpdateTypeName;
   }

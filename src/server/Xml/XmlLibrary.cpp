@@ -181,7 +181,7 @@ namespace general_server {
       } else {
         if (maybeXPath(pQE, sLastPos)) {
           if (maybeAbsoluteXPath(pQE, sLastPos)) {
-            IFDEBUG(if (stOut.size()) Debug::report("last part of file-system-path was categorised absolute [%s]", sFileSystemPath, rtWarning, rlWorrying));
+            IFDEBUG(if (stOut.size()) Debug::report("last part of file-system-path was categorised absolute [%s]", sFileSystemPath, rtWarning, rlWorrying);)
             stOut.assign(sLastPos);
           } else stOut.append(sLastPos);
         } else {

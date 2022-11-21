@@ -85,7 +85,7 @@ namespace general_server {
           m_bAddAllStandardNamespaceDefinitionsToAppropriateRoots  = pCheckNode->attributeValueBoolDynamicString(m_pIBQE_serverStartup, "add-all-standard-namespace-definitions-to-appropriate-roots",  NAMESPACE_NONE, true);
           delete pCheckNode;
         }
-        IFDEBUG(if (!srxREST_configurationFlags) srxREST_configurationFlags = MM_STRDUP("[\?&amp;]configuration-flags=([^&amp; ]+)"));
+        IFDEBUG(if (!srxREST_configurationFlags) srxREST_configurationFlags = MM_STRDUP("[\?&amp;]configuration-flags=([^&amp; ]+)");)
 
         //--------------------- inputs processing
         //simple
