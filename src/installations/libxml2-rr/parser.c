@@ -9039,13 +9039,17 @@ skip_default_ns:
 
                 /*
                  * check that it's not a defined namespace
+                 * search existing namespaces
                  */
                 for (j = 1;j <= nbNs;j++)
                     if (ctxt->nsTab[ctxt->nsNr - 2 * j] == attname)
                         break;
-                if (j <= nbNs)
+                if (j <= nbNs) {
+                    // Found
+                    // TODO: Duplicate namespace errors happen here. Need to control their reporting
                     xmlErrAttributeDup(ctxt, aprefix, attname);
-                else
+                }
+                if (j > nbNs)  // Not Found
                     if (nsPush(ctxt, attname, URL) > 0) nbNs++;
 skip_ns:
                 if (alloc != 0) xmlFree(attvalue);

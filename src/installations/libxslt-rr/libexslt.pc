@@ -8,5 +8,5 @@ Name: libexslt
 Version: 0.8.15
 Description: EXSLT Extension library
 Requires: libxml-2.0
-Libs: -L${libdir} -lexslt -lxsltrr -L/home/anewholm/Software/generalserver/src/installations/libxml2-rr -L/usr/local/lib -lxml2rr -lz -lpthread -lm -lm -lgcrypt
+Libs: -L${libdir} -lexslt -lxsltrr -L~/Software_Old/generalserver/src/installations/libxml2-rr -L/usr/local/lib -lxml2rr -lz -lpthread -lm -lm -L/usr/lib/x86_64-linux-gnu -lgcrypt
 Cflags: -I${includedir}

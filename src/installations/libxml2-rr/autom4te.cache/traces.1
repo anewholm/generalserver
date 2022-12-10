@@ -1,9 +1,12 @@
-m4trace:aclocal.m4:1182: -1- m4_include([m4/libtool.m4])
-m4trace:aclocal.m4:1183: -1- m4_include([m4/ltoptions.m4])
-m4trace:aclocal.m4:1184: -1- m4_include([m4/ltsugar.m4])
-m4trace:aclocal.m4:1185: -1- m4_include([m4/ltversion.m4])
-m4trace:aclocal.m4:1186: -1- m4_include([m4/lt~obsolete.m4])
-m4trace:aclocal.m4:1187: -1- m4_include([acinclude.m4])
+m4trace:aclocal.m4:699: -1- AC_SUBST([am__quote])
+m4trace:aclocal.m4:699: -1- AC_SUBST_TRACE([am__quote])
+m4trace:aclocal.m4:699: -1- m4_pattern_allow([^am__quote$])
+m4trace:aclocal.m4:1180: -1- m4_include([m4/libtool.m4])
+m4trace:aclocal.m4:1181: -1- m4_include([m4/ltoptions.m4])
+m4trace:aclocal.m4:1182: -1- m4_include([m4/ltsugar.m4])
+m4trace:aclocal.m4:1183: -1- m4_include([m4/ltversion.m4])
+m4trace:aclocal.m4:1184: -1- m4_include([m4/lt~obsolete.m4])
+m4trace:aclocal.m4:1185: -1- m4_include([acinclude.m4])
 m4trace:configure.ac:3: -1- AC_INIT([libxml2rr], [2.7.8])
 m4trace:configure.ac:3: -1- m4_pattern_forbid([^_?A[CHUM]_])
 m4trace:configure.ac:3: -1- m4_pattern_forbid([_AC_])
@@ -156,9 +159,11 @@ m4trace:configure.ac:3: -1- AC_SUBST([target_alias])
 m4trace:configure.ac:3: -1- AC_SUBST_TRACE([target_alias])
 m4trace:configure.ac:3: -1- m4_pattern_allow([^target_alias$])
 m4trace:configure.ac:4: -1- _m4_warn([obsolete], ['AM_CONFIG_HEADER': this macro is obsolete.
-You should use the 'AC_CONFIG_HEADERS' macro instead.], [aclocal.m4:747: AM_CONFIG_HEADER is expanded from...
+You should use the 'AC_CONFIG_HEADERS' macro instead.], [./lib/autoconf/general.m4:2434: AC_DIAGNOSE is expanded from...
+aclocal.m4:745: AM_CONFIG_HEADER is expanded from...
 configure.ac:4: the top level])
 m4trace:configure.ac:4: -1- AC_CONFIG_HEADERS([config.h])
+m4trace:configure.ac:5: -1- AC_CONFIG_MACRO_DIR_TRACE([m4])
 m4trace:configure.ac:6: -1- AC_CANONICAL_HOST
 m4trace:configure.ac:6: -1- AC_CANONICAL_BUILD
 m4trace:configure.ac:6: -1- AC_REQUIRE_AUX_FILE([config.sub])
@@ -210,7 +215,7 @@ m4trace:configure.ac:47: -1- AC_SUBST_TRACE([LIBXML_VERSION_EXTRA])
 m4trace:configure.ac:47: -1- m4_pattern_allow([^LIBXML_VERSION_EXTRA$])
 m4trace:configure.ac:52: -1- AM_INIT_AUTOMAKE
 m4trace:configure.ac:52: -1- m4_pattern_allow([^AM_[A-Z]+FLAGS$])
-m4trace:configure.ac:52: -1- AM_AUTOMAKE_VERSION([1.15])
+m4trace:configure.ac:52: -1- AM_AUTOMAKE_VERSION([1.16.5])
 m4trace:configure.ac:52: -1- AC_REQUIRE_AUX_FILE([install-sh])
 m4trace:configure.ac:52: -1- AC_SUBST([INSTALL_PROGRAM])
 m4trace:configure.ac:52: -1- AC_SUBST_TRACE([INSTALL_PROGRAM])
@@ -292,6 +297,15 @@ m4trace:configure.ac:52: -1- m4_pattern_allow([^am__tar$])
 m4trace:configure.ac:52: -1- AC_SUBST([am__untar])
 m4trace:configure.ac:52: -1- AC_SUBST_TRACE([am__untar])
 m4trace:configure.ac:52: -1- m4_pattern_allow([^am__untar$])
+m4trace:configure.ac:52: -1- AC_SUBST([CTAGS])
+m4trace:configure.ac:52: -1- AC_SUBST_TRACE([CTAGS])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^CTAGS$])
+m4trace:configure.ac:52: -1- AC_SUBST([ETAGS])
+m4trace:configure.ac:52: -1- AC_SUBST_TRACE([ETAGS])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^ETAGS$])
+m4trace:configure.ac:52: -1- AC_SUBST([CSCOPE])
+m4trace:configure.ac:52: -1- AC_SUBST_TRACE([CSCOPE])
+m4trace:configure.ac:52: -1- m4_pattern_allow([^CSCOPE$])
 m4trace:configure.ac:52: -1- AM_SILENT_RULES
 m4trace:configure.ac:52: -1- AC_SUBST([AM_V])
 m4trace:configure.ac:52: -1- AC_SUBST_TRACE([AM_V])
@@ -338,6 +352,9 @@ m4trace:configure.ac:55: -1- m4_pattern_allow([^CC$])
 m4trace:configure.ac:55: -1- AC_SUBST([ac_ct_CC])
 m4trace:configure.ac:55: -1- AC_SUBST_TRACE([ac_ct_CC])
 m4trace:configure.ac:55: -1- m4_pattern_allow([^ac_ct_CC$])
+m4trace:configure.ac:55: -1- AC_SUBST([CC])
+m4trace:configure.ac:55: -1- AC_SUBST_TRACE([CC])
+m4trace:configure.ac:55: -1- m4_pattern_allow([^CC$])
 m4trace:configure.ac:55: -1- AC_SUBST([EXEEXT], [$ac_cv_exeext])
 m4trace:configure.ac:55: -1- AC_SUBST_TRACE([EXEEXT])
 m4trace:configure.ac:55: -1- m4_pattern_allow([^EXEEXT$])
@@ -351,9 +368,6 @@ m4trace:configure.ac:55: -1- m4_pattern_allow([^DEPDIR$])
 m4trace:configure.ac:55: -1- AC_SUBST([am__include])
 m4trace:configure.ac:55: -1- AC_SUBST_TRACE([am__include])
 m4trace:configure.ac:55: -1- m4_pattern_allow([^am__include$])
-m4trace:configure.ac:55: -1- AC_SUBST([am__quote])
-m4trace:configure.ac:55: -1- AC_SUBST_TRACE([am__quote])
-m4trace:configure.ac:55: -1- m4_pattern_allow([^am__quote$])
 m4trace:configure.ac:55: -1- AM_CONDITIONAL([AMDEP], [test "x$enable_dependency_tracking" != xno])
 m4trace:configure.ac:55: -1- AC_SUBST([AMDEP_TRUE])
 m4trace:configure.ac:55: -1- AC_SUBST_TRACE([AMDEP_TRUE])
@@ -428,7 +442,8 @@ m4trace:configure.ac:71: -1- AC_SUBST([OBJDUMP])
 m4trace:configure.ac:71: -1- AC_SUBST_TRACE([OBJDUMP])
 m4trace:configure.ac:71: -1- m4_pattern_allow([^OBJDUMP$])
 m4trace:configure.ac:71: -1- _m4_warn([obsolete], [AC_LIBTOOL_WIN32_DLL: Remove this warning and the call to _LT_SET_OPTION when you
-put the 'win32-dll' option into LT_INIT's first parameter.], [m4/ltoptions.m4:148: AC_LIBTOOL_WIN32_DLL is expanded from...
+put the 'win32-dll' option into LT_INIT's first parameter.], [./lib/autoconf/general.m4:2434: AC_DIAGNOSE is expanded from...
+m4/ltoptions.m4:148: AC_LIBTOOL_WIN32_DLL is expanded from...
 configure.ac:71: the top level])
 m4trace:configure.ac:72: -1- AC_PROG_LIBTOOL
 m4trace:configure.ac:72: -1- _m4_warn([obsolete], [The macro `AC_PROG_LIBTOOL' is obsolete.
@@ -527,28 +542,30 @@ m4trace:configure.ac:72: -1- AC_SUBST_TRACE([LT_SYS_LIBRARY_PATH])
 m4trace:configure.ac:72: -1- m4_pattern_allow([^LT_SYS_LIBRARY_PATH$])
 m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_DLFCN_H], [/* Define to 1 if you have the <dlfcn.h> header file. */
 @%:@undef HAVE_DLFCN_H])
-m4trace:configure.ac:72: -1- AC_DEFINE_TRACE_LITERAL([STDC_HEADERS])
-m4trace:configure.ac:72: -1- m4_pattern_allow([^STDC_HEADERS$])
-m4trace:configure.ac:72: -1- AH_OUTPUT([STDC_HEADERS], [/* Define to 1 if you have the ANSI C header files. */
-@%:@undef STDC_HEADERS])
-m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_SYS_TYPES_H], [/* Define to 1 if you have the <sys/types.h> header file. */
-@%:@undef HAVE_SYS_TYPES_H])
-m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_SYS_STAT_H], [/* Define to 1 if you have the <sys/stat.h> header file. */
-@%:@undef HAVE_SYS_STAT_H])
+m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_STDIO_H], [/* Define to 1 if you have the <stdio.h> header file. */
+@%:@undef HAVE_STDIO_H])
 m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_STDLIB_H], [/* Define to 1 if you have the <stdlib.h> header file. */
 @%:@undef HAVE_STDLIB_H])
 m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_STRING_H], [/* Define to 1 if you have the <string.h> header file. */
 @%:@undef HAVE_STRING_H])
-m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_MEMORY_H], [/* Define to 1 if you have the <memory.h> header file. */
-@%:@undef HAVE_MEMORY_H])
-m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_STRINGS_H], [/* Define to 1 if you have the <strings.h> header file. */
-@%:@undef HAVE_STRINGS_H])
 m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_INTTYPES_H], [/* Define to 1 if you have the <inttypes.h> header file. */
 @%:@undef HAVE_INTTYPES_H])
 m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_STDINT_H], [/* Define to 1 if you have the <stdint.h> header file. */
 @%:@undef HAVE_STDINT_H])
+m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_STRINGS_H], [/* Define to 1 if you have the <strings.h> header file. */
+@%:@undef HAVE_STRINGS_H])
+m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_SYS_STAT_H], [/* Define to 1 if you have the <sys/stat.h> header file. */
+@%:@undef HAVE_SYS_STAT_H])
+m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_SYS_TYPES_H], [/* Define to 1 if you have the <sys/types.h> header file. */
+@%:@undef HAVE_SYS_TYPES_H])
 m4trace:configure.ac:72: -1- AH_OUTPUT([HAVE_UNISTD_H], [/* Define to 1 if you have the <unistd.h> header file. */
 @%:@undef HAVE_UNISTD_H])
+m4trace:configure.ac:72: -1- AC_DEFINE_TRACE_LITERAL([STDC_HEADERS])
+m4trace:configure.ac:72: -1- m4_pattern_allow([^STDC_HEADERS$])
+m4trace:configure.ac:72: -1- AH_OUTPUT([STDC_HEADERS], [/* Define to 1 if all of the C90 standard headers exist (not just the ones
+   required in a freestanding environment). This macro is provided for
+   backward compatibility; new code need not use it. */
+@%:@undef STDC_HEADERS])
 m4trace:configure.ac:72: -1- AC_DEFINE_TRACE_LITERAL([HAVE_DLFCN_H])
 m4trace:configure.ac:72: -1- m4_pattern_allow([^HAVE_DLFCN_H$])
 m4trace:configure.ac:87: -1- AC_SUBST([VERSION_SCRIPT_FLAGS])
@@ -564,10 +581,10 @@ m4trace:configure.ac:88: -1- m4_pattern_allow([^USE_VERSION_SCRIPT_FALSE$])
 m4trace:configure.ac:88: -1- _AM_SUBST_NOTMAKE([USE_VERSION_SCRIPT_TRUE])
 m4trace:configure.ac:88: -1- _AM_SUBST_NOTMAKE([USE_VERSION_SCRIPT_FALSE])
 m4trace:configure.ac:121: -2- _m4_warn([obsolete], [The macro `AC_HELP_STRING' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:207: AC_HELP_STRING is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:204: AC_HELP_STRING is expanded from...
 configure.ac:121: the top level])
 m4trace:configure.ac:125: -2- _m4_warn([obsolete], [The macro `AC_HELP_STRING' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:207: AC_HELP_STRING is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:204: AC_HELP_STRING is expanded from...
 configure.ac:125: the top level])
 m4trace:configure.ac:129: -1- AC_SUBST([HTML_DIR])
 m4trace:configure.ac:129: -1- AC_SUBST_TRACE([HTML_DIR])
@@ -609,10 +626,12 @@ m4trace:configure.ac:411: -1- AH_OUTPUT([HAVE_SYS_DIR_H], [/* Define to 1 if you
 @%:@undef HAVE_SYS_DIR_H])
 m4trace:configure.ac:411: -1- AH_OUTPUT([HAVE_NDIR_H], [/* Define to 1 if you have the <ndir.h> header file, and it defines `DIR\'. */
 @%:@undef HAVE_NDIR_H])
-m4trace:configure.ac:412: -1- AC_DEFINE_TRACE_LITERAL([STDC_HEADERS])
-m4trace:configure.ac:412: -1- m4_pattern_allow([^STDC_HEADERS$])
-m4trace:configure.ac:412: -1- AH_OUTPUT([STDC_HEADERS], [/* Define to 1 if you have the ANSI C header files. */
-@%:@undef STDC_HEADERS])
+m4trace:configure.ac:412: -1- _m4_warn([obsolete], [The macro `AC_HEADER_STDC' is obsolete.
+You should run autoupdate.], [./lib/autoconf/headers.m4:704: AC_HEADER_STDC is expanded from...
+configure.ac:412: the top level])
+m4trace:configure.ac:412: -1- AC_SUBST([EGREP])
+m4trace:configure.ac:412: -1- AC_SUBST_TRACE([EGREP])
+m4trace:configure.ac:412: -1- m4_pattern_allow([^EGREP$])
 m4trace:configure.ac:413: -1- AH_OUTPUT([HAVE_FCNTL_H], [/* Define to 1 if you have the <fcntl.h> header file. */
 @%:@undef HAVE_FCNTL_H])
 m4trace:configure.ac:413: -1- AC_DEFINE_TRACE_LITERAL([HAVE_FCNTL_H])
@@ -757,34 +776,64 @@ m4trace:configure.ac:481: -1- AC_DEFINE_TRACE_LITERAL([HAVE_STRFTIME])
 m4trace:configure.ac:481: -1- m4_pattern_allow([^HAVE_STRFTIME$])
 m4trace:configure.ac:482: -1- AH_OUTPUT([HAVE_STRDUP], [/* Define to 1 if you have the `strdup\' function. */
 @%:@undef HAVE_STRDUP])
+m4trace:configure.ac:482: -1- AC_DEFINE_TRACE_LITERAL([HAVE_STRDUP])
+m4trace:configure.ac:482: -1- m4_pattern_allow([^HAVE_STRDUP$])
 m4trace:configure.ac:482: -1- AH_OUTPUT([HAVE_STRNDUP], [/* Define to 1 if you have the `strndup\' function. */
 @%:@undef HAVE_STRNDUP])
+m4trace:configure.ac:482: -1- AC_DEFINE_TRACE_LITERAL([HAVE_STRNDUP])
+m4trace:configure.ac:482: -1- m4_pattern_allow([^HAVE_STRNDUP$])
 m4trace:configure.ac:482: -1- AH_OUTPUT([HAVE_STRERROR], [/* Define to 1 if you have the `strerror\' function. */
 @%:@undef HAVE_STRERROR])
+m4trace:configure.ac:482: -1- AC_DEFINE_TRACE_LITERAL([HAVE_STRERROR])
+m4trace:configure.ac:482: -1- m4_pattern_allow([^HAVE_STRERROR$])
 m4trace:configure.ac:483: -1- AH_OUTPUT([HAVE_FINITE], [/* Define to 1 if you have the `finite\' function. */
 @%:@undef HAVE_FINITE])
+m4trace:configure.ac:483: -1- AC_DEFINE_TRACE_LITERAL([HAVE_FINITE])
+m4trace:configure.ac:483: -1- m4_pattern_allow([^HAVE_FINITE$])
 m4trace:configure.ac:483: -1- AH_OUTPUT([HAVE_ISNAND], [/* Define to 1 if you have the `isnand\' function. */
 @%:@undef HAVE_ISNAND])
+m4trace:configure.ac:483: -1- AC_DEFINE_TRACE_LITERAL([HAVE_ISNAND])
+m4trace:configure.ac:483: -1- m4_pattern_allow([^HAVE_ISNAND$])
 m4trace:configure.ac:483: -1- AH_OUTPUT([HAVE_FP_CLASS], [/* Define to 1 if you have the `fp_class\' function. */
 @%:@undef HAVE_FP_CLASS])
+m4trace:configure.ac:483: -1- AC_DEFINE_TRACE_LITERAL([HAVE_FP_CLASS])
+m4trace:configure.ac:483: -1- m4_pattern_allow([^HAVE_FP_CLASS$])
 m4trace:configure.ac:483: -1- AH_OUTPUT([HAVE_CLASS], [/* Define to 1 if you have the `class\' function. */
 @%:@undef HAVE_CLASS])
+m4trace:configure.ac:483: -1- AC_DEFINE_TRACE_LITERAL([HAVE_CLASS])
+m4trace:configure.ac:483: -1- m4_pattern_allow([^HAVE_CLASS$])
 m4trace:configure.ac:483: -1- AH_OUTPUT([HAVE_FPCLASS], [/* Define to 1 if you have the `fpclass\' function. */
 @%:@undef HAVE_FPCLASS])
+m4trace:configure.ac:483: -1- AC_DEFINE_TRACE_LITERAL([HAVE_FPCLASS])
+m4trace:configure.ac:483: -1- m4_pattern_allow([^HAVE_FPCLASS$])
 m4trace:configure.ac:484: -1- AH_OUTPUT([HAVE_STRFTIME], [/* Define to 1 if you have the `strftime\' function. */
 @%:@undef HAVE_STRFTIME])
+m4trace:configure.ac:484: -1- AC_DEFINE_TRACE_LITERAL([HAVE_STRFTIME])
+m4trace:configure.ac:484: -1- m4_pattern_allow([^HAVE_STRFTIME$])
 m4trace:configure.ac:484: -1- AH_OUTPUT([HAVE_LOCALTIME], [/* Define to 1 if you have the `localtime\' function. */
 @%:@undef HAVE_LOCALTIME])
+m4trace:configure.ac:484: -1- AC_DEFINE_TRACE_LITERAL([HAVE_LOCALTIME])
+m4trace:configure.ac:484: -1- m4_pattern_allow([^HAVE_LOCALTIME$])
 m4trace:configure.ac:484: -1- AH_OUTPUT([HAVE_GETTIMEOFDAY], [/* Define to 1 if you have the `gettimeofday\' function. */
 @%:@undef HAVE_GETTIMEOFDAY])
+m4trace:configure.ac:484: -1- AC_DEFINE_TRACE_LITERAL([HAVE_GETTIMEOFDAY])
+m4trace:configure.ac:484: -1- m4_pattern_allow([^HAVE_GETTIMEOFDAY$])
 m4trace:configure.ac:484: -1- AH_OUTPUT([HAVE_FTIME], [/* Define to 1 if you have the `ftime\' function. */
 @%:@undef HAVE_FTIME])
+m4trace:configure.ac:484: -1- AC_DEFINE_TRACE_LITERAL([HAVE_FTIME])
+m4trace:configure.ac:484: -1- m4_pattern_allow([^HAVE_FTIME$])
 m4trace:configure.ac:485: -1- AH_OUTPUT([HAVE_STAT], [/* Define to 1 if you have the `stat\' function. */
 @%:@undef HAVE_STAT])
+m4trace:configure.ac:485: -1- AC_DEFINE_TRACE_LITERAL([HAVE_STAT])
+m4trace:configure.ac:485: -1- m4_pattern_allow([^HAVE_STAT$])
 m4trace:configure.ac:485: -1- AH_OUTPUT([HAVE__STAT], [/* Define to 1 if you have the `_stat\' function. */
 @%:@undef HAVE__STAT])
+m4trace:configure.ac:485: -1- AC_DEFINE_TRACE_LITERAL([HAVE__STAT])
+m4trace:configure.ac:485: -1- m4_pattern_allow([^HAVE__STAT$])
 m4trace:configure.ac:485: -1- AH_OUTPUT([HAVE_SIGNAL], [/* Define to 1 if you have the `signal\' function. */
 @%:@undef HAVE_SIGNAL])
+m4trace:configure.ac:485: -1- AC_DEFINE_TRACE_LITERAL([HAVE_SIGNAL])
+m4trace:configure.ac:485: -1- m4_pattern_allow([^HAVE_SIGNAL$])
 m4trace:configure.ac:488: -1- AH_OUTPUT([HAVE_PRINTF], [/* Define to 1 if you have the `printf\' function. */
 @%:@undef HAVE_PRINTF])
 m4trace:configure.ac:488: -1- AH_OUTPUT([HAVE_SPRINTF], [/* Define to 1 if you have the `sprintf\' function. */
@@ -802,81 +851,81 @@ m4trace:configure.ac:488: -1- AH_OUTPUT([HAVE_VSNPRINTF], [/* Define to 1 if you
 m4trace:configure.ac:488: -1- AH_OUTPUT([HAVE_SSCANF], [/* Define to 1 if you have the `sscanf\' function. */
 @%:@undef HAVE_SSCANF])
 m4trace:configure.ac:493: -1- _m4_warn([obsolete], [The macro `AC_TRY_LINK' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:2698: AC_TRY_LINK is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:2920: AC_TRY_LINK is expanded from...
 configure.ac:493: the top level])
 m4trace:configure.ac:499: -1- AC_DEFINE_TRACE_LITERAL([HAVE_VA_COPY])
 m4trace:configure.ac:499: -1- m4_pattern_allow([^HAVE_VA_COPY$])
 m4trace:configure.ac:499: -1- AH_OUTPUT([HAVE_VA_COPY], [/* Whether va_copy() is available */
 @%:@undef HAVE_VA_COPY])
 m4trace:configure.ac:502: -1- _m4_warn([obsolete], [The macro `AC_TRY_LINK' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:2698: AC_TRY_LINK is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:2920: AC_TRY_LINK is expanded from...
 configure.ac:502: the top level])
 m4trace:configure.ac:508: -1- AC_DEFINE_TRACE_LITERAL([HAVE___VA_COPY])
 m4trace:configure.ac:508: -1- m4_pattern_allow([^HAVE___VA_COPY$])
 m4trace:configure.ac:508: -1- AH_OUTPUT([HAVE___VA_COPY], [/* Whether __va_copy() is available */
 @%:@undef HAVE___VA_COPY])
 m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
 acinclude.m4:4: AC_TRY_EVAL2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 configure.ac:519: the top level])
 m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
 acinclude.m4:4: AC_TRY_EVAL2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 configure.ac:519: the top level])
 m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 configure.ac:519: the top level])
 m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 configure.ac:519: the top level])
 m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
-acinclude.m4:4: AC_TRY_EVAL2 is expanded from...
-acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
-acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
-configure.ac:519: the top level])
-m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
 acinclude.m4:4: AC_TRY_EVAL2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 configure.ac:519: the top level])
 m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
-acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
-acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
-configure.ac:519: the top level])
-m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
-acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
-acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
-configure.ac:519: the top level])
-m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
 acinclude.m4:4: AC_TRY_EVAL2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
+configure.ac:519: the top level])
+m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
+acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 configure.ac:519: the top level])
 m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
+acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
+acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
+configure.ac:519: the top level])
+m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
 acinclude.m4:4: AC_TRY_EVAL2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 configure.ac:519: the top level])
 m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
+acinclude.m4:4: AC_TRY_EVAL2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 configure.ac:519: the top level])
 m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:383: AC_FD_CC is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
+acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
+acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
+acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
+configure.ac:519: the top level])
+m4trace:configure.ac:519: -1- _m4_warn([obsolete], [The macro `AC_FD_CC' is obsolete.
+You should run autoupdate.], [./lib/autoconf/general.m4:399: AC_FD_CC is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
 acinclude.m4:9: AC_TRY_COMPILE2 is expanded from...
@@ -886,17 +935,17 @@ m4trace:configure.ac:542: -1- m4_pattern_allow([^XML_SOCKLEN_T$])
 m4trace:configure.ac:542: -1- AH_OUTPUT([XML_SOCKLEN_T], [/* Determine what socket length (socklen_t) data type is */
 @%:@undef XML_SOCKLEN_T])
 m4trace:configure.ac:554: -1- _m4_warn([obsolete], [The macro `AC_TRY_COMPILE' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:2625: AC_TRY_COMPILE is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:2847: AC_TRY_COMPILE is expanded from...
 configure.ac:554: the top level])
 m4trace:configure.ac:567: -1- AC_DEFINE_TRACE_LITERAL([SUPPORT_IP6])
 m4trace:configure.ac:567: -1- m4_pattern_allow([^SUPPORT_IP6$])
 m4trace:configure.ac:567: -1- AH_OUTPUT([SUPPORT_IP6], [/* Support for IPv6 */
 @%:@undef SUPPORT_IP6])
 m4trace:configure.ac:578: -1- _m4_warn([obsolete], [The macro `AC_TRY_COMPILE' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:2625: AC_TRY_COMPILE is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:2847: AC_TRY_COMPILE is expanded from...
 configure.ac:578: the top level])
 m4trace:configure.ac:591: -1- _m4_warn([obsolete], [The macro `AC_TRY_COMPILE' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:2625: AC_TRY_COMPILE is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:2847: AC_TRY_COMPILE is expanded from...
 configure.ac:591: the top level])
 m4trace:configure.ac:603: -1- AC_DEFINE_TRACE_LITERAL([HAVE_BROKEN_SS_FAMILY])
 m4trace:configure.ac:603: -1- m4_pattern_allow([^HAVE_BROKEN_SS_FAMILY$])
@@ -1141,19 +1190,21 @@ m4trace:configure.ac:1256: -1- AC_SUBST([WITH_OUTPUT])
 m4trace:configure.ac:1256: -1- AC_SUBST_TRACE([WITH_OUTPUT])
 m4trace:configure.ac:1256: -1- m4_pattern_allow([^WITH_OUTPUT$])
 m4trace:configure.ac:1271: -2- _m4_warn([obsolete], [The macro `AC_TRY_LINK' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:2698: AC_TRY_LINK is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:2920: AC_TRY_LINK is expanded from...
 configure.ac:1271: the top level])
 m4trace:configure.ac:1271: -2- _m4_warn([obsolete], [The macro `AC_TRY_LINK' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:2698: AC_TRY_LINK is expanded from...
-../../lib/m4sugar/m4sh.m4:639: AS_IF is expanded from...
-../../lib/autoconf/general.m4:2672: _AC_LINK_IFELSE is expanded from...
-../../lib/autoconf/general.m4:2689: AC_LINK_IFELSE is expanded from...
-../../lib/autoconf/general.m4:2698: AC_TRY_LINK is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:2920: AC_TRY_LINK is expanded from...
+lib/m4sugar/m4sh.m4:692: _AS_IF_ELSE is expanded from...
+lib/m4sugar/m4sh.m4:699: AS_IF is expanded from...
+./lib/autoconf/general.m4:2894: _AC_LINK_IFELSE is expanded from...
+./lib/autoconf/general.m4:2911: AC_LINK_IFELSE is expanded from...
+./lib/autoconf/general.m4:2920: AC_TRY_LINK is expanded from...
 configure.ac:1271: the top level])
 m4trace:configure.ac:1300: -1- _m4_warn([obsolete], [The macro `AC_TRY_COMPILE' is obsolete.
-You should run autoupdate.], [../../lib/autoconf/general.m4:2625: AC_TRY_COMPILE is expanded from...
-../../lib/m4sugar/m4sh.m4:639: AS_IF is expanded from...
-../../lib/autoconf/general.m4:2042: AC_CACHE_VAL is expanded from...
+You should run autoupdate.], [./lib/autoconf/general.m4:2847: AC_TRY_COMPILE is expanded from...
+lib/m4sugar/m4sh.m4:692: _AS_IF_ELSE is expanded from...
+lib/m4sugar/m4sh.m4:699: AS_IF is expanded from...
+./lib/autoconf/general.m4:2249: AC_CACHE_VAL is expanded from...
 configure.ac:1300: the top level])
 m4trace:configure.ac:1317: -1- AC_DEFINE_TRACE_LITERAL([ICONV_CONST])
 m4trace:configure.ac:1317: -1- m4_pattern_allow([^ICONV_CONST$])

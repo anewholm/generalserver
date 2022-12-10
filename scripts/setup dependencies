@@ -15,3 +15,7 @@ apt-get -y install valgrind
 
 # databases
 # apt-get -y install postgresql
+
+# libx*-rr
+autoreconf -f -i
+pip install pysys
