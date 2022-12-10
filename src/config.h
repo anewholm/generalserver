@@ -53,7 +53,7 @@
 #define HAVE_LIBM 1
 
 /* Define to 1 if you have the `pq' library (-lpq). */
-#define HAVE_LIBPQ 1
+/* #undef HAVE_LIBPQ */
 
 /* Define to 1 if you have the `pthread' library (-lpthread). */
 #define HAVE_LIBPTHREAD 1
@@ -260,7 +260,7 @@
 /* #undef WITH_DATABASE_READONLY */
 
 /* 0 */
-#define WITH_DEBUG 1
+/* #undef WITH_DEBUG */
 
 /* 0 */
 /* #undef WITH_DEBUG_EXCEPTIONS */

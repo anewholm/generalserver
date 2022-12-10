@@ -109,11 +109,11 @@ namespace general_server {
 
     //create via function to allow virtual overloading of streaming context creation
     Repository::StreamingContext *pStreamingContext = pRepository->newStreamingContext(pRepository);
-    m_oDoc = xmlReadIO(Repository::static_inputReadCallback, Repository::static_inputCloseCallback, pStreamingContext, NULL, "UTF-8",
-      XML_PARSE_NOENT | XML_PARSE_NONET | XML_PARSE_COMPACT
-      //XML_PARSE_RECOVER | XML_PARSE_NSCLEAN
-      //XML_PARSE_NOERROR | XML_PARSE_NOWARNING
-    );
+      m_oDoc = xmlReadIO(Repository::static_inputReadCallback, Repository::static_inputCloseCallback, pStreamingContext, NULL, "UTF-8",
+        XML_PARSE_NOENT | XML_PARSE_NONET | XML_PARSE_COMPACT
+        //XML_PARSE_RECOVER | XML_PARSE_NSCLEAN
+        //XML_PARSE_NOERROR | XML_PARSE_NOWARNING
+      );
     xmlNodeSetName((xmlNodePtr) m_oDoc, (const xmlChar*) m_sAlias);
     assert(m_oDoc->name);
     assert(m_oDoc->dict);

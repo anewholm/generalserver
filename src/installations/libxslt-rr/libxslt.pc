@@ -8,5 +8,5 @@ Name: libxslt
 Version: 1.1.26
 Description: XSLT library version 2.
 Requires: libxml-2.0
-Libs: -L${libdir} -lxsltrr -L/home/anewholm/Software/generalserver/src/installations/libxml2-rr -L/usr/local/lib -lxml2rr -lz -lpthread -lm -lm
+Libs: -L${libdir} -lxsltrr -L~/Software_Old/generalserver/src/installations/libxml2-rr -L/usr/local/lib -lxml2rr -lz -lpthread -lm -lm
 Cflags: -I${includedir}

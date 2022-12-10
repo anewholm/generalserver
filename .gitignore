@@ -6,6 +6,9 @@
 **/*.so
 **/*.la
 **/*~
+**/Makefile
+**/config.log
+**/config.status
 
 /src/generalserver
 /bin/*
