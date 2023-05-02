@@ -15089,10 +15089,10 @@ fi
     if test "$PYTHON" != ""
     then
         echo "PYTHON is pointing at $PYTHON"
-        PYTHON_VERSION=`$PYTHON -c "import sys; print(sys.version[0:3])"`
+        PYTHON_VERSION=`$PYTHON -c "import sys; print sys.version[0:3]"`
 	echo Found Python version $PYTHON_VERSION
-	LIBXML2_PYTHON=`$PYTHON -c "try : import libxml2 ; print(1)
-except: print(0)"`
+	LIBXML2_PYTHON=`$PYTHON -c "try : import libxml2 ; print 1
+except: print 0"`
 	if test "$LIBXML2_PYTHON" = "1"
 	then
 	    echo Found libxml2-python module
@@ -15123,7 +15123,7 @@ except: print(0)"`
 	    fi
 	    if test ! -d "$PYTHON_SITE_PACKAGES"
 	    then
-		    PYTHON_SITE_PACKAGES=`$PYTHON -c "from distutils import sysconfig; print(sysconfig.get_python_lib())"`
+		    PYTHON_SITE_PACKAGES=`$PYTHON -c "from distutils import sysconfig; print sysconfig.get_python_lib()"`
 	    fi
 	fi
     fi
