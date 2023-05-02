@@ -11,13 +11,12 @@ These XML files are better viewed through GS when running.
 ```sudo apt-get -y install autoconf libtool gdb```
 
 ## 3rd party dev libraries
-```apt-get install uuid-dev```
+```sudo apt-get -y install uuid-dev```
 
-## 3rd party libraries (altered RR)
-These libraries (RR) have been substantially altererd. They are static libraries compiled into `bin/generalserver`.
+## 3rd party altered bundled libraries (-RR)
+These libraries (RR) have been substantially altered. They are static libraries compiled into `bin/generalserver`.
 This sets up for Python 2. Replacements of all python print statements to `print()` will be necessary.
 `configure` option with debug: `--with-debug`.
-Creates `.libs/libx*rr.a`.
 
 ### LibXML2
 [XMLSoft](http://xmlsoft.org/) produces XML.
@@ -26,25 +25,30 @@ Creates `.libs/libx*rr.a`.
 cd src/installations/libxml2-rr/
 autoreconf -f -i
 ./configure # --with-debug
+make clean
 make
 ```
+Creates `.libs/libxml2rr.a`.
 
 ### LibXSL
 [XMLSoft](http://xmlsoft.org/XSLT/) produces XSLT.
 [Full INSTALL instructions](src/installations/libxslt-rr/INSTALL)
-These libraries (RR) have been substantially altererd.
 ```
 cd src/installations/libxslt-rr/
 autoreconf -f -i
 ./configure # --with-debug
+make clean
 make
 ```
+Creates `libxslt/libxslrr.a`.
 
 ### Issues
 Do not concern yourself with the following issues:
-```warning: The macro `AC_*' is obsolete```
-```/usr/bin/rm: cannot remove 'libtoolT': No such file or directory```
-```/usr/bin/ld: cannot find .../installations/libxslt-rr/libxslt/.libs/*.o: No such file or directory```
+```
+warning: The macro `AC_*' is obsolete
+/usr/bin/rm: cannot remove 'libtoolT': No such file or directory
+/usr/bin/ld: cannot find .../installations/libxslt-rr/libxslt/.libs/*.o: No such file or directory
+```
 It should say `Done configuring` at the end.
 
 ## Installation
