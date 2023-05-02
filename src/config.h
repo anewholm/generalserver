@@ -65,7 +65,7 @@
 #define HAVE_LIBRT 1
 
 /* Define to 1 if you have the `uuid' library (-luuid). */
-/* #undef HAVE_LIBUUID */
+#define HAVE_LIBUUID 1
 
 /* Define to 1 if you have the `z' library (-lz). */
 /* #undef HAVE_LIBZ */

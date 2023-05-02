@@ -1,8 +1,8 @@
-~/Software_Old/generalserver/src/installations/libxml2-rr/xpath.lo: \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/xpath.c \
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/xpath.lo: \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/xpath.c \
  /usr/include/stdc-predef.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/config.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h \
  include/libxml/xmlversion.h include/libxml/xmlexports.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -107,9 +107,9 @@
  include/libxml/parserInternals.h include/libxml/HTMLparser.h \
  include/libxml/chvalid.h include/libxml/xpointer.h \
  include/libxml/pattern.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/trionan.c \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/triodef.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/trionan.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/trionan.c \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/triodef.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/trionan.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
@@ -118,11 +118,11 @@
  /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
  /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h /usr/include/assert.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/xpath_gs.c \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/xpath_gs.c \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h
 /usr/include/stdc-predef.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/config.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h:
 include/libxml/xmlversion.h:
 include/libxml/xmlexports.h:
 /usr/include/stdio.h:
@@ -253,9 +253,9 @@ include/libxml/HTMLparser.h:
 include/libxml/chvalid.h:
 include/libxml/xpointer.h:
 include/libxml/pattern.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/trionan.c:
-~/Software_Old/generalserver/src/installations/libxml2-rr/triodef.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/trionan.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/trionan.c:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/triodef.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/trionan.h:
 /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h:
 /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h:
 /usr/include/limits.h:
@@ -266,5 +266,5 @@ include/libxml/pattern.h:
 /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h:
 /usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
 /usr/include/assert.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/xpath_gs.c:
-~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/xpath_gs.c:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h:

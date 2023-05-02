@@ -1,10 +1,10 @@
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/imports.lo: \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/imports.c \
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/imports.lo: \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/imports.c \
  /usr/include/stdc-predef.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/libxslt.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/libxslt.h \
  ../config.h ../libxslt/xsltconfig.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlversion.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlexports.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlversion.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlexports.h \
  /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -58,7 +58,7 @@
  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlmemory.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlmemory.h \
  /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
@@ -70,60 +70,60 @@
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/threads.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/globals.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/parser.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/tree.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlstring.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlfilter.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmltrigger.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/list.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/list_gs.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlregexp.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/dict.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/tree_gs.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/hash.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/valid.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlerror.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlautomata.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/entities.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/encoding.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/threads.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/globals.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/parser.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/tree.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlstring.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlfilter.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmltrigger.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/list.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/list_gs.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlregexp.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/dict.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/tree_gs.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/hash.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/valid.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlerror.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlautomata.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/entities.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/encoding.h \
  /usr/include/iconv.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlIO.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/SAX.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlIO.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/SAX.h \
  /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xlink.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/SAX2.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/uri.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/xslt.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/xsltexports.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/xsltInternals.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xpath.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlprocessor.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlgrammarprocessor.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xpath_gs.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xlink.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/SAX2.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/uri.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/xslt.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltexports.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltInternals.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xpath.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlprocessor.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlgrammarprocessor.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xpath_gs.h \
  ../libxslt/xslt.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/xsltlocale.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/numbersInternals.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/xsltutils.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/preproc.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/imports.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/documents.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/security.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/pattern.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/variables.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xpathInternals.h \
- ~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/functions.h
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltlocale.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/numbersInternals.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltutils.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/preproc.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/imports.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/documents.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/security.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/pattern.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/variables.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xpathInternals.h \
+ /home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/functions.h
 /usr/include/stdc-predef.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/libxslt.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/libxslt.h:
 ../config.h:
 ../libxslt/xsltconfig.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlversion.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlexports.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlversion.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlexports.h:
 /usr/include/string.h:
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 /usr/include/features.h:
@@ -180,7 +180,7 @@
 /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlmemory.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlmemory.h:
 /usr/include/stdio.h:
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
@@ -193,27 +193,27 @@
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
 /usr/include/x86_64-linux-gnu/bits/stdio.h:
 /usr/include/x86_64-linux-gnu/bits/stdio2.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/threads.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/globals.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/parser.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/tree.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlstring.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlfilter.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmltrigger.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/list.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/list_gs.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlregexp.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/dict.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/tree_gs.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/hash.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/valid.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlerror.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlautomata.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/entities.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/encoding.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/threads.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/globals.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/parser.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/tree.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlstring.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlfilter.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmltrigger.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/list.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/list_gs.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlregexp.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/dict.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/tree_gs.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/hash.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/valid.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlerror.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlautomata.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/entities.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/encoding.h:
 /usr/include/iconv.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlIO.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/SAX.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlIO.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/SAX.h:
 /usr/include/stdlib.h:
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
@@ -221,25 +221,25 @@
 /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 /usr/include/x86_64-linux-gnu/bits/stdlib.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xlink.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/SAX2.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/uri.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/xslt.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/xsltexports.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/xsltInternals.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xpath.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlprocessor.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xmlgrammarprocessor.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xpath_gs.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xlink.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/SAX2.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/uri.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/xslt.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltexports.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltInternals.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xpath.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlprocessor.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xmlgrammarprocessor.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xpath_gs.h:
 ../libxslt/xslt.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/xsltlocale.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/numbersInternals.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/xsltutils.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/preproc.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/imports.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/documents.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/security.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/pattern.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/variables.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/include/libxml/xpathInternals.h:
-~/Software_Old/generalserver/src/installations/libxslt-rr/libxslt/functions.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltlocale.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/numbersInternals.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/xsltutils.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/preproc.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/imports.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/documents.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/security.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/pattern.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/variables.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/include/libxml/xpathInternals.h:
+/home/sanchez/Software/generalserver/src/installations/libxslt-rr/libxslt/functions.h:

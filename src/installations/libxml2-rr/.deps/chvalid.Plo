@@ -1,8 +1,8 @@
-~/Software_Old/generalserver/src/installations/libxml2-rr/chvalid.lo: \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/chvalid.c \
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/chvalid.lo: \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/chvalid.c \
  /usr/include/stdc-predef.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/config.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h \
  include/libxml/xmlversion.h include/libxml/xmlexports.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -30,10 +30,10 @@
  /usr/include/x86_64-linux-gnu/bits/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/stdio2.h include/libxml/chvalid.h \
  include/libxml/xmlstring.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h
 /usr/include/stdc-predef.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/config.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h:
 include/libxml/xmlversion.h:
 include/libxml/xmlexports.h:
 /usr/include/stdio.h:
@@ -64,4 +64,4 @@ include/libxml/xmlexports.h:
 /usr/include/x86_64-linux-gnu/bits/stdio2.h:
 include/libxml/chvalid.h:
 include/libxml/xmlstring.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h:

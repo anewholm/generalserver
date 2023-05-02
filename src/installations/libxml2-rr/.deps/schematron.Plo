@@ -1,8 +1,8 @@
-~/Software_Old/generalserver/src/installations/libxml2-rr/schematron.lo: \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/schematron.c \
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/schematron.lo: \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/schematron.c \
  /usr/include/stdc-predef.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/config.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h \
  include/libxml/xmlversion.h include/libxml/xmlexports.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -75,10 +75,10 @@
  include/libxml/xmlprocessor.h include/libxml/xmlgrammarprocessor.h \
  include/libxml/xpath_gs.h include/libxml/xpathInternals.h \
  include/libxml/pattern.h include/libxml/schematron.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h
 /usr/include/stdc-predef.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/config.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h:
 include/libxml/xmlversion.h:
 include/libxml/xmlexports.h:
 /usr/include/stdio.h:
@@ -176,4 +176,4 @@ include/libxml/xpath_gs.h:
 include/libxml/xpathInternals.h:
 include/libxml/pattern.h:
 include/libxml/schematron.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h:

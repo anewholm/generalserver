@@ -1,8 +1,8 @@
-~/Software_Old/generalserver/src/installations/libxml2-rr/encoding.lo: \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/encoding.c \
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/encoding.lo: \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/encoding.c \
  /usr/include/stdc-predef.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/config.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h \
  include/libxml/xmlversion.h include/libxml/xmlexports.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -76,10 +76,10 @@
  include/libxml/xmlautomata.h include/libxml/entities.h \
  include/libxml/xmlIO.h include/libxml/SAX.h include/libxml/xlink.h \
  include/libxml/SAX2.h include/libxml/HTMLparser.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h
 /usr/include/stdc-predef.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/config.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h:
 include/libxml/xmlversion.h:
 include/libxml/xmlexports.h:
 /usr/include/stdio.h:
@@ -177,4 +177,4 @@ include/libxml/SAX.h:
 include/libxml/xlink.h:
 include/libxml/SAX2.h:
 include/libxml/HTMLparser.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h:
