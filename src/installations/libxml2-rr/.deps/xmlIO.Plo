@@ -1,8 +1,8 @@
-~/Software_Old/generalserver/src/installations/libxml2-rr/xmlIO.lo: \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/xmlIO.c \
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/xmlIO.lo: \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/xmlIO.c \
  /usr/include/stdc-predef.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/config.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h \
  include/libxml/xmlversion.h include/libxml/xmlexports.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -77,34 +77,26 @@
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/zlib.h \
- /usr/include/zconf.h /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
- /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
- /usr/include/x86_64-linux-gnu/bits/local_lim.h \
- /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
- /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h \
- /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
- include/libxml/xmlmemory.h include/libxml/threads.h \
- include/libxml/globals.h include/libxml/parser.h include/libxml/tree.h \
- include/libxml/xmlstring.h include/libxml/xmlfilter.h \
- include/libxml/xmltrigger.h include/libxml/list.h \
- include/libxml/list_gs.h include/libxml/xmlregexp.h \
- include/libxml/dict.h include/libxml/tree_gs.h include/libxml/hash.h \
- include/libxml/valid.h include/libxml/xmlerror.h \
- include/libxml/xmlautomata.h include/libxml/entities.h \
- include/libxml/encoding.h /usr/include/iconv.h include/libxml/xmlIO.h \
- include/libxml/SAX.h include/libxml/xlink.h include/libxml/SAX2.h \
- include/libxml/parserInternals.h include/libxml/xpath.h \
- include/libxml/xmlprocessor.h include/libxml/xmlgrammarprocessor.h \
- include/libxml/xpath_gs.h include/libxml/HTMLparser.h \
- include/libxml/chvalid.h include/libxml/uri.h include/libxml/nanohttp.h \
- include/libxml/nanoftp.h include/libxml/catalog.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h include/libxml/xmlmemory.h \
+ include/libxml/threads.h include/libxml/globals.h \
+ include/libxml/parser.h include/libxml/tree.h include/libxml/xmlstring.h \
+ include/libxml/xmlfilter.h include/libxml/xmltrigger.h \
+ include/libxml/list.h include/libxml/list_gs.h \
+ include/libxml/xmlregexp.h include/libxml/dict.h \
+ include/libxml/tree_gs.h include/libxml/hash.h include/libxml/valid.h \
+ include/libxml/xmlerror.h include/libxml/xmlautomata.h \
+ include/libxml/entities.h include/libxml/encoding.h /usr/include/iconv.h \
+ include/libxml/xmlIO.h include/libxml/SAX.h include/libxml/xlink.h \
+ include/libxml/SAX2.h include/libxml/parserInternals.h \
+ include/libxml/xpath.h include/libxml/xmlprocessor.h \
+ include/libxml/xmlgrammarprocessor.h include/libxml/xpath_gs.h \
+ include/libxml/HTMLparser.h include/libxml/chvalid.h \
+ include/libxml/uri.h include/libxml/nanohttp.h include/libxml/nanoftp.h \
+ include/libxml/catalog.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h
 /usr/include/stdc-predef.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/config.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h:
 include/libxml/xmlversion.h:
 include/libxml/xmlexports.h:
 /usr/include/stdio.h:
@@ -191,17 +183,6 @@ include/libxml/xmlexports.h:
 /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 /usr/include/x86_64-linux-gnu/bits/stdlib.h:
-/usr/include/zlib.h:
-/usr/include/zconf.h:
-/usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h:
-/usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h:
-/usr/include/limits.h:
-/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
-/usr/include/x86_64-linux-gnu/bits/local_lim.h:
-/usr/include/linux/limits.h:
-/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
-/usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h:
-/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
 include/libxml/xmlmemory.h:
 include/libxml/threads.h:
 include/libxml/globals.h:
@@ -237,4 +218,4 @@ include/libxml/uri.h:
 include/libxml/nanohttp.h:
 include/libxml/nanoftp.h:
 include/libxml/catalog.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h:

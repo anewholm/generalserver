@@ -1,8 +1,8 @@
-~/Software_Old/generalserver/src/installations/libxml2-rr/tree.lo: \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/tree.c \
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/tree.lo: \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/tree.c \
  /usr/include/stdc-predef.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/config.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h \
  include/libxml/xmlversion.h include/libxml/xmlexports.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -69,35 +69,26 @@
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/zlib.h \
- /usr/include/zconf.h /usr/include/unistd.h \
- /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
- /usr/include/x86_64-linux-gnu/bits/environments.h \
- /usr/include/x86_64-linux-gnu/bits/confname.h \
- /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
- /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
- /usr/include/x86_64-linux-gnu/bits/unistd.h \
- /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- include/libxml/xmlmemory.h include/libxml/threads.h \
- include/libxml/globals.h include/libxml/parser.h include/libxml/tree.h \
- include/libxml/xmlstring.h include/libxml/xmlfilter.h \
- include/libxml/xmltrigger.h include/libxml/list.h \
- include/libxml/list_gs.h include/libxml/xmlregexp.h \
- include/libxml/dict.h include/libxml/tree_gs.h include/libxml/hash.h \
- include/libxml/valid.h include/libxml/xmlerror.h \
- include/libxml/xmlautomata.h include/libxml/entities.h \
- include/libxml/encoding.h /usr/include/iconv.h include/libxml/xmlIO.h \
- include/libxml/SAX.h include/libxml/xlink.h include/libxml/SAX2.h \
- include/libxml/uri.h include/libxml/parserInternals.h \
- include/libxml/xpath.h include/libxml/xmlprocessor.h \
- include/libxml/xmlgrammarprocessor.h include/libxml/xpath_gs.h \
- include/libxml/HTMLparser.h include/libxml/chvalid.h \
- include/libxml/HTMLtree.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/tree_gs.c \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h include/libxml/xmlmemory.h \
+ include/libxml/threads.h include/libxml/globals.h \
+ include/libxml/parser.h include/libxml/tree.h include/libxml/xmlstring.h \
+ include/libxml/xmlfilter.h include/libxml/xmltrigger.h \
+ include/libxml/list.h include/libxml/list_gs.h \
+ include/libxml/xmlregexp.h include/libxml/dict.h \
+ include/libxml/tree_gs.h include/libxml/hash.h include/libxml/valid.h \
+ include/libxml/xmlerror.h include/libxml/xmlautomata.h \
+ include/libxml/entities.h include/libxml/encoding.h /usr/include/iconv.h \
+ include/libxml/xmlIO.h include/libxml/SAX.h include/libxml/xlink.h \
+ include/libxml/SAX2.h include/libxml/uri.h \
+ include/libxml/parserInternals.h include/libxml/xpath.h \
+ include/libxml/xmlprocessor.h include/libxml/xmlgrammarprocessor.h \
+ include/libxml/xpath_gs.h include/libxml/HTMLparser.h \
+ include/libxml/chvalid.h include/libxml/HTMLtree.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/tree_gs.c \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h
 /usr/include/stdc-predef.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/config.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h:
 include/libxml/xmlversion.h:
 include/libxml/xmlexports.h:
 /usr/include/stdio.h:
@@ -173,16 +164,6 @@ include/libxml/xmlexports.h:
 /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 /usr/include/x86_64-linux-gnu/bits/stdlib.h:
-/usr/include/zlib.h:
-/usr/include/zconf.h:
-/usr/include/unistd.h:
-/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
-/usr/include/x86_64-linux-gnu/bits/environments.h:
-/usr/include/x86_64-linux-gnu/bits/confname.h:
-/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
-/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
-/usr/include/x86_64-linux-gnu/bits/unistd.h:
-/usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 include/libxml/xmlmemory.h:
 include/libxml/threads.h:
 include/libxml/globals.h:
@@ -216,5 +197,5 @@ include/libxml/xpath_gs.h:
 include/libxml/HTMLparser.h:
 include/libxml/chvalid.h:
 include/libxml/HTMLtree.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/tree_gs.c:
-~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/tree_gs.c:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h:

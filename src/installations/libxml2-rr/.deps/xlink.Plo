@@ -1,8 +1,8 @@
-~/Software_Old/generalserver/src/installations/libxml2-rr/xlink.lo: \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/xlink.c \
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/xlink.lo: \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/xlink.c \
  /usr/include/stdc-predef.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/config.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h \
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h \
  include/libxml/xmlversion.h include/libxml/xmlexports.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -74,15 +74,7 @@
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd.h \
- /usr/include/x86_64-linux-gnu/bits/unistd_ext.h /usr/include/zlib.h \
- /usr/include/zconf.h /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
- /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
- /usr/include/x86_64-linux-gnu/bits/local_lim.h \
- /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
- /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h \
- /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  include/libxml/xmlmemory.h include/libxml/threads.h \
  include/libxml/globals.h include/libxml/parser.h include/libxml/tree.h \
  include/libxml/xmlstring.h include/libxml/xmlfilter.h \
@@ -93,10 +85,10 @@
  include/libxml/xmlautomata.h include/libxml/entities.h \
  include/libxml/encoding.h /usr/include/iconv.h include/libxml/xmlIO.h \
  include/libxml/SAX.h include/libxml/xlink.h include/libxml/SAX2.h \
- ~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h
+ /home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h
 /usr/include/stdc-predef.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/libxml.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/config.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/libxml.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/config.h:
 include/libxml/xmlversion.h:
 include/libxml/xmlexports.h:
 /usr/include/stdio.h:
@@ -178,17 +170,6 @@ include/libxml/xmlexports.h:
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 /usr/include/x86_64-linux-gnu/bits/unistd.h:
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
-/usr/include/zlib.h:
-/usr/include/zconf.h:
-/usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h:
-/usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h:
-/usr/include/limits.h:
-/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
-/usr/include/x86_64-linux-gnu/bits/local_lim.h:
-/usr/include/linux/limits.h:
-/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
-/usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h:
-/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
 include/libxml/xmlmemory.h:
 include/libxml/threads.h:
 include/libxml/globals.h:
@@ -213,4 +194,4 @@ include/libxml/xmlIO.h:
 include/libxml/SAX.h:
 include/libxml/xlink.h:
 include/libxml/SAX2.h:
-~/Software_Old/generalserver/src/installations/libxml2-rr/elfgcchack.h:
+/home/sanchez/Software/generalserver/src/installations/libxml2-rr/elfgcchack.h:
