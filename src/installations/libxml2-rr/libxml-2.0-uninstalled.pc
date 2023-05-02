@@ -8,5 +8,5 @@ Name: libXML
 Version: 2.7.8
 Description: libXML library version2.
 Requires:
-Libs: -L${libdir} -lxml2 -lpthread -lz  -lm 
+Libs: -L${libdir} -lxml2 -lpthread   -lm 
 Cflags: -I${includedir} -I${includedir}/libxml2 
