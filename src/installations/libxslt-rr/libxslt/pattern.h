@@ -19,10 +19,15 @@
 extern "C" {
 #endif
 
+/* Annesley: replaced this with a define
+ * because it is creating linker errors
+ * as it is included in multiple libraries
 enum {
   TEMPLATE_GROUP_NAMES = 1
 } xsltCompilationProcessingCallbackTypes;
-  
+*/
+#define TEMPLATE_GROUP_NAMES 1
+
 /**
  * xsltCompMatch:
  *
