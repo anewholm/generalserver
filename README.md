@@ -3,6 +3,7 @@ See	`generalserver/config/websites/general_server/`:
  * [TODO.xml](config/websites/general_server/TODO.xml)
  * [WHY.xml](config/websites/general_server/WHY.xml)
  * [README.xml](config/websites/general_server/README.xml)
+These XML files are better viewed through GS when running.
 
 # Installation
 ## 3rd party libraries (altered)
@@ -31,15 +32,12 @@ make install
 GS runs all its configured tests by default at startup unless instructed not to.
 
 # Configuration, directories and setup
-In
-	`generalserver/` this base directory from github.com
-This, by default, loads the XML tree from
-	`./config`
-Which contains the overall setup: http services, databases, etc.
-that run on port http://localhost:8080
+The `generalserver/` base directory, by default, loads the XML tree from
+[./config](config) which contains the overall setup: http services, databases, etc.
+that run on address http://localhost:8080.
 
 # Running
-Block on the main thread (interactive) for `gdb` to catch exceptions
+Block on the main thread (interactive) for [gdb](https://en.wikipedia.org/wiki/GNU_Debugger) to catch exceptions
 ```
 ./bin/generalserver
 ```
