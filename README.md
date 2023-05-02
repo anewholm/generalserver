@@ -5,16 +5,8 @@ See:
 		* WHY.xml
 		* README.xml
 
-# Server Control
-In
-	generalserver/ this base directory from github.com
-Run
-	bin/generalserver
-This, by default, loads the XML tree from
-	./config
-Which contains the overall setup: http services, databases, etc.
-
-# 3rd party libraries
+# Installation
+## 3rd party libraries
 ```
 # These are static libraries compiled into generalserver
 cd src/installations/libx*rr/
@@ -26,21 +18,33 @@ autoreconf -f -i
 make
 ```
 
-# Installation
+## Installation
+Requires installations/*/.libs/lib*.a above
 ```
 cd src/
-./configure
-# Requires installations/*/.libs/lib*.a
+./configure # Option with debug: --with-debug
 make
 make install
 ```
 
-# Debugging
+## Test installation
+GS runs all its configured tests by default at startup unless instructed not to.
+
+# Configuration, directories and setup
+In
+	generalserver/ this base directory from github.com
+This, by default, loads the XML tree from
+	./config
+Which contains the overall setup: http services, databases, etc.
+that run on port http://localhost:8080
+
+# Running
+Block on the main thread (interactive) for gdb to catch exceptions
 ```
-cd src
-./configure --with-debug
-make
-make install
-# Block on the main thread (interactive) for gdb to catch exceptions
+src/generalserver
+```
+Debugging:
+```
 gdb --args src/generalserver interactive
 ```
+
