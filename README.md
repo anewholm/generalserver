@@ -1,27 +1,28 @@
 # Documents
 See	`generalserver/config/websites/general_server/`:
- * TODO.xml
- * WHY.xml
- * README.xml
+ * [TODO.xml](config/websites/general_server/TODO.xml)
+ * [WHY.xml](config/websites/general_server/WHY.xml)
+ * [README.xml](config/websites/general_server/README.xml)
 
 # Installation
-## 3rd party libraries
+## 3rd party libraries (altered)
+These are static libraries compiled into `bin/generalserver`.
+This sets up for Python 2. Replacements of all python print statements to `print()` will be necessary.
+`configure` option with debug: `--with-debug`.
+Creates `.libs/libx*rr.a`.
 ```
-# These are static libraries compiled into generalserver
 cd src/installations/libx*rr/
-# This sets up for Python 2
-# replacements of all python print statements to print() will be necessary
 autoreconf -f -i
-./configure [--with-debug]
-# Create .libs/libx*rr.a
+./configure # --with-debug
 make
 ```
 
 ## Installation
-Requires `installations/*/.libs/lib*.a` above
+Requires `installations/*/.libs/lib*.a` above.
+`configure` option with debug: `--with-debug`
 ```
 cd src/
-./configure # Option with debug: --with-debug
+./configure # --with-debug
 make
 make install
 ```
@@ -40,10 +41,10 @@ that run on port http://localhost:8080
 # Running
 Block on the main thread (interactive) for `gdb` to catch exceptions
 ```
-src/generalserver
+./bin/generalserver
 ```
-Debugging:
+Debugging. Requires `configure --with-debug`:
 ```
-gdb --args src/generalserver interactive
+gdb --args bin/generalserver interactive
 ```
 
