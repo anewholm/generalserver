@@ -1,5 +1,4 @@
 # Documents
----------
 See:
 	generalserver/config/websites/general_server/
 		* TODO.xml
@@ -7,7 +6,6 @@ See:
 		* README.xml
 
 # Server Control
---------------
 In
 	generalserver/ this base directory from github.com
 Run
@@ -17,7 +15,6 @@ This, by default, loads the XML tree from
 Which contains the overall setup: http services, databases, etc.
 
 # 3rd party libraries
--------------------
 ```
 # These are static libraries compiled into generalserver
 cd src/installations/libx*rr/
@@ -30,7 +27,6 @@ make
 ```
 
 # Installation
-------------
 ```
 cd src/
 ./configure
@@ -40,7 +36,6 @@ make install
 ```
 
 # Debugging
----------
 ```
 cd src
 ./configure --with-debug
