@@ -1,9 +1,8 @@
 # Documents
-See:
-	generalserver/config/websites/general_server/
-		* TODO.xml
-		* WHY.xml
-		* README.xml
+See	`generalserver/config/websites/general_server/`:
+ * TODO.xml
+ * WHY.xml
+ * README.xml
 
 # Installation
 ## 3rd party libraries
@@ -19,7 +18,7 @@ make
 ```
 
 ## Installation
-Requires installations/*/.libs/lib*.a above
+Requires `installations/*/.libs/lib*.a` above
 ```
 cd src/
 ./configure # Option with debug: --with-debug
@@ -32,14 +31,14 @@ GS runs all its configured tests by default at startup unless instructed not to.
 
 # Configuration, directories and setup
 In
-	generalserver/ this base directory from github.com
+	`generalserver/` this base directory from github.com
 This, by default, loads the XML tree from
-	./config
+	`./config`
 Which contains the overall setup: http services, databases, etc.
 that run on port http://localhost:8080
 
 # Running
-Block on the main thread (interactive) for gdb to catch exceptions
+Block on the main thread (interactive) for `gdb` to catch exceptions
 ```
 src/generalserver
 ```
