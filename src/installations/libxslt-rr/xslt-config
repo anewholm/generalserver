@@ -89,11 +89,11 @@ while test $# -gt 0; do
     shift
 done
 
-the_libs="-L${libdir} -lxsltrr -L~/Software_Old/generalserver/src/installations/libxml2-rr -L/usr/local/lib -lxml2rr -lz -lpthread -lm -lm"
+the_libs="-L${libdir} -lxsltrr -L/home/sanchez/Software/generalserver/src/installations/libxml2-rr -L/usr/local/lib -lxml2rr -lpthread -lm -lm"
 if test "$includedir" != "/usr/include"; then
-    the_flags="$the_flags -I$includedir `~/Software_Old/generalserver/src/installations/libxml2-rr/xml2-config --cflags`"
+    the_flags="$the_flags -I$includedir `/home/sanchez/Software/generalserver/src/installations/libxml2-rr/xml2-config --cflags`"
 else
-    the_flags="$the_flags `~/Software_Old/generalserver/src/installations/libxml2-rr/xml2-config --cflags`"
+    the_flags="$the_flags `/home/sanchez/Software/generalserver/src/installations/libxml2-rr/xml2-config --cflags`"
 fi
 
 if $cflags; then

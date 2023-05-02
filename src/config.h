@@ -44,7 +44,7 @@
 #define HAVE_LIBDL 1
 
 /* Define to 1 if you have the `gcrypt' library (-lgcrypt). */
-#define HAVE_LIBGCRYPT 1
+/* #undef HAVE_LIBGCRYPT */
 
 /* Define to 1 if you have the `history' library (-lhistory). */
 /* #undef HAVE_LIBHISTORY */
@@ -53,7 +53,7 @@
 #define HAVE_LIBM 1
 
 /* Define to 1 if you have the `pq' library (-lpq). */
-/* #undef HAVE_LIBPQ */
+#define HAVE_LIBPQ 1
 
 /* Define to 1 if you have the `pthread' library (-lpthread). */
 #define HAVE_LIBPTHREAD 1
@@ -65,10 +65,10 @@
 #define HAVE_LIBRT 1
 
 /* Define to 1 if you have the `uuid' library (-luuid). */
-#define HAVE_LIBUUID 1
+/* #undef HAVE_LIBUUID */
 
 /* Define to 1 if you have the `z' library (-lz). */
-#define HAVE_LIBZ 1
+/* #undef HAVE_LIBZ */
 
 /* Define to 1 if your system has a GNU libc compatible `malloc' function, and
    to 0 otherwise. */
