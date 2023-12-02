@@ -39,6 +39,15 @@ gpg -c $tar_file
 if [ $? != 0 ]; then exit; fi
 if [ -f $tar_file ]; then rm $tar_file; fi
 
+# Obscure date
+system_date=`date -Is`
+target_date=`stat -c "%y" $path2fake | cut -d " " -f 1`
+echo "Obscure system date to ${YELLOW}$target_date${NC}"
+sudo timedatectl set-ntp no
+if [ $? != 0 ]; then exit; fi
+sudo timedatectl set-time "$target_date"
+if [ $? != 0 ]; then exit; fi
+
 # It is possible to detect encrypted files
 # file <file>
 # <file>: GPG symmetrically encrypted data (AES256 cipher)
@@ -53,11 +62,11 @@ tail -c $bytes $path2fake >> $file2fake
 if [ $? != 0 ]; then exit; fi
 if [ -f $backup_file ]; then rm $backup_file; fi
 
-# Obscure date
-date=`stat -c "%y" $path2fake | cut -d " " -f 1`
-echo "Obscure date to ${YELLOW}$date${NC}"
-touch -d "$date" $file2fake
-if [ $? != 0 ]; then exit; fi
+# Un-Obscure date
+# sudo timedatectl set-time "$system_date"
+sudo timedatectl set-ntp yes
+actual_date=`date`
+echo "Returned date to ${YELLOW}$actual_date${NC}"
 
 # Disguise owner
 owner=`stat -c "%U:%G" $path2fake`
@@ -76,14 +85,18 @@ if [ $? != 0 ]; then exit; fi
 if [ -f $backup_file ]; then rm $backup_file; fi
 if [ -f $tar_file ];    then rm $tar_file;    fi
 
+# Updates change last access time
+sudo touch -d "$target_date" $file2fake
+
 # No action has been taken, only a file created to be moved
 # maybe to a different server
 read -p "${GREEN}QUESTION${NC}: Overwrite the target backup file on this machine ${YELLOW}(requires sudo)${NC}? [Y/n] " yn
 case $yn in
     [Yy]* )
         sudo mv $file2fake $path2fake
-        sudo touch -d \"$date\" $path2fake
-        ls -la $path2fake
+        # Updates change last access time
+        sudo touch -d "$target_date" $path2fake
+        stat $path2fake
         ;;
     * )
         ;;
@@ -93,6 +106,10 @@ read -p "${GREEN}QUESTION${NC}: Remove the source files ${YELLOW}$files${NC}? [Y
 case $yn in
     [Yy]* )
         rm -r $files
+        # 100000 * 1024 = 100Mb
+        echo "${GREEN}INFO${NC}: Shredding 100Mb"
+        dd if=/dev/urandom of=random bs=1024 count=100000
+        rm random
         ;;
     * )
         ;;
