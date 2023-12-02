@@ -26,7 +26,7 @@ bytes=10000
 
 bytes_from=$(($bytes + 1))
 echo "Test decrypt from $bytes_from"
-tail -c +$bytes_from $file2fake | head -c -$bytes > $backup_file
+tail -c +$bytes_from $path2fake | head -c -$bytes > $backup_file
 if [ $? != 0 ]; then exit; fi
 gpg -d $backup_file > $tar_file
 if [ $? != 0 ]; then exit; fi
