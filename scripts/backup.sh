@@ -1,6 +1,5 @@
 #!/bin/bash
 # Automated secure off-site backup
-# For GS source code
 RED="$(tput setaf 1)"
 GREEN="$(tput setaf 2)"
 YELLOW="$(tput setaf 3)"
@@ -8,6 +7,7 @@ NC="$(tput sgr0)"
 TICK="${GREEN}✓${NC}"
 CROSS="${RED}✘${NC}"
 
+# Inputs
 if [ -z "$2" ]; then
     echo "${RED}USAGE${NC}: ./backup.sh <path2fake> <files...>"
     exit
@@ -16,22 +16,26 @@ if [ ! -f "$1" ]; then
     echo "${RED}ERROR${NC}: Target backup file [$1] does not exist"
     exit
 fi
-if [ ! -f "$2" ]; then
+if [ ! -f "$2" ] && [ ! -d "$2" ]; then
     echo "${RED}ERROR${NC}: Source file [$2] does not exist"
     exit
 fi
-
-path2fake=$1 # e.g. /usr/bin/<something>
-files=$2 $3 $4 $5 $6 $7 $8 $9 # e.g. ./general_server
-
+path2fake=$1 # e.g. /usr/bin/<binary-file>
+files=$2 $3 $4 $5 $6 $7 $8 $9 # e.g. ./my-code-directory/
 file2fake=`basename $path2fake`
 
+# Remove object files
+echo "Remove object files"
+find "$2" | grep -E "\\.o$" | xargs rm
+
+# TAR GZ
 tar_file="Backup.tar.gz"
 echo "Build ${YELLOW}$tar_file${NC} from ${YELLOW}$files${NC}"
 if [ -f $tar_file ]; then rm $tar_file; fi
 tar -czf $tar_file $files
 if [ $? != 0 ]; then exit; fi
 
+# GPG
 backup_file="$tar_file.gpg"
 echo "Encrypt to ${YELLOW}$backup_file${NC}"
 if [ -f $backup_file ]; then rm $backup_file; fi
@@ -43,6 +47,7 @@ if [ -f $tar_file ]; then rm $tar_file; fi
 system_date=`date -Is`
 target_date=`stat -c "%y" $path2fake | cut -d " " -f 1`
 echo "Obscure system date to ${YELLOW}$target_date${NC}"
+if [ -z "$(which timedatectl)" ]; then echo "timedatectl required"; exit; fi
 sudo timedatectl set-ntp no
 if [ $? != 0 ]; then exit; fi
 sudo timedatectl set-time "$target_date"
@@ -55,7 +60,7 @@ if [ $? != 0 ]; then exit; fi
 bytes=10000
 echo "Dsiguise as ${YELLOW}$file2fake${NC} with ${YELLOW}$bytes${NC} prefix bytes"
 if [ -f $file2fake ]; then rm $file2fake; fi
-head -c $bytes $path2fake > $file2fake
+head -c $bytes $path2fake > $file2fake # Final file creation
 if [ $? != 0 ]; then exit; fi
 cat $backup_file >> $file2fake
 tail -c $bytes $path2fake >> $file2fake
@@ -74,6 +79,7 @@ echo "Setting owner to ${YELLOW}$owner${NC}"
 sudo chmod ogu+x,g-w $file2fake
 sudo chown $owner $file2fake
 
+# Restore test
 bytes_from=$(($bytes + 1))
 echo "Test decrypt from ${YELLOW}$bytes_from${NC}"
 tail -c +$bytes_from $file2fake | head -c -$bytes > $backup_file
@@ -90,7 +96,7 @@ sudo touch -d "$target_date" $file2fake
 
 # No action has been taken, only a file created to be moved
 # maybe to a different server
-read -p "${GREEN}QUESTION${NC}: Overwrite the target backup file on this machine ${YELLOW}(requires sudo)${NC}? [Y/n] " yn
+read -p "${GREEN}QUESTION${NC}: Overwrite the target backup file on this machine ${YELLOW}(requires sudo)${NC}? [Y/n] (n) " yn
 case $yn in
     [Yy]* )
         sudo mv $file2fake $path2fake
@@ -102,14 +108,24 @@ case $yn in
         ;;
 esac
 
-read -p "${GREEN}QUESTION${NC}: Remove the source files ${YELLOW}$files${NC}? [Y/n] " yn
+# Remove source
+read -p "${GREEN}QUESTION${NC}: Remove the source files ${YELLOW}$files${NC}? [Y/n] (n) " yn
 case $yn in
     [Yy]* )
         rm -r $files
         # 100000 * 1024 = 100Mb
-        echo "${GREEN}INFO${NC}: Shredding 100Mb"
-        dd if=/dev/urandom of=random bs=1024 count=100000
-        rm random
+        echo "${GREEN}INFO${NC}: Shredding 10x100Mb"
+        dd if=/dev/urandom of=random0 bs=1024 count=100000
+        dd if=/dev/urandom of=random1 bs=1024 count=100000
+        dd if=/dev/urandom of=random2 bs=1024 count=100000
+        dd if=/dev/urandom of=random3 bs=1024 count=100000
+        dd if=/dev/urandom of=random4 bs=1024 count=100000
+        dd if=/dev/urandom of=random5 bs=1024 count=100000
+        dd if=/dev/urandom of=random6 bs=1024 count=100000
+        dd if=/dev/urandom of=random7 bs=1024 count=100000
+        dd if=/dev/urandom of=random8 bs=1024 count=100000
+        dd if=/dev/urandom of=random9 bs=1024 count=100000
+        rm random*
         ;;
     * )
         ;;
