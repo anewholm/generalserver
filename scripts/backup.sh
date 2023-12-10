@@ -23,10 +23,20 @@ fi
 path2fake=$1 # e.g. /usr/bin/<binary-file>
 files=$2 $3 $4 $5 $6 $7 $8 $9 # e.g. ./my-code-directory/
 file2fake=`basename $path2fake`
+first_source=$2
+
+# Infrastructure
+if [ -z "$(which srm)" ]; then
+    echo "${GREEN}INFO${NC}: Installing srm secure-delete system"
+    sudo apt install secure-delete
+fi
 
 # Remove object files
-echo "Remove object files"
-find "$2" | grep -E "\\.o$" | xargs rm
+objects=`find "$first_source" | grep -E "\\.o$"`
+if [ -n "$objects" ]; then
+    echo "Remove object files"
+    find "$first_source" | grep -E "\\.o$" | xargs rm
+fi
 
 # TAR GZ
 tar_file="Backup.tar.gz"
@@ -109,23 +119,12 @@ case $yn in
 esac
 
 # Remove source
-read -p "${GREEN}QUESTION${NC}: Remove the source files ${YELLOW}$files${NC}? [Y/n] (n) " yn
+read -p "${GREEN}QUESTION${NC}: Remove the source files ${YELLOW}$files${NC} with srm? [Y/n] (n) " yn
 case $yn in
     [Yy]* )
-        rm -r $files
-        # 100000 * 1024 = 100Mb
-        echo "${GREEN}INFO${NC}: Shredding 10x100Mb"
-        dd if=/dev/urandom of=random0 bs=1024 count=100000
-        dd if=/dev/urandom of=random1 bs=1024 count=100000
-        dd if=/dev/urandom of=random2 bs=1024 count=100000
-        dd if=/dev/urandom of=random3 bs=1024 count=100000
-        dd if=/dev/urandom of=random4 bs=1024 count=100000
-        dd if=/dev/urandom of=random5 bs=1024 count=100000
-        dd if=/dev/urandom of=random6 bs=1024 count=100000
-        dd if=/dev/urandom of=random7 bs=1024 count=100000
-        dd if=/dev/urandom of=random8 bs=1024 count=100000
-        dd if=/dev/urandom of=random9 bs=1024 count=100000
-        rm random*
+        echo "${GREEN}INFO${NC}: srm -l shredding ${YELLOW}$files${NC}"
+        # -l 2 passes instead of 38
+        srm -lr $files
         ;;
     * )
         ;;
