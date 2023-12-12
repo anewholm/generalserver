@@ -18,7 +18,7 @@ These libraries (RR) have been substantially altered. They are static libraries 
 This sets up for Python 2. Replacements of all python print statements to `print()` will be necessary.
 `configure` option with debug: `--with-debug`.
 
-### LibXML2
+### LibXML2-rr
 [XMLSoft](http://xmlsoft.org/) produces XML.
 [Full INSTALL instructions](src/installations/libxml2-rr/INSTALL)
 ```
@@ -30,7 +30,7 @@ make
 ```
 Creates `.libs/libxml2rr.a`.
 
-### LibXSL
+### LibXSL-rr
 [XMLSoft](http://xmlsoft.org/XSLT/) produces XSLT.
 [Full INSTALL instructions](src/installations/libxslt-rr/INSTALL)
 ```
@@ -40,14 +40,13 @@ autoreconf -f -i
 make clean
 make
 ```
-Creates `libxslt/libxslrr.a`.
+Creates `libxslt/libxsltrr.la` and `libexslt/libexsltrr.la`.
 
 ### Issues
 Do not concern yourself with the following issues:
 ```
 warning: The macro `AC_*' is obsolete
 /usr/bin/rm: cannot remove 'libtoolT': No such file or directory
-/usr/bin/ld: cannot find .../installations/libxslt-rr/libxslt/.libs/*.o: No such file or directory
 ```
 It should say `Done configuring` at the end.
 
@@ -57,6 +56,7 @@ Requires `installations/*/.libs/lib*.a` above.
 ```
 cd src/
 ./configure # --with-debug
+make clean
 make
 make install
 ```

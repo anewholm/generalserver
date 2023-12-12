@@ -64,6 +64,7 @@
 // we can't mark them as inline, otherwise the linker won't find them.
 #ifdef REGEXPR_H
 # define REGEXPR_H_INLINE inline
+This is not used!
 #else
 # define REGEXPR_H_INLINE
 # include "regexpr2.h"
@@ -1247,15 +1248,7 @@ struct ch_neq_t
     typedef CharT char_type;
     typedef std::char_traits<char_type> traits_type;
 
-#if __cplusplus >= 201103L
-    //C++11 indicates constexpr for char_traits::eq()
-    //this will cause inline and const
-    //pass by address is incompatible with register above
-    //TODO: needs more analysis
-    static bool eval( CharT ch1, CharT ch2 )
-#else
-    static bool eval( register CharT ch1, register CharT ch2 )
-#endif
+    static bool eval( REGEX_REGISTER CharT ch1, REGEX_REGISTER CharT ch2 )
     {
         return ! traits_type::eq( ch1, ch2 );
     }
@@ -1268,7 +1261,7 @@ struct ch_neq_nocase_t
     typedef CharT char_type;
     typedef std::char_traits<char_type> traits_type;
 
-    static bool eval( register CharT ch1, register CharT ch2 )
+    static bool eval( REGEX_REGISTER CharT ch1, REGEX_REGISTER CharT ch2 )
     {
         return ! traits_type::eq( regex_toupper( ch1 ), regex_toupper( ch2 ) );
     }
