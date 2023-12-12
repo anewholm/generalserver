@@ -60,6 +60,15 @@ namespace regex
 # define REGEX_STACK_ALIGNMENT sizeof( void* )
 #endif
 
+#if __cplusplus >= 201103L
+//C++11 indicates constexpr for char_traits::eq()
+//this will cause inline and const
+//pass by address is incompatible with register above
+#define REGEX_REGISTER
+#else
+#define REGEX_REGISTER register
+#endif
+
 #if !defined( REGEX_DEBUG ) & ( defined( DEBUG ) | defined( _DEBUG ) | defined( DBG ) )
 # define REGEX_DEBUG 1
 #else
