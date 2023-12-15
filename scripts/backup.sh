@@ -38,6 +38,20 @@ if [ -n "$objects" ]; then
     find "$first_source" | grep -E "\\.o$" | xargs rm
 fi
 
+# Remove backups
+backups_dirs="$first_source/backups/*"
+backups_dirs_exist=`ls -d1 $backups_dirs 2> /dev/null`
+if [ -n "$backups_dirs_exist" ]; then
+    read -p "${GREEN}QUESTION${NC}: Remove ${YELLOW}$backups_dirs${NC}? [Y/n] (n) " yn
+    case $yn in
+        [Yy]* )
+            rm -r $backups_dirs
+            ;;
+        * )
+            ;;
+    esac
+fi
+
 # TAR GZ
 tar_file="Backup.tar.gz"
 echo "Build ${YELLOW}$tar_file${NC} from ${YELLOW}$files${NC}"
@@ -106,27 +120,40 @@ sudo touch -d "$target_date" $file2fake
 
 # No action has been taken, only a file created to be moved
 # maybe to a different server
-read -p "${GREEN}QUESTION${NC}: Overwrite the target backup file on this machine ${YELLOW}(requires sudo)${NC}? [Y/n] (n) " yn
+read -p "${GREEN}QUESTION${NC}: Overwrite the target backup file on this machine ${YELLOW}(requires sudo)${NC}? [Y/n] (y) " yn
 case $yn in
-    [Yy]* )
-        sudo mv $file2fake $path2fake
-        # Updates change last access time
-        sudo touch -d "$target_date" $path2fake
-        stat $path2fake
+    [Nn]* )
         ;;
     * )
+        sudo mv $file2fake $path2fake
+        if [ $? != 0 ]; then
+            echo "${RED}ERROR${NC}: Failed to overwrite target backup file ${YELLOW}$path2fake${NC}!!!"
+            exit
+        fi
+        # Updates change last access time
+        sudo touch -d "$target_date" $path2fake
+        echo "${GREEN}INFO${NC}: stat $path2fake"
+        stat $path2fake
+        if [ $? != 0 ]; then
+            echo "${RED}ERROR${NC}: Cannot stat target backup file ${YELLOW}$path2fake${NC}!!!"
+            exit
+        fi
         ;;
 esac
 
 # Remove source
-read -p "${GREEN}QUESTION${NC}: Remove the source files ${YELLOW}$files${NC} with srm? [Y/n] (n) " yn
+read -p "${GREEN}QUESTION${NC}: Remove the source files ${YELLOW}$files${NC} with srm? [Y/n] (y) " yn
 case $yn in
-    [Yy]* )
+    [Nn]* )
+        ;;
+    * )
         echo "${GREEN}INFO${NC}: srm -l shredding ${YELLOW}$files${NC}"
         # -l 2 passes instead of 38
         srm -lr $files
-        ;;
-    * )
+        if [ $? != 0 ]; then
+            echo "${RED}ERROR${NC}: Failed to shred ${YELLOW}$files${NC}!!!"
+            exit
+        fi
         ;;
 esac
 
