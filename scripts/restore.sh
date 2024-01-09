@@ -58,4 +58,10 @@ case $yn in
         ;;
 esac
 
+run=`ls */run.sh 2> /dev/null`
+if [ -f "$run" ]; then
+    $run
+fi
+
 echo "Finished"
+

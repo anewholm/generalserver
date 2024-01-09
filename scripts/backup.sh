@@ -8,22 +8,35 @@ TICK="${GREEN}✓${NC}"
 CROSS="${RED}✘${NC}"
 
 # Inputs
-if [ -z "$2" ]; then
-    echo "${RED}USAGE${NC}: ./backup.sh <path2fake> <files...>"
-    exit
-fi
-if [ ! -f "$1" ]; then
-    echo "${RED}ERROR${NC}: Target backup file [$1] does not exist"
-    exit
-fi
-if [ ! -f "$2" ] && [ ! -d "$2" ]; then
-    echo "${RED}ERROR${NC}: Source file [$2] does not exist"
-    exit
-fi
 path2fake=$1 # e.g. /usr/bin/<binary-file>
-files=$2 $3 $4 $5 $6 $7 $8 $9 # e.g. ./my-code-directory/
-file2fake=`basename $path2fake`
 first_source=$2
+files=$2 $3 $4 $5 $6 $7 $8 $9 # e.g. ./my-code-directory/
+
+if [ -z "$path2fake" ]; then
+    echo "${RED}USAGE${NC}: ./backup.sh <path2fake> [<files...>]"
+    exit
+fi
+if [ -z "$files" ]; then
+    # Try to select the first directory only. Remove ending slash
+    files=`ls -d */ | cut -d "/" -f 1`
+    first_source=$files
+    count=`ls -d */ | wc -l`
+    if [ $count == 1 ]; then
+        echo "${GREEN}INFO${NC}: auto-selecting [${YELLOW}$files${NC}] for backup"
+    else
+        echo "${RED}USAGE${NC}: ./backup.sh <path2fake> [<files...>]"
+        exit
+    fi
+fi
+if [ ! -f "$path2fake" ]; then
+    echo "${RED}ERROR${NC}: Target backup file [${YELLOW}$path2fake${NC}] not found"
+    exit
+fi
+if [ ! -f "$first_source" ] && [ ! -d "$first_source" ]; then
+    echo "${RED}ERROR${NC}: Source file [${YELLOW}$first_source${NC}] not found"
+    exit
+fi
+file2fake=`basename $path2fake`
 
 # Infrastructure
 if [ -z "$(which srm)" ]; then
