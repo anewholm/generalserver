@@ -5,10 +5,39 @@
 **/*.Po
 **/*.so
 **/*.la
+**/*.lo
+**/*.Plo
 **/*~
 **/Makefile
+**/Makefile.in
 **/config.log
 **/config.status
+
+# libtool / autoconf build output
+**/autom4te.cache/
+**/.libs/
+**/libtool
+**/ltmain.sh
+**/*.pc
+**/*.lai
+src/installations/**/*.m4
+src/installations/**/configure
+
+# generated scripts and config files in bundled libraries
+src/installations/**/*.sh
+src/installations/**/*-config
+src/installations/**/*Conf.sh
+src/installations/**/*.spec
+
+# compiled example and test binaries in bundled libraries (no extension)
+src/installations/**/doc/examples/
+src/installations/**/example/
+src/installations/**/xsltproc/xsltproc
+src/installations/**/xsltproc/testThreads
+src/installations/**/run*
+src/installations/**/test*
+src/installations/**/xmlcatalog
+src/installations/**/xmllint
 
 /src/generalserver
 /bin/*
