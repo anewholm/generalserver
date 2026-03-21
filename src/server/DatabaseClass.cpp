@@ -31,7 +31,7 @@ namespace general_server {
     //DatabaseClass constructor will add itself to the appropriate static maps
     //DatabaseClass constructor can throw DatabaseClassAlreadyExists
     //descendant-natural ignores hardlinks
-    pvNewClassNodes = pFromNode->getMultipleNodes(pIBQE_dbAdministrator, "descendant-natural::class:*"); 
+    pvNewClassNodes = pFromNode->getMultipleNodes(pIBQE_dbAdministrator, "descendant-natural::class:*");
     pvNewClassNodes->removeDuplicates();
     for (iClassNode = pvNewClassNodes->begin(); iClassNode != pvNewClassNodes->end(); iClassNode++) {
       pNode = *iClassNode;

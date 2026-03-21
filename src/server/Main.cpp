@@ -38,7 +38,7 @@ namespace general_server {
     bool bFork               = true;
     bool bBlockThisThread    = BLOCK;
     bool bTestAllThreadsExit = false;
-    const char *sConfigDir  = "/var/www/generalserver/config/";
+    const char *sConfigDir  = "./config/";
 #ifdef WITH_DOCUMENT_ROOT
     sConfigDir = WITH_DOCUMENT_ROOT;
 #endif

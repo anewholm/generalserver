@@ -14632,14 +14632,14 @@ xmlDoRead(xmlParserCtxtPtr ctxt, const char *URL, const char *encoding,
         xmlFreeParserCtxt(ctxt);
     }
     
-    /* Annesley: auto translate the xml:hardlink 
-     * breakOnError == 1
+    /* Annesley: auto translate the xml:hardlink
+     * breakOnError == 0: non-fatal, missing targets get xml:error attribute
      * TODO: cache the discovered xml:hardlink elements in the xmlParserCtxtPtr
      */
 #ifdef LIBXML_DEBUG_ENABLED
     xmlDebugCheckDocument(stderr, ret);
 #endif
-    xmlTranslateDocStructure(ret, NULL, 1);
+    xmlTranslateDocStructure(ret, NULL, 0);
 
     return (ret);
 }

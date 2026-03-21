@@ -87,17 +87,22 @@ xmlTranslateSubStructureHardlinkRecursive(xmlXPathContextPtr xpath_ctxt, xmlNode
     if (id_attr != NULL) target_node = id_attr->parent;
   }
   
-  /* check if attempting to link to an unresolved xml:hardlink 
+  /* check if attempting to link to an unresolved xml:hardlink
     * recursively resolve xml:hardlink
-    * descendant traversal below will not descend on hardlinks that are ersolved in advance
-    * TODO: cyclic check?
+    * descendant traversal below will not descend on hardlinks that are resolved in advance
+    * cycle check: if target resolves to itself, treat as not found
     */
-  if ( (target_node     != NULL) 
-    && (target_node->ns != NULL) 
-    && (xmlStrEqual(target_node->ns->href, XML_XML_NAMESPACE) == 1) 
+  if ( (target_node     != NULL)
+    && (target_node->ns != NULL)
+    && (xmlStrEqual(target_node->ns->href, XML_XML_NAMESPACE) == 1)
     && (xmlStrEqual(target_node->name, BAD_CAST "hardlink"))
   ) {
-    target_node = xmlTranslateSubStructureHardlinkRecursive(xpath_ctxt, target_node, breakOnError, new_hardlinks);
+    if (target_node == xml_hardlink) {
+      /* self-referential cycle: hardlink target XPath resolves to itself */
+      target_node = NULL;
+    } else {
+      target_node = xmlTranslateSubStructureHardlinkRecursive(xpath_ctxt, target_node, breakOnError, new_hardlinks);
+    }
   }
 
   if (target_node == NULL) {
@@ -108,7 +113,27 @@ xmlTranslateSubStructureHardlinkRecursive(xmlXPathContextPtr xpath_ctxt, xmlNode
   } 
   
   /* --------------------------------------- hardlinking */
-  else {                
+  else {
+    /* pre-checks to avoid xmlHardlinkChild calling xmlGenericError (always fatal via GS handler)
+     * for invalid structural relationships; handle them via xmlErrorOrAttribute instead
+     */
+    if (xml_hardlink->parent == target_node) {
+      /* hardlink is a child of its target: parent-reference cycle */
+      xmlErrorOrAttribute(xml_hardlink, breakOnError, "xmlTranslateSubStructure: xml:hardlink @target[-id] [%s%s] is an ancestor of the hardlink\n",
+        (target_xpath != NULL ? target_xpath->children->content : BAD_CAST ""),
+        (target_xmlid != NULL ? target_xmlid->children->content : BAD_CAST "")
+      );
+      target_node = NULL;
+    } else if (xmlIsHardLink(target_node) == 1) {
+      /* progressive hardlinking not supported */
+      xmlErrorOrAttribute(xml_hardlink, breakOnError, "xmlTranslateSubStructure: xml:hardlink @target[-id] [%s%s] is itself a hardlink (progressive hardlinking not supported)\n",
+        (target_xpath != NULL ? target_xpath->children->content : BAD_CAST ""),
+        (target_xmlid != NULL ? target_xmlid->children->content : BAD_CAST "")
+      );
+      target_node = NULL;
+    }
+  }
+  if (target_node != NULL) {
     new_hardlink_node = xmlHardlinkChild(xml_hardlink->parent, NULL, target_node, xml_hardlink, NULL, NULL);
     if (new_hardlink_node == NULL) {
       xmlErrorOrAttribute(xml_hardlink, breakOnError, "xmlTranslateSubStructure: xml:hardlink : failed to create hardlink");

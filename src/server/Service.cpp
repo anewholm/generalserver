@@ -47,7 +47,9 @@ namespace general_server {
     XmlNodeList<DatabaseNode>::iterator iMINode;
 
     //Service class (singular)
-    pvServiceClasses  = DatabaseClass::classesFromElement(m_pNode);
+    //bIncludeAllElementsClasses=false: exclude namespace wildcard classes (e.g. class:ObjectClass elements="*")
+    //which would otherwise match alongside the specific service class and break the size==1 check
+    pvServiceClasses  = DatabaseClass::classesFromElement(m_pNode, false, false);
     if (pvServiceClasses->size() != 1) throw ServiceRequiresASingleClass(this);
     m_pServiceClass   = pvServiceClasses->at(0);
     pServiceClassNode = m_pServiceClass->dbNode();

@@ -1863,25 +1863,27 @@ namespace general_server {
               //we have a sort situation
               vector<string> vFiles = split(stFilelist.c_str());
               vector<string>::const_iterator iFile;
-              vector<const Repository*>::iterator iChildRepository, iCurrent;
+              vector<const Repository*>::iterator iChildRepository;
               const char *sFilename;
               const Repository *pChildRepository;
               
               if (vFiles.size()) {
                 Debug::report("applying repository xml:sort to [%s]", MMO_STRDUP(pTarget->name()));
-                iCurrent = pTarget->begin();
+                size_t nCurrent = 0;
                 for (iFile = vFiles.begin(); iFile != vFiles.end(); iFile++) {
                   sFilename = iFile->c_str();
                   if (sFilename && *sFilename) {
                     iChildRepository = find_if(pTarget->begin(), pTarget->end(), Repository::FilenamePred(sFilename));
                     if (iChildRepository != pTarget->end()) {
                       //found the target repository
-                      //move it to before iCurrent++
+                      //move it to before nCurrent++
+                      //use index instead of iterator to avoid invalidation after erase
                       //PERFORMANCE: this is NOT efficient
                       //IFDEBUG(Debug::report("xml:sort file [%s]", MM_STRDUP(sFilename));)
                       pChildRepository = *iChildRepository;
                       pTarget->erase(iChildRepository);
-                      pTarget->insert(iCurrent++, pChildRepository);
+                      pTarget->insert(pTarget->begin() + nCurrent, pChildRepository);
+                      nCurrent++;
                     } else Debug::warn("xml:sort file not found [%s]", MM_STRDUP(sFilename));
                   }
                 }
