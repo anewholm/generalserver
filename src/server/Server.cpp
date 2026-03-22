@@ -363,7 +363,7 @@ namespace general_server {
 
     if (pOutputNode = pXCtxt->popInterpretNodeFromXPathFunctionCallStack()) {
       serialise(pQE, pOutputNode);
-    } else throw XPathReturnedEmptyResultSet(this, MM_STRDUP("No Output node"), sFunctionSignature);
+    } else throw XPathReturnedEmptyResultSet(this, MM_STRDUP("No Output node"), FUNCTION_SIGNATURE);
 
     //free up
     if (pOutputNode) delete pOutputNode;

@@ -132,7 +132,7 @@ namespace general_server {
       //these params become global and first template params
       pcParams   = assembleStoredBasicParams();
       pcNodeSets = assembleStoredNodeSetParams();
-      
+
       try {
         oRes = xsltApplyStylesheetUserSecure(m_ctxt->style, m_ctxt->document->doc, pcParams, pcNodeSets, 0, 0, m_ctxt);
         //RESOURCE HUNGRY: IFDEBUG(m_pSourceDoc->validityCheck("check doc after transform()");)
@@ -177,8 +177,10 @@ namespace general_server {
       MMO_FREE(pcParams);
     }
     if (pcNodeSets) {
-      i = 0;
-      while (pcNodeSets[i++]) xmlXPathFreeNodeSet((xmlNodeSetPtr) pcNodeSets[i++]);
+      //do NOT xmlXPathFreeNodeSet() here: xsltEvalUserNodeSetParams() wraps each nodeset
+      //with xmlXPathWrapNodeSet(), transferring ownership to the xslt context's globalVars.
+      //They are freed by xsltFreeGlobalVariables() -> xsltFreeStackElem() -> xmlXPathFreeObject()
+      //when the transform context is freed by the QE. Freeing here causes a double-free.
       MMO_FREE(pcNodeSets);
     }
     //we are statically cacheing these so no free here. freed in static destruction
@@ -269,8 +271,8 @@ namespace general_server {
       MMO_FREE(pcParams);
     }
     if (pcNodeSets) {
-      i = 0;
-      while (pcNodeSets[i++]) xmlXPathFreeNodeSet((xmlNodeSetPtr) pcNodeSets[i++]);
+      //do NOT xmlXPathFreeNodeSet() here: ownership transferred to xslt context globalVars
+      //via xmlXPathWrapNodeSet() in xsltEvalUserNodeSetParams(). See first transform() overload.
       MMO_FREE(pcNodeSets);
     }
     //we are statically cacheing these so no free here. freed in static destruction

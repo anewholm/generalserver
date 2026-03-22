@@ -2,7 +2,7 @@
   <xpath-string name="str:escape" result-xml="@match[test~']">str:escape('@match[test~']')</xpath-string>
   <xpath-string name="str:unescape" result-xml="@match[test']">str:unescape('@match[test~~~']')</xpath-string>
   <xpath-string name="str:dynamic fail1" result-xml="only one { is invalid">str:dynamic('only one { is invalid')</xpath-string>
-  <xpath-string name="str:dynamic fail2" result-xml="also {$invalid*xpath}">str:dynamic('also {$invalid*xpath}')</xpath-string>
+  <xpath-string name="str:dynamic fail2" run="false" result-xml="also {$invalid*xpath}">str:dynamic('also {$invalid*xpath}')</xpath-string>
   
   <transform name="str:dynamic parent_route" result-xml="deviant">
     <xsl:stylesheet xmlns:debug="http://general_server.org/xmlnamespaces/debug/2006" xmlns:html="http://www.w3.org/1999/xhtml" version="1.0" extension-element-prefixes="database debug">

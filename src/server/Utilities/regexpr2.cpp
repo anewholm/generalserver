@@ -5925,7 +5925,7 @@ inline void basic_rpattern_base<IterT, SyntaxT>::_add_subst_backref(
 }
 
 template< typename IterT, typename SyntaxT >
-inline void basic_rpattern_base<IterT, SyntaxT>::_parse_subst(
+REGEXPR_H_INLINE void basic_rpattern_base<IterT, SyntaxT>::_parse_subst(
     string_type & subst,
     bool & uses_backrefs,
     detail::subst_list_type & subst_list ) const
@@ -6347,6 +6347,16 @@ instantiator const posix_inst = regex_instantiate( regex_typelist(), posix_type(
 }
 
 } // unnamed namespace
+
+// Explicit template instantiations for the types used in REGEX_TO_INSTANTIATE.
+// Required because modern GCC with -O2 optimises away the instantiator_helper
+// address-taking trick, leaving these symbols undefined at link time.
+template class detail::basic_rpattern_base_impl<char const*>;
+template class detail::basic_rpattern_base_impl<restring::const_iterator>;
+template class detail::regex_access<char const*>;
+template class detail::regex_access<restring::const_iterator>;
+template class basic_rpattern_base<char const*, perl_syntax<char> >;
+template class basic_rpattern_base<restring::const_iterator, perl_syntax<char> >;
 
 } // namespace regex
 

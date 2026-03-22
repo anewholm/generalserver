@@ -224,7 +224,7 @@ namespace general_server {
           case XPATH_STRING: {
             sClassName = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack();
             if (sClassName && *sClassName) pDatabaseClass = DatabaseClass::classFromName(sClassName);
-            else throw XPathReturnedEmptyResultSet(pXCtxt, MM_STRDUP("Input string empty or wrong type"), sFunctionSignature);
+            else throw XPathReturnedEmptyResultSet(pXCtxt, MM_STRDUP("Input string empty or wrong type"), FUNCTION_SIGNATURE);
             break;
           }
           //------------- node sent through: class:* or other node
@@ -233,15 +233,15 @@ namespace general_server {
             if (pInputNode) {
               if (pInputNode->isNamespace(NAMESPACE_CLASS)) {
                 pDatabaseClass = DatabaseClass::classFromClassNode(pInputNode);
-              } else throw XPathFunctionWrongArgumentType(pXCtxt, MM_STRDUP("node"), MM_STRDUP("node must be class:* namespace"), sFunctionSignature);
-            } else throw XPathFunctionWrongArgumentType(pXCtxt, MM_STRDUP("node"), MM_STRDUP("nodeset empty"), sFunctionSignature);
+              } else throw XPathFunctionWrongArgumentType(pXCtxt, MM_STRDUP("node"), MM_STRDUP("node must be class:* namespace"), FUNCTION_SIGNATURE);
+            } else throw XPathFunctionWrongArgumentType(pXCtxt, MM_STRDUP("node"), MM_STRDUP("nodeset empty"), FUNCTION_SIGNATURE);
             break;
           }
           default: {
-            throw XPathFunctionWrongArgumentType(pXCtxt, MM_STRDUP("string|nodeset"), MM_STRDUP("unknown"), sFunctionSignature);
+            throw XPathFunctionWrongArgumentType(pXCtxt, MM_STRDUP("string|nodeset"), MM_STRDUP("unknown"), FUNCTION_SIGNATURE);
           }
         }
-      } else throw XPathTooFewArguments(pXCtxt, sFunctionSignature);
+      } else throw XPathTooFewArguments(pXCtxt, FUNCTION_SIGNATURE);
     } UNWIND_EXCEPTION_END_STATIC(pXCtxt);
 
     //free up

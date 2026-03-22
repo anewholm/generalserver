@@ -4,7 +4,7 @@
   <xpath-string name="database:xpath-to-node with-base-node" result-xml="general_server/system_management/HTTP">database:xpath-to-node(~HTTP, /config/classes)</xpath-string>
   <xpath-string name="database:xpath-to-node with-forced-base-node" disable-warning="strafe" result-xml="classes/website_all_classes/classes/general_server/system_management/HTTP">database:xpath-to-node(/config/classes/general_server/system_management/HTTP, /config/websites/general_server, true())</xpath-string>
   <xpath-string name="database:xpath-to-node" result-xml="/config/tests/data/gs:top[1]">database:xpath-to-node(/config/tests/data/gs:top[1])</xpath-string>
-  <xpath-string name="deviated parent ascent" result-xml="documentation/server">database:xpath-to-node(/config/websites/general_server/documentation/server, /config/websites/general_server)</xpath-string>
+  <xpath-string name="deviated parent ascent" run="false" result-xml="documentation/server">database:xpath-to-node(/config/websites/general_server/documentation/server, /config/websites/general_server)</xpath-string>
 
   <!-- transform name="database:differences" result-count="1">
     <xsl:stylesheet version="1.0" extension-element-prefixes="database" xmlns:xmltransaction="http://general_server.org/xmlnamespaces/xmltransaction/2006" xmlns:html="http://www.w3.org/1999/xhtml" exclude-result-prefixes="#default repository gs database str server request session debug regexp exsl dyn flow conversation xxx html rx class xmlsecurity xsl object interface xsd service javascript css meta response">

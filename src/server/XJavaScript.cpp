@@ -58,10 +58,10 @@ namespace general_server {
         case 0: {
           if (pInputNode = pXCtxt->contextNode(pQE)) { //pQE as MM
             sParameterInput = pInputNode->attributeValue(pQE, "parameters");
-          } else throw XPathFunctionWrongArgumentType(this, MM_STRDUP("attribute context node"), MM_STRDUP("no context node"), sFunctionSignature);
+          } else throw XPathFunctionWrongArgumentType(this, MM_STRDUP("attribute context node"), MM_STRDUP("no context node"), FUNCTION_SIGNATURE);
           break;
         }
-        default: throw XPathTooManyArguments(this, sFunctionSignature);
+        default: throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
       }
       
       //iterate through input string comma delimited portions
@@ -146,10 +146,10 @@ namespace general_server {
         case 0: {
           if (pInputNode = pXCtxt->contextNode(pQE)) { //pQE as MM
             sParameterInput = pInputNode->attributeValue(pQE, "parameters");
-          } else throw XPathFunctionWrongArgumentType(this, MM_STRDUP("attribute context node"), MM_STRDUP("no context node"), sFunctionSignature);
+          } else throw XPathFunctionWrongArgumentType(this, MM_STRDUP("attribute context node"), MM_STRDUP("no context node"), FUNCTION_SIGNATURE);
           break;
         }
-        default: throw XPathTooManyArguments(this, sFunctionSignature);
+        default: throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
       }
       
       //iterate through input string comma delimited portions

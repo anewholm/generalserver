@@ -135,7 +135,6 @@ namespace general_server {
     registerXslModuleManager(m_pConversation);
     registerXslModule(m_pResponse);
     registerXslModule(this);
-
     //set the id on the request (NOT_CURRENTLY_USED for anything);
     m_pNode->setTransientAttribute(&m_ibqe_requestManager, "id", m_iThisRequestId);
 
@@ -264,10 +263,10 @@ namespace general_server {
         case 0: {
           if (pInputNode = pXCtxt->contextNode(pQE)) { //pQE as MM
             sResourcesAreaMatch = pInputNode->attributeValue(pQE, "resource-match");
-          } else throw XPathFunctionWrongArgumentType(this, MM_STRDUP("attribute context node"), MM_STRDUP("no context node"), sFunctionSignature);
+          } else throw XPathFunctionWrongArgumentType(this, MM_STRDUP("attribute context node"), MM_STRDUP("no context node"), FUNCTION_SIGNATURE);
           break;
         }
-        default: throw XPathTooManyArguments(this, sFunctionSignature);
+        default: throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
       }
 
       bMatch = sResourcesAreaMatch

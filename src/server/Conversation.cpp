@@ -396,7 +396,7 @@ namespace general_server {
 
     //can be re-called so
     if (m_sTextStream) {MMO_FREE(m_sTextStream); m_sTextStream = 0;}
-    if (m_pMI)         {delete m_pMI;           m_pMI         = 0;}
+    m_pMI = 0; //borrowed from Service::mi() - "no one frees anything!"
 
     //throws OutOfMemory() on fail
     sRecvBuff  = MMO_MALLOC(DEFAULT_BUFFLEN);
@@ -548,8 +548,26 @@ namespace general_server {
 #ifdef WITHOUT_SESSION_XPATH
     sRet = db()->xslFunction_xpathToNode(pQE, pXCtxt, pNodes);
 #else
-    if (m_pSession) sRet = m_pSession->xslFunction_saveNodeSet(pQE, pXCtxt, pNodes);
-    else            sRet = db()->xslFunction_xpathToNode(pQE, pXCtxt, pNodes);
+    if (m_pSession) {
+      //session mode: save node by reference; base-node and enable-ids are unused
+      //valueCount() is fixed at call time and does not change as we pop, so we cannot delegate to
+      //xslFunction_saveNodeSet (which uses valueCount() to decide how many args to read).
+      //Instead, consume extra args here and inline the save logic.
+      IXmlBaseNode *pBaseNode = 0;
+      XmlNodeList<const IXmlBaseNode> *pvSelect = 0;
+      UNWIND_EXCEPTION_BEGIN {
+        switch (pXCtxt->valueCount()) {
+          case 3: pXCtxt->popInterpretBooleanValueFromXPathFunctionCallStack(); ATTRIBUTE_FALLTHROUGH;
+          case 2: pBaseNode = pXCtxt->popInterpretNodeFromXPathFunctionCallStack(); if (pBaseNode) { delete pBaseNode; pBaseNode = 0; } ATTRIBUTE_FALLTHROUGH;
+          case 1: pvSelect = (XmlNodeList<const IXmlBaseNode>*) pXCtxt->popInterpretNodeListFromXPathFunctionCallStack(); break;
+          case 0: pvSelect = new XmlNodeList<const IXmlBaseNode>(pXCtxt->contextNode(pQE)); break;
+          default: throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
+        }
+        if (pvSelect) sRet = itoa(m_pSession->saveNodeSet(pvSelect), "`");
+      } UNWIND_EXCEPTION_END;
+      if (pvSelect) delete pvSelect; //NOT consumed by saveNodeSet
+      UNWIND_EXCEPTION_THROW;
+    } else          sRet = db()->xslFunction_xpathToNode(pQE, pXCtxt, pNodes);
 #endif
     
     return sRet;
@@ -609,7 +627,7 @@ namespace general_server {
           sRet           = pLiteralCommandNode->uniqueXPathToNode(pQE, pBaseNode, INCLUDE_TRANSIENT, bForceBaseNode, bEnableIds);
         }
 #endif
-      } else throw CommandNodeRequired(this, sFunctionSignature);
+      } else throw CommandNodeRequired(this, FUNCTION_SIGNATURE);
     } UNWIND_EXCEPTION_END;
     
     //free up

@@ -19,6 +19,7 @@
 #include "IXml/IXmlBaseDoc.h"
 
 #include "CompilationContext.h"
+#include "XPathProcessingContext.h"
 
 #include "Utilities/container.c"
 
@@ -38,16 +39,18 @@ namespace general_server {
     m_pTrigger(new CompilationContext(pMainXSLDoc)),
     m_pGrammar(new GrammarContext()),
     m_pTransformContext(pQE->transformContext()),
-    m_pDebug(pQE->debugContext())
+    m_pDebug(pQE->debugContext()),
+    m_pXPathProcessingContext(new XPathProcessingContext())
   {
     //component alignment (point back to this)
     //TODO: use the m_vComponents elsewhere: inheritance, toString, etc.
     //this also makes sure, at compile time, that these components have correctly supported the interfaces
-    if (m_pSec)              m_vComponents.push_back(m_pSec);
-    if (m_pTrigger)          m_vComponents.push_back(m_pTrigger);
-    if (m_pGrammar)          m_vComponents.push_back(m_pGrammar);
-    if (m_pTransformContext) m_vComponents.push_back(m_pTransformContext);
-    if (m_pDebug)            m_vComponents.push_back(m_pDebug);
+    if (m_pSec)                      m_vComponents.push_back(m_pSec);
+    if (m_pTrigger)                  m_vComponents.push_back(m_pTrigger);
+    if (m_pGrammar)                  m_vComponents.push_back(m_pGrammar);
+    if (m_pTransformContext)         m_vComponents.push_back(m_pTransformContext);
+    if (m_pDebug)                    m_vComponents.push_back(m_pDebug);
+    if (m_pXPathProcessingContext)   m_vComponents.push_back(m_pXPathProcessingContext);
 
     //PERFORMANCE: borrowed components!
     //we are only borrowing these components
@@ -68,8 +71,9 @@ namespace general_server {
     for (vector<IXmlQueryEnvironmentComponent*>::iterator iComponent = m_vComponents.begin(); iComponent != m_vComponents.end(); iComponent++)
       (*iComponent)->setQueryEnvironment(m_pSourceQE);
 
-    if (m_pGrammar) delete m_pGrammar;
-    if (m_pTrigger) delete m_pTrigger;
+    if (m_pGrammar)              delete m_pGrammar;
+    if (m_pTrigger)              delete m_pTrigger;
+    if (m_pXPathProcessingContext) delete m_pXPathProcessingContext;
   }
 
   CompilationEnvironment::CompilationEnvironment(const CompilationEnvironment &qe2):

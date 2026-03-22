@@ -104,7 +104,7 @@ namespace general_server {
           sRegularExpression  = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack();
           sInput              = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack(); 
           break;
-        default: throw XPathArgumentCountWrong(this, sFunctionSignature);
+        default: throw XPathArgumentCountWrong(this, FUNCTION_SIGNATURE);
       }
       
       if (sInput && sRegularExpression) {
@@ -219,7 +219,7 @@ namespace general_server {
         case 2: sDefault            = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack(); ATTRIBUTE_FALLTHROUGH;
         case 1: sDynamicString      = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack();
           break;
-        default: throw XPathArgumentCountWrong(this, sFunctionSignature);
+        default: throw XPathArgumentCountWrong(this, FUNCTION_SIGNATURE);
       }
       
       //context node
@@ -420,7 +420,7 @@ namespace general_server {
       case 2: sDelimiter  = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack(); ATTRIBUTE_FALLTHROUGH;
       case 1: pvNodeList  = pXCtxt->popInterpretNodeListFromXPathFunctionCallStack();
         break;
-      default: throw XPathArgumentCountWrong(this, sFunctionSignature);
+      default: throw XPathArgumentCountWrong(this, FUNCTION_SIGNATURE);
     }
 
     //xpath type classification if any
@@ -480,7 +480,7 @@ namespace general_server {
       case 2: bDefaultIfResolvesToEmptyString = pXCtxt->popInterpretBooleanValueFromXPathFunctionCallStack(); ATTRIBUTE_FALLTHROUGH;
       case 1: sValue                          = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack();
         break;
-      default: throw XPathArgumentCountWrong(this, sFunctionSignature);
+      default: throw XPathArgumentCountWrong(this, FUNCTION_SIGNATURE);
     }
 
     if (!sValue || !*sValue) bRet = bDefaultIfResolvesToEmptyString;
@@ -510,7 +510,7 @@ namespace general_server {
         pContextNode = pXCtxt->contextNode(pQE);
         sValue       = pContextNode->value(pQE);
         break;
-      default: throw XPathArgumentCountWrong(this, sFunctionSignature);
+      default: throw XPathArgumentCountWrong(this, FUNCTION_SIGNATURE);
     }
 
     sEscape = pQE->xmlLibrary()->escape(sValue);
@@ -537,7 +537,7 @@ namespace general_server {
         pContextNode = pXCtxt->contextNode(pQE);
         sValue       = pContextNode->value(pQE);
         break;
-      default: throw XPathArgumentCountWrong(this, sFunctionSignature);
+      default: throw XPathArgumentCountWrong(this, FUNCTION_SIGNATURE);
     }
 
     sUnEscape = pQE->xmlLibrary()->unescape(sValue);
@@ -594,7 +594,7 @@ namespace general_server {
     //to convert fragments etc.
     switch (pXCtxt->valueCount()) {
       case 2: {
-        if (pXCtxt->xtype() != XPATH_BOOLEAN) throw XPathBooleanArgumentRequired(this, sFunctionSignature);
+        if (pXCtxt->xtype() != XPATH_BOOLEAN) throw XPathBooleanArgumentRequired(this, FUNCTION_SIGNATURE);
         bDefaultIfResolvesToEmptyString = pXCtxt->popInterpretBooleanValueFromXPathFunctionCallStack();
         ATTRIBUTE_FALLTHROUGH;
       }
@@ -602,7 +602,7 @@ namespace general_server {
         sValue = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack();
         break;
       }
-      default: throw XPathArgumentCountWrong(this, sFunctionSignature);
+      default: throw XPathArgumentCountWrong(this, FUNCTION_SIGNATURE);
     }
 
     if (!sValue || !*sValue) bRet = bDefaultIfResolvesToEmptyString;
@@ -682,7 +682,7 @@ namespace general_server {
         case 3: pvFalse = (XmlNodeList<const IXmlBaseNode>*) pXCtxt->popInterpretNodeListFromXPathFunctionCallStack(); ATTRIBUTE_FALLTHROUGH;
         case 2: pvTrue  = (XmlNodeList<const IXmlBaseNode>*) pXCtxt->popInterpretNodeListFromXPathFunctionCallStack();
           break;
-        default: throw XPathArgumentCountWrong(this, sFunctionSignature);
+        default: throw XPathArgumentCountWrong(this, FUNCTION_SIGNATURE);
       }
       if (!pvFalse) pvFalse = new XmlNodeList<const IXmlBaseNode>(pQE); //pQE as MM
       bTest = pXCtxt->popInterpretBooleanValueFromXPathFunctionCallStack();
@@ -721,7 +721,7 @@ namespace general_server {
             pNewNodes = pNodeSet;
           } else delete pNodeSet; //has no elements
         } else {
-          Debug::report("non node-set argument for [%s]", sFunctionSignature);
+          Debug::report("non node-set argument for [%s]", FUNCTION_SIGNATURE);
           pXCtxt->popIgnoreFromXPathFunctionCallStack();
         }
       }

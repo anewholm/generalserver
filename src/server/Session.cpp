@@ -200,7 +200,7 @@ namespace general_server {
           iIndex = pXCtxt->popInterpretIntegerValueFromXPathFunctionCallStack();
           break;
         }
-        default: throw XPathTooFewArguments(this, sFunctionSignature);
+        default: throw XPathTooFewArguments(this, FUNCTION_SIGNATURE);
       }
 
       if (iIndex < m_vSavedNodeLists.size()) {
@@ -258,9 +258,9 @@ namespace general_server {
           if (pLiteralCommandNodeInOriginalDoc = pQE->singularDocumentContext()->nodeFromID(pQE, sXMLID)) {
             pvSelect = new XmlNodeList<const IXmlBaseNode>(pLiteralCommandNodeInOriginalDoc); //pQE as MM
             sIndex   = itoa(saveNodeSet(pvSelect), "`"); //`45
-          } else throw NodeNotFound(this, sFunctionSignature);
-        } else throw ContextNodeMustHaveXMLID(this, sFunctionSignature);
-      } else throw XPathContextNodeRequired(this, sFunctionSignature);
+          } else throw NodeNotFound(this, FUNCTION_SIGNATURE);
+        } else throw ContextNodeMustHaveXMLID(this, FUNCTION_SIGNATURE);
+      } else throw XPathContextNodeRequired(this, FUNCTION_SIGNATURE);
     } UNWIND_EXCEPTION_END;
 
     //free up
@@ -304,12 +304,12 @@ namespace general_server {
           pvSelect = new XmlNodeList<const IXmlBaseNode>(pXCtxt->contextNode(pQE)); //pQE as MM
           break;
         }
-        default: throw XPathTooManyArguments(this, sFunctionSignature);
+        default: throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
       }
 
       if (pvSelect) {
         sIndex = itoa(saveNodeSet(pvSelect), "`"); //`45
-      } else throw AttributeRequired(this, MM_STRDUP("select"), sFunctionSignature);
+      } else throw AttributeRequired(this, MM_STRDUP("select"), FUNCTION_SIGNATURE);
     } UNWIND_EXCEPTION_END;
 
     //free up

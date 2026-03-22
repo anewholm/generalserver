@@ -5,6 +5,7 @@
 #include "IXml/IXmlQueryEnvironment.h" //direct inheritance
 #include "IXml/IXmlSecurityContext.h"  //enums
 #include "GrammarContext.h"       //direct member
+#include "XPathProcessingContext.h" //direct member
 
 #include <vector>
 using namespace std;
@@ -51,7 +52,8 @@ namespace general_server {
     IXmlGrammarContext   *m_pGrammar;       //LibXML2: ctxt->gp       ->param = pQueryEnvironment
 
     //stateless, with no point back
-    IXmlDebugContext     *m_pDebug;
+    IXmlDebugContext               *m_pDebug;
+    IXmlXPathProcessingContext     *m_pXPathProcessingContext;
 
     //output components
     //lazy initialised (non-const), static, singleton, server freed
@@ -82,7 +84,7 @@ namespace general_server {
     IXmlTriggerContext   *triggerContext()   const {return m_pTrigger;} //for enable / disable triggers
     IXmlMaskContext      *maskContext()      const {return 0;} //for independent control of node scope
     IXmlGrammarContext   *grammarContext()   const {return m_pGrammar;}
-    IXmlXPathProcessingContext *xpathProcessingContext() const {return 0;}
+    IXmlXPathProcessingContext *xpathProcessingContext() const {return m_pXPathProcessingContext;}
     IXslModuleManager    *emoContext()       const {return m_pSourceQE->emoContext();} //extra XSL functions
     IXmlDebugContext     *debugContext()     const {return m_pDebug;} //for stepping through the transforms, xpath, etc.
     IXmlDebugContext     *debugContext(IXmlDebugContext *pDebug ATTRIBUTE_UNUSED) {return 0;}

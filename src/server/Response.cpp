@@ -150,7 +150,7 @@ namespace general_server {
       switch (pXCtxt->valueCount()) {
         case 2: {
           //sXPath = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack();
-          throw XPathTooManyArguments(this, sFunctionSignature);
+          throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
           NOT_COMPLETE("response:can-have-attribute 2 params");
         }
         case 1: {
@@ -167,7 +167,7 @@ namespace general_server {
                 } else {
                   //can happen when response:can-have-attribute(element-node)
                   IFDEBUG(Debug::warn("response:can-have-attribute(node) attribute required");)
-                  //throw XPathFunctionWrongArgumentType(this, MM_STRDUP("attribute"), MM_STRDUP("node"), sFunctionSignature);
+                  //throw XPathFunctionWrongArgumentType(this, MM_STRDUP("attribute"), MM_STRDUP("node"), FUNCTION_SIGNATURE);
                 }
               } else {
                 //can happen when response:can-have-attribute(/blah/@not-exist)
@@ -182,7 +182,7 @@ namespace general_server {
               sAttributeName = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack();
               break;
             }
-            default: throw XPathFunctionWrongArgumentType(this, MM_STRDUP("string"), MM_STRDUP("other"), sFunctionSignature);
+            default: throw XPathFunctionWrongArgumentType(this, MM_STRDUP("string"), MM_STRDUP("other"), FUNCTION_SIGNATURE);
           }
           break;
         }
@@ -206,7 +206,7 @@ namespace general_server {
           }
           break;
         }
-        default: throw XPathTooManyArguments(this, sFunctionSignature);
+        default: throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
       }
 
       if (sAttributeName) {

@@ -819,7 +819,7 @@ namespace general_server {
           //output directly in to the DOM
           //no return
           pOutputNode = pXCtxt->popInterpretNodeFromXPathFunctionCallStack();
-          if (!pOutputNode) throw XPathReturnedEmptyResultSet(this, MM_STRDUP("Output node set empty"), sFunctionSignature);
+          if (!pOutputNode) throw XPathReturnedEmptyResultSet(this, MM_STRDUP("Output node set empty"), FUNCTION_SIGNATURE);
           break;
         case 2:
           //return nodes for the next function to work with
@@ -830,9 +830,9 @@ namespace general_server {
           break;
         case 1: ATTRIBUTE_FALLTHROUGH;
         case 0:
-          throw XPathTooFewArguments(this, sFunctionSignature);
+          throw XPathTooFewArguments(this, FUNCTION_SIGNATURE);
           break;
-        default: throw XPathTooManyArguments(this, sFunctionSignature);
+        default: throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
       }
 
       if (pRegularXNode = pXCtxt->popInterpretNodeFromXPathFunctionCallStack()) {
@@ -845,7 +845,7 @@ namespace general_server {
 
           } else throw XPathStringArgumentRequired(this, MM_STRDUP("Cannot create repository"));
         } else throw XPathStringArgumentRequired(this, MM_STRDUP("Path empty"));
-      } else throw XPathReturnedEmptyResultSet(this, MM_STRDUP("RegularX node set empty"), sFunctionSignature);
+      } else throw XPathReturnedEmptyResultSet(this, MM_STRDUP("RegularX node set empty"), FUNCTION_SIGNATURE);
     } UNWIND_EXCEPTION_END;
 
     //free up
@@ -881,10 +881,10 @@ namespace general_server {
           sFileSystemPath = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack();
           break;
         case 0:
-          throw XPathTooFewArguments(this, sFunctionSignature);
+          throw XPathTooFewArguments(this, FUNCTION_SIGNATURE);
           break;
         default:
-          throw XPathTooManyArguments(this, sFunctionSignature);
+          throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
       }
           
       if (sFileSystemPath) {
@@ -930,9 +930,9 @@ namespace general_server {
           sFileSystemPath = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack();
           break;
         case 0:
-          throw XPathTooFewArguments(this, sFunctionSignature);
+          throw XPathTooFewArguments(this, FUNCTION_SIGNATURE);
           break;
-        default: throw XPathTooManyArguments(this, sFunctionSignature);
+        default: throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
       }
 
       if (sFileSystemPath) {
@@ -994,7 +994,7 @@ namespace general_server {
         case 5:
           NOT_COMPLETE("repository:read-to-nodes(..., transform)");
           pTransformNode = pXCtxt->popInterpretNodeFromXPathFunctionCallStack();
-          if (!pTransformNode) throw XPathReturnedEmptyResultSet(this, MM_STRDUP("Transform node set empty"), sFunctionSignature);
+          if (!pTransformNode) throw XPathReturnedEmptyResultSet(this, MM_STRDUP("Transform node set empty"), FUNCTION_SIGNATURE);
           ATTRIBUTE_FALLTHROUGH;
         case 4:
           sXPathMask = pXCtxt->popInterpretCharacterValueFromXPathFunctionCallStack();
@@ -1009,10 +1009,10 @@ namespace general_server {
           break;
         case 1: ATTRIBUTE_FALLTHROUGH;
         case 0:
-          throw XPathTooFewArguments(this, sFunctionSignature);
+          throw XPathTooFewArguments(this, FUNCTION_SIGNATURE);
           break;
         default:
-          throw XPathTooManyArguments(this, sFunctionSignature);
+          throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
       }
 
       if (pOutputNode = pXCtxt->popInterpretNodeFromXPathFunctionCallStack()) {
@@ -1032,7 +1032,7 @@ namespace general_server {
             pSource->readToNodes(pQE, pOutputNode, sXPath, sXPathMask);
           } else throw XPathStringArgumentRequired(this, MM_STRDUP("Cannot create repository"));
         } else throw XPathStringArgumentRequired(this, MM_STRDUP("Path empty"));
-      } else throw XPathReturnedEmptyResultSet(this, MM_STRDUP("Output node set empty"), sFunctionSignature);
+      } else throw XPathReturnedEmptyResultSet(this, MM_STRDUP("Output node set empty"), FUNCTION_SIGNATURE);
     } UNWIND_EXCEPTION_END;
       
     //free up
@@ -1088,7 +1088,7 @@ namespace general_server {
           //we should take the string value of the current node
           NOT_COMPLETE("repository:filesystempath-to-nodes 0 params");
           break;
-        default: throw XPathTooManyArguments(this, sFunctionSignature);
+        default: throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
       }
 
       //default to / document node, not object:Server
@@ -1152,7 +1152,7 @@ namespace general_server {
           //we should take the string value of the current node
           NOT_COMPLETE("repository:filesystempath-to-XPath: 0 params");
           break;
-        default: throw XPathTooManyArguments(this, sFunctionSignature);
+        default: throw XPathTooManyArguments(this, FUNCTION_SIGNATURE);
       }
       if (sFileSystemPath) sXPath = m_pLib->fileSystemPathToXPath(pQE, sFileSystemPath, "*", NULL, bUseIndexes);
       else throw XPathStringArgumentRequired(this, MM_STRDUP("File system path"));
