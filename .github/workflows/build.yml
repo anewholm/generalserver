@@ -27,15 +27,15 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build generalserver
@@ -61,15 +61,15 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build generalserver
@@ -100,15 +100,15 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build generalserver
@@ -135,15 +135,15 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build generalserver
@@ -169,15 +169,15 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build generalserver
@@ -203,15 +203,15 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
-          touch configure
           make -j$(nproc)
 
       - name: Build generalserver
