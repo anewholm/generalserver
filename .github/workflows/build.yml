@@ -27,12 +27,14 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
           make -j$(nproc)
 
@@ -59,12 +61,14 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
           make -j$(nproc)
 
@@ -96,12 +100,14 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
           make -j$(nproc)
 
@@ -129,12 +135,14 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
           make -j$(nproc)
 
@@ -161,12 +169,14 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
           make -j$(nproc)
 
@@ -193,12 +203,14 @@ jobs:
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
           make -j$(nproc)
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
+          autoreconf -fi
           ./configure --without-python --without-debug
           make -j$(nproc)
 
