@@ -22,6 +22,9 @@
 **/*.lai
 src/installations/**/*.m4
 src/installations/**/configure
+# Exception: pre-generated configure scripts for bundled libs (needed for CI without autotools)
+!src/installations/libxml2-rr/configure
+!src/installations/libxslt-rr/configure
 
 # generated scripts and config files in bundled libraries
 src/installations/**/*.sh
