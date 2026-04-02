@@ -28,6 +28,8 @@ src/installations/**/configure
 !src/installations/libxml2-rr/ltmain.sh
 !src/installations/libxslt-rr/ltmain.sh
 !src/installations/**/Makefile.in
+!src/installations/libxml2-rr/aclocal.m4
+!src/installations/libxslt-rr/aclocal.m4
 
 # generated scripts and config files in bundled libraries
 src/installations/**/*.sh
