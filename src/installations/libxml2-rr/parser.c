@@ -87,6 +87,7 @@ static xmlParserCtxtPtr
 xmlCreateEntityParserCtxtInternal(const xmlChar *URL, const xmlChar *ID,
                           const xmlChar *base, xmlParserCtxtPtr pctx);
 
+#include <libxml/xpathInternals.h>
 #include "parser_gs.c"
 
 /************************************************************************
