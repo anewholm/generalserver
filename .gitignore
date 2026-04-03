@@ -22,7 +22,8 @@
 **/*.lai
 src/installations/**/*.m4
 src/installations/**/configure
-# Exception: pre-generated autoconf/automake files for bundled libs (needed for CI without autotools)
+# Exception: pre-generated autoconf/automake files needed for CI
+!src/ltmain.sh
 !src/installations/libxml2-rr/configure
 !src/installations/libxslt-rr/configure
 !src/installations/libxml2-rr/ltmain.sh
