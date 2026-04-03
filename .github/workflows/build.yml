@@ -22,7 +22,7 @@ jobs:
           sudo apt-get install -y \
             build-essential autoconf automake libtool pkg-config \
             libgcrypt-dev libreadline-dev uuid-dev zlib1g-dev \
-            libxml2-dev libxslt-dev
+            libxml2-dev libxslt-dev libpq-dev
 
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
@@ -57,7 +57,7 @@ jobs:
           sudo apt-get install -y \
             build-essential autoconf automake libtool pkg-config \
             libgcrypt-dev libreadline-dev uuid-dev zlib1g-dev \
-            libxml2-dev libxslt-dev
+            libxml2-dev libxslt-dev libpq-dev
 
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
@@ -97,7 +97,7 @@ jobs:
           apt-get install -y \
             build-essential autoconf automake libtool pkg-config \
             libgcrypt-dev libreadline-dev uuid-dev zlib1g-dev \
-            libxml2-dev libxslt-dev
+            libxml2-dev libxslt-dev libpq-dev
 
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
@@ -133,7 +133,7 @@ jobs:
           apt-get install -y \
             build-essential autoconf automake libtool pkg-config \
             libgcrypt-dev libreadline-dev uuid-dev zlib1g-dev \
-            libxml2-dev libxslt-dev
+            libxml2-dev libxslt-dev libpq-dev
 
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
@@ -168,7 +168,7 @@ jobs:
           dnf install -y \
             gcc gcc-c++ make autoconf automake libtool pkg-config \
             libgcrypt-devel readline-devel libuuid-devel zlib-devel \
-            libxml2-devel libxslt-devel
+            libxml2-devel libxslt-devel libpq-devel
 
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
@@ -203,7 +203,7 @@ jobs:
           dnf install -y \
             gcc gcc-c++ make autoconf automake libtool pkg-config \
             libgcrypt-devel readline-devel libuuid-devel zlib-devel \
-            libxml2-devel libxslt-devel
+            libxml2-devel libxslt-devel libpq-devel
 
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
