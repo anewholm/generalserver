@@ -1,0 +1,6 @@
+# Tell GitHub's Linguist to ignore bundled third-party libraries
+# so the repo shows C++/XSLT as the primary language, not HTML.
+src/installations/** linguist-vendored=true
+
+# Also mark documentation and generated files
+doc/** linguist-documentation=true
