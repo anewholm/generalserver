@@ -28,7 +28,7 @@ src/installations/**/configure
 !src/installations/libxslt-rr/configure
 !src/installations/libxml2-rr/ltmain.sh
 !src/installations/libxslt-rr/ltmain.sh
-!src/installations/**/Makefile.in
+!src/**/Makefile.in
 !src/installations/libxml2-rr/aclocal.m4
 !src/installations/libxslt-rr/aclocal.m4
 !src/installations/libxml2-rr/acinclude.m4
