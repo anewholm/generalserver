@@ -1,81 +1,102 @@
-# Documents
-See	[config/websites/general_server/](config/websites/general_server/):
- * [TODO.xml](config/websites/general_server/TODO.xml)
- * [WHY.xml](config/websites/general_server/WHY.xml)
- * [README.xml](config/websites/general_server/README.xml) just links to the 2 above.
+# General Server — XML/XSLT Web and Database Server
 
-These XML files are better viewed through GS when running.
+[![Build](https://github.com/anewholm/generalserver/actions/workflows/build.yml/badge.svg)](https://github.com/anewholm/generalserver/actions/workflows/build.yml)
 
-# Installation
-## Build pre-requisites
-```sudo apt-get -y install autoconf libtool gdb```
+General Server is a C++ web and application server that uses XML as its data model and XSLT as its query and transformation language. The entire server state — configuration, data, and logic — is represented as a live XML tree navigated via XPath and transformed via XSLT.
 
-## 3rd party dev libraries
-```sudo apt-get -y install uuid-dev```
+## Why XML as a database?
 
-## 3rd party altered bundled libraries (-RR)
-These libraries (RR) have been substantially altered. They are static libraries compiled into `bin/generalserver`.
-This sets up for Python 2. Replacements of all python print statements to `print()` will be necessary.
-`configure` option with debug: `--with-debug`.
+- The data model, schema, and transformation logic are all in the same query language (XPath/XSLT).
+- XSLT stylesheets act as both views and controllers, producing HTML, XML, JSON, or any other output format.
+- The XML tree is persistent, addressable by URL, and directly servable as a website.
+- Security policies, caching rules, and service configuration are themselves XML nodes — live, introspectable, and modifiable at runtime.
 
-### LibXML2-rr
-[XMLSoft](http://xmlsoft.org/) produces XML.
-[Full INSTALL instructions](src/installations/libxml2-rr/INSTALL)
+For a full architectural rationale see [config/websites/general_server/WHY.xml](config/websites/general_server/WHY.xml) (best viewed through a running General Server instance).
+
+## Compatibility
+
+| OS           | Status  |
+|--------------|---------|
+| Ubuntu 22.04 | Tested  |
+| Ubuntu 24.04 | Tested  |
+
+CI runs a matrix build across both Ubuntu versions on every push.
+
+## Prerequisites
+
+```bash
+sudo apt-get -y install autoconf libtool gdb uuid-dev libpq-dev
 ```
+
+## Building
+
+General Server bundles modified versions of libxml2 and libxslt (suffixed `-rr`) that are compiled as static libraries. These must be built first.
+
+### 1. Build libxml2-rr
+
+```bash
 cd src/installations/libxml2-rr/
 autoreconf -f -i
-./configure # --with-debug
+./configure
 make clean
 make
 ```
-Creates `.libs/libxml2rr.a`.
 
-### LibXSL-rr
-[XMLSoft](http://xmlsoft.org/XSLT/) produces XSLT.
-[Full INSTALL instructions](src/installations/libxslt-rr/INSTALL)
-```
+Creates `src/installations/libxml2-rr/.libs/libxml2rr.a`.
+
+### 2. Build libxslt-rr
+
+```bash
 cd src/installations/libxslt-rr/
 autoreconf -f -i
-./configure # --with-debug
+./configure
 make clean
 make
 ```
-Creates `libxslt/libxsltrr.la` and `libexslt/libexsltrr.la`.
 
-### Issues
-Do not concern yourself with the following issues:
-```
-warning: The macro `AC_*' is obsolete
-/usr/bin/rm: cannot remove 'libtoolT': No such file or directory
-```
-It should say `Done configuring` at the end.
+Creates `src/installations/libxslt-rr/libxslt/libxsltrr.la`.
 
-## Installation
-Requires `installations/*/.libs/lib*.a` above.
-`configure` option with debug: `--with-debug`
-```
+### 3. Build General Server
+
+```bash
 cd src/
-./configure # --with-debug
+./configure
 make clean
 make
 make install
 ```
 
-## Test installation
-GS runs all its configured tests by default at startup unless instructed not to.
+To build with debug symbols, pass `--with-debug` to each `./configure` call.
 
-# Configuration, directories and setup
-The `generalserver/` base directory, by default, loads the XML tree from
-[./config](config) which contains the overall setup: http services, databases, etc.
-that run on address http://localhost:8080.
-
-# Running
-Block on the main thread (interactive) for [gdb](https://en.wikipedia.org/wiki/GNU_Debugger) to catch exceptions
+You may safely ignore these warnings during `autoreconf`:
 ```
+warning: The macro `AC_*' is obsolete
+/usr/bin/rm: cannot remove 'libtoolT': No such file or directory
+```
+The build is successful if `configure` ends with `Done configuring`.
+
+## Running
+
+```bash
 ./bin/generalserver
 ```
-Debugging. Requires `configure --with-debug`:
-```
+
+General Server listens on `http://localhost:8080` by default and runs its built-in test suite on startup.
+
+For interactive debugging with gdb:
+
+```bash
 gdb --args bin/generalserver interactive
 ```
 
+## Configuration
+
+The server loads its configuration from [`./config`](config), which contains HTTP service definitions, database connections, and website trees as XML. See [`config/websites/general_server/`](config/websites/general_server/) for the bundled documentation website.
+
+## Sister project
+
+[general_resources_server](https://github.com/anewholm/general_resources_server) — a lightweight Apache/PHP server that serves static assets (images, CSS, downloads) as a companion to General Server.
+
+## License
+
+GPL-2.0
