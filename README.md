@@ -15,12 +15,16 @@ For a full architectural rationale see [config/websites/general_server/WHY.xml](
 
 ## Compatibility
 
-| OS           | Status  |
-|--------------|---------|
-| Ubuntu 22.04 | Tested  |
-| Ubuntu 24.04 | Tested  |
+| OS              | Status  |
+|-----------------|---------|
+| Ubuntu 22.04    | Tested  |
+| Ubuntu 24.04    | Tested  |
+| Linux Mint 21   | Tested  |
+| Linux Mint 22   | Tested  |
+| Fedora 40       | Tested  |
+| Fedora 41       | Tested  |
 
-CI runs a matrix build across both Ubuntu versions on every push.
+CI runs a matrix build across all six distributions on every push.
 
 ## Prerequisites
 
