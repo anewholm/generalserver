@@ -29,14 +29,15 @@ jobs:
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          make -j$(nproc)
+          make -j$(nproc) libxml2rr.la
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug
-          make -j$(nproc)
+          make -j$(nproc) -C libxslt
+          make -j$(nproc) -C libexslt
 
       - name: Build generalserver
         working-directory: src
@@ -63,14 +64,15 @@ jobs:
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          make -j$(nproc)
+          make -j$(nproc) libxml2rr.la
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug
-          make -j$(nproc)
+          make -j$(nproc) -C libxslt
+          make -j$(nproc) -C libexslt
 
       - name: Build generalserver
         working-directory: src
@@ -102,14 +104,15 @@ jobs:
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          make -j$(nproc)
+          make -j$(nproc) libxml2rr.la
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug
-          make -j$(nproc)
+          make -j$(nproc) -C libxslt
+          make -j$(nproc) -C libexslt
 
       - name: Build generalserver
         working-directory: src
@@ -137,14 +140,15 @@ jobs:
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          make -j$(nproc)
+          make -j$(nproc) libxml2rr.la
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug
-          make -j$(nproc)
+          make -j$(nproc) -C libxslt
+          make -j$(nproc) -C libexslt
 
       - name: Build generalserver
         working-directory: src
@@ -171,14 +175,15 @@ jobs:
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          make -j$(nproc)
+          make -j$(nproc) libxml2rr.la
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug
-          make -j$(nproc)
+          make -j$(nproc) -C libxslt
+          make -j$(nproc) -C libexslt
 
       - name: Build generalserver
         working-directory: src
@@ -205,14 +210,15 @@ jobs:
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug --without-mem-debug
-          make -j$(nproc)
+          make -j$(nproc) libxml2rr.la
 
       - name: Build libxslt-rr
         working-directory: src/installations/libxslt-rr
         run: |
           autoreconf -fi
           ./configure --without-python --without-debug
-          make -j$(nproc)
+          make -j$(nproc) -C libxslt
+          make -j$(nproc) -C libexslt
 
       - name: Build generalserver
         working-directory: src
