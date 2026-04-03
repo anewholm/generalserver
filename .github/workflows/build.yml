@@ -170,6 +170,11 @@ jobs:
             libgcrypt-devel readline-devel libuuid-devel zlib-devel \
             libxml2-devel libxslt-devel libpq-devel
 
+      - name: Fix PostgreSQL include path
+        run: |
+          mkdir -p /usr/include/postgresql
+          ln -sf /usr/include/libpq-fe.h /usr/include/postgresql/libpq-fe.h
+
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
         run: |
@@ -204,6 +209,11 @@ jobs:
             gcc gcc-c++ make autoconf automake libtool pkg-config \
             libgcrypt-devel readline-devel libuuid-devel zlib-devel \
             libxml2-devel libxslt-devel libpq-devel
+
+      - name: Fix PostgreSQL include path
+        run: |
+          mkdir -p /usr/include/postgresql
+          ln -sf /usr/include/libpq-fe.h /usr/include/postgresql/libpq-fe.h
 
       - name: Build libxml2-rr
         working-directory: src/installations/libxml2-rr
