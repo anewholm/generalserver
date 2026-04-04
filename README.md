@@ -64,8 +64,8 @@ For a full architectural rationale see [config/websites/general_server/WHY.xml](
 | Linux Mint 22     | Tested in CI |
 | Fedora 40         | Tested in CI |
 | Fedora 41         | Tested in CI |
-| Kali Linux 2024.4 | Tested in CI |
-| Kali Linux 2025.1 | Tested in CI |
+| Kali Linux (rolling) | Tested in CI |
+| Kali Linux (last-release) | Tested in CI |
 
 CI runs a matrix build across all eight distributions on every push.
 
