@@ -1,5 +1,6 @@
 # Bundled third-party libraries — exclude from language stats
 src/installations/** linguist-vendored=true
+exslt/** linguist-vendored=true
 
 # Website/config data files — not source code
 config/** linguist-documentation=true

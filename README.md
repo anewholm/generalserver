@@ -4,6 +4,46 @@
 
 General Server is a C++ web and application server that uses XML as its data model and XSLT as its query and transformation language. The entire server state — configuration, data, and logic — is represented as a live XML tree navigated via XPath and transformed via XSLT.
 
+## Key features
+
+### XML inheritance
+All technologies in General Server — JSL transforms, JavaScript, and CSS — support **multiple inheritance**. A stylesheet, script, or style rule can inherit from several parents simultaneously. Combined with XPath addressability, this allows fine-grained overriding at the node level rather than the file level.
+
+### XPath-based patching of JavaScript and XSLT
+JavaScript and XSLT stylesheets are stored as **XML nodes**, not flat files. This enables a patching model that no other server provides: instead of patching by line number, you patch by **XPath expression**.
+
+```xml
+<!-- Patch after a specific conditional block, by structure — not by line -->
+<patch:after select="js:if[@when='authenticated']">
+  <js:statement>logAccess($user)</js:statement>
+</patch:after>
+```
+
+This means any programmer can hook into any JavaScript function or XSLT template at a structural position — without the original author needing to provide a hook. It is the XPath equivalent of monkey-patching, but safe and declarative.
+
+### JSL — JSON-style XSL with IDE debugger
+JSL (JSON-style XSL) is General Server's transformation language. It has all the power of XSLT with a more readable syntax and a built-in **stepping IDE debugger**:
+
+```jsl
+if (/config/object:Database/@name == $database-name) {
+  <p>Using main DB</p>
+} else {
+  <p>Using {$database-name} DB</p>
+}
+```
+
+### Everything is a node
+Every JavaScript function, every CSS rule, every configuration value, every piece of logic — all stored as XML nodes and all **addressable via XPath**. There is no distinction between code and data at the storage level.
+
+### Database-level security — zero application code
+Security is enforced entirely at the database level. The server sets the security context on login; nodes that the logged-in user cannot see are simply not returned. Programmers never write login, session, or authorisation code. It cannot be bypassed.
+
+### Internet data triggers
+Individual database nodes can transparently represent remote data via read/write triggers. XPath queries seamlessly access external APIs — no HTTP client code needed; just add a trigger and query as normal.
+
+### Connected developer ecosystem
+All General Server installations are networked. Code is always publicly accessible across servers. An XPath expression is sufficient to see who is extending a class, anywhere in the network. Patches, inheritance, discussion, and code sharing happen within the IDE itself — there is no separate module store.
+
 ## Why XML as a database?
 
 - The data model, schema, and transformation logic are all in the same query language (XPath/XSLT).
