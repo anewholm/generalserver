@@ -235,3 +235,77 @@ jobs:
         run: |
           ./configure
           make -j$(nproc)
+
+  # ── Kali Linux (Docker — Debian-based, relevant to security community) ─────
+
+  kali-2024-4:
+    name: Kali Linux 2024.4
+    runs-on: ubuntu-latest
+    container: kalilinux/kali-rolling:2024.4
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          apt-get update -qq
+          apt-get install -y \
+            build-essential autoconf automake libtool pkg-config \
+            libgcrypt-dev libreadline-dev uuid-dev zlib1g-dev \
+            libxml2-dev libxslt-dev libpq-dev
+
+      - name: Build libxml2-rr
+        working-directory: src/installations/libxml2-rr
+        run: |
+          autoreconf -fi
+          ./configure --without-python --without-debug --without-mem-debug
+          make -j$(nproc) libxml2rr.la
+
+      - name: Build libxslt-rr
+        working-directory: src/installations/libxslt-rr
+        run: |
+          autoreconf -fi
+          ./configure --without-python --without-debug
+          make -j$(nproc) -C libxslt
+          make -j$(nproc) -C libexslt
+
+      - name: Build generalserver
+        working-directory: src
+        run: |
+          ./configure
+          make -j$(nproc)
+
+  kali-2025-1:
+    name: Kali Linux 2025.1
+    runs-on: ubuntu-latest
+    container: kalilinux/kali-rolling:2025.1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          apt-get update -qq
+          apt-get install -y \
+            build-essential autoconf automake libtool pkg-config \
+            libgcrypt-dev libreadline-dev uuid-dev zlib1g-dev \
+            libxml2-dev libxslt-dev libpq-dev
+
+      - name: Build libxml2-rr
+        working-directory: src/installations/libxml2-rr
+        run: |
+          autoreconf -fi
+          ./configure --without-python --without-debug --without-mem-debug
+          make -j$(nproc) libxml2rr.la
+
+      - name: Build libxslt-rr
+        working-directory: src/installations/libxslt-rr
+        run: |
+          autoreconf -fi
+          ./configure --without-python --without-debug
+          make -j$(nproc) -C libxslt
+          make -j$(nproc) -C libexslt
+
+      - name: Build generalserver
+        working-directory: src
+        run: |
+          ./configure
+          make -j$(nproc)

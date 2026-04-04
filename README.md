@@ -1,6 +1,7 @@
 # General Server — XML/XSLT Web and Database Server
 
 [![Build](https://github.com/anewholm/generalserver/actions/workflows/build.yml/badge.svg)](https://github.com/anewholm/generalserver/actions/workflows/build.yml)
+[![CodeQL](https://github.com/anewholm/generalserver/actions/workflows/codeql.yml/badge.svg)](https://github.com/anewholm/generalserver/actions/workflows/codeql.yml)
 
 General Server is a C++ web and application server that uses XML as its data model and XSLT as its query and transformation language. The entire server state — configuration, data, and logic — is represented as a live XML tree navigated via XPath and transformed via XSLT.
 
@@ -55,16 +56,18 @@ For a full architectural rationale see [config/websites/general_server/WHY.xml](
 
 ## Compatibility
 
-| OS              | Status  |
-|-----------------|---------|
-| Ubuntu 22.04    | Tested  |
-| Ubuntu 24.04    | Tested  |
-| Linux Mint 21   | Tested  |
-| Linux Mint 22   | Tested  |
-| Fedora 40       | Tested  |
-| Fedora 41       | Tested  |
+| OS                | Status     |
+|-------------------|------------|
+| Ubuntu 22.04      | Tested in CI |
+| Ubuntu 24.04      | Tested in CI |
+| Linux Mint 21     | Tested in CI |
+| Linux Mint 22     | Tested in CI |
+| Fedora 40         | Tested in CI |
+| Fedora 41         | Tested in CI |
+| Kali Linux 2024.4 | Tested in CI |
+| Kali Linux 2025.1 | Tested in CI |
 
-CI runs a matrix build across all six distributions on every push.
+CI runs a matrix build across all eight distributions on every push.
 
 ## Prerequisites
 
