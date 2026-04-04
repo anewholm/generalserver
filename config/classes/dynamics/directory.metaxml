@@ -1,1 +1,9 @@
-<repository:dynamics xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="dynamics"/>
+<repository:dynamics xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="dynamics">
+  <xml:sort>
+    AdvancedForum
+    ForumPost
+    Person
+    Forum
+    Manager
+  </xml:sort>
+</repository:dynamics>

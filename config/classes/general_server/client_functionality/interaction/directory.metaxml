@@ -1,1 +1,10 @@
-<repository:interaction xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="interaction"/>
+<repository:interaction xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="interaction">
+  <xml:sort>
+    VerticalMenu
+    Overlay
+    ContextMenu
+    SubMenu
+    Menu
+    HorizontalMenu
+  </xml:sort>
+</repository:interaction>

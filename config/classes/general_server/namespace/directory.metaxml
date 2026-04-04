@@ -1,1 +1,18 @@
-<repository:namespace xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="namespace"/>
+<repository:namespace xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="namespace">
+  <xml:sort>
+    CSS
+    Database
+    GS
+    HTML
+    Interface
+    JS
+    Meta
+    ObjectClass
+    RegularX
+    Response
+    XML
+    XMLTransaction
+    XSD
+    XSL
+  </xml:sort>
+</repository:namespace>

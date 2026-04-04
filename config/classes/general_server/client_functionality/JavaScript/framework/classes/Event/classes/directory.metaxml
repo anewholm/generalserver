@@ -1,1 +1,14 @@
-<repository:classes xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="classes"/>
+<repository:classes xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="classes">
+  <xml:sort>
+    AppearEvent
+    ChildListMutationEvent
+    ContentChangedEvent
+    ContentRemovedEvent
+    NewObjectEvent
+    PreSubmitEvent
+    ReadyEvent
+    ServerEvent
+    ResizeEvent
+    ServerNodeChangedEvent
+  </xml:sort>
+</repository:classes>

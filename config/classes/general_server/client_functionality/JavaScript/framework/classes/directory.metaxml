@@ -1,1 +1,18 @@
-<repository:classes xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="classes"/>
+<repository:classes xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="classes">
+  <xml:sort>
+    Cache
+    Debug
+    Options
+    VariableType
+    AnyVariableType
+    CSSPathString
+    JavascriptObjectType
+    BaseObject
+    JQueryClass
+    MACRO
+    UnspecifiedTypeOK
+    Event
+    XHTMLString
+    XPathString
+  </xml:sort>
+</repository:classes>

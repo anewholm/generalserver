@@ -1,1 +1,24 @@
-<repository:client_functionality xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="client_functionality"/>
+<repository:client_functionality xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="client_functionality">
+  <xml:sort>
+    AJAXHTMLLoader
+    HTMLWebpage
+    Collection
+    CSSDependency
+    CSSStylesheet
+    Debugger
+    forms
+    HTMLContainer
+    HTMLImage
+    interaction
+    JavaScript
+    JavaScriptDependency
+    Programmer
+    QualifiedName
+    SharedInterfaces
+    templates
+    XSLInclude
+    XSLStylesheet
+    XSLTemplate
+    XSLVariable
+  </xml:sort>
+</repository:client_functionality>

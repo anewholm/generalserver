@@ -1,1 +1,22 @@
-<repository:system_management xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="system_management"/>
+<repository:system_management xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="system_management">
+  <xml:sort>
+    Repository
+    Message
+    Class
+    Database
+    Error
+    Group
+    LinkedServer
+    MessageInterpretation
+    User
+    Request
+    Resources
+    Response
+    Service
+    HTTP
+    Server
+    Session
+    Transaction
+    Website
+  </xml:sort>
+</repository:system_management>

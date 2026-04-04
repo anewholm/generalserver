@@ -28,5 +28,5 @@
   <!-- TODO: xsl:include href="~HTTP/everything.xsl" / -->
 
   <!-- interface:dynamic data="~Repository/interfaces/directory-response-envelope" / -->
-  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:system_management/*[1]/repository:interfaces/*" />
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:system_management/class:Repository/repository:interfaces/*" />
 </xsl:stylesheet>

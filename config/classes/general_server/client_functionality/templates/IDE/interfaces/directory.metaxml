@@ -1,1 +1,9 @@
-<repository:interfaces xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="interfaces"/>
+<repository:interfaces xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="interfaces">
+  <xml:sort>
+    add.xml
+    multiview.xml
+    search-text.xml
+    search-xpath.xml
+    head-tree-detail.xml
+  </xml:sort>
+</repository:interfaces>

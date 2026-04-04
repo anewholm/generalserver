@@ -1,1 +1,6 @@
-<repository:interfaces xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="interfaces"/>
+<repository:interfaces xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="interfaces">
+  <xml:sort>
+    webpage-response.xml
+    bare-response-envelope.xml
+  </xml:sort>
+</repository:interfaces>
