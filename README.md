@@ -136,6 +136,58 @@ For interactive debugging with gdb:
 gdb --args bin/generalserver interactive
 ```
 
+## Installing as a systemd service (Ubuntu)
+
+General Server reads its configuration from `./config` using a path relative to its working directory, so the service must be started from the repository root.
+
+1. Create the service file:
+
+   ```bash
+   sudo tee /etc/systemd/system/generalserver.service > /dev/null << 'EOF'
+   [Unit]
+   Description=General Server — XML/XSLT web and application server
+   After=network.target postgresql.service
+   Wants=postgresql.service
+
+   [Service]
+   Type=simple
+   User=www-data
+   Group=www-data
+   WorkingDirectory=/path/to/generalserver
+   ExecStart=/path/to/generalserver/bin/generalserver
+   Restart=on-failure
+   RestartSec=5s
+   AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+   [Install]
+   WantedBy=multi-user.target
+   EOF
+   ```
+
+   Replace `/path/to/generalserver` with the actual path to your clone (e.g. `/home/user/Software/generalserver`).
+
+2. Reload systemd and verify the service is registered:
+
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl status generalserver
+   ```
+
+3. Start and enable on boot when ready:
+
+   ```bash
+   sudo systemctl start generalserver
+   sudo systemctl enable generalserver
+   ```
+
+4. View logs:
+
+   ```bash
+   sudo journalctl -u generalserver -f
+   ```
+
+To install as **disabled** (registered but not started automatically), skip the `enable` step. The service can then be started manually with `sudo systemctl start generalserver`.
+
 ## Configuration
 
 The server loads its configuration from [`./config`](config), which contains HTTP service definitions, database connections, and website trees as XML. See [`config/websites/general_server/`](config/websites/general_server/) for the bundled documentation website.
