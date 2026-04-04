@@ -103,4 +103,4 @@ The server loads its configuration from [`./config`](config), which contains HTT
 
 ## License
 
-GPL-2.0
+MIT
