@@ -3,7 +3,7 @@
     database:class-xstylesheet(class [, stand-alone, client-side-only])
     compile the pseudo xstylesheet for a class taking into account it's xsl inheritance chain
     this is a server side system transform only!
-    example: http://general_server.localhost:8776/api/database:class-xstylesheet('User')?create-meta-context-attributes=none&node-mask=.|*&copy-query-attributes=no
+    example: http://general_server.laptop:8776/api/database:class-xstylesheet('User')?create-meta-context-attributes=none&node-mask=.|*&copy-query-attributes=no
       <class:Manager>
         <class:User>...</class:User>  [usually hardlinked] base class
         <xsl:stylesheet>...</xsl:stylesheet>

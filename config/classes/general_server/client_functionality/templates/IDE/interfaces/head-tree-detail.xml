@@ -87,8 +87,8 @@
                 <li><span class="name">RegularX</span><span class="fullname">Regular Expression XSL</span></li>
                 <li><span class="name">TXML</span><span class="fullname">Transactional XML</span></li>
                 <li><span class="name">ERDL</span><span class="fullname">Entity Relationship Design</span></li>
-                <li><img src="{$gs_resource_server}/resources/general_server.localhost/images/Libxml2-Logo-180x168.gif"/><span class="extensions">+security, +hardlinks, +axis</span></li>
-                <li><img src="{$gs_resource_server}/resources/general_server.localhost/images/Libxslt-Logo-180x168.gif"/><span class="extensions">+EXSLT, +write-back</span></li>
+                <li><img src="{$gs_resource_server}/resources/general_server.laptop/images/Libxml2-Logo-180x168.gif"/><span class="extensions">+security, +hardlinks, +axis</span></li>
+                <li><img src="{$gs_resource_server}/resources/general_server.laptop/images/Libxslt-Logo-180x168.gif"/><span class="extensions">+EXSLT, +write-back</span></li>
               </ul>
               <div id="editor" style="display:none;"/>
             </interface:HTMLContainer>

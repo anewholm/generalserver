@@ -262,7 +262,7 @@
 
     createChildElement(... name, namespace, ...)
 
-    http://general_server.localhost:8776/ID/Class__Response_response_loader causes infinite recursion
+    http://general_server.laptop:8776/ID/Class__Response_response_loader causes infinite recursion
       because requesting a target that actually has database:query in it
 
     object:Response mime-type="auto" response-code="314"
@@ -278,7 +278,7 @@
       move to an AJAX loaded analysis of nearest xml:id / .gs_xml_id_...
 
     pissing memory everywhere fast... => 75%
-      http://general_server.localhost:8776/api/~Class/name::view?node-mask=.|*
+      http://general_server.laptop:8776/api/~Class/name::view?node-mask=.|*
       puts 6% on the memory everytime
 
     AND: view.* should be under class:*/views/html/view.*
@@ -542,7 +542,7 @@
     LOTS of things are not working because the hardlink suppression is causing data to not return
       e.g. the CSS__Manager classes are not descending to CSS__User and the person icon is not showing
       suppress-recursive: suppresses exact nodes that have been seen before, but not in the same context:
-      http://general_server.localhost:8776/api/repository:databases/name::general_server/repository:classes/repository:*/class:*?node-mask=descendants-or-self::class:*&amp;database=config&amp;create-meta-context-attributes=none&amp;copy-query-attributes=no&amp;hardlink-policy=suppress-recursive
+      http://general_server.laptop:8776/api/repository:databases/name::general_server/repository:classes/repository:*/class:*?node-mask=descendants-or-self::class:*&amp;database=config&amp;create-meta-context-attributes=none&amp;copy-query-attributes=no&amp;hardlink-policy=suppress-recursive
       class:X
         class:DatabaseObject
           class:DatabaseElement

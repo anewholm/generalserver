@@ -128,7 +128,7 @@ The build is successful if `configure` ends with `Done configuring`.
 ./bin/generalserver
 ```
 
-General Server listens on `http://localhost:8080` by default and runs its built-in test suite on startup.
+General Server listens on `http://localhost:8776` by default and runs its built-in test suite on startup.
 
 For interactive debugging with gdb:
 
@@ -151,10 +151,10 @@ General Server reads its configuration from `./config` using a path relative to 
 
    [Service]
    Type=simple
-   User=www-data
-   Group=www-data
+   User=YOUR_USERNAME
+   Group=YOUR_USERNAME
    WorkingDirectory=/path/to/generalserver
-   ExecStart=/path/to/generalserver/bin/generalserver
+   ExecStart=/path/to/generalserver/bin/generalserver single
    Restart=on-failure
    RestartSec=5s
    AmbientCapabilities=CAP_NET_BIND_SERVICE
@@ -164,7 +164,7 @@ General Server reads its configuration from `./config` using a path relative to 
    EOF
    ```
 
-   Replace `/path/to/generalserver` with the actual path to your clone (e.g. `/home/user/Software/generalserver`).
+   Replace `/path/to/generalserver` with the actual path to your clone (e.g. `/home/user/Software/generalserver`), and `YOUR_USERNAME` with the user who owns that directory. Do not use `www-data` if the repository lives under a home directory, as `www-data` cannot change into it.
 
 2. Reload systemd and verify the service is registered:
 

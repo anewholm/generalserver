@@ -51,17 +51,17 @@
     #Database {z-index:5; }
 
     /* ------------------------------------------- ProcessStages icons */
-    #Main .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/anchor.png);}
-    #Database .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/database.png);}
-    #ReadRepository .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/folder_brick.png);}
-    #Conversation .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/control_repeat_blue.png);}
-    #Service .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/connect.png);}
-    #Server .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/server.png);}
-    #User .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/user_go.png);}
-    #Request .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/comment.png);}
-    #Response .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/comment_add.png);}
-    #Session .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/database_refresh.png);}
-    #MessageInterpretation .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/plugin.png);}
+    #Main .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/anchor.png);}
+    #Database .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/database.png);}
+    #ReadRepository .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/folder_brick.png);}
+    #Conversation .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/control_repeat_blue.png);}
+    #Service .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/connect.png);}
+    #Server .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/server.png);}
+    #User .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/user_go.png);}
+    #Request .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/comment.png);}
+    #Response .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/comment_add.png);}
+    #Session .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/database_refresh.png);}
+    #MessageInterpretation .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/plugin.png);}
   ]]></style>
 
   <div id="architecture-diagram" class="resizable">

@@ -78,11 +78,11 @@
         box-shadow: 2px 2px 20px #888888;
       }
     </style>
-    <link rel="shortcut icon" href="http://general-resources-server.localhost/resources/shared/favicon.ico"></link>
-    <link rel="icon" href="http://general-resources-server.localhost/resources/shared/favicon.ico" type="image/x-icon"></link>
+    <link rel="shortcut icon" href="http://general-resources-server.laptop/resources/shared/favicon.ico"></link>
+    <link rel="icon" href="http://general-resources-server.laptop/resources/shared/favicon.ico" type="image/x-icon"></link>
 
     
-    *** NOT FINISHED, use <a href="http://general_server.localhost:8776/api/help">MI API</a> for now
+    *** NOT FINISHED, use <a href="http://general_server.laptop:8776/api/help">MI API</a> for now
     
     <ul id="server-commands">
       <li><form method="POST" target="servercommand_iframe" action="/api/server/help"><input type="submit" value="help"/></form></li>

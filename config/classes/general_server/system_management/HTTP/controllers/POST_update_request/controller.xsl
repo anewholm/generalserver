@@ -349,7 +349,7 @@
   </xsl:template>
 
   <xsl:template match="object:Request" mode="full_url">
-    <!-- http://general_server.localhost:8776/this/is/the?things=this -->
+    <!-- http://general_server.laptop:8776/this/is/the?things=this -->
     <xsl:value-of select="gs:host/@protocol"/>
     <xsl:if test="not(gs:host/@protocol)">http</xsl:if>
     <xsl:text>://</xsl:text>

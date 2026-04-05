@@ -20,7 +20,7 @@
     #MI_GetRequest {height:240px;width:200px;}
     
     /* ------------------------------------------- ProcessStages icons */
-    #Request .inner {background-image:url(http://general-resources-server.localhost/resources/shared/images/icons/anchor.png);} 
+    #Request .inner {background-image:url(http://general-resources-server.laptop/resources/shared/images/icons/anchor.png);} 
   ]]></style>
 
   <div id="architecture-diagram" class="resizable">
