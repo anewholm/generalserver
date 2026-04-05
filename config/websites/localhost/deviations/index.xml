@@ -1,0 +1,15 @@
+<interface:VerticalFrameset xmlns="http://www.w3.org/1999/xhtml" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="index">
+  <xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:client_functionality/repository:templates/class:IDE/repository:interfaces/*[5]/*[1]" />
+  
+  <interface:Frame>
+    <interface:HTMLContainer>
+      find a programmer
+    </interface:HTMLContainer>
+  </interface:Frame>
+  
+  <interface:Frame>
+    <interface:HTMLContainer>
+      <a href="/admin/">be a programmer</a>
+    </interface:HTMLContainer>
+  </interface:Frame>
+</interface:VerticalFrameset>

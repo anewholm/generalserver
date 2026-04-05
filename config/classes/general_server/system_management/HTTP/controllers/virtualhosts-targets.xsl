@@ -6,7 +6,9 @@
     dynamic values are allowed, e.g. /^{$gs_user/@xml:id}
   -->
   <xsl:param name="gs_resource_server" select="$gs_resource_server_object/@uri"/>
-  <xsl:param name="gs_dynamic_url" select="str:dynamic($gs_request/gs:url)"/>
+  <xsl:param name="gs_dynamic_url_raw" select="str:dynamic($gs_request/gs:url)"/>
+  <!-- Map empty URL (root /) to 'index' so each website can have a dedicated index.xsl -->
+  <xsl:param name="gs_dynamic_url" select="concat($gs_dynamic_url_raw, substring('index', 1, boolean(not(normalize-space($gs_dynamic_url_raw))) * string-length('index')))"/>
   <xsl:param name="gs_AJAX" select="gs:HTTP/@X-Requested-With = 'XMLHttpRequest'"/>
   <xsl:param name="gs_request_use_indexes" select="str:boolean($gs_message_interpretation/@use-indexes, true())"/>
   <xsl:param name="gs_request_auto_target" select="str:boolean($gs_message_interpretation/@auto-target, true())"/>

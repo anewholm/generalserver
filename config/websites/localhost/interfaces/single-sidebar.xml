@@ -1,0 +1,10 @@
+<interface:HTMLWebpage xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <!-- interfaces wrap the stated element (<html:body>) in the interface (<object:HorizontalFrameset>)
+    and continue with it at the <response:continue/> element
+  -->
+  <object:HorizontalFrameset>
+    <interface:Frame>
+      <interface:HTMLContainer meta:suggest-deviate="yes"/>
+    </interface:Frame>
+  </object:HorizontalFrameset>
+</interface:HTMLWebpage>

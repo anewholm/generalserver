@@ -1,0 +1,4 @@
+<xml:hardlink target="/object:Server/*[6]/repository:general_server/repository:system_management/class:Response/repository:interfaces/*[1]">
+  <xml:deviation original="/object:Server/*[6]/repository:general_server/repository:client_functionality/*[2]/repository:interfaces/*/*" deviant="/object:Server/repository:websites/object:Website[3]/repository:deviations/*[5]" />
+  <xml:deviation attribute-name="name" original="/object:Server/*[6]/repository:general_server/repository:system_management/class:Response/repository:interfaces/*[1]" deviant="/object:Server/repository:websites/object:Website[3]/repository:deviations/*[10]/*[7]" />
+</xml:hardlink>

@@ -1,0 +1,30 @@
+<interface:HTMLContainer xmlns="http://www.w3.org/1999/xhtml" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" title="LibXML2r">
+  <h2>ALTERATIONS</h2>
+  <ul>
+    <li>xml:hardlink</li>
+    <li>xml:deviation</li>
+    <li>no default document-order sorting. use database:document-order(node-set) @data-type=number for this</li>
+    <li>AXIS_NAME is the default axis for non-namespace steps, e.g. /Server/</li>
+    <li>C string literal escaping is introduced to XSL string literals, e.g. 'test'quote' can be written 'test\'quote'</li>
+  </ul>
+  
+  <h2>NEW AXIS</h2>
+  <ul>
+    <li>name</li>
+    <li>parent-route</li>
+    <li>parent-natural</li>
+    <li>hardlink</li>
+    <li>top</li>
+    <li>parents</li>
+    <li>ancestors</li>
+    <li>ancestors-or-self</li>
+    <li>descendant-natural</li>
+  </ul>
+  
+  <h2>NEW GRAMMAR</h2>
+  <ul>
+    <li>~Class name</li>
+    <li>^x id(x)</li>
+    <li>`x session:node-set(x)</li>
+  </ul>
+</interface:HTMLContainer>

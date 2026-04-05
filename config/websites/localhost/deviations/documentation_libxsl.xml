@@ -1,0 +1,77 @@
+<interface:HTMLContainer xmlns="http://www.w3.org/1999/xhtml" xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" title="LibXSL2r">
+  <pre><![CDATA[
+    ------------------------------------- XSL ADDITIONS:
+    @xsl:if|@xsl:when attribute xsl commands
+      currently only available on client side
+      e.g. <div xsl:if="@test='whatever'"/>
+    <xsl:else/>, <xsl:else-if test=""/>
+      </xsl:if> *closing* of the command sets the lastIfResult
+      is recursive so works with embedded <xsl:if / else/>
+    <xsl:include xpath="multiple"/>
+      xpath can link to multiple stylesheets
+      this is important as it enables a dynamic [re]compilation of all class:*/xsl:stylesheets
+      using wildcards without stating exactly each stylesheet
+    <xsl:* xsl:error-policy="continue" />
+      currently implemented at the C++ level this should be incorporated in to the C LibXML library
+      could use a strategy pattern also.
+      or continue to simply allow the host to trap errors and decide what to do
+      XSL has been changed to politely continue when asked
+    <xsl:template @match={dynamic xpath statement}  
+      allows insertion of the Class inherited @elements at compile time
+    <xsl:template and <xsl:apply-templates @with-all-params=all
+      NOT_COMPLETE;
+      automatically declare all <xsl:with-params sent from the xsl:apply-templates
+      good for simple short pass-through templates
+    <xsl:param @select=... @select-when-blank=yes
+      causes the @select default to be used when the with-param value is a blank string
+    <xsl:template @mode=*
+      catches all <xsl:apply-templates mode=something that have no direct mode template
+      normally XSL would simply copy the literals in to the output
+  ]]></pre>
+
+  <pre><![CDATA[
+    ------------------------------------- ENTRY POINT:
+    xsltApplyStylesheetInternal() 
+      + xpathContext
+      xsltProcessOneNode(source root node)
+      
+    ------------------------------------- SOURCE NODE TEMPLATE DISCOVERY LOOP:
+    xsltProcessOneNode(source)
+      discover if there is an appropriate templ for a source node
+      recursive
+      if (templ exists)
+        move to processing the XSL instructions + literals in the template BELOW
+        xsltApplyXSLTTemplate(cur, templ) XSLT 'apply-templates' instruction
+          xsltApplySequenceConstructor(templ->children) BELOW
+            loop through templ->children instructions
+      OR (if no template)
+        doesn't really happen in GS because we provide alternative default templates all the time
+        xsltDefaultProcessOneNode() DEFAULT templates only (*,text(),@*)
+          xsltProcessOneNode(children source nodes)
+    
+    ------------------------------------- TEMPLATE XSL INSTRUCTION (COMPILED) LOOP:
+    xsltApplySequenceConstructor(xmlNodePtr ctxt->inst->children => "list")
+      through template XSLT elements: instructions, text, element-literals to go in to output
+      main loop through XSL statements under any xsl:<command> or xsl:template
+      applied always on ctxt->inst->children
+      this is how we continueTransform()
+      HANDLES XSL_TEXT, XSL_LITERAL_NODES (actually in the XSL):
+        copies them directly in to the output
+      XSL_COMMANDS (xsl:choose, xsl:apply-templates, etc.):
+        info->func = xsltExtElementLookup()
+        func(ctxt, contextNode, cur, cur->psvi);
+          => xsltApplyTemplates, xsltForEach, xsltChoose, xsltIf, etc.
+            => xslt<instruction camel name>() usually calls 
+              => xsltApplySequenceConstructor(inst->children)
+      XSL_FALLBACKS:
+        xsltApplySequenceConstructor(fallbacks)
+          xsltApplyXSLTTemplate(templ) if template available
+          
+    ------------------------------------- XSLT INSTRUCTION METHODS: 
+    accessed from xsltExtElementLookup() => func() in xsltApplySequenceConstructor()
+    each xslt<instruction camel name>() has an equivalent xslt<instruction camel name>Comp() in preproc.h compiler
+    'apply-templates' => xsltApplyTemplates
+      loop each node in list (results of @select xpath compiled evaluation): 
+        xsltProcessOneNode(templ?) with context->node set to node in list
+  ]]></pre>
+</interface:HTMLContainer>

@@ -1,0 +1,57 @@
+<gs:WHY xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <interface:MultiView xmlns="http://general_server.org/xmlnamespaces/general_server/2006">
+  <gs:view title="why">
+    <p>
+      GS (General Server) is a hierarchical database server that can transform information to produce HTML.
+      So yes, its also a web server. In fact, it can listen on any port and have configurable conversations about anything.
+      Except binary things. It doesn't like binaries. It loves text.
+    </p>
+    <p>
+      GS has no server-side scripting language. Information can be transformed with a stylesheet while being served using 
+      JSL (JSON style extended XSL).
+      JSL has all the commands from XSL and much more but is written in a friendly way and with a stepping on=line IDE debugger.
+      <span class="example"><html:pre>
+        if (/config/object:Database/@name == $database-name) {
+          <p>Using main DB</p>
+        } else {
+          <p>Using {$database-name} DB</p>
+        }
+      </html:pre></span>
+      And 6 DOM-level-2 commands can be used to update any information in conjunction with JSL transforms safely.
+      There is nothing else. All other requirements are met by the C++ database engine.
+      For example: 
+      <span class="example">
+        Individual database nodes can seamlessly represent foriegn Internet data via read and write triggers.
+        Thus there is no need to manually implement requests for data from other servers. 
+        Just add a trigger and use XPATH to seamlessly read the data. RegularXL can convert non-XML to XML for you.
+      </span>
+    </p>
+    <p>
+      Code, CSS, JS, JSL, information; is all stored in the same way that basic information is. 
+      All accessible via XPATH. Every Javascript function is a node, every CSS clause is a node, nothing is not a node.
+    </p>
+    <p>
+      There is one security system. The database security. The server does the login. The server sets the security context.
+      The server can't even see anything that the login has not allowed it to.
+      The programmer NEVER implements anything to do with security logins, or contexts.
+      Nodes will simply not be visible if the logged in user cannot see them.
+      The programmer does not control that system.
+    </p>
+    <p>
+      All GS installations MUST be connected and all code is always publicly accessible and shareable. 
+      It will not be hidden. That's because the only thing that GS code can do is simple transforms or specific update commands.
+      Thus all programmers are always connected and can use each others code.
+      "Patches", inheritance, usage, discussion happen within each others IDEs (Integrated Development Environments)
+      thus ensuring that code is discussed, updated and shared by the community continuously. 
+      There is no optional on-line Module store. The IDE and inter-connected server network IS the store.
+      For example:
+      <span class="example">
+        Its a simple <span class="tech">XPATH</span> statement to see who is extending a class. Anywhere.
+      </span>
+    </p>
+    <p>
+      All technologies in GS (JSL, JavaScript, CSS) support multiple inheritance.
+    </p>
+  </gs:view>
+  </interface:MultiView>
+</gs:WHY>

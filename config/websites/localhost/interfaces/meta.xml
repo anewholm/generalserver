@@ -1,0 +1,6 @@
+<html:head xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006">
+  <!-- interfaces append elements (<html:meta>) to the element stated (<html:head>)
+    and then continue at <response:continue/>
+  -->
+  <html:meta creator="Me"/>
+</html:head>

@@ -1,0 +1,13 @@
+<gs:README xmlns:repository="http://general_server.org/xmlnamespaces/repository/2006" name="README">
+  <interface:MultiView xmlns="http://general_server.org/xmlnamespaces/general_server/2006">
+  <gs:view title="readme">
+    <html:pre><![CDATA[
+      indeed
+    ]]></html:pre>
+    <ul>
+      <li><a href="WHY">WHY?</a></li>
+      <li><a href="TODO">TODO</a></li>
+    </ul>
+  </gs:view>
+  </interface:MultiView>
+</gs:README>
