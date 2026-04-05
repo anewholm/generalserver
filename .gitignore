@@ -12,6 +12,11 @@
 **/Makefile.in
 **/config.log
 **/config.status
+src/config.h
+src/installations/**/*config.h
+
+# Claude Code project settings
+.claude/
 
 # libtool / autoconf build output
 **/autom4te.cache/
