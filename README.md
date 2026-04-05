@@ -192,9 +192,60 @@ To install as **disabled** (registered but not started automatically), skip the 
 
 The server loads its configuration from [`./config`](config), which contains HTTP service definitions, database connections, and website trees as XML. See [`config/websites/general_server/`](config/websites/general_server/) for the bundled documentation website.
 
-## Sister project
+## General Resources Server (companion)
 
-[general_resources_server](https://github.com/anewholm/general_resources_server) — a lightweight Apache/PHP server that serves static assets (images, CSS, downloads) as a companion to General Server.
+[general_resources_server](https://github.com/anewholm/general_resources_server) is a lightweight Apache/PHP companion that serves binary and static assets (images, fonts, third-party JS/CSS libraries). General Server is XML-only and cannot serve binary files directly; GRS fills that gap.
+
+The admin interface and documentation pages will not render correctly in a browser without GRS running, because they reference jQuery, CodeMirror, and image files served from `http://general-resources-server.laptop/`.
+
+### Installing GRS
+
+1. Clone into the web root and set ownership:
+
+   ```bash
+   sudo git clone https://github.com/anewholm/general_resources_server /var/www/general_resources_server
+   sudo chown -R www-data:www-data /var/www/general_resources_server
+   ```
+
+2. Create an Apache vhost at `/etc/apache2/sites-available/general-resources-server.conf`:
+
+   ```apache
+   <VirtualHost *:80>
+       ServerName general-resources-server.laptop
+       DocumentRoot /var/www/general_resources_server
+       DirectoryIndex index.php index.html
+
+       <Directory /var/www/general_resources_server>
+           Options Indexes FollowSymLinks
+           AllowOverride All
+           Require all granted
+       </Directory>
+
+       ErrorLog ${APACHE_LOG_DIR}/general-resources-server-error.log
+       CustomLog ${APACHE_LOG_DIR}/general-resources-server-access.log combined
+   </VirtualHost>
+   ```
+
+3. Enable the vhost and add the hostname:
+
+   ```bash
+   sudo a2ensite general-resources-server
+   sudo systemctl reload apache2
+   echo "127.0.0.1  general-resources-server.laptop" | sudo tee -a /etc/hosts
+   ```
+
+4. Verify by visiting `http://general-resources-server.laptop/` — you should see the resources directory listing.
+
+### Updating GRS
+
+After pulling upstream changes, sync the deployment:
+
+```bash
+cd /home/user/Software/GitHub/general_resources_server
+git pull
+sudo rsync -a ./ /var/www/general_resources_server/
+sudo chown -R www-data:www-data /var/www/general_resources_server
+```
 
 ## License
 
