@@ -143,9 +143,9 @@ General Server reads its configuration from `./config` using a path relative to 
 1. Create the service file:
 
    ```bash
-   sudo tee /etc/systemd/system/generalserver.service > /dev/null << 'EOF'
+   sudo tee /etc/systemd/system/generalserver.service << 'EOF'
    [Unit]
-   Description=General Server — XML/XSLT web and application server
+   Description=General Server XML/XSLT web and application server
    After=network.target postgresql.service
    Wants=postgresql.service
 
@@ -187,6 +187,10 @@ General Server reads its configuration from `./config` using a path relative to 
    ```
 
 To install as **disabled** (registered but not started automatically), skip the `enable` step. The service can then be started manually with `sudo systemctl start generalserver`.
+
+## Production deployment
+
+General Server is designed to run **behind a load balancer or reverse proxy** (e.g. Nginx, HAProxy, or a cloud gateway) that terminates HTTPS and forwards plain HTTP to General Server. This is a standard production pattern — General Server handles application logic while the gateway handles TLS, rate limiting, and upstream routing.
 
 ## Configuration
 

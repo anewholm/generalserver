@@ -8,3 +8,6 @@ config/** linguist-documentation=true
 
 # Documentation
 doc/** linguist-documentation=true
+
+# HTML files in this project are XML data/templates, not web source
+*.html linguist-language=XML
