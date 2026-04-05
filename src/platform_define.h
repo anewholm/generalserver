@@ -44,7 +44,7 @@ typedef UINT_PTR SOCKET;
 #define LAST_DIR "/var/www/general_resources_server/last"
 #define LAST_XML LAST_DIR "/response.xml"
 #define LAST_XSL LAST_DIR "/stylesheet.xsl"
-#define LAST_PHP "http://general-resources-server.localhost/last/index.php"
+#define LAST_PHP "http://general-resources-server.laptop/last/index.php"
 
 //----------------------------------------------------- function aliases
 //these are platform dependent 

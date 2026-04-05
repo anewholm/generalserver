@@ -57,7 +57,51 @@ using namespace regex;
 
 namespace general_server {
   //-------------------------------------------------------------------------------------------
-  //-------------------------------------- CommandLineProcessor ---------------------------------------------
+  //-------------------------------------- liveness check ---------------------------------------
+  //-------------------------------------------------------------------------------------------
+  static bool checkHostReachable(const char *sHost, int iPort, int iTimeoutSecs) {
+    //non-blocking TCP connect with timeout — used for GRS liveness check at startup
+    struct hostent *pHostEntry;
+    SOCKET scl;
+    SOCKADDR_IN addr;
+    struct timeval tv;
+    fd_set fds;
+    int iErr = 0, iOptLen, iFlags;
+    bool bReachable = false;
+
+    pHostEntry = gethostbyname(sHost);
+    if (!pHostEntry) return false;
+
+    scl = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (scl == INVALID_SOCKET) return false;
+
+    iFlags = fcntl(scl, F_GETFL, 0);
+    fcntl(scl, F_SETFL, iFlags | O_NONBLOCK);
+
+    memset(&addr, 0, sizeof(addr));
+    addr.sin_family = AF_INET;
+    addr.sin_port   = htons(iPort);
+    memcpy(&addr.sin_addr, pHostEntry->h_addr, pHostEntry->h_length);
+
+    connect(scl, (LPSOCKADDR)&addr, sizeof(addr)); //returns immediately (EINPROGRESS)
+
+    FD_ZERO(&fds);
+    FD_SET(scl, &fds);
+    tv.tv_sec  = iTimeoutSecs;
+    tv.tv_usec = 0;
+
+    if (select(scl + 1, NULL, &fds, NULL, &tv) > 0) {
+      iOptLen = sizeof(iErr);
+      getsockopt(scl, SOL_SOCKET, SO_ERROR, &iErr, (socklen_t*)&iOptLen);
+      bReachable = (iErr == 0);
+    }
+
+    CLOSE_SOCKET(scl);
+    return bReachable;
+  }
+
+  //-------------------------------------------------------------------------------------------
+  //-------------------------------------- CommandLineProcessor ---------------------------------
   //-------------------------------------------------------------------------------------------
   CommandLineProcessor::CommandLineProcessor(Server *pServer): 
     MemoryLifetimeOwner(pServer),
@@ -153,6 +197,25 @@ namespace general_server {
       for (iService = m_mServices.begin(); iService != m_mServices.end(); iService++)
         iService->second->runThreaded();
     } serviceManagementUnlock();
+
+    //GRS liveness check — non-blocking TCP connect, 2 second timeout
+    {
+      DatabaseNode *pGRSNode = m_pNode->getSingleNode(
+        m_pIBQE_serverStartup,
+        "repository:linked_servers/object:LinkedServer[@name='general resources server']");
+      if (pGRSNode) {
+        const char *sURI  = pGRSNode->attributeValue(m_pIBQE_serverStartup, "uri");
+        const char *sHost = (sURI && strncmp(sURI, "http://", 7) == 0) ? sURI + 7 : sURI;
+        if (sHost && *sHost) {
+          if (checkHostReachable(sHost, 80, 2))
+            Debug::report("resource server [%s] reachable", sHost);
+          else
+            Debug::report("resource server [%s] NOT reachable — browser pages will not render correctly", sHost, rtWarning);
+        }
+        if (sURI) MMO_FREE(sURI);
+        delete pGRSNode;
+      }
+    }
 
     Tests ts_networking(m_pNode->db(), NULL, "HTTP-tests"); //BLOCKING
 
