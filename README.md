@@ -67,7 +67,7 @@ This enables versioning of any node, which is everything, inculding JavaScript, 
 ### Performance
 All modern browsers can carry out XSLT. Thus, GS returns XML to the client browser, with an XSL transform command. XSL stylesheets are requested once and cached on the client side thus providing a huge reduction in bandwidth usage and performance boost over other frameworks.
 
-Note that there are calls [by Google](https://developer.chrome.com/docs/web-platform/deprecating-xslt) to discontinue XSLT support in major browsers. This would force GS to conduct XSLTs server-side thus negating its bandwidth performance advantage.
+> **Note:** that there are calls [by Google](https://developer.chrome.com/docs/web-platform/deprecating-xslt) to discontinue XSLT support in major browsers. This would force GS to conduct XSLTs server-side thus negating its bandwidth performance advantage.
 
 ## Why XML as a database?
 
