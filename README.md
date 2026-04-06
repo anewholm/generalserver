@@ -133,6 +133,8 @@ The build is successful if `configure` ends with `Done configuring`.
 
 ## Running
 
+The standard General Server web-based IDE will not be available without GRS (General Resource Server) installed and running. See below for instructions.
+
 ```bash
 ./bin/generalserver
 ```
@@ -248,17 +250,6 @@ The admin interface and documentation pages will not render correctly in a brows
    ```
 
 4. Verify by visiting `http://general-resources-server.laptop/` — you should see the resources directory listing.
-
-### Updating GRS
-
-After pulling upstream changes, sync the deployment:
-
-```bash
-cd /home/user/Software/GitHub/general_resources_server
-git pull
-sudo rsync -a ./ /var/www/general_resources_server/
-sudo chown -R www-data:www-data /var/www/general_resources_server
-```
 
 ## License
 
