@@ -148,7 +148,7 @@ The build is successful if `configure` ends with `Done configuring`.
 
 ## Running
 
-> The standard General Server web-based IDE will not be available without GRS (General Resource Server) installed and running. See below for instructions.
+> For the **web-based IDE**: The standard General Server IDE will not be available without GRS (General Resource Server) installed and running. See below for instructions.
 
 ```bash
 ./bin/generalserver
