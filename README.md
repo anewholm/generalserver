@@ -3,15 +3,16 @@
 [![Build](https://github.com/anewholm/generalserver/actions/workflows/build.yml/badge.svg)](https://github.com/anewholm/generalserver/actions/workflows/build.yml)
 [![CodeQL](https://github.com/anewholm/generalserver/actions/workflows/codeql.yml/badge.svg)](https://github.com/anewholm/generalserver/actions/workflows/codeql.yml)
 
-General Server is a C++ web and application server that uses XML as its data model and XSLT as its query and transformation language. The entire server state — configuration, data, and logic — is represented as a live XML tree navigated via XPath and transformed via XSLT.
+GS (General Server) is a C++ web and application server that uses XML as its data model and XSLT as its query and transformation language. The entire server state — configuration, data, and logic — is represented as a live XML tree navigated via XPath and transformed via XSLT.
 
-| Date       | Event                 |
-|------------|-----------------------|
-| Feb/2005   | Version 1 completed   |
-| March/2020 | Pushed to GitHub      |
-| Feb/2026   | Project discontinued* |
+| Date          | Project Event         |
+|---------------|-----------------------|
+| Janruary/2002 | Project start         |
+| February/2005 | Development completed |
+| March/2020    | Pushed to GitHub      |
+| April/2026    | CI/CD multi-platform compatibility |
 
-\* - Due to calls, [by Google](https://developer.chrome.com/docs/web-platform/deprecating-xslt), to discontinue XSLT support in major browsers.
+Note that there are calls [by Google](https://developer.chrome.com/docs/web-platform/deprecating-xslt) to discontinue XSLT support in major browsers. This would force GS to conduct XSLTs server-side thus negating its bandwidth performance advantage.
 
 ## Key features
 
