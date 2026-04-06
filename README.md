@@ -17,14 +17,14 @@ GS (General Server) is a C++ web and application server that uses XML as its dat
 ### XML inheritance
 All technologies in General Server — JSL transforms, JavaScript, and CSS — support **multiple inheritance**. A stylesheet, script, or style rule can inherit from several parents simultaneously. Combined with XPath addressability, this allows fine-grained overriding at the node level rather than the file level.
 
-### XPath-based patching of JavaScript and XSLT
-JavaScript and XSLT stylesheets are stored as **XML nodes**, not flat files. This enables a patching model that no other server provides: instead of patching by line number, you patch by **XPath expression**.
+### XPath-based hooking / patching of JavaScript and XSLT
+JavaScript and XSLT stylesheets are stored as **XML nodes**, not flat files. This enables a hooking/patching model that no other server provides: instead of hooking in where the developer allows, or patching by line number, you alter/add code by **XPath expression**.
 
 ```xml
-<!-- Patch after a specific conditional block, by structure — not by line -->
-<patch:after select="js:if[@when='authenticated']">
+<!-- Hook/Patch after a specific conditional block, by structure — not by line -->
+<hook:after select="js:if[@when='authenticated']">
   <js:statement>logAccess($user)</js:statement>
-</patch:after>
+</hook:after>
 ```
 
 This means any programmer can hook into any JavaScript function or XSLT template at a structural position — without the original author needing to provide a hook. It is the XPath equivalent of monkey-patching, but safe and declarative.
@@ -46,11 +46,23 @@ Every JavaScript function, every CSS rule, every configuration value, every piec
 ### Database-level security — zero application code
 Security is enforced entirely at the database level. The server sets the security context on login; nodes that the logged-in user cannot see are simply not returned. Programmers never write login, session, or authorisation code. It cannot be bypassed.
 
-### Internet data triggers
-Individual database nodes can transparently represent remote data via read/write triggers. XPath queries seamlessly access external APIs — no HTTP client code needed; just add a trigger and query as normal.
+### Internet data triggers - foreign nodes
+Individual database nodes can transparently represent remote data via read/write triggers. XPath queries seamlessly access external APIs / URLs — no HTTP client code needed; just add a trigger and query as normal. Remote text streams can be automatically converted in to XML documents seamlessly using RegularX and traversed, HTML documents are automatically parsed in to valid XML node structures.
 
 ### Connected developer ecosystem
-All General Server installations are networked. Code is always publicly accessible across servers. An XPath expression is sufficient to see who is extending a class, anywhere in the network. Patches, inheritance, discussion, and code sharing happen within the IDE itself — there is no separate module store.
+All General Server installations are networked. Each node can have a conversation attached to it, visible to anyone who accesses it. An XPath expression is sufficient to see who is extending a class, anywhere in the diaspora. Patches, inheritance, discussion, and code sharing happen within the IDE itself — there is no separate module store.
+
+### Hard and Soft-linking
+Soft-linking is implemented, the same way as Linux filesystem does. It is an extra soft-link node that contains an xpath attribute pointing to its desired alternate location. In these cases, XPath must be written to traverse such links.
+
+The server-side XML specification has been extended to include hard links. These work identically to Linux filesystem hardlinks. That is, any node can have _multiple_ parents. For example, a `policy document` node can be attached to many parent `meeting` nodes. This is implemented deep down in the augmented `LibXML-rr`. This is seamless to XPath, however, it will re-ascend up along the `ancestor` and `parent` axises the same way it took to come down.
+
+### Versioning (Deviations)
+A hardlinked node may attach _deviations_ to its sub-tree specific to a stated parent. In other words, content can be different depending to how you arrived at it. In other words, you can _deviate_ a nodes' content or attributes based on its ancestors.
+
+For example, `philip/my-documents/yearly-report` is also hardlinked to `sarah/my-documents/yearly-report`. The `yearly-report` is 1 node with 2 parents and 1 sub-tree. However, Sarah has re-written paragraph 2 of the Summary `./section[title=Summary]/p[2]` chosing the **deviate** option when saving. Thus, the paragraph has not been changed, just a deviation registered for that `p[2]` at the `yearly-report` hardlink for `sarah`s view. `philip` will not see that in his `my-documents/yearly-report`.
+
+This enables versioning of any node, which is everything, inculding JavaScript, CSS, XSL, documents, configurations, etc.
 
 ### Performance
 All modern browsers can carry out XSLT. Thus, GS returns XML to the client browser, with an XSL transform command. XSL stylesheets are requested once and cached on the client side thus providing a huge reduction in bandwidth usage and performance boost over other frameworks.
