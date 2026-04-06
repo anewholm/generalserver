@@ -12,8 +12,6 @@ GS (General Server) is a C++ web and application server that uses XML as its dat
 | March/2020    | Pushed to GitHub      |
 | April/2026    | CI/CD multi-platform compatibility |
 
-Note that there are calls [by Google](https://developer.chrome.com/docs/web-platform/deprecating-xslt) to discontinue XSLT support in major browsers. This would force GS to conduct XSLTs server-side thus negating its bandwidth performance advantage.
-
 ## Key features
 
 ### XML inheritance
@@ -53,6 +51,11 @@ Individual database nodes can transparently represent remote data via read/write
 
 ### Connected developer ecosystem
 All General Server installations are networked. Code is always publicly accessible across servers. An XPath expression is sufficient to see who is extending a class, anywhere in the network. Patches, inheritance, discussion, and code sharing happen within the IDE itself — there is no separate module store.
+
+### Performance
+All modern browsers can carry out XSLT. Thus, GS returns XML to the client browser, with an XSL transform command. XSL stylesheets are requested once and cached on the client side thus providing a huge reduction in bandwidth usage and performance boost over other frameworks.
+
+Note that there are calls [by Google](https://developer.chrome.com/docs/web-platform/deprecating-xslt) to discontinue XSLT support in major browsers. This would force GS to conduct XSLTs server-side thus negating its bandwidth performance advantage.
 
 ## Why XML as a database?
 
@@ -250,6 +253,16 @@ The admin interface and documentation pages will not render correctly in a brows
    ```
 
 4. Verify by visiting `http://general-resources-server.laptop/` — you should see the resources directory listing.
+
+## Architecture
+
+### Request - response process
+GS does not natively understand the HTTP or other protocols. These protocols are created and configured in the `/services` collection. This requires the ability to convert incoming text streams in to XML documents, which is done by the `RegularX.cpp` system using configurable regular expressions.
+
+1. A `/service/<name>` has a defined port to listen on, like HTTP on 80. Incoming text stream client requests will initiate this process
+2. A defined RegularX document in the service transforms the incoming text streams in to an XML document into the service `./requests` collection
+3. A defined server-side XSL document transforms the request, with access to the whole database limited by security
+4. The resultant XML document will be returned to the client, potentially with a client side XSLT command if required.
 
 ## License
 
