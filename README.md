@@ -5,6 +5,14 @@
 
 General Server is a C++ web and application server that uses XML as its data model and XSLT as its query and transformation language. The entire server state — configuration, data, and logic — is represented as a live XML tree navigated via XPath and transformed via XSLT.
 
+| Date       | Event                 |
+|------------|-----------------------|
+| Feb/2005   | Version 1 completed   |
+| March/2020 | Pushed to GitHub      |
+| Feb/2026   | Project discontinued* |
+
+\* - Due to calls, [by Google](https://developer.chrome.com/docs/web-platform/deprecating-xslt), to discontinue XSLT support in major browsers.
+
 ## Key features
 
 ### XML inheritance
