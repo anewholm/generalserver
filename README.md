@@ -245,7 +245,7 @@ The server loads its configuration from [`./config`](config), which contains HTT
 
 ## General Resources Server (companion)
 
-[general_resources_server](https://github.com/anewholm/general_resources_server) is a lightweight Apache/PHP companion that serves binary and static assets (images, fonts, third-party JS/CSS libraries). General Server is XML-only and cannot serve binary files directly; GRS fills that gap.
+[GRS (General Resources Server)](https://github.com/anewholm/general_resources_server) is a lightweight companion website for serving binary and static assets (images, fonts, third-party JS/CSS libraries). General Server is XML-only. It can serve Base64 encoded binary files directly but GRS does it better. GRS is also the place for PHP custom connectors to external systems.
 
 The admin interface and documentation pages will not render correctly in a browser without GRS running, because they reference jQuery, CodeMirror, and image files served from `http://general-resources-server.laptop/`.
 
