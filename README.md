@@ -4,16 +4,16 @@
 [![CodeQL](https://github.com/anewholm/generalserver/actions/workflows/codeql.yml/badge.svg)](https://github.com/anewholm/generalserver/actions/workflows/codeql.yml)
 ![Human made content](human-made-content.png "Human made content")
 
-GS (General Server) solves many of the issues software developers face in the industry. Physically, it is a C++ web and application server that uses XML as its data model and XSLT as its query and transformation language. The entire server state — configuration, data, and logic — is represented as a live XML tree navigated via XPath and transformed via XSLT. Semantically, it is a different, more flexible and secure way of working together.
+GS (General Server) has innovative solutions for many of the issues in the industry today. Physically, it is a C++ web and application server that uses XML as its data model and XSLT as its query and transformation language. The entire server state — configuration, data, and logic — is represented as a live XML tree navigated via XPath and transformed via XSLT. Semantically, it is a different, more flexible and secure way of accessing information and working together.
 
 | Date          | Project Event         |
 |---------------|-----------------------|
 | Janruary/2002 | Project start         |
-| February/2005 | Development completed |
+| February/2005 | v1.0 Development completed |
 | March/2020    | Pushed to GitHub      |
 | April/2026    | CI/CD multi-platform compatibility |
 
-## Key features / industry solutions
+## Industry solutions / Key features
 
 Everything in GS is a node. For example, a JavaScript `js:if` statement, a CSS `overflow:hidden` rule, an `object:user`, a document `doc:paragraph`, a `service:website @port="80"`. Every configuration value, every piece of logic — all stored as XML nodes and all **addressable via XPath**. There is no distinction between code and data at the storage level. This means that all the features below apply to data, markup, transforms and source code alike.
 
