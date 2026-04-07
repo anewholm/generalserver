@@ -4,6 +4,7 @@
 #include "libxml/debugXML.h"
 #include "libxml/HTMLtree.h"
 #include "libxml/list.h"
+#include "libxml/xmlIO.h"
 
 #ifdef HAVE_LIBREADLINE
 //apt-get install libreadline6-dev
@@ -57,12 +58,23 @@ namespace general_server {
     LibXslNode::freeParsedTemplates();
   }
 
+  static xmlParserInputPtr gs_blockExternalEntityLoader(const char *URL, const char * /*ID*/, xmlParserCtxtPtr /*ctxt*/) {
+    //Prevent XXE: block all external entity URIs (file://, http://, etc.).
+    //Internal entities defined in a DTD internal subset are expanded by
+    //XML_PARSE_NOENT without calling this loader, so they are unaffected.
+    if (URL) {
+      Debug::report("LibXmlLibrary: blocked external entity [%s]", URL);
+    }
+    return NULL;
+  }
+
   void LibXmlLibrary::threadInit() const {
     //TODO: xmlSetGenericErrorFunc doesn't seem to do the job always...
     setErrorFunctions();
     //setDebugFunctions();           //do this at application level
     exsltRegisterAll();              //exslt library
     xmlSubstituteEntitiesDefault(1); //substituting entity references in output
+    xmlSetExternalEntityLoader(gs_blockExternalEntityLoader); //block XXE (file://, http://)
     xmlIndentTreeOutput = 1;         //indented output
     xmlKeepBlanksDefault(1);
     xmlDeregisterNodeDefault(LibXmlBaseNode::xmlDeregisterNodeFunc);

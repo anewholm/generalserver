@@ -170,7 +170,7 @@ namespace general_server {
     if (sXML && *sXML) {
       try {
         iLen             = strlen(sXML);
-        m_bLoadedAndParsed = (m_oDoc = xmlParseMemory(sXML, iLen));
+        m_bLoadedAndParsed = (m_oDoc = xmlReadMemory(sXML, iLen, NULL, NULL, XML_PARSE_NONET));
       } catch (XmlParserNamespaceNotDeclared& ex1) {
         //doc parsing failed due to missing namespace decleration
         //lets be nice and try again
@@ -193,7 +193,7 @@ namespace general_server {
 
           //attempt re-parse
           try {
-            m_bLoadedAndParsed = (m_oDoc = xmlParseMemory(sXML2, iNewLen));
+            m_bLoadedAndParsed = (m_oDoc = xmlReadMemory(sXML2, iNewLen, NULL, NULL, XML_PARSE_NONET));
           } catch (XmlParserNamespaceNotDeclared& ex2) {
             if (sXML2) MMO_FREE(sXML2);
             throw ex2; //let the exceptions flow this time

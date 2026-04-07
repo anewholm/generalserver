@@ -424,7 +424,8 @@ namespace general_server {
     //SO: don't do this for xsl:stylesheet for example which must be a valid independent document for compilation
     int iOptions = XML_PARSE_RECOVER | XML_PARSE_NONET;
     if (bRemoveRedundantNamespaceDeclarations) iOptions |= XML_PARSE_NSCLEAN;
-    if (bTranslateEntities)                    iOptions |= XML_PARSE_NOENT;
+    //XML_PARSE_NOENT intentionally omitted: bTranslateEntities is never true
+    //at any call site; entity expansion here would enable XXE on user input.
 
     //skip <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     if ( sHTML[0] == '<' &&
@@ -493,7 +494,8 @@ namespace general_server {
     //SO: don't do this for xsl:stylesheet for example which must be a valid independent document for compilation
     int iOptions = XML_PARSE_RECOVER | XML_PARSE_NONET;
     if (bRemoveRedundantNamespaceDeclarations) iOptions |= XML_PARSE_NSCLEAN;
-    if (bTranslateEntities)                    iOptions |= XML_PARSE_NOENT;
+    //XML_PARSE_NOENT intentionally omitted: bTranslateEntities is never true
+    //at any call site; entity expansion here would enable XXE on user input.
 
     errors = xmlParseInNodeContext(m_oNode, sXML, strlen(sXML), iOptions, &oNodeFirst);
 
