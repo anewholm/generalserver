@@ -11,7 +11,7 @@ GS (General Server) has innovative solutions for many of the issues in the indus
 | Janruary/2002  | Project start         |
 | September/2005 | v1.0 Development completed |
 | August/2020    | Pushed to GitHub      |
-| March/2026     | CI/CD M4-autoconf multi-platform compatibility (Claude assisted) |
+| March/2026     | CI/CD M4-autoconf multi-platform compatibility (Claude.ai assisted) |
 | April/2026     | _working on a live demo..._ |
 
 ## Industry solutions / Key features
