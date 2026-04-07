@@ -28,5 +28,6 @@ jobs:
               - src
             paths-ignore:
               - src/installations
+              - scratchpad
 
       - uses: github/codeql-action/analyze@v4
