@@ -299,6 +299,27 @@ GS does not natively understand the HTTP or other protocols. These protocols are
 3. A defined server-side XSL document transforms the request, with access to the whole database limited by security
 4. The resultant XML document will be returned to the client, potentially with a client side XSLT command if required.
 
+### RegularX
+RegularX transforms text-streams in to XML documents using Regular Expressions. Below we see the transform for HTTP/1.0. It is only triggered if the incoming text-stream matches the stated regular expression in `accepted_format.xml`:
+`^(GET) /([^? ]*)\??([^ ]*) HTTP/(\d+)\.(\d+)\s+
+[Hh]ost:\s*([^\s]+)\s+
+(.*)\s+`
+
+```
+<object:Request url="$2">
+  <HTTP type="$1" major="$4" minor="$5" X-Requested-With="^X-Requested-With:\s*([^\r\n]+)">=http</HTTP>
+  <rx:scope rx:regex="^Host:\s*([^\n\r]+)\s*$">
+    <host port=":([^\n\r]+)">^([^:]+)</host>
+  </rx:scope>
+  <user-agent>
+    <rx:scope rx:regex="^User-Agent:\s*([^\n\r]+)\s*$">
+      <rx:multi rx:name="agent" rx:regex="([^ ]+/[^ ]+(?: [(][^)]+[)])?) "/>
+    </rx:scope>
+  </user-agent>
+  ...
+<object:Request url="$2">
+```
+
 ## License
 
 MIT
