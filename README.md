@@ -4,7 +4,7 @@
 [![CodeQL](https://github.com/anewholm/generalserver/actions/workflows/codeql.yml/badge.svg)](https://github.com/anewholm/generalserver/actions/workflows/codeql.yml)
 ![Human made content](human-made-content.png "Human made content")
 
-GS (General Server) is a C++ web and application server that uses XML as its data model and XSLT as its query and transformation language. The entire server state — configuration, data, and logic — is represented as a live XML tree navigated via XPath and transformed via XSLT.
+GS (General Server) solves many of the issues software developers face in the industry. Physically, it is a C++ web and application server that uses XML as its data model and XSLT as its query and transformation language. The entire server state — configuration, data, and logic — is represented as a live XML tree navigated via XPath and transformed via XSLT. Semantically, it is a different, more flexible and secure way of working together.
 
 | Date          | Project Event         |
 |---------------|-----------------------|
@@ -13,25 +13,34 @@ GS (General Server) is a C++ web and application server that uses XML as its dat
 | March/2020    | Pushed to GitHub      |
 | April/2026    | CI/CD multi-platform compatibility |
 
-## Key features
+## Key features / industry solutions
+
+Everything in GS is a node. A JavaScript function or `if` statement, every CSS rule, every configuration value, every piece of logic — all stored as XML nodes and all **addressable via XPath**. There is no distinction between code and data at the storage level. This means that all the features below apply to data, markup, transforms and source code alike.
+
+### XPath-based hooking / patching into JavaScript and XSLT
+> For decades hooks have been used to allow 3rd party plugins to be extended. For decades, developers have been limited to the hooks that other developers _predict_ might be needed. For decades, awkward line number based patches have been used.
+
+JavaScript and XSLT stylesheets are stored as **XML nodes** with associated attributes, not flat files. This enables a hooking/patching model that no other server provides: instead of hooking in where the developer allows, or patching by line number, you alter/add code by **XPath expression**. See the section on [Versioning (Deviations)](#versioning-deviations) below to understand how these changes are saved.
+
+This means any programmer can hook into any JavaScript function or XSLT template at a structural named, described position — without the original author needing to provide a hook. It is the XPath equivalent of monkey-patching, but safe and declarative.
+
+### MVC (Model-View-Controller)
+GS uses industry standard MVC ideas:
+
+- Model: a standard XML + DTD combination.
+- View: XSL
+- Front-end Controllers: Javascript
+- Back-end Controllers: DOM level 3 HTTP/CRUD operations, XPath + XSL
 
 ### XML inheritance
-All technologies in General Server — JSL transforms, JavaScript, and CSS — support **multiple inheritance**. A stylesheet, script, or style rule can inherit from several parents simultaneously. Combined with XPath addressability, this allows fine-grained overriding at the node level rather than the file level.
+> OO makes everything more extensible and future proof
 
-### XPath-based hooking / patching of JavaScript and XSLT
-JavaScript and XSLT stylesheets are stored as **XML nodes**, not flat files. This enables a hooking/patching model that no other server provides: instead of hooking in where the developer allows, or patching by line number, you alter/add code by **XPath expression**.
-
-```xml
-<!-- Hook/Patch after a specific conditional block, by structure — not by line -->
-<hook:after select="js:if[@when='authenticated']">
-  <js:statement>logAccess($user)</js:statement>
-</hook:after>
-```
-
-This means any programmer can hook into any JavaScript function or XSLT template at a structural position — without the original author needing to provide a hook. It is the XPath equivalent of monkey-patching, but safe and declarative.
+All technologies in General Server — JSL transforms, JavaScript, and CSS — support DTD defiend inheritance. A stylesheet, script, or style rule can inherit from another node. This means that an XSLT `<xsl:template match="css:overflow">` will match `css:my-overflow` if the DTD defines it as a derived element. The same goes for `object:person` and `object:employee`. Combined with XPath addressability, this allows fine-grained overriding at the node level.
 
 ### JSL — JSON-style XSL with IDE debugger
-JSL (JSON-style XSL) is General Server's transformation language. It has all the power of XSLT with a more readable syntax and a built-in **stepping IDE debugger**:
+> Nobody liked XSL syntax
+
+JSL (JSON-style XSL) is one of General Server's transformation languages. It has all the power of XSLT with a more readable syntax and a built-in **stepping IDE debugger**:
 
 ```jsl
 if (/config/object:Database/@name == $database-name) {
@@ -41,37 +50,48 @@ if (/config/object:Database/@name == $database-name) {
 }
 ```
 
-### Everything is a node
-Every JavaScript function, every CSS rule, every configuration value, every piece of logic — all stored as XML nodes and all **addressable via XPath**. There is no distinction between code and data at the storage level.
+### Database-level security / visibility control — zero application code
+> Complexity and multiple layers introduces security risks and overlaps with permissions and visibility.
 
-### Database-level security — zero application code
-Security is enforced entirely at the database level. The server sets the security context on login; nodes that the logged-in user cannot see are simply not returned. Programmers never write login, session, or authorisation code. It cannot be bypassed.
+GS Security is enforced entirely at the database level. This means that even a CSS node, or JavaScript `if` statement can be subject to security / visibility. The server sets the security context on login; nodes that the logged-in user cannot see are simply not returned. Programmers never write login, session, or authorisation code. It cannot be bypassed.
 
 ### Internet data triggers - foreign nodes
+> Systems integration, micro-services, distributed architectures across different data-sources are difficult to setup and maintain. XML has always been the secure common ground
+
 Individual database nodes can transparently represent remote data via read/write triggers. XPath queries seamlessly access external APIs / URLs — no HTTP client code needed; just add a trigger and query as normal. Remote text streams can be automatically converted in to XML documents seamlessly using RegularX and traversed, HTML documents are automatically parsed in to valid XML node structures.
 
-### Connected developer ecosystem
-All General Server installations are networked. Each node can have a conversation attached to it, visible to anyone who accesses it. An XPath expression is sufficient to see who is extending a class, anywhere in the diaspora. Patches, inheritance, discussion, and code sharing happen within the IDE itself — there is no separate module store.
-
 ### Hard and Soft-linking
+> Where should the Soya milk go? In the hippy-food aisle or in the breakfast aisle?
+
 Soft-linking is implemented, the same way as Linux filesystem does. It is an extra soft-link node that contains an xpath attribute pointing to its desired alternate location. In these cases, XPath must be written to traverse such links.
 
-The server-side XML specification has been extended to include hard links. These work identically to Linux filesystem hardlinks. That is, any node can have _multiple_ parents. For example, a `policy document` node can be attached to many parent `meeting` nodes. This is implemented deep down in the augmented `LibXML-rr`. This is seamless to XPath, however, it will re-ascend up along the `ancestor` and `parent` axises the same way it took to come down.
+The server-side XML specification has been extended to include hard links. These work identically to Linux filesystem hardlinks. That is, any node can have _multiple_ parents. For example, a single `policy document` node can be attached to many parent `meeting` nodes. This is implemented deep down in the augmented `LibXML-rr` and is seamless to XPath. However, XPath will _re-ascend_ up along the `ancestor` and `parent` axises the same way it took to come down. And I deserve a medal for achieving that :)
 
 ### Versioning (Deviations)
-A hardlinked node may attach _deviations_ to its sub-tree specific to a stated parent. In other words, content can be different depending to how you arrived at it. In other words, you can _deviate_ a nodes' content or attributes based on its ancestors.
+> Source Code Versioning, document change suggestions, alternate configurations, all implemented differently but all sitting on essentially the same concept: stated and visible divergent changes on top of the same base information.
+
+A hardlinked node may attach _deviations_ to its sub-tree content and structure specific to a stated parent. In other words, content can be different depending to how you arrived at it. In other words, you can _deviate_ a nodes' content or attributes linked to the hardlinks in its ancestor path.
 
 For example, `philip/my-documents/yearly-report` is also hardlinked to `sarah/my-documents/yearly-report`. The `yearly-report` is 1 node with 2 parents and 1 sub-tree. However, Sarah has re-written paragraph 2 of the Summary `./section[title=Summary]/p[2]` chosing the **deviate** option when saving. Thus, the paragraph has not been changed, just a deviation registered for that `p[2]` at the `yearly-report` hardlink for `sarah`s view. `philip` will not see that in his `my-documents/yearly-report`.
 
-This enables versioning of any node, which is everything, inculding JavaScript, CSS, XSL, documents, configurations, etc.
+This enables community versioning of any node, which is everything, inculding JavaScript, CSS, XSL, documents, configurations, etc. Deviations can be listed, accepted, talked about, as explained in [Connected developer ecosystem](#connected-developer-ecosystem).
+
+### Connected developer ecosystem
+> Software developers need 3rd party online discussion forums to harvest use-cases, issues and ideas for their software. The issues are often difficult to understand.
+
+All General Server installations are networked. Each node is a discussion forum, visible to anyone who accesses it. An XPath expression is sufficient to see who is extending a class, anywhere in the diaspora. Patches, inheritance, discussion, and code sharing happen within the IDE itself — there is no separate module store or discussion forum. For example, you can click on a 3rd party `<css:overflow>scroll</css:overflow>` node and discuss it with anyone else who is looking at it, or watching it.
 
 ### Performance
-All modern browsers can carry out XSLT. Thus, GS returns XML to the client browser, with an XSL transform command. XSL stylesheets are requested once and cached on the client side thus providing a huge reduction in bandwidth usage and performance boost over other frameworks.
+> HTML is big, cannot be cached on the client-side and repeats itself endlessly. HTTP Servers are sending the entire _presentation_ to the client with raw information hidden within it
+
+All modern browsers can carry out XSLT for XML => (X)HTML natively. Thus, GS returns XML to the client browser, with an embedded XSL transform directive. XSL stylesheets are requested once and cached on the client side thus providing a huge reduction in bandwidth usage and performance boost over other frameworks. Similar architectural concepts are now implemented manually in Node.js with React.js+Next.js / Vue.js+Nuxt.js transporting only JSON variables and cached / re-used client-side HTML templates.
 
 > **Note:** that there are calls [by Google](https://developer.chrome.com/docs/web-platform/deprecating-xslt) to discontinue XSLT support in major browsers. This would force GS to conduct XSLTs server-side thus negating its bandwidth performance advantage.
 
 ## Why XML as a database?
+There has always been a general and un-necessary development task with RDBs (Relation Databases) to twist them in to hierarchical output, fitting a square peg in to a round hole.
 
+- Websites, that is HTML, navigation, OO languages, Prototype-chain languages, SCSS etc. are inherently hierarchical. XML as a datasource simplifies this, limited by DTDs, the equivalent of RDBMS DDL. XML Hierarchy => XHTML/API XML/JSON hierarchy.
 - The data model, schema, and transformation logic are all in the same query language (XPath/XSLT).
 - XSLT stylesheets act as both views and controllers, producing HTML, XML, JSON, or any other output format.
 - The XML tree is persistent, addressable by URL, and directly servable as a website.
@@ -102,7 +122,7 @@ sudo apt-get -y install autoconf libtool gdb uuid-dev libpq-dev
 
 ## Building
 
-General Server bundles modified versions of libxml2 and libxslt (suffixed `-rr`) that are compiled as static libraries. These must be built first.
+General Server bundles modified versions of libxml2 and libxslt (suffixed `-rr`) that are compiled as static libraries. These must be built first. Note that [General Resources Server](https://github.com/anewholm/general_resources_server) must also be up and running for the **Web-based IDE admin suite** to work.
 
 ### 1. Build libxml2-rr
 
@@ -149,7 +169,7 @@ The build is successful if `configure` ends with `Done configuring`.
 
 ## Running
 
-> For the **web-based IDE**: The standard General Server IDE will not be available without GRS (General Resource Server) installed and running. See below for instructions.
+> For the **Web-based IDE admin suite**: The standard General Server IDE will not be available without [General Resources Server](https://github.com/anewholm/general_resources_server) installed and running. See below for instructions.
 
 ```bash
 ./bin/generalserver
