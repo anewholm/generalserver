@@ -237,7 +237,9 @@ To install as **disabled** (registered but not started automatically), skip the 
 
 ## Production deployment
 
-General Server is designed to run **behind a load balancer or reverse proxy** (e.g. Nginx, HAProxy, or a cloud gateway) that terminates HTTPS and forwards plain HTTP to General Server. This is a standard production pattern — General Server handles application logic while the gateway handles TLS, rate limiting, and upstream routing.
+General Server currently must run behind a load balancer or reverse proxy (e.g. [Apache](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html), Nginx, HAProxy, or a cloud gateway) that terminates HTTPS and forwards plain HTTP to General Server. This is a standard production pattern the same as [Next.js](https://nextjs.org/) — General Server handles application logic while the gateway handles TLS, rate limiting, and upstream routing.
+
+> In future GS may handle HTTPS directly.
 
 ## Configuration
 
