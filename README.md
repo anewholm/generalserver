@@ -15,7 +15,7 @@ GS (General Server) solves many of the issues software developers face in the in
 
 ## Key features / industry solutions
 
-Everything in GS is a node. A JavaScript function or `if` statement, every CSS rule, every configuration value, every piece of logic — all stored as XML nodes and all **addressable via XPath**. There is no distinction between code and data at the storage level. This means that all the features below apply to data, markup, transforms and source code alike.
+Everything in GS is a node. For example, a JavaScript `js:if` statement, a CSS `overflow:hidden` rule, an `object:user`, a document `doc:paragraph`, a `service:website @port="80"`. Every configuration value, every piece of logic — all stored as XML nodes and all **addressable via XPath**. There is no distinction between code and data at the storage level. This means that all the features below apply to data, markup, transforms and source code alike.
 
 ### XPath-based hooking / patching into JavaScript and XSLT
 > For decades hooks have been used to allow 3rd party plugins to be extended. For decades, developers have been limited to the hooks that other developers _predict_ might be needed. For decades, awkward line number based patches have been used.
@@ -23,14 +23,6 @@ Everything in GS is a node. A JavaScript function or `if` statement, every CSS r
 JavaScript and XSLT stylesheets are stored as **XML nodes** with associated attributes, not flat files. This enables a hooking/patching model that no other server provides: instead of hooking in where the developer allows, or patching by line number, you alter/add code by **XPath expression**. See the section on [Versioning (Deviations)](#versioning-deviations) below to understand how these changes are saved.
 
 This means any programmer can hook into any JavaScript function or XSLT template at a structural named, described position — without the original author needing to provide a hook. It is the XPath equivalent of monkey-patching, but safe and declarative.
-
-### MVC (Model-View-Controller)
-GS uses industry standard MVC ideas:
-
-- Model: a standard XML + DTD combination.
-- View: XSL
-- Front-end Controllers: Javascript
-- Back-end Controllers: DOM level 3 HTTP/CRUD operations, XPath + XSL
 
 ### XML inheritance
 > OO makes everything more extensible and future proof
@@ -290,6 +282,14 @@ The admin interface and documentation pages will not render correctly in a brows
 4. Verify by visiting `http://general-resources-server.laptop/` — you should see the resources directory listing.
 
 ## Architecture
+
+### MVC (Model-View-Controller)
+GS uses industry standard MVC ideas:
+
+- Model: a standard XML + DTD combination.
+- View: XSL
+- Front-end Controllers: Javascript
+- Back-end Controllers: DOM level 3 HTTP/CRUD operations, XPath + XSL
 
 ### Request - response process
 GS does not natively understand the HTTP or other protocols. These protocols are created and configured in the `/services` collection. This requires the ability to convert incoming text streams in to XML documents, which is done by the `RegularX.cpp` system using configurable regular expressions.
