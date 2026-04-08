@@ -14,6 +14,10 @@ GS (General Server) has innovative solutions for many of the issues in the indus
 | March/2026     | CI/CD M4-autoconf multi-platform compatibility (Claude.ai assisted) |
 | April/2026     | _working on a live demo..._ |
 
+> The primary criticism of XSL was that it did not look nice, and there is some truth to that. GS  takes the TypeScript attitude: Make a better presented language in the IDE, and compile it down to the less friendly target language.
+
+> Now that AI would be doing the coding, creating the XSL sheets, discussing and deploying; returning to the XML/XSL client-side transform paradigm is more pertinent than ever. The reduction in bandwidth usage, improvements in security and simplicity are considerable.
+
 ## Industry solutions / Key features
 
 Everything in GS is a node. For example, a JavaScript `js:if` statement, a CSS `overflow:hidden` rule, an `object:user`, a document `doc:paragraph`, a `service:website @port="80"`. Every configuration value, every piece of logic — all stored as XML nodes and all **addressable via XPath**. There is no distinction between code and data at the storage level. This means that all the features below apply to data, markup, transforms and source code alike.
@@ -30,10 +34,10 @@ This means any programmer can hook into any JavaScript function or XSLT template
 
 All technologies in General Server — JSL transforms, JavaScript, and CSS — support DTD defiend inheritance. A stylesheet, script, or style rule can inherit from another node. This means that an XSLT `<xsl:template match="css:overflow">` will match `css:my-overflow` if the DTD defines it as a derived element. The same goes for `object:person` and `object:employee`. Combined with XPath addressability, this allows fine-grained overriding at the node level.
 
-### JSL — JSON-style XSL with IDE debugger
-> Nobody liked XSL syntax
+### JSL — JSON-style XSL
+> Nobody likes XSL syntax
 
-JSL (JSON-style XSL) is one of General Server's transformation languages. It has all the power of XSLT with a more readable syntax and a built-in **stepping IDE debugger**:
+JSL (JSON-style XSL) is _one_ of General Server's transformation languages. It has all the power of XSLT with a more readable syntax:
 
 ```jsl
 if (/config/object:Database/@name == $database-name) {
@@ -43,13 +47,26 @@ if (/config/object:Database/@name == $database-name) {
 }
 ```
 
-### Database-level security / visibility control — zero application code
+The JSL language is, naturally, XSLT transformed in to XSL and, naturally, that language can easily be changed or added to. It's just an XSL stylesheet like everything else.
+
+### IDE debugger
+> Nobody can get the browser to show the error
+
+When an error occurs, server _or_ client side, GS knows, by running the transform itself, and shows the error in the IDE at the approriate line in the XSL stylesheet. It _is_ actually possible to get the client browser to give you information on failed client-side XSLT errors, by installing extensions, but it is really not well supported. GS does it better.
+
+### Database-level security / visibility control
 > Complexity and multiple layers introduces security risks and overlaps with permissions and visibility.
 
-GS Security is enforced entirely at the database level. This means that even a CSS node, or JavaScript `if` statement can be subject to security / visibility. The server sets the security context on login; nodes that the logged-in user cannot see are simply not returned. Programmers never write login, session, or authorisation code. It cannot be bypassed.
+GS Security is enforced entirely at the node element level. This means that even a CSS node, or JavaScript `if` statement can be subject to security / visibility. The server sets the security context on login; nodes that the logged-in user cannot see are simply not returned. Programmers never write login, session, or authorisation code. Security is implemented deep down in LibXML2-rr.
 
 ### Internet data triggers - foreign nodes
 > Systems integration, micro-services, distributed architectures across different data-sources are difficult to setup and maintain. XML has always been the secure common ground
+
+```
+<xsl:template match="../my-foreign-node\[@gs:external=https://google.com\]/html:html/html:body/html:div[1]">
+   <p>Google's 2nd paragraph live: <xsl:value-of select="." /></p>
+</xsl:template>
+```
 
 Individual database nodes can transparently represent remote data via read/write triggers. XPath queries seamlessly access external APIs / URLs — no HTTP client code needed; just add a trigger and query as normal. Remote text streams can be automatically converted in to XML documents seamlessly using RegularX and traversed, HTML documents are automatically parsed in to valid XML node structures.
 
