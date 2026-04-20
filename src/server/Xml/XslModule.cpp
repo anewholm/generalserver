@@ -211,7 +211,7 @@ namespace general_server {
           //eb, local on the stack, will be un-wound automatically during the throw process in this catch
           //so we STRDUP(resources) during the copy constructor
           er = pCommandNode->queryInterfaceIXmlBaseNode()->errorPolicy(); //pQE as MM
-          if (er == throw_error) throw XSLElementException(eb);
+          if (er == throw_error) throw XSLElementException(eb.clone_with_resources());
         }
 
         //output directly in to output document if requested
@@ -266,7 +266,7 @@ namespace general_server {
           
           //free up
           if (pCommandNode) delete pCommandNode;
-          if (er == throw_error) throw XPathException(eb, pXPCtxt);
+          if (er == throw_error) throw XPathException(eb.clone_with_resources(), pXPCtxt);
         }
       }
     }

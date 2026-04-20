@@ -138,7 +138,7 @@ namespace general_server {
         //RESOURCE HUNGRY: IFDEBUG(m_pSourceDoc->validityCheck("check doc after transform()");)
       } catch (ExceptionBase &eb) {
         //need to OURS free this m_ctxt
-        throw XSLTException(eb, this);
+        throw XSLTException(eb.clone_with_resources(), this);
       }
 
       //-------------------------------------------- output post-processing
@@ -222,7 +222,7 @@ namespace general_server {
         //RESOURCE HUNGRY: IFDEBUG(m_pSourceDoc->validityCheck("check doc after transform()");)
       } catch (ExceptionBase &eb) {
         //need to OURS free this m_ctxt
-        throw XSLTException(eb, this);
+        throw XSLTException(eb.clone_with_resources(), this);
       }
 
       //-------------------------------------------- output post-processing

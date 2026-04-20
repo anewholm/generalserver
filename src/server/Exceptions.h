@@ -36,11 +36,11 @@ using namespace std;
 #define UNWIND_EXCEPTION_DECLARE UnWinder unwinder
 #define UNWIND_EXCEPTION_TRY     try
 #define UNWIND_EXCEPTION_BEGIN   UNWIND_EXCEPTION_DECLARE; UNWIND_EXCEPTION_TRY
-#define UNWIND_EXCEPTION_END     catch (ExceptionBase &eb)  {unwinder = UnWinder(eb);} \
+#define UNWIND_EXCEPTION_END     catch (ExceptionBase &eb)  {unwinder = UnWinder(eb.clone_with_resources());} \
                                  catch (exception &ex)      {unwinder = UnWinder(StandardException(this, ex));} \
                                  catch (...)                {throw;} //just in case
 #define UNWIND_EXCEPTION_BEGIN_STATIC(mm) UNWIND_EXCEPTION_DECLARE; UNWIND_EXCEPTION_TRY
-#define UNWIND_EXCEPTION_END_STATIC(mm)   catch (ExceptionBase &eb)  {unwinder = UnWinder(eb);} \
+#define UNWIND_EXCEPTION_END_STATIC(mm)   catch (ExceptionBase &eb)  {unwinder = UnWinder(eb.clone_with_resources());} \
                                  catch (exception &ex)      {unwinder = UnWinder(StandardException(mm, ex));} \
                                  catch (...)                {throw;} //just in case
 
@@ -91,13 +91,13 @@ namespace general_server {
     //chained exceptions — private delegate: clone is pre-computed before this is constructed
     ExceptionBase(const IMemoryLifetimeOwner *pParent, const ExceptionBase *pClone, const char *sStaticMessage, bool bSharedBreakpoint);
 
-    //chained exceptions
-    ExceptionBase(const ExceptionBase &outerEB, const char *sStaticMessage, const bool bSharedBreakpoint = true);
-    ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const int iParam, const bool bSharedBreakpoint = true);
-    ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const bool bSharedBreakpoint = true);
-    ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const bool bSharedBreakpoint = true);
-    ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const bool bSharedBreakpoint = true);
-    ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const char *sParam4, const bool bSharedBreakpoint = true);
+    //chained exceptions — callers must pre-clone outerEB before passing (use eb.clone_with_resources() at throw site)
+    ExceptionBase(const ExceptionBase *pOuterEB, const char *sStaticMessage, const bool bSharedBreakpoint = true);
+    ExceptionBase(const ExceptionBase *pOuterEB, const char *sFormat, const int iParam, const bool bSharedBreakpoint = true);
+    ExceptionBase(const ExceptionBase *pOuterEB, const char *sFormat, const char *sParam1, const bool bSharedBreakpoint = true);
+    ExceptionBase(const ExceptionBase *pOuterEB, const char *sFormat, const char *sParam1, const char *sParam2, const bool bSharedBreakpoint = true);
+    ExceptionBase(const ExceptionBase *pOuterEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const bool bSharedBreakpoint = true);
+    ExceptionBase(const ExceptionBase *pOuterEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const char *sParam4, const bool bSharedBreakpoint = true);
 
     //copy constructor to ensure that resources are duplicated properly
     ExceptionBase(const ExceptionBase& eb);
@@ -141,7 +141,7 @@ namespace general_server {
     //this exception, by definition, is NOT in a catch {}
     //so we need to set the chain manualy
     UnWinder(); //without an outer exception will return false below
-    UnWinder(const ExceptionBase& eb);
+    UnWinder(const ExceptionBase* pClone);
     
     operator const bool() const {return m_pOuterEB;} //if (unwinder) do_something();
     const char *type() const {return "UnWinder";}
@@ -153,7 +153,7 @@ namespace general_server {
     const IXmlBaseNode *m_pNode;
   protected:
     virtual NodeExceptionBase *clone_with_resources() const = 0;
-    NodeExceptionBase(const ExceptionBase &outerEB, const char *sMessage, const IXmlBaseNode *pNode = 0, const char *sLiteralParam2 = 0, const char *sLiteralParam3 = 0, const char *sLiteralParam4 = 0);
+    NodeExceptionBase(const ExceptionBase *pOuterEB, const char *sMessage, const IXmlBaseNode *pNode = 0, const char *sLiteralParam2 = 0, const char *sLiteralParam3 = 0, const char *sLiteralParam4 = 0);
     NodeExceptionBase(const IMemoryLifetimeOwner *pMemoryLifetimeOwner, const char *sMessage, const IXmlBaseNode *pNode = 0, const char *sLiteralParam2 = 0, const char *sLiteralParam3 = 0, const char *sLiteralParam4 = 0);
     ~NodeExceptionBase();
     NodeExceptionBase(const NodeExceptionBase &neb);
@@ -234,7 +234,7 @@ namespace general_server {
     protected:
       Up *clone_with_resources() const {return new Up(*this);}
     public:
-      Up(const ExceptionBase &outerEB, const char* sStaticMessage): ExceptionBase(outerEB, sStaticMessage) {}
+      Up(const ExceptionBase *pOuterEB, const char* sStaticMessage): ExceptionBase(pOuterEB, sStaticMessage) {}
       Up(const IMemoryLifetimeOwner *pMemoryLifetimeOwner, const char* sStaticMessage): ExceptionBase(pMemoryLifetimeOwner,sStaticMessage) {}
       Up(const IMemoryLifetimeOwner *pMemoryLifetimeOwner, const char* sFormat, const char *sParam1): ExceptionBase(pMemoryLifetimeOwner,sFormat, sParam1) {}
 
@@ -800,8 +800,8 @@ EOPNOTSUPP
   protected:
     DynamicValueCalculation *clone_with_resources() const {return new DynamicValueCalculation(*this);}
   public:
-    DynamicValueCalculation(const ExceptionBase &outerEB, const char* sDynamicString): 
-      ExceptionBase(outerEB, "Dynamic Value Calculation [%s]", sDynamicString) 
+    DynamicValueCalculation(const ExceptionBase *pOuterEB, const char* sDynamicString):
+      ExceptionBase(pOuterEB, "Dynamic Value Calculation [%s]", sDynamicString)
     {}
     const char *type() const {return "DynamicValueCalculation";}
   };
@@ -908,7 +908,7 @@ EOPNOTSUPP
   protected:
     ValidityCheckFailure *clone_with_resources() const {return new ValidityCheckFailure(*this);}
   public:
-    ValidityCheckFailure(const ExceptionBase &outerEB, const char* sContext): ExceptionBase(outerEB, "Validity Check Failure [%s]", sContext) {}
+    ValidityCheckFailure(const ExceptionBase *pOuterEB, const char* sContext): ExceptionBase(pOuterEB, "Validity Check Failure [%s]", sContext) {}
     ValidityCheckFailure(const IMemoryLifetimeOwner *pMemoryLifetimeOwner, const char* sContext = 0): ExceptionBase(pMemoryLifetimeOwner,"Validity Check Failure [%s]", sContext) {}
     const char *type() const {return "ValidityCheckFailure";}
   };
@@ -1116,7 +1116,7 @@ EOPNOTSUPP
   protected:
     virtual XSLTException *clone_with_resources() const;
   public:
-    XSLTException(const ExceptionBase &eb, const IXslTransformContext *pCtxt, const char *sErrorMessage = 0);
+    XSLTException(const ExceptionBase *pClone, const IXslTransformContext *pCtxt, const char *sErrorMessage = 0);
     XSLTException(const IXslTransformContext *pCtxt, const char *sErrorMessage = 0);
     XSLTException(const XSLTException& xte);
     virtual ~XSLTException() throw();
@@ -1129,7 +1129,7 @@ EOPNOTSUPP
   protected:
     virtual XSLElementException *clone_with_resources() const;
   public:
-    XSLElementException(const ExceptionBase &outerEB);
+    XSLElementException(const ExceptionBase *pOuterEB);
     virtual ~XSLElementException() throw();
     virtual const char *type() const {return "XSLElementException";}
   };
@@ -1144,7 +1144,7 @@ EOPNOTSUPP
     virtual XPathException *clone_with_resources() const;
     
   public:
-    XPathException(const ExceptionBase &outerEB, const IXslXPathFunctionContext *pXCtxt, const char *sErrorMessage = 0);
+    XPathException(const ExceptionBase *pOuterEB, const IXslXPathFunctionContext *pXCtxt, const char *sErrorMessage = 0);
     XPathException(const IXslXPathFunctionContext *pXCtxt, const char *sErrorMessage = 0);
     XPathException(const XPathException& xpe);
     virtual ~XPathException() throw();

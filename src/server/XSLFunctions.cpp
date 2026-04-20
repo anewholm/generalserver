@@ -234,7 +234,7 @@ namespace general_server {
           if (bWriteSourceOnError) {
             sResult = sDynamicString;
             Debug::warn("Failed to str:dynamic(). writing source instead");
-          } else throw DynamicValueCalculation(eb, sDynamicString);
+          } else throw DynamicValueCalculation(eb.clone_with_resources(), sDynamicString);
         }
       }
 

@@ -126,52 +126,48 @@ namespace general_server {
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained static message constructor" << "[" << what() << "]\n";)
   }
 
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sStaticMessage, const bool bSharedBreakpoint):
-    ExceptionBase(outerEB.mmParent(), outerEB.clone_with_resources(), sStaticMessage, bSharedBreakpoint)
+  ExceptionBase::ExceptionBase(const ExceptionBase *pOuterEB, const char *sStaticMessage, const bool bSharedBreakpoint):
+    ExceptionBase(pOuterEB->mmParent(), pOuterEB, sStaticMessage, bSharedBreakpoint)
   {}
 
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const int iParam, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(outerEB.mmParent()),
+  ExceptionBase::ExceptionBase(const ExceptionBase *pOuterEB, const char *sFormat, const int iParam, const bool bSharedBreakpoint):
+    MemoryLifetimeOwner(pOuterEB->mmParent()),
     m_sStaticMessage(0),
     m_sMallocedWhat(formatOutput(sFormat, iParam)),
-    m_pOuterEB(0)
+    m_pOuterEB(pOuterEB)
   {
-    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(int) constructor" << "[" << what() << "]\n";)
   }
-  
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(outerEB.mmParent()),
+
+  ExceptionBase::ExceptionBase(const ExceptionBase *pOuterEB, const char *sFormat, const char *sParam1, const bool bSharedBreakpoint):
+    MemoryLifetimeOwner(pOuterEB->mmParent()),
     m_sStaticMessage(0),
     m_sMallocedWhat(formatOutput(sFormat, sParam1)),
-    m_pOuterEB(0)
+    m_pOuterEB(pOuterEB)
   {
-    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
   }
-  
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(outerEB.mmParent()),
+
+  ExceptionBase::ExceptionBase(const ExceptionBase *pOuterEB, const char *sFormat, const char *sParam1, const char *sParam2, const bool bSharedBreakpoint):
+    MemoryLifetimeOwner(pOuterEB->mmParent()),
     m_sStaticMessage(0),
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2)),
-    m_pOuterEB(0)
+    m_pOuterEB(pOuterEB)
   {
-    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
     if (sParam2) MM_FREE(sParam2);
   }
-  
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(outerEB.mmParent()),
+
+  ExceptionBase::ExceptionBase(const ExceptionBase *pOuterEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const bool bSharedBreakpoint):
+    MemoryLifetimeOwner(pOuterEB->mmParent()),
     m_sStaticMessage(0),
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3)),
-    m_pOuterEB(0)
+    m_pOuterEB(pOuterEB)
   {
-    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char,char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
@@ -179,13 +175,12 @@ namespace general_server {
     if (sParam3) MM_FREE(sParam3);
   }
 
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const char *sParam4, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(outerEB.mmParent()),
+  ExceptionBase::ExceptionBase(const ExceptionBase *pOuterEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const char *sParam4, const bool bSharedBreakpoint):
+    MemoryLifetimeOwner(pOuterEB->mmParent()),
     m_sStaticMessage(0),
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3, sParam4)),
-    m_pOuterEB(0)
+    m_pOuterEB(pOuterEB)
   {
-    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char,char,char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
@@ -470,7 +465,7 @@ namespace general_server {
   //important to avoid using the ExceptionBase::ExceptionBase(const ExceptionBase &eb) copy constructor
   //because we want to assign m_pOuterEB, not copy it
   //so we use "unwind"
-  UnWinder::UnWinder(const ExceptionBase& eb):  ExceptionBase(eb, "unwind") {}
+  UnWinder::UnWinder(const ExceptionBase* pClone):  ExceptionBase(pClone, "unwind") {}
 
   UnWinder::UnWinder(): ExceptionBase(NO_OWNER) {}
 
@@ -578,13 +573,13 @@ namespace general_server {
   }
 
   //------------------------------------------- XSLTException -------------------------------------------
-  XSLTException::XSLTException(const ExceptionBase &eb, const IXslTransformContext *pCtxt, const char *sErrorMessage):
-    m_pInputNode(   pCtxt->sourceNode(this)), 
-    m_pCommandNode( pCtxt->instructionNode(this)), 
+  XSLTException::XSLTException(const ExceptionBase *pClone, const IXslTransformContext *pCtxt, const char *sErrorMessage):
+    m_pInputNode(   pCtxt->sourceNode(this)),
+    m_pCommandNode( pCtxt->instructionNode(this)),
     m_pTemplateNode(pCtxt->templateNode(this)),
-    m_pOutputNode(  pCtxt->outputNode(this) ), 
+    m_pOutputNode(  pCtxt->outputNode(this) ),
     m_sCurrentMode( pCtxt->currentModeName()),
-    ExceptionBase(eb, "XSLTException(xpath [%s]) %s", pCtxt->currentXSLCommandXPath(), sErrorMessage)
+    ExceptionBase(pClone, "XSLTException(xpath [%s]) %s", pCtxt->currentXSLCommandXPath(), sErrorMessage)
   {
     IFDEBUG_EXCEPTIONS(cout << "XSLTException constructor with COPYOUTEREXCEPTION\n";)
   }
@@ -634,7 +629,7 @@ namespace general_server {
   }
 
   //------------------------------------------- XSLElementException -------------------------------------------
-  XSLElementException::XSLElementException(const ExceptionBase &eb): ExceptionBase(eb, "XSLElementException") {
+  XSLElementException::XSLElementException(const ExceptionBase *pOuterEB): ExceptionBase(pOuterEB, "XSLElementException") {
     IFDEBUG_EXCEPTIONS(cout << "XSLElementException constructor [" << what() << "]\n";)
   }
   XSLElementException::~XSLElementException() throw() {
@@ -645,12 +640,12 @@ namespace general_server {
   }
 
   //------------------------------------------- XPathException -------------------------------------------
-  XPathException::XPathException(const ExceptionBase &outerEB, const IXslXPathFunctionContext *pXCtxt, const char *sErrorMessage): 
-    m_sXPath(            pXCtxt && pXCtxt->xpath()             ? MMO_STRDUP(pXCtxt->xpath())            : NULL), 
-    m_sFunctionName(     pXCtxt && pXCtxt->functionName()      ? MMO_STRDUP(pXCtxt->functionName())     : NULL), 
-    m_sFunctionNamespace(pXCtxt && pXCtxt->functionNamespace() ? MMO_STRDUP(pXCtxt->functionNamespace()): NULL), 
-    m_pCurrentNode(      pXCtxt ? MMO_CLONE( pXCtxt->currentNode(this))  : NULL), 
-    ExceptionBase(outerEB, "XPathException [%s] [%s]", _STRDDUP(pXCtxt->xpath(), "<no xpath>"), sErrorMessage)
+  XPathException::XPathException(const ExceptionBase *pOuterEB, const IXslXPathFunctionContext *pXCtxt, const char *sErrorMessage):
+    m_sXPath(            pXCtxt && pXCtxt->xpath()             ? MMO_STRDUP(pXCtxt->xpath())            : NULL),
+    m_sFunctionName(     pXCtxt && pXCtxt->functionName()      ? MMO_STRDUP(pXCtxt->functionName())     : NULL),
+    m_sFunctionNamespace(pXCtxt && pXCtxt->functionNamespace() ? MMO_STRDUP(pXCtxt->functionNamespace()): NULL),
+    m_pCurrentNode(      pXCtxt ? MMO_CLONE( pXCtxt->currentNode(this))  : NULL),
+    ExceptionBase(pOuterEB, "XPathException [%s] [%s]", _STRDDUP(pXCtxt->xpath(), "<no xpath>"), sErrorMessage)
   {
     IFDEBUG_EXCEPTIONS(cout << "XPathException constructor [" << what() << "]\n";)
   }
@@ -719,9 +714,9 @@ namespace general_server {
   }
   
   //------------------------------------------- NodeExceptionBase -------------------------------------------
-  NodeExceptionBase::NodeExceptionBase(const ExceptionBase &outerEB, const char *sMessage, const IXmlBaseNode *pNode, const char *sLiteralParam2, const char *sLiteralParam3, const char *sLiteralParam4): 
+  NodeExceptionBase::NodeExceptionBase(const ExceptionBase *pOuterEB, const char *sMessage, const IXmlBaseNode *pNode, const char *sLiteralParam2, const char *sLiteralParam3, const char *sLiteralParam4):
     m_pNode(pNode->clone_with_resources()),
-    ExceptionBase(outerEB, sMessage, (pNode ? pNode->localName() : MM_STRDUP("<no node details>")), sLiteralParam2, sLiteralParam3, sLiteralParam4)
+    ExceptionBase(pOuterEB, sMessage, (pNode ? pNode->localName() : MM_STRDUP("<no node details>")), sLiteralParam2, sLiteralParam3, sLiteralParam4)
   {}
   
   NodeExceptionBase::NodeExceptionBase(const IMemoryLifetimeOwner *pMemoryLifetimeOwner, const char *sMessage, const IXmlBaseNode *pNode, const char *sLiteralParam2, const char *sLiteralParam3, const char *sLiteralParam4): 
