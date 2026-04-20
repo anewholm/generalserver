@@ -44,8 +44,8 @@ namespace general_server {
   }
   
   bool GrammarContext::maybeAbsoluteXPath(const IXmlQueryEnvironment *pQE ATTRIBUTE_UNUSED, const char *sText) const {
-    char c = *sText;
-    return sText && (
+    char c = (sText ? *sText : '\0');
+    return (
          (c == '~')  //class names: see the grammar processors
       || (c == '`')  //session:node-set(x)
       || (c == '^')  //id(...) shorthand

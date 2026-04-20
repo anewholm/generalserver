@@ -14,13 +14,11 @@ GS (General Server) has innovative solutions for many of the issues in the indus
 | March/2026     | CI/CD M4-autoconf multi-platform compatibility (Claude.ai assisted) |
 | April/2026     | _working on a live demo..._ |
 
-> The primary criticism of XSL was that it did not look nice, and there is some truth to that. GS  takes the TypeScript attitude: Make a better presented language in the IDE, and compile it down to the less friendly target language.
-
-> Now that AI would be doing the coding, creating the XSL sheets, discussing and deploying; returning to the XML/XSL client-side transform paradigm is more pertinent than ever. The reduction in bandwidth usage, improvements in security and simplicity are considerable.
+> The primary criticism of XSL was that it did not look nice, and there is some truth to that. GS takes the TypeScript attitude: Make a better presented language in the IDE, and compile it down to the less friendly target language. Standard JSON converters are used to present XML as JSON. That is, data, code and presentation are _separated_ for the developer as well as the end-user.
 
 ## Industry solutions / Key features
 
-Everything in GS is a node. For example, a JavaScript `js:if` statement, a CSS `overflow:hidden` rule, an `object:user`, a document `doc:paragraph`, a `service:website @port="80"`. Every configuration value, every piece of logic — all stored as XML nodes and all **addressable via XPath**. There is no distinction between code and data at the storage level. This means that all the features below apply to data, markup, transforms and source code alike.
+Everything in GS is a node. For example, a JavaScript `js:if` statement, a CSS `overflow:hidden` rule, an `object:user`, a document `doc:paragraph`, a `service:website @port="80"`. Every configuration value, every piece of logic — all stored as XML nodes and all **addressable via XPath**. There is no distinction between code and data at the storage level. This means that all the features below apply to data, markup, transforms and source code, client and server-side alike.
 
 ### XPath-based hooking / patching into JavaScript and XSLT
 > For decades hooks have been used to allow 3rd party plugins to be extended. For decades, developers have been limited to the hooks that other developers _predict_ might be needed. For decades, awkward line number based patches have been used.
@@ -37,7 +35,7 @@ All technologies in General Server — JSL transforms, JavaScript, and CSS — s
 ### JSL — JSON-style XSL
 > Nobody likes XSL syntax
 
-JSL (JSON-style XSL) is _one_ of General Server's transformation languages. It has all the power of XSLT with a more readable syntax:
+JSL (JSON-style XSL) is _one_ of General Server's transformation languages. It is similar to the Typescript =&gt; Javascript compilation step. It has all the power of XSLT with a more readable syntax:
 
 ```jsl
 if (/config/object:Database/@name == $database-name) {

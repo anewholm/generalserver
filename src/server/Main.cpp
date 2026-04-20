@@ -66,6 +66,7 @@ namespace general_server {
         if (argc > 2) {
           if (!strcmp(argv[2], "pause")) {
             cout << "begin run? [Yn]\n";
+            cin.width(1);
             cin >> pause;
             if (strcmp(pause, "y")) exit(0);
           }
