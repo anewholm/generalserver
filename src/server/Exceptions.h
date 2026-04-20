@@ -88,6 +88,9 @@ namespace general_server {
     ExceptionBase(const IMemoryLifetimeOwner *pMemoryLifetimeOwner, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const bool bSharedBreakpoint = true);
     ExceptionBase(const IMemoryLifetimeOwner *pMemoryLifetimeOwner, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const char *sParam4, const bool bSharedBreakpoint = true);
 
+    //chained exceptions — private delegate: clone is pre-computed before this is constructed
+    ExceptionBase(const IMemoryLifetimeOwner *pParent, const ExceptionBase *pClone, const char *sStaticMessage, bool bSharedBreakpoint);
+
     //chained exceptions
     ExceptionBase(const ExceptionBase &outerEB, const char *sStaticMessage, const bool bSharedBreakpoint = true);
     ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const int iParam, const bool bSharedBreakpoint = true);

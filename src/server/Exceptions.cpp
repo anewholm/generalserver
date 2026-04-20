@@ -114,15 +114,21 @@ namespace general_server {
   }
   
   //---------------------------- chained exception constructors
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sStaticMessage, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(outerEB.mmParent()),
+  // Private delegate: pClone and pParent are evaluated as arguments to the outer delegating
+  // constructor call, which happens before any ExceptionBase constructor runs — so this is
+  // never stored via addChild() while clone_with_resources() executes.
+  ExceptionBase::ExceptionBase(const IMemoryLifetimeOwner *pParent, const ExceptionBase *pClone, const char *sStaticMessage, bool bSharedBreakpoint):
+    MemoryLifetimeOwner(pParent),
     m_sStaticMessage(sStaticMessage),
     m_sMallocedWhat(0),
-    m_pOuterEB(0)
+    m_pOuterEB(pClone)
   {
-    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained static message constructor" << "[" << what() << "]\n";)
   }
+
+  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sStaticMessage, const bool bSharedBreakpoint):
+    ExceptionBase(outerEB.mmParent(), outerEB.clone_with_resources(), sStaticMessage, bSharedBreakpoint)
+  {}
 
   ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const int iParam, const bool bSharedBreakpoint):
     MemoryLifetimeOwner(outerEB.mmParent()),
