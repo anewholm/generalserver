@@ -37,11 +37,11 @@ using namespace std;
 #define UNWIND_EXCEPTION_TRY     try
 #define UNWIND_EXCEPTION_BEGIN   UNWIND_EXCEPTION_DECLARE; UNWIND_EXCEPTION_TRY
 #define UNWIND_EXCEPTION_END     catch (ExceptionBase &eb)  {unwinder = UnWinder(eb.clone_with_resources());} \
-                                 catch (exception &ex)      {unwinder = UnWinder(StandardException(this, ex));} \
+                                 catch (exception &ex)      {unwinder = UnWinder(new StandardException(NO_OWNER, ex));} \
                                  catch (...)                {throw;} //just in case
 #define UNWIND_EXCEPTION_BEGIN_STATIC(mm) UNWIND_EXCEPTION_DECLARE; UNWIND_EXCEPTION_TRY
 #define UNWIND_EXCEPTION_END_STATIC(mm)   catch (ExceptionBase &eb)  {unwinder = UnWinder(eb.clone_with_resources());} \
-                                 catch (exception &ex)      {unwinder = UnWinder(StandardException(mm, ex));} \
+                                 catch (exception &ex)      {unwinder = UnWinder(new StandardException(mm, ex));} \
                                  catch (...)                {throw;} //just in case
 
 #define UNWIND_IF_EXCEPTION(x)   if (unwinder)  {x;}
