@@ -114,72 +114,78 @@ namespace general_server {
   }
   
   //---------------------------- chained exception constructors
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sStaticMessage, const bool bSharedBreakpoint): 
+  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sStaticMessage, const bool bSharedBreakpoint):
     MemoryLifetimeOwner(&outerEB),
-    m_sStaticMessage(sStaticMessage), 
-    m_sMallocedWhat(0), 
-    m_pOuterEB(outerEB.clone_with_resources())
+    m_sStaticMessage(sStaticMessage),
+    m_sMallocedWhat(0),
+    m_pOuterEB(0)
   {
+    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained static message constructor" << "[" << what() << "]\n";)
   }
 
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const int iParam, const bool bSharedBreakpoint): 
+  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const int iParam, const bool bSharedBreakpoint):
     MemoryLifetimeOwner(&outerEB),
-    m_sStaticMessage(0), 
-    m_sMallocedWhat(formatOutput(sFormat, iParam)), 
-    m_pOuterEB(outerEB.clone_with_resources())
+    m_sStaticMessage(0),
+    m_sMallocedWhat(formatOutput(sFormat, iParam)),
+    m_pOuterEB(0)
   {
+    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(int) constructor" << "[" << what() << "]\n";)
   }
   
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const bool bSharedBreakpoint): 
+  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const bool bSharedBreakpoint):
     MemoryLifetimeOwner(&outerEB),
-    m_sStaticMessage(0), 
-    m_sMallocedWhat(formatOutput(sFormat, sParam1)), 
-    m_pOuterEB(outerEB.clone_with_resources())
+    m_sStaticMessage(0),
+    m_sMallocedWhat(formatOutput(sFormat, sParam1)),
+    m_pOuterEB(0)
   {
+    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
   }
   
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const bool bSharedBreakpoint): 
+  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const bool bSharedBreakpoint):
     MemoryLifetimeOwner(&outerEB),
-    m_sStaticMessage(0), 
-    m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2)), 
-    m_pOuterEB(outerEB.clone_with_resources())
+    m_sStaticMessage(0),
+    m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2)),
+    m_pOuterEB(0)
   {
+    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
-    if (sParam2) MM_FREE(sParam2); 
+    if (sParam2) MM_FREE(sParam2);
   }
   
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const bool bSharedBreakpoint): 
+  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const bool bSharedBreakpoint):
     MemoryLifetimeOwner(&outerEB),
-    m_sStaticMessage(0), 
-    m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3)), 
-    m_pOuterEB(outerEB.clone_with_resources())
+    m_sStaticMessage(0),
+    m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3)),
+    m_pOuterEB(0)
   {
+    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char,char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
-    if (sParam2) MM_FREE(sParam2); 
-    if (sParam3) MM_FREE(sParam3); 
+    if (sParam2) MM_FREE(sParam2);
+    if (sParam3) MM_FREE(sParam3);
   }
 
-  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const char *sParam4, const bool bSharedBreakpoint): 
+  ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const char *sParam4, const bool bSharedBreakpoint):
     MemoryLifetimeOwner(&outerEB),
-    m_sStaticMessage(0), 
-    m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3, sParam4)), 
-    m_pOuterEB(outerEB.clone_with_resources())
+    m_sStaticMessage(0),
+    m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3, sParam4)),
+    m_pOuterEB(0)
   {
+    m_pOuterEB = outerEB.clone_with_resources();
     IFDEBUG_EXCEPTIONS(cout << "ExceptionBase chained malloced formatOutput(char,char,char,char) constructor" << "[" << what() << "]\n";)
     //if (sFormat) MMO_FREE(m_sFormat); //assummed always a literal
     if (sParam1) MM_FREE(sParam1);
-    if (sParam2) MM_FREE(sParam2); 
-    if (sParam3) MM_FREE(sParam3); 
-    if (sParam4) MM_FREE(sParam4); 
+    if (sParam2) MM_FREE(sParam2);
+    if (sParam3) MM_FREE(sParam3);
+    if (sParam4) MM_FREE(sParam4);
   }
 
   //-------------------------------------- construction / destruction other

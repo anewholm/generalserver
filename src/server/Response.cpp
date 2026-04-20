@@ -713,16 +713,15 @@ namespace general_server {
     return sML;
   }
 
-  void Response::debugWriteLastFiles(const IXmlBaseDoc *pXMLDoc, const char *sXSL) const { 
+  void Response::debugWriteLastFiles(const IXmlBaseDoc *pXMLDoc, const char *sXSL) const {
     XmlAdminQueryEnvironment ibqe_debug_output(this, pXMLDoc);
-    struct stat info;
     ofstream transformfile;
-    const char *sXML; 
+    const char *sXML;
     const char *sAfterHeaders;
-    
-    if (stat(LAST_DIR, &info) == 0) {
-      sAfterHeaders = strstr(sXSL, "<");
-      transformfile.open(LAST_XSL);
+
+    sAfterHeaders = strstr(sXSL, "<");
+    transformfile.open(LAST_XSL);
+    if (transformfile) {
       transformfile << sAfterHeaders;
       transformfile.close();
 

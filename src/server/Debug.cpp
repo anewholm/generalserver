@@ -467,7 +467,28 @@ namespace general_server {
         + (sArg10 ? strlen(sArg10) : 0)
         + 1;
     sFullMessage = (char*) MMO_MALLOC(iLen);
-    _SNPRINTF10(sFullMessage, iLen, sMessage, sArg1, sArg2, sArg3, sArg4, sArg5, sArg6, sArg7, sArg8, sArg9, sArg10);
+    {
+      const char *args[10] = {sArg1, sArg2, sArg3, sArg4, sArg5, sArg6, sArg7, sArg8, sArg9, sArg10};
+      size_t written = 0, argIdx = 0;
+      for (const char *src = sMessage; *src && written + 1 < iLen; src++) {
+        if (src[0] == '%' && src[1] == '%') {
+          sFullMessage[written++] = '%';
+          src++;
+        } else if (src[0] == '%' && src[1] == 's' && argIdx < 10) {
+          if (args[argIdx]) {
+            size_t n = strlen(args[argIdx]);
+            if (written + n >= iLen) n = iLen - 1 - written;
+            memcpy(sFullMessage + written, args[argIdx], n);
+            written += n;
+          }
+          argIdx++;
+          src++;
+        } else {
+          sFullMessage[written++] = src[0];
+        }
+      }
+      sFullMessage[written] = '\0';
+    }
 
     //-------------------------- std::string parts
     if      (rt == IReportable::rtError)   stFullMessage.append("************************ error ************************\n");

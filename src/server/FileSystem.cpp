@@ -18,6 +18,8 @@
 #include <fstream>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <cerrno>
 using namespace std;
 
 #define MALLOC_RETURN NULL
@@ -376,19 +378,20 @@ namespace general_server {
     //this is only used to write XML data
     //will throw a DirectoryNotFound() if a Directory is not present
     int iRet = -1;
-    ofstream file;
     UNWIND_EXCEPTION_DECLARE;
 
     generalReadLock(); {
       UNWIND_EXCEPTION_TRY {
-        if (bThrowIfThere && exists(sFullPath)) throw FileExists(this, sFullPath);
-        
-        file.open(sFullPath, ios::out | ios::trunc);
-        if (file) {
-          file.write(sContent, strlen(sContent));
-          file.close();
-          iRet = 0;
-        } else throw FileNotFound(this, sFullPath);
+        int openFlags = O_WRONLY | O_CREAT | (bThrowIfThere ? O_EXCL : O_TRUNC);
+        int fd = open(sFullPath, openFlags, 0666);
+        if (fd == -1) {
+          if (bThrowIfThere && errno == EEXIST) throw FileExists(this, sFullPath);
+          else throw FileNotFound(this, sFullPath);
+        }
+        ssize_t iWritten = write(fd, sContent, strlen(sContent));
+        close(fd);
+        if (iWritten >= 0) iRet = 0;
+        else throw FileNotFound(this, sFullPath);
       } UNWIND_EXCEPTION_END;
     } generalReadUnlock();
 
