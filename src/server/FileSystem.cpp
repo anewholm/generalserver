@@ -194,13 +194,10 @@ namespace general_server {
                 buf = MMO_MALLOC(len);
 
                 if (buf) {
-                  struct stat statbuf;
                   snprintf(buf, len, "%s/%s", sFromFullPathReal, p->d_name);
 
-                  if (!stat(buf, &statbuf)) {
-                      if (S_ISDIR(statbuf.st_mode)) r2 = rmdir_recursive(buf);
-                      else                          r2 = unlink(buf);
-                  }
+                  r2 = unlink(buf);
+                  if (r2 != 0 && errno == EISDIR) r2 = rmdir_recursive(buf);
 
                   MMO_FREE(buf);
                 }

@@ -115,7 +115,7 @@ namespace general_server {
   
   //---------------------------- chained exception constructors
   ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sStaticMessage, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(&outerEB),
+    MemoryLifetimeOwner(outerEB.mmParent()),
     m_sStaticMessage(sStaticMessage),
     m_sMallocedWhat(0),
     m_pOuterEB(0)
@@ -125,7 +125,7 @@ namespace general_server {
   }
 
   ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const int iParam, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(&outerEB),
+    MemoryLifetimeOwner(outerEB.mmParent()),
     m_sStaticMessage(0),
     m_sMallocedWhat(formatOutput(sFormat, iParam)),
     m_pOuterEB(0)
@@ -135,7 +135,7 @@ namespace general_server {
   }
   
   ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(&outerEB),
+    MemoryLifetimeOwner(outerEB.mmParent()),
     m_sStaticMessage(0),
     m_sMallocedWhat(formatOutput(sFormat, sParam1)),
     m_pOuterEB(0)
@@ -147,7 +147,7 @@ namespace general_server {
   }
   
   ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(&outerEB),
+    MemoryLifetimeOwner(outerEB.mmParent()),
     m_sStaticMessage(0),
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2)),
     m_pOuterEB(0)
@@ -160,7 +160,7 @@ namespace general_server {
   }
   
   ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(&outerEB),
+    MemoryLifetimeOwner(outerEB.mmParent()),
     m_sStaticMessage(0),
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3)),
     m_pOuterEB(0)
@@ -174,7 +174,7 @@ namespace general_server {
   }
 
   ExceptionBase::ExceptionBase(const ExceptionBase &outerEB, const char *sFormat, const char *sParam1, const char *sParam2, const char *sParam3, const char *sParam4, const bool bSharedBreakpoint):
-    MemoryLifetimeOwner(&outerEB),
+    MemoryLifetimeOwner(outerEB.mmParent()),
     m_sStaticMessage(0),
     m_sMallocedWhat(formatOutput(sFormat, sParam1, sParam2, sParam3, sParam4)),
     m_pOuterEB(0)
