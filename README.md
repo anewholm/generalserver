@@ -4,6 +4,8 @@
 [![CodeQL](https://github.com/anewholm/generalserver/actions/workflows/codeql.yml/badge.svg)](https://github.com/anewholm/generalserver/actions/workflows/codeql.yml)
 ![Human made content](human-made-content.png "Human made content")
 
+**This project is not under active development** since 2005 as XML/XSL systems are not in favour anymore. It remains on GitHub as an example of Systems Architectural thinking and industry solutions only.
+
 GS (General Server) has innovative solutions for many of the issues in the industry today. Physically, it is a C++ web and application server that uses XML as its data model and XSLT as its query and transformation language. The entire server state — configuration, data, and logic — is represented as a live XML tree navigated via XPath and transformed via XSLT. Semantically, it is a different, more flexible and secure way of accessing information and working together.
 
 | Date           | Project Event         |
@@ -12,7 +14,6 @@ GS (General Server) has innovative solutions for many of the issues in the indus
 | September/2005 | v1.0 Development completed |
 | August/2020    | Pushed to GitHub      |
 | March/2026     | CI/CD M4-autoconf multi-platform compatibility (Claude.ai assisted) |
-| April/2026     | _working on a live demo..._ |
 
 > The primary criticism of XSL was that it did not look nice, and there is some truth to that. GS takes the TypeScript attitude: Make a better presented language in the IDE, and compile it down to the less friendly target language. Standard JSON converters are used to present XML as JSON. That is, data, code and presentation are _separated_ for the developer as well as the end-user.
 
